@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F4014337-8EC2-4E94-BEAD-7BFED6041F6F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shuttle.Sentinel</RootNamespace>
+    <AssemblyName>Shuttle.Sentinel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Core.Data, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Data.4.0.0\lib\net45-full\Shuttle.Core.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Core.Infrastructure, Version=4.1.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Infrastructure.4.1.12\lib\net45-full\Shuttle.Core.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Core.Log4Net, Version=3.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Log4Net.3.2.10\lib\net45-full\Shuttle.Core.Log4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Esb, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.6.0.0\lib\net45-full\Shuttle.Esb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Recall, Version=3.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Recall.3.5.2\lib\net45-full\Shuttle.Recall.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Recall.SqlServer, Version=1.7.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Recall.SqlServer.1.7.10\lib\net45-full\Shuttle.Recall.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\SystemRole\ISystemRoleQuery.cs" />
+    <Compile Include="DataAccess\SystemRole\SystemRoleQuery.cs" />
+    <Compile Include="Domain\SystemPermissions.cs" />
+    <Compile Include="Services\IAnonymousPermissions.cs" />
+    <Compile Include="SentinelResources.Designer.cs">
+      <DependentUpon>SentinelResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Configuration\ISentinelConfiguration.cs" />
+    <Compile Include="Configuration\SentinelConfiguration.cs" />
+    <Compile Include="Configuration\SentinelSection.cs" />
+    <Compile Include="DataAccess\Session\SessionPermissionColumns.cs" />
+    <Compile Include="DataAccess\Session\SessionMapper.cs" />
+    <Compile Include="DataAccess\Session\ISessionQueryFactory.cs" />
+    <Compile Include="DataAccess\Session\SessionQueryFactory.cs" />
+    <Compile Include="DataAccess\SystemUser\ISystemUserQuery.cs" />
+    <Compile Include="DataAccess\SystemUser\ISystemUserQueryFactory.cs" />
+    <Compile Include="DataAccess\SystemUser\SessionColumns.cs" />
+    <Compile Include="DataAccess\SystemUser\SystemUserQuery.cs" />
+    <Compile Include="DataAccess\SystemUser\SystemUserQueryFactory.cs" />
+    <Compile Include="DomainEvents\User.v1\Activated.cs" />
+    <Compile Include="DomainEvents\User.v1\Registered.cs" />
+    <Compile Include="Domain\Session.cs" />
+    <Compile Include="DataAccess\Session\SessionColumns.cs" />
+    <Compile Include="Domain\ISessionRepository.cs" />
+    <Compile Include="DataAccess\Session\SessionRepository.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Services\AuthenticationResult.cs" />
+    <Compile Include="Services\DefaultAuthenticationService.cs" />
+    <Compile Include="Services\DefaultAuthorizationService.cs" />
+    <Compile Include="Services\HashingService.cs" />
+    <Compile Include="Services\IAuthenticationService.cs" />
+    <Compile Include="Services\IAuthorizationService.cs" />
+    <Compile Include="Services\IHashingService.cs" />
+    <Compile Include="Services\ISessionService.cs" />
+    <Compile Include="Services\RegisterSessionResult.cs" />
+    <Compile Include="Services\SessionService.cs" />
+    <Compile Include="WindsorContainerExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".script\0-Schema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataAccess\SystemUserRole\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SentinelResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SentinelResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

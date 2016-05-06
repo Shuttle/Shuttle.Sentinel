@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Server", "Shuttle.Sentinel.Server\Shuttle.Sentinel.Server.csproj", "{E58095AC-694E-4DF1-9413-38646EBC1684}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Agent", "Shuttle.Sentinel.Agent\Shuttle.Sentinel.Agent.csproj", "{D294C778-E5B9-42BC-B5C1-4E1FC22581F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Messages", "Shuttle.Sentinel.Messages\Shuttle.Sentinel.Messages.csproj", "{821A6281-43B0-41AC-B2C9-92991172EA80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.WebApi", "Shuttle.Sentinel.WebApi\Shuttle.Sentinel.WebApi.csproj", "{12F52256-C052-4276-BB8E-9DD0D9D73F91}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Shuttle.Sentinel.site", "Shuttle.Sentinel.site\", "{C787005C-F3B3-41F7-A660-F196FBC9F1CA}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/Shuttle.Sentinel.site"
+		Debug.AspNetCompiler.PhysicalPath = "Shuttle.Sentinel.site\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Shuttle.Sentinel.site\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Shuttle.Sentinel.site"
+		Release.AspNetCompiler.PhysicalPath = "Shuttle.Sentinel.site\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Shuttle.Sentinel.site\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "3969"
+		SlnRelativePath = "Shuttle.Sentinel.site\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel", "Shuttle.Sentinel\Shuttle.Sentinel.csproj", "{F4014337-8EC2-4E94-BEAD-7BFED6041F6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ACFEE27F-61CC-45A6-9E17-14A7C3633A4F}"
+	ProjectSection(SolutionItems) = preProject
+		COMMERCIAL-LICENSE = COMMERCIAL-LICENSE
+		OPEN-SOURCE-LICENSE = OPEN-SOURCE-LICENSE
+		README.md = README.md
+		resharper-templates.DotSettings = resharper-templates.DotSettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Tests", "Shuttle.Sentinel.Tests\Shuttle.Sentinel.Tests.csproj", "{DAC09B88-EB09-49CB-898F-5763B89FA013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.EventProcessing.Server", "Shuttle.Sentinel.EventProcessing.Server\Shuttle.Sentinel.EventProcessing.Server.csproj", "{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E58095AC-694E-4DF1-9413-38646EBC1684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E58095AC-694E-4DF1-9413-38646EBC1684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E58095AC-694E-4DF1-9413-38646EBC1684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E58095AC-694E-4DF1-9413-38646EBC1684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D294C778-E5B9-42BC-B5C1-4E1FC22581F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D294C778-E5B9-42BC-B5C1-4E1FC22581F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D294C778-E5B9-42BC-B5C1-4E1FC22581F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D294C778-E5B9-42BC-B5C1-4E1FC22581F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821A6281-43B0-41AC-B2C9-92991172EA80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821A6281-43B0-41AC-B2C9-92991172EA80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821A6281-43B0-41AC-B2C9-92991172EA80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821A6281-43B0-41AC-B2C9-92991172EA80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F52256-C052-4276-BB8E-9DD0D9D73F91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F52256-C052-4276-BB8E-9DD0D9D73F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F52256-C052-4276-BB8E-9DD0D9D73F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F52256-C052-4276-BB8E-9DD0D9D73F91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C787005C-F3B3-41F7-A660-F196FBC9F1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C787005C-F3B3-41F7-A660-F196FBC9F1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C787005C-F3B3-41F7-A660-F196FBC9F1CA}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C787005C-F3B3-41F7-A660-F196FBC9F1CA}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F4014337-8EC2-4E94-BEAD-7BFED6041F6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4014337-8EC2-4E94-BEAD-7BFED6041F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4014337-8EC2-4E94-BEAD-7BFED6041F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4014337-8EC2-4E94-BEAD-7BFED6041F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAC09B88-EB09-49CB-898F-5763B89FA013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC09B88-EB09-49CB-898F-5763B89FA013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC09B88-EB09-49CB-898F-5763B89FA013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC09B88-EB09-49CB-898F-5763B89FA013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

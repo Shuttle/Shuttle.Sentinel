@@ -1,0 +1,86 @@
+<!--
+	This file forms part of Shuttle.Sentinel.
+
+	Shuttle.Sentinel - A management and monitoring solution for shuttle-esb implementations.
+	Copyright (C) 2016  Eben Roux
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shuttle Sentinel</title>
+	<!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
+	<link href="external/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="external/bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+	<link href="sentinel/sentinel.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+	<div id="application-container"></div>
+	<script type="text/stache" id="application-template">
+		<div class="container-fluid">
+			<div class="row row-offcanvas row-offcanvas-left">
+				<div id="application-content" class="main col-sm-12 col-md-12">
+				</div>
+				<sentinel-modal modal-id='modal-message' title="{{modalTitle}}" text-type="{{modalTextType}}"><p>{{modalMessage}}</p></sentinel-modal>
+			</div>
+		</div>
+	</script>
+
+	<script src="external/jquery/jquery.js" type="text/javascript"></script>
+	<script src="external/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+	<script src="external/canjs/can.jquery.js" type="text/javascript"></script>
+	<script src="external/canjs/can.construct.super.js" type="text/javascript"></script>
+	<script src="external/canjs/can.map.define.js" type="text/javascript"></script>
+	<script src="external/canjs/can.map.validations.js" type="text/javascript"></script>
+	<script src="external/canjs/can.stache.js" type="text/javascript"></script>
+	<script src="external/i18next/i18next.min.js" type="text/javascript"></script>
+	<script src="external/i18next/i18nextXHRBackend.min.js"></script>
+	<script src="sentinel/namespaces.js" type="text/javascript"></script>
+	<script src="core/system-permissions.js"></script>
+	<script src="sentinel/resources.js"></script>
+	<script src="sentinel/application-state.js"></script>
+	<script src="sentinel/application-start.js" type="text/javascript"></script>
+	<script src="sentinel/configuration.js" type="text/javascript"></script>
+	<script src="sentinel/configuration-behaviour.js"></script>
+	<script src="core/guard.js"></script>
+	<script src="core/logger.js"></script>
+	<script src="core/dependency-container.js"></script>
+	<script src="core/view-model.js"></script>
+	<script src="core/model.js"></script>
+	<script src="core/control.js"></script>
+	<script src="core/system-permissions.js"></script>
+	<script src="services/service.js"></script>
+	<script src="services/localization-service.js"></script>
+	<script src="services/security-service.js"></script>
+	<script src="components/container.js"></script>
+	<script src="components/core-label.js"></script>
+	<script src="components/core-textfield.js"></script>
+	<script src="components/core-validation.js"></script>
+	<script src="components/textfield.js"></script>
+	<script src="components/button.js"></script>
+	<script src="services/anonymous-permissions-model.js"></script>
+	<script src="services/register-session-model.js"></script>
+	<script src="services/cache-service.js"></script>
+	<script src="login/login.js" type="text/javascript"></script>
+	<script src="dashboard/dashboard.js"></script>
+	<script src="users/users.js"></script>
+	<script src="users/users-register.js"></script>
+	<script src="sentinel/application-debug.js" type="text/javascript"></script>
+	<script src="sentinel/application.js" type="text/javascript"></script>
+</body>
+</html>

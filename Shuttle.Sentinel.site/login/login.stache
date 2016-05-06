@@ -1,0 +1,41 @@
+﻿<!--
+This file forms part of Shuttle.Sentinel.
+
+Shuttle.Sentinel - A management and monitoring solution for shuttle-esb implementations.
+Copyright (C) 2016  Eben Roux
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<div class="modal show" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">{{i18n 'credentials.title'}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-9">
+						<sentinel-textfield type="text" value="{email}" disable="{{isEMailDisabled}}" validation-message="{{emailValidationMessage}}" label="credentials.email"  />
+						<sentinel-textfield type="password" value="{password}" disable="{{isPasswordDisabled}}" validation-message="{{passwordValidationMessage}}" label="credentials.password" />
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" can-click="{login}">
+					<span class="glyphicon glyphicon-log-in" /> {{i18n 'credentials.login'}}
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
