@@ -61,15 +61,6 @@ namespace Shuttle.Sentinel {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not find a &apos;sentinelApi&apos; or &apos;shuttle/sentinelApi&apos; section in the application confguration file..
-        /// </summary>
-        public static string SectionMissing {
-            get {
-                return ResourceManager.GetString("SectionMissing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Type &apos;{0}&apos; could not be loaded using value &apos;{1}&apos;.  Exception: {2}.
         /// </summary>
         public static string TypeNotFoundException {

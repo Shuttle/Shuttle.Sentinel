@@ -1,6 +1,12 @@
-﻿namespace Shuttle.Sentinel.Agent
+﻿using Shuttle.Core.Host;
+
+namespace Shuttle.Sentinel.Agent
 {
-	public class Host
+	public class Host : IHost
 	{
+	    public void Start()
+	    {
+	        
+	    }
 	}
 }

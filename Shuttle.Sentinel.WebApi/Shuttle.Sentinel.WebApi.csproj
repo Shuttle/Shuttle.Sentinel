@@ -57,8 +57,16 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Core.Data, Version=3.2.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\shuttle-core-data.3.2.12\lib\net45-full\Shuttle.Core.Data.dll</HintPath>
+    <Reference Include="RabbitMQ.Client, Version=3.6.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.3.6.1\lib\net45\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Core.Data, Version=4.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Data.4.1.1\lib\net45-full\Shuttle.Core.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Core.Data.Http, Version=4.0.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Data.Http.4.0.9\lib\net45-full\Shuttle.Core.Data.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Shuttle.Core.Infrastructure, Version=4.1.12.0, Culture=neutral, processorArchitecture=MSIL">
@@ -79,6 +87,10 @@
     </Reference>
     <Reference Include="Shuttle.Esb.Msmq, Version=3.8.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Shuttle.Esb.Msmq.3.8.4\lib\net45-full\Shuttle.Esb.Msmq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Shuttle.Esb.RabbitMQ, Version=6.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.RabbitMQ.6.0.1\lib\net45-full\Shuttle.Esb.RabbitMQ.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

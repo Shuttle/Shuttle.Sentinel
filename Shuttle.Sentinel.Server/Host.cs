@@ -39,8 +39,9 @@ namespace Shuttle.Sentinel.Server
 			_container.Register(Component.For<ISerializer>().ImplementedBy<DefaultSerializer>());
 			_container.Register(Component.For<IEventStoreQueryFactory>().ImplementedBy<EventStoreQueryFactory>());
 			_container.Register(Component.For<IKeyStoreQueryFactory>().ImplementedBy<KeyStoreQueryFactory>());
-			_container.Register(Component.For<ISubscriptionManager>().ImplementedBy<SubscriptionManager>());
-			_container.RegisterConfiguration(SentinelSection.Configuration());
+			_container.Register(Component.For<ISubscriptionManager>().Instance(SubscriptionManager.Default()));
+            _container.Register(Component.For<IDatabaseContextCache>().ImplementedBy<ThreadStaticDatabaseContextCache>());
+            _container.RegisterConfiguration(SentinelSection.Configuration());
 
 			var subscriptionManager = _container.Resolve<ISubscriptionManager>();
 
