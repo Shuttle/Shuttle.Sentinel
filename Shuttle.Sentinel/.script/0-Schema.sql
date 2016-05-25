@@ -8,7 +8,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Se
 BEGIN
 CREATE TABLE [dbo].[Session](
 	[Token] [uniqueidentifier] NOT NULL,
-	[Username] [varchar](65) NOT NULL,
+	[EMail] [varchar](254) NOT NULL,
 	[DateRegistered] [datetime] NOT NULL,
  CONSTRAINT [PK_Session] PRIMARY KEY NONCLUSTERED 
 (
@@ -111,13 +111,10 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Sy
 BEGIN
 CREATE TABLE [dbo].[SystemUser](
 	[Id] [uniqueidentifier] NOT NULL,
-	[Username] [varchar](65) NOT NULL,
-	[Password] [varbinary](64) NOT NULL,
+	[EMail] [varchar](254) NOT NULL,
 	[DateRegistered] [datetime] NOT NULL,
 	[RegisteredBy] [varchar](65) NOT NULL,
 	[DateActivated] [datetime] NULL,
-	[PasswordResetKey] [uniqueidentifier] NULL,
-	[PasswordResetKeyExpiryDate] [datetime] NULL,
  CONSTRAINT [PK_SystemUser] PRIMARY KEY NONCLUSTERED 
 (
 	[Id] ASC
@@ -136,11 +133,11 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[SystemUserRole]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[SystemUserRole](
-	[Username] [varchar](65) NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
 	[SystemRoleId] [uniqueidentifier] NOT NULL,
  CONSTRAINT [PK_SystemUserRole] PRIMARY KEY CLUSTERED 
 (
-	[Username] ASC,
+	[UserIdASC,
 	[SystemRoleId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -154,7 +151,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Session]') AND name = N'IX_Session')
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Session] ON [dbo].[Session]
 (
-	[Username] ASC
+	[EMail] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 SET ANSI_PADDING ON
@@ -172,7 +169,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[SystemUser]') AND name = N'IX_SystemUser')
 CREATE UNIQUE NONCLUSTERED INDEX [IX_SystemUser] ON [dbo].[SystemUser]
 (
-	[Username] ASC
+	[EMail] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[DF_Session_DateRegistered]') AND type = 'D')
