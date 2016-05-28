@@ -4,74 +4,84 @@ using Shuttle.Core.Infrastructure;
 using Shuttle.EMail;
 using Shuttle.Esb;
 using Shuttle.Recall;
+using Shuttle.Sentinel.DomainEvents.User.v1;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
 {
-	public class RegisterUserHandler : IMessageHandler<RegisterUserCommand>
-	{
-		private readonly IConfiguredDatabaseContextFactory _databaseContextFactory;
-		private readonly IEventStore _eventStore;
-		private readonly IKeyStore _keyStore;
-		private readonly IHashingService _hashingService;
-		private readonly ILog _log;
+    public class RegisterUserHandler : IMessageHandler<RegisterUserCommand>
+    {
+        private readonly IConfiguredDatabaseContextFactory _databaseContextFactory;
+        private readonly IEventStore _eventStore;
+        private readonly IKeyStore _keyStore;
+        private readonly IHashingService _hashingService;
+        private readonly ILog _log;
 
-		public RegisterUserHandler(IConfiguredDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore, IHashingService hashingService)
-		{
-			Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-			Guard.AgainstNull(eventStore, "eventStore");
-			Guard.AgainstNull(keyStore, "keyStore");
-			Guard.AgainstNull(hashingService, "hashingService");
+        public RegisterUserHandler(IConfiguredDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore, IHashingService hashingService)
+        {
+            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
+            Guard.AgainstNull(eventStore, "eventStore");
+            Guard.AgainstNull(keyStore, "keyStore");
+            Guard.AgainstNull(hashingService, "hashingService");
 
-			_databaseContextFactory = databaseContextFactory;
-			_eventStore = eventStore;
-			_keyStore = keyStore;
-			_hashingService = hashingService;
+            _databaseContextFactory = databaseContextFactory;
+            _eventStore = eventStore;
+            _keyStore = keyStore;
+            _hashingService = hashingService;
 
-			_log = Log.For(this);
-		}
+            _log = Log.For(this);
+        }
 
-		public void ProcessMessage(IHandlerContext<RegisterUserCommand> context)
-		{
-			var message = context.Message;
+        public void ProcessMessage(IHandlerContext<RegisterUserCommand> context)
+        {
+            var message = context.Message;
+            var id = Guid.NewGuid();
 
-			if (_keyStore.Contains(User.Key(message.EMail)))
-			{
-				context.Send(new SendEMailCommand
-				{
-					Body = string.Format("<p>Hello,</p><br/><p>Unfortunately e-mail '{0}' has been assigned before your user could be registered.  Please register again.</p><br/><p>Regards</p>", message.EMail),
-					Subject = "User registration failure",
-					IsBodyHtml = true,
-					To = message.EMail
-				});
+            Registered registered;
 
-				return;
-			}
+            using (_databaseContextFactory.Create())
+            {
+                var key = User.Key(message.EMail);
 
-			var id = Guid.NewGuid();
-			var user = new User(id);
-			var stream = new EventStream(id);
-			var registered = user.Register(message.EMail, message.PasswordHash, message.RegisteredBy);
+                if (_keyStore.Contains(key))
+                {
+                    if (!message.EMail.Equals("shuttle", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        context.Send(new SendEMailCommand
+                        {
+                            Body = string.Format("<p>Hello,</p><br/><p>Unfortunately e-mail '{0}' has been assigned before your user could be registered.  Please register again.</p><br/><p>Regards</p>", message.EMail),
+                            Subject = "User registration failure",
+                            IsBodyHtml = true,
+                            To = message.EMail
+                        });
+                    }
 
-			stream.AddEvent(registered);
+                    return;
+                }
 
-			using (_databaseContextFactory.Create())
-			{
-				_eventStore.SaveEventStream(stream);
-			}
+                _keyStore.Add(id, key);
 
-			context.Publish(new UserRegisteredEvent
-			{
-				Id = id,
-				EMail = message.EMail,
-				RegisteredBy = message.RegisteredBy,
-				DateRegistered = registered.DateRegistered
-			});
-		}
+                var user = new User(id);
+                var stream = new EventStream(id);
+                registered = user.Register(message.EMail, message.PasswordHash, message.RegisteredBy);
 
-		public bool IsReusable
-		{
-			get { return true; }
-		}
-	}
+                stream.AddEvent(registered);
+
+                _eventStore.SaveEventStream(stream);
+            }
+
+            context.Publish(new UserRegisteredEvent
+            {
+                Id = id,
+                EMail = message.EMail,
+                RegisteredBy = message.RegisteredBy,
+                DateRegistered = registered.DateRegistered
+            });
+        }
+
+        public bool IsReusable
+        {
+            get { return true; }
+        }
+    }
 }

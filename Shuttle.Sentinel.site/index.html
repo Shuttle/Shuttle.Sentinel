@@ -1,86 +1,311 @@
 <!--
-	This file forms part of Shuttle.Sentinel.
+    This file forms part of Shuttle.Sentinel.
 
-	Shuttle.Sentinel - A management and monitoring solution for shuttle-esb implementations.
-	Copyright (C) 2016  Eben Roux
+    Shuttle.Sentinel - A management and monitoring solution for shuttle-esb implementations.
+    Copyright (C) 2016  Eben Roux
 
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Shuttle Sentinel</title>
-	<!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
-	<link href="external/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-	<link href="external/bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css" />
-	<link href="sentinel/sentinel.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shuttle Sentinel</title>
+    <!-- <link rel="shortcut icon" href="assets/images/favicon.ico"> -->
+    <link href="external/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="external/bootstrap/css/bootstrap-theme.css" rel="stylesheet" type="text/css" />
+    <link href="sentinel/sentinel.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-	<div id="application-container"></div>
-	<script type="text/stache" id="application-template">
-		<div class="container-fluid">
-			<div class="row row-offcanvas row-offcanvas-left">
-				<div id="application-content" class="main col-sm-12 col-md-12">
-				</div>
-				<sentinel-modal modal-id='modal-message' title="{{modalTitle}}" text-type="{{modalTextType}}"><p>{{modalMessage}}</p></sentinel-modal>
-			</div>
-		</div>
-	</script>
+    <div id="application-container"></div>
+    <script type="text/stache" id="application-template">
+        <nav class="navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Shuttle.Sentinel</a>
+            </div>
 
-	<script src="external/jquery/jquery.js" type="text/javascript"></script>
-	<script src="external/bootstrap/js/bootstrap.js" type="text/javascript"></script>
-	<script src="external/canjs/can.jquery.js" type="text/javascript"></script>
-	<script src="external/canjs/can.construct.super.js" type="text/javascript"></script>
-	<script src="external/canjs/can.map.define.js" type="text/javascript"></script>
-	<script src="external/canjs/can.map.validations.js" type="text/javascript"></script>
-	<script src="external/canjs/can.stache.js" type="text/javascript"></script>
-	<script src="external/i18next/i18next.min.js" type="text/javascript"></script>
-	<script src="external/i18next/i18nextXHRBackend.min.js"></script>
-	<script src="sentinel/namespaces.js" type="text/javascript"></script>
-	<script src="core/system-permissions.js"></script>
-	<script src="sentinel/resources.js"></script>
-	<script src="sentinel/application-state.js"></script>
-	<script src="sentinel/application-start.js" type="text/javascript"></script>
-	<script src="sentinel/configuration.js" type="text/javascript"></script>
-	<script src="sentinel/configuration-behaviour.js"></script>
-	<script src="core/guard.js"></script>
-	<script src="core/logger.js"></script>
-	<script src="core/dependency-container.js"></script>
-	<script src="core/view-model.js"></script>
-	<script src="core/model.js"></script>
-	<script src="core/control.js"></script>
-	<script src="core/system-permissions.js"></script>
-	<script src="services/service.js"></script>
-	<script src="services/localization-service.js"></script>
-	<script src="services/security-service.js"></script>
-	<script src="components/container.js"></script>
-	<script src="components/core-label.js"></script>
-	<script src="components/core-textfield.js"></script>
-	<script src="components/core-validation.js"></script>
-	<script src="components/textfield.js"></script>
-	<script src="components/button.js"></script>
-	<script src="services/anonymous-permissions-model.js"></script>
-	<script src="services/register-session-model.js"></script>
-	<script src="services/cache-service.js"></script>
-	<script src="login/login.js" type="text/javascript"></script>
-	<script src="dashboard/dashboard.js"></script>
-	<script src="users/users.js"></script>
-	<script src="users/users-register.js"></script>
-	<script src="sentinel/application-debug.js" type="text/javascript"></script>
-	<script src="sentinel/application.js" type="text/javascript"></script>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+                <ul class='nav navbar-nav'>
+                    <li>
+                        <a href='{{ site.baseurl }}/'>Home</a>
+                    </li>
+                    <li class='dropdown'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            Guides
+                            <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li>
+                                <a target='_blank' href='https://docs.nuget.org/'>NuGet Documentation</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a target='_blank' href='https://www.rabbitmq.com/install-windows.html'>RabbitMQ Installation</a>
+                                <a href='{{ site.baseurl }}/msmq-installation-activation'>Msmq Installation / Activation</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/guide-modules-implementation'>Modules</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='dropdown'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            Samples
+                            <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li>
+                                <a href='{{ site.baseurl }}/sample-request-response'>Request / Response</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/sample-publish-subscribe'>Publish / Subscribe</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/sample-deferred'>Deferred Messages &amp; Logging</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/sample-distribution'>Message Distribution</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/sample-idempotence'>Idempotence</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/sample-dependencyinjection'>Dependency Injection</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/sample-processmanagement'>Process Management</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='dropdown'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            Concepts
+                            <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li>
+                                <a href='{{ site.baseurl }}/concepts-esb'>Why use a service bus?</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/concepts-request-response'>Request / Response</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/concepts-publish-subscribe'>Publish / Subscribe</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/concepts-distribution'>Message Distribution</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/concepts-routing'>Message Routing</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/concepts-idempotence'>Message Idempotence</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/concepts-deferred-messages'>Deferred Messages</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li>
+                                <a href='{{ site.baseurl }}/bounded-contexts'>Bounded Contexts (BCs) / Stadium</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='dropdown'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            Components
+                            <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li class='dropdown-header'>Core</li>
+                            <li>
+                                <a href='{{ site.baseurl }}/encryption'>Encryption</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/compression'>Compression</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/idempotence-service'>Idempotence Service</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/message-handler-factory'>Message Handler Factory</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/message-handler-invoker'>Message Handler Invoker</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/message-handling-assessor'>Message Handling Assessor</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/message-route-provider'>Message Route Provider</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/message-sender'>Message Sender</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/pipeline-factory'>Pipeline Factory</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/queue-manager'>Queue Manager</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/service-bus-policy'>Policy</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/serializer'>Serializer</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/service-bus'>Service Bus</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/subscription-manager'>Subscription Manager</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/thread-activity-factory'>Thread Activity Factory</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/transactionscope-factory'>TransactionScope Factory</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/uri-resolver'>Uri Resolver</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li class='dropdown-header'>Miscellaneous</li>
+                            <li>
+                                <a href='{{ site.baseurl }}/full-configuration'>Full Configuration</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/packages'>Packages</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class='dropdown'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                            Implementations
+                            <b class='caret'></b>
+                        </a>
+                        <ul class='dropdown-menu'>
+                            <li class='dropdown-header'>Queues</li>
+                            <li>
+                                <a href='{{ site.baseurl }}/implementations-rabbitmq'>RabbitMQ</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/implementations-msmq'>MSMQ</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/implementations-sql-server'>Sql Server</a>
+                            </li>
+                            <li>
+                                <a href='{{ site.baseurl }}/implementations-filemq'>File MQ</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li class='dropdown-header'>Factories</li>
+                            <li>
+                                <a href='{{ site.baseurl }}/implementations-castle-project'>Castle Project</a>
+                                <a href='{{ site.baseurl }}/implementations-unity'>Unity</a>
+                            </li>
+                            <li class='divider'></li>
+                            <li class='dropdown-header'>Modules</li>
+                            <li>
+                                <a href='{{ site.baseurl }}/modules-corrupt-messages'>Corrupt Transport Messages</a>
+                                <a href='{{ site.baseurl }}/modules-message-forwarding'>Message Forwarding</a>
+                                <a href='{{ site.baseurl }}/modules-purge-inbox'>Purge Inbox</a>
+                                <a href='{{ site.baseurl }}/modules-purge-queues'>Purge Queues</a>
+                                <a href='{{ site.baseurl }}/modules-active-time-range'>Active Time Range</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!--
+                {% assign pages_list = site.pages %}
+                {% assign group = 'navigation' %}
+                {% include JB/pages_list %}
+                -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://github.com/Shuttle/Shuttle.Sentinel" class="hidden-xs hidden-sm" target="_blank">GitHub</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+        <div class="container-fluid">
+            <div class="row row-offcanvas row-offcanvas-left">
+                <div id="application-content" class="main col-sm-12 col-md-12">
+                </div>
+                <sentinel-modal modal-id='modal-message' title="{{modalTitle}}" text-type="{{modalTextType}}"><p>{{modalMessage}}</p></sentinel-modal>
+            </div>
+        </div>
+    </script>
+
+    <script src="external/jquery/jquery.js" type="text/javascript"></script>
+    <script src="external/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+    <script src="external/canjs/can.sentinel.js" type="text/javascript"></script>
+    <script src="external/i18next/i18next.min.js" type="text/javascript"></script>
+    <script src="external/i18next/i18nextXHRBackend.min.js"></script>
+    <script src="sentinel/namespaces.js" type="text/javascript"></script>
+    <script src="core/system-permissions.js"></script>
+    <script src="sentinel/resources.js"></script>
+    <script src="sentinel/application-state.js"></script>
+    <script src="sentinel/application-start.js" type="text/javascript"></script>
+    <script src="sentinel/configuration.js" type="text/javascript"></script>
+    <script src="sentinel/configuration-behaviour.js"></script>
+    <script src="core/guard.js"></script>
+    <script src="core/logger.js"></script>
+    <script src="core/dependency-container.js"></script>
+    <script src="core/view-model.js"></script>
+    <script src="core/model.js"></script>
+    <script src="core/control.js"></script>
+    <script src="core/system-permissions.js"></script>
+    <script src="services/service.js"></script>
+    <script src="services/localization-service.js"></script>
+    <script src="services/security-service.js"></script>
+    <script src="components/container.js"></script>
+    <script src="components/core-label.js"></script>
+    <script src="components/core-textfield.js"></script>
+    <script src="components/core-validation.js"></script>
+    <script src="components/textfield.js"></script>
+    <script src="components/button.js"></script>
+    <script src="services/anonymous-permissions-model.js"></script>
+    <script src="services/register-session-model.js"></script>
+    <script src="services/cache-service.js"></script>
+    <script src="login/login.js" type="text/javascript"></script>
+    <script src="dashboard/dashboard.js"></script>
+    <script src="users/users.js"></script>
+    <script src="users/users-register.js"></script>
+    <script src="sentinel/application-debug.js" type="text/javascript"></script>
+    <script src="sentinel/application.js" type="text/javascript"></script>
 </body>
 </html>
