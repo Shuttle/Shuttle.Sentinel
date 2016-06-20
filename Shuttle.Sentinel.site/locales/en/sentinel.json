@@ -12,7 +12,7 @@
 	"security": {
 		"access-denied": "You do not have access to '{{hash}}' as you require permission '{{permission}}'."
 	},
-	"text": {
-		"register":  "Register"
-	}
+  "text": {
+    "register": "Register"
+  }
 }

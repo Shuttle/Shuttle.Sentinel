@@ -35,7 +35,7 @@ Sentinel.Resources = can.Map.extend({
 				return;
 			}
 
-			if (resource.name === name && resource.action == o.action) {
+			if (resource.name === name && resource.action === o.action) {
 				result = resource;
 			}
 		});

@@ -1,0 +1,8 @@
+﻿{
+  "dashboard": "Dashboard",
+  "messages": "Messages",
+  "subscriptions": "Subscriptions",
+  "data-stores": "Data Stores",
+  "queues":  "Queues",
+  "sign-in":  "Sign In"
+}
