@@ -1,0 +1,13 @@
+<p>{{message}}</p>
+<div class="row">
+  <div class="col-md-6 bd-content col-md-offset-3">
+    <sentinel-page-title>{{i18n "user:register.title"}}</sentinel-page-title>
+    <form>
+      <fieldset class="form-group">
+        <sentinel-text label="user:register.email" {(value)}="email" />
+        <sentinel-text label="user:register.password" {(value)}="password" type="password" validation-message="{{passwordValidationMessage}}" />
+        <sentinel-button click="submit" text="text.register" />
+      </fieldset>
+    </form>
+  </div>
+</div>

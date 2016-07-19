@@ -1,0 +1,5 @@
+﻿<sentinel-container class="form-group">
+	<sentinel-label {label}="label" />
+	<sentinel-input {(value)}="value" {type}="type"/>
+	<sentinel-core-validation {message}="validationMessage" />
+</sentinel-container>

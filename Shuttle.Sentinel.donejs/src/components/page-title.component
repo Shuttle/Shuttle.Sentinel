@@ -1,0 +1,7 @@
+<can-component tag="sentinel-page-title">
+  <template>
+    <h1>
+      <content></content>
+    </h1>
+  </template>
+</can-component>

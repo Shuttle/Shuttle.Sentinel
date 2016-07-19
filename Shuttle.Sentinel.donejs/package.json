@@ -1,0 +1,64 @@
+{
+  "name": "sentinel",
+  "version": "0.0.0",
+  "description": "A management and monitoring solution for Shuttle.Esb implementations.",
+  "homepage": "https://shuttle.github.io/shuttle-sentinel/",
+  "author": {
+    "name": "Eben Roux",
+    "email": "me@ebenroux.co.za",
+    "url": "www.ebenroux.co.za"
+  },
+  "scripts": {
+    "test": "testee src/test.html --browsers firefox --reporter Spec",
+    "start": "done-serve --port 8080",
+    "develop": "done-serve --develop --port 8080",
+    "document": "documentjs",
+    "build": "node build"
+  },
+  "keywords": [
+    "shuttle",
+    "shuttle",
+    "esb",
+    "shuttle",
+    "sentinel",
+    "sentinel",
+    "monitoring",
+    "soa",
+    "esb"
+  ],
+  "system": {
+    "main": "sentinel/app.js",
+    "directories": {
+      "lib": "src"
+    },
+    "configDependencies": [
+      "node_modules/can-zone/register"
+    ],
+    "npmAlgorithm": "flat"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "can": "^2.3.16",
+    "can-connect": "^0.5.0",
+    "can-zone": "^0.5.0",
+    "done-autorender": "^0.8.0",
+    "done-component": "^0.4.0",
+    "done-css": "~2.0.2",
+    "done-serve": "^0.2.0",
+    "generator-donejs": "^0.9.0",
+    "i18next": "^3.3.1",
+    "i18next-xhr-backend": "^0.6.0",
+    "jquery": "~2.2.1",
+    "steal": "^0.16.0"
+  },
+  "devDependencies": {
+    "can-fixture": "^0.1.2",
+    "documentjs": "^0.4.2",
+    "donejs-cli": "^0.9.4",
+    "donejs-deploy": "^0.4.0",
+    "funcunit": "~3.0.0",
+    "steal-qunit": "^0.1.1",
+    "steal-tools": "^0.16.0",
+    "testee": "^0.2.4"
+  }
+}

@@ -1,0 +1,47 @@
+<nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">Shuttle.Sentinel</a>
+  </div>
+  <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+    <ul class='nav navbar-nav'>
+      <li>
+        <a href='#!dashboard'>{{i18n "navigation:dashboard"}}</a>
+      </li>
+      <li>
+        <a href='#!messages'>{{i18n "navigation:messages"}}</a>
+      </li>
+      <li>
+        <a href='#!subscriptions'>{{i18n "navigation:subscriptions"}}</a>
+      </li>
+      <li>
+        <a href='#!datastores'>{{i18n "navigation:data-stores"}}</a>
+      </li>
+      <li>
+        <a href='#!queues'>{{i18n "navigation:queues"}}</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        {{#switch loginStatus}}
+        {{#case "user-required"}}
+        <a href='#!user/register'>{{i18n "navigation:register"}}</a>
+        {{/case}}
+        {{#case "not-logged-in"}}
+        <a href='#!login'>{{i18n "navigation:sign-in"}}</a>
+        {{/case}}
+        {{/switch}}
+      </li>
+      <li>
+        <a href="https://github.com/Shuttle/Shuttle.Sentinel" class="hidden-xs hidden-sm" target="_blank">GitHub</a>
+      </li>
+    </ul>
+  </div>
+  <!-- /.navbar-collapse -->
+</nav>

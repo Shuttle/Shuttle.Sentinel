@@ -1,0 +1,18 @@
+﻿{
+	"credentials": {
+		"title": "Enter your credentials",
+		"login": "Login",
+		"email": "E-mail",
+		"password": "Password"
+	},
+	"exceptions": {
+		"anonymous-permissions": "Could not retrieve the anonymous permissions from the server.",
+		"resource-not-found": "Could not find resource with for '{{hash}}'."
+	},
+	"security": {
+		"access-denied": "You do not have access to '{{hash}}' as you require permission '{{permission}}'."
+	},
+  "text": {
+    "register": "Register"
+  }
+}

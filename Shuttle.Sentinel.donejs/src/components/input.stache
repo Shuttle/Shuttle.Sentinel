@@ -1,0 +1,1 @@
+﻿<input type="{{type}}" {($value)}="value" class="form-control"/>

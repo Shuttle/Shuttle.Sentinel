@@ -1,13 +1,14 @@
-Sentinel.Services.SecurityService = Sentinel.Service.extend({
-	_data: new can.Map({
+import can from 'can';
+import Map from 'can/map/';
+import localisation from 'sentinel/localisation';
+import AnonymousPermissions from 'sentinel/models/anonymous-permissions';
+import RegisterSession from 'sentinel/models/register-session';
+
+var security = {
+	_data: new Map({
 		permissions: [],
 		token: undefined
 	}),
-
-	init: function () {
-		this.resolve('_localizationService');
-		this.resolve('_cacheService');
-	},
 
 	hasSession: function () {
 		return this._data.attr('token') != undefined;
@@ -32,7 +33,7 @@ Sentinel.Services.SecurityService = Sentinel.Service.extend({
 		var self = this;
 		var deferred = can.Deferred();
 
-		Sentinel.Models.AnonymousPermissions.findAll()
+		AnonymousPermissions.findAll()
 			.done(function (data) {
 				can.each(data, function (item) {
 					self._addPermission('anonymous', item.permission);
@@ -41,7 +42,7 @@ Sentinel.Services.SecurityService = Sentinel.Service.extend({
 				deferred.resolve();
 			})
 			.fail(function () {
-				throw new Error(this._localizationService.value('exceptions.anonymous-permissions'));
+				deferred.reject(localisation.value('exceptions.anonymous-permissions'));
 			});
 
 		return deferred;
@@ -52,7 +53,7 @@ Sentinel.Services.SecurityService = Sentinel.Service.extend({
 	},
 
 	login: function (email, password) {
-		new Sentinel.Models.RegisterSession({
+		new RegisterSession({
 			email: email,
 			password: password
 		}).save()
@@ -75,4 +76,6 @@ Sentinel.Services.SecurityService = Sentinel.Service.extend({
 			window.location.hash = '#!login';
 		}
 	}
-});
+};
+
+export default security;
