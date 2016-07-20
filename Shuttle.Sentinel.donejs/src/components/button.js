@@ -10,6 +10,12 @@ export default can.Component.extend({
                 get: function(type) {
                     return type || 'btn-primary';
                 }
+            },
+            iconName: {
+                value: ''
+            },
+            disabled: {
+                value: false
             }
         }
     })

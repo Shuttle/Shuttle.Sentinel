@@ -14,6 +14,9 @@ import 'sentinel/components/container';
 import 'sentinel/components/label';
 import 'sentinel/components/input';
 import 'sentinel/components/text';
+import 'sentinel/components/form';
+
+import 'sentinel/components/navigation.js';
 
 
 localisation.start(function(error) {

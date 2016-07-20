@@ -1,0 +1,10 @@
+﻿<can-import from="./form.css!" />
+
+<div class="sentinel-form {{type}}">
+  <div class="sentinel-form-heading">
+    <h2 class="sentinel-form-title">{{title}}</h2>
+  </div>
+  <div class="sentinel-form-body">
+    <content/>
+  </div>
+</div>

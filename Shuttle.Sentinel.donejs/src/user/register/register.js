@@ -10,18 +10,35 @@ resources.add('user', { action: 'register', permission: Permissions.Register.Use
 
 export const ViewModel = Map.extend({
     define: {
-        message: {
-            value: 'This is the sentinel-user-register component'
-        },
         email: {
-            value: 'test'
+            value: ''
+        },
+        password: {
+            value: ''
+        },
+        submitIconName: {
+            get: function() {
+                return this.attr('working') ? 'glyphicon-hourglass' : '';
+            }
+        },
+        working: {
+            value: false
         }
+    },
+
+    submit: function() {
+        this.attr('working', true);
     }
 });
 
 export default Component.extend({
     tag: 'sentinel-user-register',
     viewModel: ViewModel,
-    template
+    template,
+    events: {
+        'inserted': function(el) {
+            $('#email').focus();
+        }
+    }
 });
 

@@ -1,6 +1,4 @@
 <can-import from='bootstrap/less/bootstrap.less!' />
-<can-import from='sentinel/components/navigation.js' />
-<can-import from='sentinel/components/page-title.component!' />
 
 <sentinel-navigation />
 

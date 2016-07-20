@@ -12,7 +12,14 @@ export default can.Component.extend({
                 }
             }
         }
-    })
+    }),
+    events: {
+        'inserted': function(el, ev) {
+            if (this.viewModel.attr('focus')) {
+                el[0].childNodes[0].focus();
+            }
+        }
+    }
 });
 
 
