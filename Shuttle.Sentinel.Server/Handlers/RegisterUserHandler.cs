@@ -1,8 +1,8 @@
 ﻿using System;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
-using Shuttle.EMail;
 using Shuttle.Esb;
+using Shuttle.Esb.EMail;
 using Shuttle.Recall;
 using Shuttle.Sentinel.DomainEvents.User.v1;
 using Shuttle.Sentinel.Messages.v1;
@@ -11,13 +11,13 @@ namespace Shuttle.Sentinel.Server
 {
     public class RegisterUserHandler : IMessageHandler<RegisterUserCommand>
     {
-        private readonly IConfiguredDatabaseContextFactory _databaseContextFactory;
+        private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
         private readonly IKeyStore _keyStore;
         private readonly IHashingService _hashingService;
         private readonly ILog _log;
 
-        public RegisterUserHandler(IConfiguredDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore, IHashingService hashingService)
+        public RegisterUserHandler(IDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore, IHashingService hashingService)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
             Guard.AgainstNull(eventStore, "eventStore");

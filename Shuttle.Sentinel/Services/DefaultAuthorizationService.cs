@@ -6,11 +6,11 @@ namespace Shuttle.Sentinel
 {
 	public class DefaultAuthorizationService : IAuthorizationService, IAnonymousPermissions
 	{
-		private readonly IConfiguredDatabaseContextFactory _databaseContextFactory;
+		private readonly IDatabaseContextFactory _databaseContextFactory;
 		private readonly ISystemUserQuery _systemUserQuery;
 		private readonly ISystemRoleQuery _systemRoleQuery;
 
-		public DefaultAuthorizationService(IConfiguredDatabaseContextFactory databaseContextFactory, ISystemUserQuery systemUserQuery, ISystemRoleQuery systemRoleQuery)
+		public DefaultAuthorizationService(IDatabaseContextFactory databaseContextFactory, ISystemUserQuery systemUserQuery, ISystemRoleQuery systemRoleQuery)
 		{
 			Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
 			Guard.AgainstNull(systemUserQuery, "systemUserQuery");

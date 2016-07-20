@@ -55,7 +55,7 @@ namespace Shuttle.Sentinel.Server
                     c.SubscriptionManager(subscriptionManager);
                 }).Start();
 
-            using (_container.Resolve<IConfiguredDatabaseContextFactory>().Create())
+            using (_container.Resolve<IDatabaseContextFactory>().Create())
             {
                 if (_container.Resolve<ISystemUserQuery>().Count() == 0)
                 {

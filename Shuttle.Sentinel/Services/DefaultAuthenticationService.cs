@@ -7,13 +7,13 @@ namespace Shuttle.Sentinel
 {
 	public class DefaultAuthenticationService : IAuthenticationService
 	{
-		private readonly IConfiguredDatabaseContextFactory _databaseContextFactory;
+		private readonly IDatabaseContextFactory _databaseContextFactory;
 		private readonly IEventStore _eventStore;
 		private readonly IKeyStore _keyStore;
 		private readonly IHashingService _hashingService;
 		private readonly ILog _log;
 
-		public DefaultAuthenticationService(IConfiguredDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore, IHashingService hashingService)
+		public DefaultAuthenticationService(IDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore, IHashingService hashingService)
 		{
 			Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
 			Guard.AgainstNull(eventStore, "eventStore");
