@@ -13,20 +13,20 @@ namespace Shuttle.Sentinel
 insert into [dbo].[SystemUser]
 (
 	[Id],
-	[EMail],
+	[Username],
 	[DateRegistered],
 	[RegisteredBy]
 )
 values
 (
 	@Id,
-	@EMail,
+	@Username,
 	@DateRegistered,
 	@RegisteredBy
 )
 ")
 				.AddParameterValue(SystemUserColumns.Id, id)
-				.AddParameterValue(SystemUserColumns.EMail, domainEvent.Username)
+				.AddParameterValue(SystemUserColumns.Username, domainEvent.Username)
 				.AddParameterValue(SystemUserColumns.DateRegistered, domainEvent.DateRegistered)
 				.AddParameterValue(SystemUserColumns.RegisteredBy, domainEvent.RegisteredBy);
 		}

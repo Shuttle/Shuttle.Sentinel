@@ -26,7 +26,7 @@ namespace Shuttle.Sentinel
 		{
 			Guard.AgainstNull(session, "session");
 
-			_databaseGateway.ExecuteUsing(_queryFactory.Remove(session.EMail));
+			_databaseGateway.ExecuteUsing(_queryFactory.Remove(session.Username));
 			_databaseGateway.ExecuteUsing(_queryFactory.Add(session));
 
 			foreach (var permission in session.Permissions)

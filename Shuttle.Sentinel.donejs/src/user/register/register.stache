@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-md-6 bd-content col-md-offset-3">
-    <sentinel-form title="user:register.title">
+    <sentinel-form {title}="title">
       <form>
         <fieldset class="form-group">
-          <sentinel-text focus="true" label="user:register.email" {(value)}="email" />
+          <sentinel-text focus="true" label="user:register.username" {(value)}="username" />
           <sentinel-text label="user:register.password" {(value)}="password" type="password" validation-message="{{passwordValidationMessage}}" />
-          <sentinel-button ($click)="submit" text="text.register" {icon-name}="submitIconName" {disabled}="working"/>
+          <sentinel-button ($click)="register" text="text.register" {icon-name}="submitIconName" {disabled}="working"/>
         </fieldset>
       </form>
     </sentinel-form>

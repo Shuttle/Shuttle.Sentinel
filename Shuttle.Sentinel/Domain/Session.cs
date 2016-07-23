@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Shuttle.Core.Infrastructure;
 
 namespace Shuttle.Sentinel
@@ -12,12 +13,12 @@ namespace Shuttle.Sentinel
 		public Session(Guid token, string email, DateTime dateRegistered)
 		{
 			Token = token;
-			EMail = email;
+			Username = email;
 			DateRegistered = dateRegistered;
 		}
 
 		public Guid Token { get; private set; }
-		public string EMail { get; private set; }
+		public string Username { get; private set; }
 		public DateTime DateRegistered { get; set; }
 
 		public IEnumerable<string> Permissions => new ReadOnlyCollection<string>(_permissions);
@@ -33,5 +34,10 @@ namespace Shuttle.Sentinel
 
 			_permissions.Add(permission);
 		}
+
+	    public bool HasPermission(string permission)
+	    {
+	        return _permissions.Contains(permission);
+	    }
 	}
 }

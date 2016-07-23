@@ -5,19 +5,22 @@ import 'can/map/define/define';
 import configuration from 'sentinel/configuration';
 
 export const User = can.Map.extend({
-  define: {}
+    define: {
+        username: {},
+        password: {}
+    }
 });
 
 User.List = can.List.extend({
-  Map: User
+    Map: User
 }, {});
 
 export const userConnection = superMap({
-  url: configuration.getApiUrl('users'),
-  idProp: 'email',
-  Map: User,
-  List: User.List,
-  name: 'user'
+    url: configuration.controllerUrl('users'),
+    idProp: 'username',
+    Map: User,
+    List: User.List,
+    name: 'user'
 });
 
 tag('user-model', userConnection);

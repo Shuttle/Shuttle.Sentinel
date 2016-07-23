@@ -18,7 +18,7 @@ namespace Shuttle.Sentinel.WebApi
 		{
 			Guard.AgainstNull(model, "model");
 
-			var registerSessionResult = _sessionService.Register(model.EMail, model.Password);
+			var registerSessionResult = _sessionService.Register(model.Username, model.Password);
 
 			return registerSessionResult.Ok
 				? (IHttpActionResult) Ok(new

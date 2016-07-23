@@ -1,8 +1,9 @@
 ﻿{
 	"title": "Users",
 	"register": {
+		"user-required": "Register an administrator",
 		"title": "Register a new user",
-		"email": "E-mail (as your username)",
+		"username": "Username",
 		"password": "Password"
 	}
 }

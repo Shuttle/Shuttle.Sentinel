@@ -3,31 +3,33 @@ import Map from 'can/map/';
 import localisation from 'sentinel/localisation';
 import AnonymousPermissions from 'sentinel/models/anonymous-permissions';
 import RegisterSession from 'sentinel/models/register-session';
+import state from 'sentinel/application-state';
 
 var security = {
-	_data: new Map({
-		permissions: [],
-		token: undefined
-	}),
-
 	hasSession: function () {
-		return this._data.attr('token') != undefined;
+		return state.attr('token') != undefined;
 	},
 
 	hasPermission: function (permission) {
 		var result = false;
 		var permissionCompare = permission.toLowerCase();
 
-		can.each(this._data.attr('permissions'), function (candidate) {
+		state.attr('permissions').each(function (item) {
 			if (result) {
 				return;
 			}
 
-			result = candidate.permission === '*' || candidate.permission.toLowerCase() === permissionCompare;
+			result = item.permission === '*' || item.permission.toLowerCase() === permissionCompare;
 		});
 
 		return result;
 	},
+
+    removePermission: function(permission) {
+        state.attr('permissions', state.attr('permissions').filter(function(item) {
+            return item.permission !== permission;
+        }));
+    },
 
 	fetchAnonymousPermissions: function () {
 		var self = this;
@@ -49,7 +51,7 @@ var security = {
 	},
 
 	_addPermission: function (type, permission) {
-		this._data.attr('permissions').push({ type: type, permission: permission });
+	    state.attr('permissions').push({ type: type, permission: permission });
 	},
 
 	login: function (email, password) {

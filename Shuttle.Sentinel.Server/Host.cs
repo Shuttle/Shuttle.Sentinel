@@ -6,8 +6,8 @@ using Shuttle.Core.Data;
 using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
-using Shuttle.Esb.Castle;
 using Shuttle.Esb;
+using Shuttle.Esb.Castle;
 using Shuttle.Esb.SqlServer;
 using Shuttle.Recall;
 using Shuttle.Recall.SqlServer;
@@ -27,7 +27,7 @@ namespace Shuttle.Sentinel.Server
 
         public void Start()
         {
-            Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof(Host))));
+            Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof (Host))));
 
             _container = new WindsorContainer();
 
@@ -54,19 +54,6 @@ namespace Shuttle.Sentinel.Server
                     c.MessageHandlerFactory(new CastleMessageHandlerFactory(_container).RegisterHandlers());
                     c.SubscriptionManager(subscriptionManager);
                 }).Start();
-
-            using (_container.Resolve<IDatabaseContextFactory>().Create())
-            {
-                if (_container.Resolve<ISystemUserQuery>().Count() == 0)
-                {
-                    _bus.Send(new RegisterUserCommand
-                    {
-                        EMail = "shuttle",
-                        PasswordHash = new HashingService().Sha256("shuttle!"),
-                        RegisteredBy = "system"
-                    }, c => c.Local());
-                }
-            }
         }
     }
 }

@@ -4,7 +4,7 @@ import $ from 'jquery';
 import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
 import state from 'sentinel/application-state';
-import Permissions from 'sentinel/Permissions';
+import 'bootstrap/dist/js/bootstrap'
 
 import 'sentinel/dashboard/';
 import 'sentinel/user/';
@@ -31,13 +31,11 @@ localisation.start(function(error) {
 
             can.route.map(state.route);
 
-            state.attr('loginStatus', security.hasPermission(Permissions.States.UserRequired) ? 'user-required' : 'not-logged-in');
-
             $('#application-container').html(template, state);
 
             can.route.ready();
 
-            window.location.hash = security.hasPermission(Permissions.States.UserRequired)
+            window.location.hash = state.attr('loginStatus') === 'user-required'
                                        ? '#!user/register'
                                        : '#!dashboard';
         })

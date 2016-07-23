@@ -40,7 +40,7 @@ values
 )
 ")
 				.AddParameterValue(SessionColumns.Token, session.Token)
-				.AddParameterValue(SessionColumns.EMail, session.EMail)
+				.AddParameterValue(SessionColumns.EMail, session.Username)
 				.AddParameterValue(SessionColumns.DateRegistered, session.DateRegistered);
 		}
 

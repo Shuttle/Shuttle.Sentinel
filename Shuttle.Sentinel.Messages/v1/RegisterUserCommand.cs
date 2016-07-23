@@ -2,7 +2,7 @@
 {
     public class RegisterUserCommand
     {
-		public string EMail { get; set; }
+		public string Username { get; set; }
 	    public byte[] PasswordHash { get; set; }
 	    public string RegisteredBy { get; set; }
     }

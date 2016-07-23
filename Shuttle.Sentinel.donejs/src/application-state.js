@@ -4,9 +4,25 @@ import resources from 'sentinel/resources';
 import logger from 'sentinel/logger';
 import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
+import Permissions from 'sentinel/Permissions';
 
 var State = Map.extend({
-	route: new Map(),
+    define: {
+        permissions: {
+            value: new can.List()
+        },
+        token: {
+            value: undefined
+        },
+        route: {
+            value: new Map()
+        },
+        loginStatus: {
+            get: function() {
+                return security.hasPermission(Permissions.States.UserRequired) ? 'user-required' : 'not-logged-in';
+            }
+        }
+    },
 
 	init: function () {
 		var self = this;

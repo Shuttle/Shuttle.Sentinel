@@ -1,6 +1,6 @@
 namespace Shuttle.Sentinel.WebApi
 {
-    public class RegisterSessionModel
+    public class RegisterUserModel
     {
         public string Username { get; set; }
         public string Password { get; set; }

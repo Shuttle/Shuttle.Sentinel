@@ -9,7 +9,7 @@ var configuration = new Map({
         return settings;
     },
 
-    getApiUrl: function(controller) {
+    controllerUrl: function(controller) {
         return this.settings().api + controller;
     }
 });

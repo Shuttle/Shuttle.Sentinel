@@ -59,14 +59,9 @@ namespace Shuttle.Sentinel.WebApi
 
 				ConfigureJson(GlobalConfiguration.Configuration);
 
-				var serviceBusConfiguration = new ServiceBusConfiguration
-				{
-					MessageHandlerFactory = new CastleMessageHandlerFactory(_container)
-				};
+				_bus = ServiceBus.Create().Start();
 
-				serviceBusConfiguration.QueueManager.ScanForQueueFactories();
-
-				_bus = new ServiceBus(serviceBusConfiguration).Start();
+			    _container.Register(Component.For<IServiceBus>().Instance(_bus));
 
 				_log.Information("[started]");
 			}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 
@@ -21,7 +22,7 @@ namespace Shuttle.Sentinel
 			_systemRoleQuery = systemRoleQuery;
 		}
 
-		public IEnumerable<string> Permissions(string email, object authenticationTag)
+		public IEnumerable<string> Permissions(string username, object authenticationTag)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -46,5 +47,10 @@ namespace Shuttle.Sentinel
 
 			return result;
 		}
+
+	    public bool HasPermission(string permission)
+	    {
+	        return AnonymousPermissions().Contains(permission);
+	    }
 	}
 }
