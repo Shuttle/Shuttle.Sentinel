@@ -1,5 +1,6 @@
 <can-import from='bootstrap/less/bootstrap.less!' />
 
 <sentinel-navigation />
+<sentinel-alerts />
 
-<div id='application-content' class='container'></div>
+<div id='application-content' class='container-fluid'></div>

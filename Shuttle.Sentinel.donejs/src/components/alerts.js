@@ -1,10 +1,9 @@
 import can from 'can';
-import Map from 'can/map/';
-import template from './navigation.stache!';
+import template from './alerts.stache!';
 import state from 'sentinel/application-state';
 
 export default can.Component.extend({
-    tag: 'sentinel-navigation',
+    tag: 'sentinel-alerts',
     template,
     viewModel: state
 });

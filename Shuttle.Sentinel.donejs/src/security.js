@@ -3,6 +3,7 @@ import localisation from 'sentinel/localisation';
 import AnonymousPermissions from 'sentinel/models/anonymous-permissions';
 import RegisterSession from 'sentinel/models/register-session';
 import state from 'sentinel/application-state';
+import alerts from 'sentinel/alerts';
 
 var security = {
     hasSession: function () {
@@ -61,13 +62,15 @@ var security = {
             password: password
         }).save()
 			.done(function (response) {
-			    if (response.ok) {
+			    if (response.registered) {
 			        deferred.resolve();
 			    } else {
+			        alerts.showDanger(localisation.value('exceptions.login', { username: username }));
 			        deferred.reject();
 			    }
 			})
-			.fail(function () {
+			.fail(function (error) {
+			    alerts.showDanger(error, 'danger');
 			    deferred.reject();
 			});
 

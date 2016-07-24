@@ -8,6 +8,9 @@ import Permissions from 'sentinel/Permissions';
 
 var State = Map.extend({
     define: {
+        alerts: {
+            value: new can.List()
+        },
         permissions: {
             value: new can.List()
         },
@@ -27,16 +30,12 @@ var State = Map.extend({
 	init: function () {
 		var self = this;
 		const callContext = function (ev, prop, change, newVal, oldVal) {
-		    if (change === 'add') {
-		        return;
-		    }
-
 		    self.handleRoute.call(self, ev, prop, change, newVal, oldVal);
 	    };
 	    this.route.bind('change', callContext);
 	},
 
-	handleRoute: function (ev, prop, change, newVal, oldVal) {
+    handleRoute: function (ev, prop, change, newVal, oldVal) {
 		var resource;
 		var componentName;
 		var resourceName = this.route.attr('resource');

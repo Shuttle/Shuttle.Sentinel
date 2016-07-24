@@ -4,6 +4,7 @@ import $ from 'jquery';
 import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
 import state from 'sentinel/application-state';
+import alerts from 'sentinel/alerts';
 import 'bootstrap/dist/js/bootstrap'
 
 import 'sentinel/dashboard/';
@@ -16,7 +17,8 @@ import 'sentinel/components/input';
 import 'sentinel/components/text';
 import 'sentinel/components/form';
 
-import 'sentinel/components/navigation.js';
+import 'sentinel/components/navigation';
+import 'sentinel/components/alerts';
 
 localisation.start(function(error) {
     if (error) {
@@ -32,11 +34,15 @@ localisation.start(function(error) {
 
             $('#application-container').html(template, state);
 
-            can.route.ready();
-
+            window.location.hash = '';
             window.location.hash = state.attr('loginStatus') === 'user-required'
                                        ? '#!user/register'
                                        : '#!dashboard';
+
+            can.route.ready();
+
+            alerts.addInfo("hello");
+            alerts.addDanger("hello");
         })
         .fail(function(e) {
             alert('[TODO: proper page] / ERROR : ' + e);
