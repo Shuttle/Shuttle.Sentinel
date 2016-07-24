@@ -32,11 +32,7 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 			_container.RegisterDataAccess("Shuttle.Recall.SqlServer");
 
 			_container.Register(Component.For<IDatabaseContextCache>().ImplementedBy<ThreadStaticDatabaseContextCache>());
-			_container.Register(Component.For<IEventStore>().ImplementedBy<EventStore>());
-			_container.Register(Component.For<IKeyStore>().ImplementedBy<KeyStore>());
 			_container.Register(Component.For<ISerializer>().ImplementedBy<DefaultSerializer>());
-			_container.Register(Component.For<IEventStoreQueryFactory>().ImplementedBy<EventStoreQueryFactory>());
-			_container.Register(Component.For<IKeyStoreQueryFactory>().ImplementedBy<KeyStoreQueryFactory>());
 			_container.Register(Component.For<IProjectionService>().ImplementedBy<ProjectionService>());
 			_container.Register(Component.For<IProjectionConfiguration>().Instance(ProjectionSection.Configuration()));
 			_container.RegisterConfiguration(SentinelSection.Configuration());

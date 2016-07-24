@@ -1,9 +1,12 @@
 ﻿{
 	"title": "Users",
-	"register": {
-		"user-required": "Register an administrator",
-		"title": "Register a new user",
-		"username": "Username",
-		"password": "Password"
-	}
+  "register": {
+    "user-required": "Register an administrator",
+    "title": "Register a new user",
+    "username": "Username",
+    "password": "Password"
+  },
+  "login": {
+    "title":  "Sign-in"
+  }
 }

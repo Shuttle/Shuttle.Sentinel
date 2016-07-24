@@ -34,11 +34,7 @@ namespace Shuttle.Sentinel.Server
             _container.RegisterDataAccessCore();
             _container.RegisterDataAccess("Shuttle.Sentinel");
 
-            _container.Register(Component.For<IEventStore>().ImplementedBy<EventStore>());
-            _container.Register(Component.For<IKeyStore>().ImplementedBy<KeyStore>());
             _container.Register(Component.For<ISerializer>().ImplementedBy<DefaultSerializer>());
-            _container.Register(Component.For<IEventStoreQueryFactory>().ImplementedBy<EventStoreQueryFactory>());
-            _container.Register(Component.For<IKeyStoreQueryFactory>().ImplementedBy<KeyStoreQueryFactory>());
             _container.Register(Component.For<ISubscriptionManager>().Instance(SubscriptionManager.Default()));
             _container.Register(Component.For<IDatabaseContextCache>().ImplementedBy<ThreadStaticDatabaseContextCache>());
             _container.Register(Component.For<IHashingService>().ImplementedBy<HashingService>());

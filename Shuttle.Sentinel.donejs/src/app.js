@@ -18,7 +18,6 @@ import 'sentinel/components/form';
 
 import 'sentinel/components/navigation.js';
 
-
 localisation.start(function(error) {
     if (error) {
         throw new Error(error);
@@ -39,7 +38,7 @@ localisation.start(function(error) {
                                        ? '#!user/register'
                                        : '#!dashboard';
         })
-        .fail(function(error) {
-            alert('[TODO: proper page] / ERROR : ' + error);
+        .fail(function(e) {
+            alert('[TODO: proper page] / ERROR : ' + e);
         });
 });

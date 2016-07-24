@@ -1,29 +1,28 @@
 import can from 'can';
-import Map from 'can/map/';
 import localisation from 'sentinel/localisation';
 import AnonymousPermissions from 'sentinel/models/anonymous-permissions';
 import RegisterSession from 'sentinel/models/register-session';
 import state from 'sentinel/application-state';
 
 var security = {
-	hasSession: function () {
-		return state.attr('token') != undefined;
-	},
+    hasSession: function () {
+        return state.attr('token') != undefined;
+    },
 
-	hasPermission: function (permission) {
-		var result = false;
-		var permissionCompare = permission.toLowerCase();
+    hasPermission: function (permission) {
+        var result = false;
+        var permissionCompare = permission.toLowerCase();
 
-		state.attr('permissions').each(function (item) {
-			if (result) {
-				return;
-			}
+        state.attr('permissions').each(function (item) {
+            if (result) {
+                return;
+            }
 
-			result = item.permission === '*' || item.permission.toLowerCase() === permissionCompare;
-		});
+            result = item.permission === '*' || item.permission.toLowerCase() === permissionCompare;
+        });
 
-		return result;
-	},
+        return result;
+    },
 
     removePermission: function(permission) {
         state.attr('permissions', state.attr('permissions').filter(function(item) {
@@ -31,53 +30,58 @@ var security = {
         }));
     },
 
-	fetchAnonymousPermissions: function () {
-		var self = this;
-		var deferred = can.Deferred();
+    fetchAnonymousPermissions: function () {
+        var self = this;
+        var deferred = can.Deferred();
 
-		AnonymousPermissions.findAll()
+        AnonymousPermissions.findAll()
 			.done(function (data) {
-				can.each(data, function (item) {
-					self._addPermission('anonymous', item.permission);
-				});
+			    can.each(data, function (item) {
+			        self._addPermission('anonymous', item.permission);
+			    });
 
-				deferred.resolve();
+			    deferred.resolve();
 			})
 			.fail(function () {
-				deferred.reject(localisation.value('exceptions.anonymous-permissions'));
+			    deferred.reject(localisation.value('exceptions.anonymous-permissions'));
 			});
 
-		return deferred;
-	},
+        return deferred;
+    },
 
-	_addPermission: function (type, permission) {
-	    state.attr('permissions').push({ type: type, permission: permission });
-	},
+    _addPermission: function (type, permission) {
+        state.attr('permissions').push({ type: type, permission: permission });
+    },
 
-	login: function (email, password) {
-		new RegisterSession({
-			email: email,
-			password: password
-		}).save()
+    login: function (username, password) {
+        var deferred = can.Deferred();
+
+        new RegisterSession({
+            username: username,
+            password: password
+        }).save()
 			.done(function (response) {
-				alert('logged in');
+			    if (response.ok) {
+			        deferred.resolve();
+			    } else {
+			        deferred.reject();
+			    }
 			})
 			.fail(function () {
-				alert('login failure!');
+			    deferred.reject();
 			});
-	},
 
-	logout: function() {
-		
-	},
+        return deferred;
+    },
 
-	accessDenied: function (permission) {
-		alert(this._localizatioService.value('security.access-denied', { hash: window.location.hash, permission: permission }));
+    logout: function() {
+    },
 
-		if (!hasSession) {
-			window.location.hash = '#!login';
-		}
-	}
+    accessDenied: function (permission) {
+        alert(localisation.value('security.access-denied', { hash: window.location.hash, permission: permission, interpolation: { escape: false } }));
+	    
+        window.location.hash = !this.hasSession() ? '#!user/login' : '#!dashboard';
+    }
 };
 
 export default security;

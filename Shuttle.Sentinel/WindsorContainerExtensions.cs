@@ -4,6 +4,8 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
+using Shuttle.Recall;
+using Shuttle.Recall.SqlServer;
 
 namespace Shuttle.Sentinel
 {
@@ -48,9 +50,13 @@ namespace Shuttle.Sentinel
 			container.Register(Component.For<IDbConnectionFactory>().ImplementedBy<DbConnectionFactory>());
 			container.Register(Component.For<IDatabaseContextFactory, IDatabaseContextFactory>().ImplementedBy<DatabaseContextFactory>());
 			container.Register(Component.For(typeof(IDataRepository<>)).ImplementedBy(typeof(DataRepository<>)));
-		}
+			container.Register(Component.For<IEventStore>().ImplementedBy<EventStore>());
+			container.Register(Component.For<IKeyStore>().ImplementedBy<KeyStore>());
+            container.Register(Component.For<IEventStoreQueryFactory>().ImplementedBy<EventStoreQueryFactory>());
+            container.Register(Component.For<IKeyStoreQueryFactory>().ImplementedBy<KeyStoreQueryFactory>());
+        }
 
-		public static void Register(this IWindsorContainer container, string assemblyName, string endsWith)
+        public static void Register(this IWindsorContainer container, string assemblyName, string endsWith)
 		{
 			container.Register(Assembly.Load(assemblyName), endsWith);
 		}

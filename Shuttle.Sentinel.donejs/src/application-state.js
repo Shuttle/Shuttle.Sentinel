@@ -26,8 +26,12 @@ var State = Map.extend({
 
 	init: function () {
 		var self = this;
-	    const callContext = function (ev, prop, change, newVal, oldVal) {
-	        self.handleRoute.call(self, ev, prop, change, newVal, oldVal);
+		const callContext = function (ev, prop, change, newVal, oldVal) {
+		    if (change === 'add') {
+		        return;
+		    }
+
+		    self.handleRoute.call(self, ev, prop, change, newVal, oldVal);
 	    };
 	    this.route.bind('change', callContext);
 	},

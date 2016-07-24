@@ -30,10 +30,10 @@
       <li>
         {{#switch loginStatus}}
         {{#case "user-required"}}
-        <a href='#!user/register'>{{i18n "navigation:register"}}</a>
+        <a href='#!user/register'>{{i18n "text.register"}}</a>
         {{/case}}
         {{#case "not-logged-in"}}
-        <a href='#!login'>{{i18n "navigation:sign-in"}}</a>
+        <a href='#!user/login'>{{i18n "text.sign-in"}}</a>
         {{/case}}
         {{/switch}}
       </li>

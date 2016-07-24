@@ -205,8 +205,9 @@ namespace Shuttle.Sentinel.WebApi
 			_container.RegisterDataAccess("Shuttle.Sentinel");
 
 			_container.Register(Component.For<IDatabaseContextCache>().ImplementedBy<ContextDatabaseContextCache>());
+            _container.Register(Component.For<ISerializer>().ImplementedBy<DefaultSerializer>());
 
-			_container.RegisterConfiguration(SentinelSection.Configuration());
+            _container.RegisterConfiguration(SentinelSection.Configuration());
 
 			_container.Register("Shuttle.Sentinel.WebApi", typeof (ApiController), "Controller");
 			_container.Register("Shuttle.Sentinel", "Service");

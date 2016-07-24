@@ -8,6 +8,11 @@ export default can.Component.extend({
         define: {
             type: {
                 get: function(type) {
+                    return type || 'button';
+                }
+            },
+            classType: {
+                get: function(type) {
                     return type || 'btn-primary';
                 }
             },

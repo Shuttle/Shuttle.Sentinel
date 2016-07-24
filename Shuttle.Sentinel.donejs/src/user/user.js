@@ -1,4 +1,5 @@
 ﻿import './register/';
+import './login/';
 
 import localisation from 'sentinel/localisation'
 
