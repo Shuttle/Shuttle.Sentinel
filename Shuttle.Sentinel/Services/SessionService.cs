@@ -1,20 +1,24 @@
 using System;
+using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 
 namespace Shuttle.Sentinel
 {
     public class SessionService : ISessionService
     {
+        private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IAuthenticationService _authenticationService;
         private readonly IAuthorizationService _authorizationService;
         private readonly ISessionRepository _sessionRepository;
 
-        public SessionService(IAuthenticationService authenticationService, IAuthorizationService authorizationService, ISessionRepository sessionRepository)
+        public SessionService(IDatabaseContextFactory databaseContextFactory, IAuthenticationService authenticationService, IAuthorizationService authorizationService, ISessionRepository sessionRepository)
         {
+            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
             Guard.AgainstNull(authenticationService, "authenticationService");
             Guard.AgainstNull(authorizationService, "authorizationService");
             Guard.AgainstNull(sessionRepository, "sessionRepository");
 
+            _databaseContextFactory = databaseContextFactory;
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
             _sessionRepository = sessionRepository;
@@ -36,7 +40,10 @@ namespace Shuttle.Sentinel
                 session.AddPermission(permission);
             }
 
-            _sessionRepository.Save(session);
+            using (_databaseContextFactory.Create())
+            {
+                _sessionRepository.Save(session);
+            }
 
             return RegisterSessionResult.Success(session.Token, session.Permissions);
         }

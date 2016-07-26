@@ -35,5 +35,24 @@ values
 		{
 			return RawQuery.Create("select count(*) as count from dbo.SystemUser");
 		}
+
+	    public IQuery RoleAdded(Guid id, RoleAdded domainEvent)
+	    {
+            return RawQuery.Create(@"
+if not exists(select null from [dbo].[SystemUserRole] where UserId = @UserId and RoleName = @RoleName)
+    insert into [dbo].[SystemUserRole]
+    (
+	    [UserId],
+	    [RoleName]
+    )
+    values
+    (
+	    @UserId,
+	    @RoleName
+    )
+")
+                .AddParameterValue(SystemUserRoleColumns.UserId, id)
+                .AddParameterValue(SystemUserRoleColumns.RoleName, domainEvent.Role);
+        }
 	}
 }

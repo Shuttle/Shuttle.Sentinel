@@ -8,5 +8,6 @@ namespace Shuttle.Sentinel
 	{
 		IQuery Register(Guid id, Registered domainEvent);
 		IQuery Count();
+	    IQuery RoleAdded(Guid id, RoleAdded domainEvent);
 	}
 }

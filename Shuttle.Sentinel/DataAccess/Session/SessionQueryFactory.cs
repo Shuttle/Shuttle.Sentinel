@@ -7,7 +7,7 @@ namespace Shuttle.Sentinel
 	{
 		public IQuery Get(Guid token)
 		{
-			return RawQuery.Create("select Token, EMail, DateRegistered from [dbo].[Session] where Token = @Token")
+			return RawQuery.Create("select Token, Username, DateRegistered from [dbo].[Session] where Token = @Token")
 				.AddParameterValue(SessionColumns.Token, token);
 		}
 
@@ -17,10 +17,10 @@ namespace Shuttle.Sentinel
 				.AddParameterValue(SessionColumns.Token, token);
 		}
 
-		public IQuery Remove(string email)
+		public IQuery Remove(string username)
 		{
-			return RawQuery.Create("delete from [dbo].[Session] where EMail = @EMail")
-				.AddParameterValue(SessionColumns.EMail, email);
+			return RawQuery.Create("delete from [dbo].[Session] where Username = @Username")
+				.AddParameterValue(SessionColumns.Username, username);
 		}
 
 		public IQuery Add(Session session)
@@ -29,18 +29,18 @@ namespace Shuttle.Sentinel
 insert into [dbo].[Session] 
 (
 	Token, 
-	EMail, 
+	Username, 
 	DateRegistered
 )
 values
 (
 	@Token, 
-	@EMail, 
+	@Username, 
 	@DateRegistered
 )
 ")
 				.AddParameterValue(SessionColumns.Token, session.Token)
-				.AddParameterValue(SessionColumns.EMail, session.Username)
+				.AddParameterValue(SessionColumns.Username, session.Username)
 				.AddParameterValue(SessionColumns.DateRegistered, session.DateRegistered);
 		}
 

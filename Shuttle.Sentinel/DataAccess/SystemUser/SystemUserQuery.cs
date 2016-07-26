@@ -24,7 +24,12 @@ namespace Shuttle.Sentinel
 			_databaseGateway.ExecuteUsing(_queryFactory.Register(projectionEvent.Id, domainEvent));
 		}
 
-		public int Count()
+	    public void RoleAdded(ProjectionEvent projectionEvent, RoleAdded domainEvent)
+	    {
+            _databaseGateway.ExecuteUsing(_queryFactory.RoleAdded(projectionEvent.Id, domainEvent));
+        }
+
+        public int Count()
 		{
 			return _databaseGateway.GetScalarUsing<int>(_queryFactory.Count());
 		}

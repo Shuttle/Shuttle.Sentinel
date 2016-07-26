@@ -80,6 +80,8 @@
   <ItemGroup>
     <Compile Include="DataAccess\SystemRole\ISystemRoleQuery.cs" />
     <Compile Include="DataAccess\SystemRole\SystemRoleQuery.cs" />
+    <Compile Include="DataAccess\SystemUser\SystemUserRoleColumns.cs" />
+    <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
     <Compile Include="Domain\SystemPermissions.cs" />
     <Compile Include="Services\IAnonymousPermissions.cs" />
     <Compile Include="SentinelResources.Designer.cs">
@@ -99,7 +101,6 @@
     <Compile Include="DataAccess\SystemUser\SessionColumns.cs" />
     <Compile Include="DataAccess\SystemUser\SystemUserQuery.cs" />
     <Compile Include="DataAccess\SystemUser\SystemUserQueryFactory.cs" />
-    <Compile Include="DomainEvents\User.v1\Activated.cs" />
     <Compile Include="DomainEvents\User.v1\Registered.cs" />
     <Compile Include="Domain\Session.cs" />
     <Compile Include="DataAccess\Session\SessionColumns.cs" />

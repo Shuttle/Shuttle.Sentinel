@@ -5,7 +5,8 @@ namespace Shuttle.Sentinel
 {
 	public interface ISystemUserQuery
 	{
-		void Register(ProjectionEvent projectionEvent, Registered domainEvent);
-		int Count();
+        int Count();
+        void Register(ProjectionEvent projectionEvent, Registered domainEvent);
+	    void RoleAdded(ProjectionEvent projectionEvent, RoleAdded domainEvent);
 	}
 }

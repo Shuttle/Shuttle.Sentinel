@@ -22,8 +22,11 @@ var State = Map.extend({
         },
         loginStatus: {
             get: function() {
-                return security.hasPermission(Permissions.States.UserRequired) ? 'user-required' : 'not-logged-in';
+                return security.hasPermission(Permissions.States.UserRequired) ? 'user-required' : this.attr('token') == undefined ? 'not-logged-in' : 'logged-in';
             }
+        },
+        username: {
+            value: undefined
         }
     },
 
@@ -73,7 +76,17 @@ var State = Map.extend({
 		componentName = resource.componentName || 'sentinel-' + resource.name + (isActionRoute ? '-' + actionName : '');
 
 		$('#application-content').html(can.stache('<' + componentName + '></' + componentName + '>')(this));
-	}
+    },
+
+    userLoggedIn: function(username, token) {
+        this.attr('username', username);
+        this.attr('token', token);
+    },
+
+    userLoggedOut: function() {
+        this.attr('username', undefined);
+        this.attr('token', undefined);
+    }
 });
 
 export default new State();

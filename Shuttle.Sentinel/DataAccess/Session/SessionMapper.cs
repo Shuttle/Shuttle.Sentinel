@@ -9,7 +9,7 @@ namespace Shuttle.Sentinel
 		{
 			return new MappedRow<Session>(row, new Session(
 				SessionColumns.Token.MapFrom(row), 
-				SessionColumns.EMail.MapFrom(row),
+				SessionColumns.Username.MapFrom(row),
 				SessionColumns.DateRegistered.MapFrom(row)));
 		}
 	}

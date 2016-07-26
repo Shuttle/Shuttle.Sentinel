@@ -35,6 +35,9 @@
         {{#case "not-logged-in"}}
         <a href='#!user/login'>{{i18n "text.sign-in"}}</a>
         {{/case}}
+        {{#case "logged-in"}}
+        <a href='#!user/login' ($click)='userLoggedOut()'>{{i18n "text.sign-out"}} - {{username}}</a>
+        {{/case}}
         {{/switch}}
       </li>
       <li>

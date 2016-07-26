@@ -14,17 +14,20 @@ namespace Shuttle.Sentinel.Server
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
         private readonly IKeyStore _keyStore;
+        private readonly ISystemUserQuery _systemUserQuery;
         private readonly ILog _log;
 
-        public RegisterUserHandler(IDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore)
+        public RegisterUserHandler(IDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore, ISystemUserQuery systemUserQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
             Guard.AgainstNull(eventStore, "eventStore");
             Guard.AgainstNull(keyStore, "keyStore");
+            Guard.AgainstNull(systemUserQuery, "systemUserQuery");
 
             _databaseContextFactory = databaseContextFactory;
             _eventStore = eventStore;
             _keyStore = keyStore;
+            _systemUserQuery = systemUserQuery;
 
             _log = Log.For(this);
         }
@@ -56,12 +59,19 @@ namespace Shuttle.Sentinel.Server
                     return;
                 }
 
+                var count = _systemUserQuery.Count();
+
                 _keyStore.Add(id, key);
 
                 var user = new User(id);
                 var stream = new EventStream(id);
 
                 registered = user.Register(message.Username, message.PasswordHash, message.RegisteredBy);
+
+                if (count == 0)
+                {
+                    stream.AddEvent(user.AddRole("administrator"));
+                }
 
                 stream.AddEvent(registered);
 

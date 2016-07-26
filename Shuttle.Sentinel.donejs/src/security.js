@@ -63,6 +63,8 @@ var security = {
         }).save()
 			.done(function (response) {
 			    if (response.registered) {
+			        state.userLoggedIn(username, response.token);
+
 			        deferred.resolve();
 			    } else {
 			        alerts.showDanger(localisation.value('exceptions.login', { username: username }));

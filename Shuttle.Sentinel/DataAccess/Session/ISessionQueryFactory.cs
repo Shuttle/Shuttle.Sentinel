@@ -7,7 +7,7 @@ namespace Shuttle.Sentinel
 	{
 		IQuery Get(Guid token);
 		IQuery GetPermissions(Guid token);
-		IQuery Remove(string email);
+		IQuery Remove(string username);
 		IQuery Add(Session session);
 		IQuery AddPermission(Guid token, string permission);
 		IQuery Remove(Guid token);

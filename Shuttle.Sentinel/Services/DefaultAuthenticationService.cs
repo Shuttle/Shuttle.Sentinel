@@ -51,11 +51,6 @@ namespace Shuttle.Sentinel
 
 			stream.Apply(user);
 
-			if (!user.Active)
-			{
-				return AuthenticationResult.Failure(AuthenticationResultType.ActivationRequired);
-			}
-
 			if (user.PasswordMatches(_hashingService.Sha256(password)))
 			{
 				return AuthenticationResult.Success();

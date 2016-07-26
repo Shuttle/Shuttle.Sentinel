@@ -10,6 +10,5 @@ namespace Shuttle.Sentinel
 		public static readonly MappedColumn<string> Username = new MappedColumn<string>("Username", DbType.String, 65);
 		public static readonly MappedColumn<DateTime> DateRegistered = new MappedColumn<DateTime>("DateRegistered", DbType.DateTime);
 		public static readonly MappedColumn<string> RegisteredBy = new MappedColumn<string>("RegisteredBy", DbType.String, 65);
-		public static readonly MappedColumn<DateTime> DateActivated = new MappedColumn<DateTime>("DateActivated", DbType.DateTime);
 	}
 }
