@@ -6,3 +6,5 @@ import 'sentinel/user/new/new_test';
 import 'sentinel/user/register/register_test';
 
 import 'sentinel/user/login/login_test';
+
+import 'sentinel/user/list/list_test';

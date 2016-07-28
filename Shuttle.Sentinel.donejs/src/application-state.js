@@ -60,7 +60,7 @@ var State = Map.extend({
 		}
 
 		if (!resource) {
-			logger.error(localisation.value('exceptions.resource-not-found', { hash: window.location.hash }));
+		    logger.error(localisation.value('exceptions.resource-not-found', { hash: window.location.hash, interpolation: { escape: false } }));
 
 		    if (window.location.hash !== '#!dashboard') {
 		        window.location.hash = '#!dashboard';

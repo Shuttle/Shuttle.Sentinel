@@ -9,7 +9,8 @@ var Permissions = {
         UserRequired: 'states://user-required'
     },
     View: {
-        Dashboard: 'view://dashboard'
+        Dashboard: 'view://dashboard',
+        User: 'view://user'
     },
     Register: {
         User: 'register://user'
