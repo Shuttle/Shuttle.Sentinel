@@ -3,60 +3,39 @@ import state from 'sentinel/application-state';
 var alerts = {
     _key: 1,
 
-    addSuccess: function(message) {
-        this.add({ message: message, type: 'success' });
-    },
-
-    addInfo: function(message) {
-        this.add({ message: message, type: 'info' });
-    },
-
-    addWarning: function(message) {
-        this.add({ message: message, type: 'warning' });
-    },
-
-    addDanger: function(message) {
-        this.add({ message: message, type: 'danger' });
-    },
-
-    add: function(options) {
-        this._push(options, 'add');
-    },
-
-    showSuccess: function(message) {
-        this.show({ message: message, type: 'success' });
-    },
-
-    showInfo: function(message) {
-        this.show({ message: message, type: 'info' });
-    },
-
-    showWarning: function(message) {
-        this.show({ message: message, type: 'warning' });
-    },
-
-    showDanger: function(message) {
-        this.show({ message: message, type: 'danger' });
-    },
-
     show: function(options) {
-        if (!options) {
+        if (!options || !options.message) {
             return;
         }
 
-        this.remove({ type: options.type || 'info' });
+        if (options.key || options.name) {
+            this.remove(options);
+        }
 
-        this._push(options, 'show');
+        this._push(options);
     },
 
     remove: function(options) {
-        const o = options || {};
-        var key = o.key;
-        var type = o.type || 'info';
-        var removal = !key ? 'type' : 'key';
+        if (!options || (!options.key && !options.name && !options.type)) {
+            return;
+        }
 
         state.attr('alerts', state.attr('alerts').filter(function(item) {
-            return (removal === 'type' && (item.mode !== 'show' || item.type !== type)) || (removal === 'key' && item.key !== key);
+            var keep = true;
+
+            if (options.key) {
+                keep = item.key !== options.key;
+            } else {
+                if (options.name) {
+                    keep = item.name !== options.name;
+                } else {
+                    if (options.type) {
+                        keep = (item.type || 'info') !== options.type;
+                    }
+                }
+            }
+
+            return keep;
         }));
     },
 
@@ -73,6 +52,7 @@ var alerts = {
             type: options.type || 'info',
             mode: mode,
             key: key,
+            name: options.name,
             destroy: function() {
                 self.remove({ key: key });
             }

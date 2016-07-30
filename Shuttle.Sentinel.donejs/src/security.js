@@ -64,15 +64,16 @@ var security = {
 			.done(function (response) {
 			    if (response.registered) {
 			        state.userLoggedIn(username, response.token);
+			        alerts.remove({ name: 'login-failure' });
 
 			        deferred.resolve();
 			    } else {
-			        alerts.showDanger(localisation.value('exceptions.login', { username: username }));
+			        alerts.show({ message: localisation.value('exceptions.login', { username: username }), type: 'danger', name: 'login-failure' });
 			        deferred.reject();
 			    }
 			})
 			.fail(function (error) {
-			    alerts.showDanger(error, 'danger');
+			    alerts.show(error, 'danger');
 			    deferred.reject();
 			});
 
@@ -80,12 +81,6 @@ var security = {
     },
 
     logout: function() {
-    },
-
-    accessDenied: function (permission) {
-        alert(localisation.value('security.access-denied', { hash: window.location.hash, permission: permission, interpolation: { escape: false } }));
-	    
-        window.location.hash = !this.hasSession() ? '#!user/login' : '#!dashboard';
     }
 };
 

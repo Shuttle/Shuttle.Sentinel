@@ -41,8 +41,8 @@ localisation.start(function(error) {
 
             can.route.ready();
 
-            alerts.addInfo("hello");
-            alerts.addDanger("hello");
+            alerts.show({ message: 'hello' });
+            alerts.show({ message: 'hello', type: 'danger' });
         })
         .fail(function(e) {
             alert('[TODO: proper page] / ERROR : ' + e);

@@ -5,6 +5,7 @@ import logger from 'sentinel/logger';
 import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
 import Permissions from 'sentinel/Permissions';
+import alerts from 'sentinel/alerts';
 
 var State = Map.extend({
     define: {
@@ -32,20 +33,19 @@ var State = Map.extend({
 
 	init: function () {
 		var self = this;
-		const callContext = function (ev, prop, change, newVal, oldVal) {
+
+		this.route.bind('change', function (ev, prop, change, newVal, oldVal) {
 		    self.handleRoute.call(self, ev, prop, change, newVal, oldVal);
-	    };
-	    this.route.bind('change', callContext);
+		});
 	},
 
-    handleRoute: function (ev, prop, change, newVal, oldVal) {
+	handleRoute: function (ev, prop, change, newVal, oldVal) {
 		var resource;
-		var componentName;
-		var resourceName = this.route.attr('resource');
+        var resourceName = this.route.attr('resource');
 		var actionName = this.route.attr('action');
-		var isActionRoute = ev.target.route === ':resource/:action';
+		var isActionRoute = !!actionName;
 
-		if (!resourceName) {
+        if (!resourceName) {
 			return;
 		}
 
@@ -60,20 +60,20 @@ var State = Map.extend({
 		}
 
 		if (!resource) {
-		    logger.error(localisation.value('exceptions.resource-not-found', { hash: window.location.hash, interpolation: { escape: false } }));
-
-		    if (window.location.hash !== '#!dashboard') {
-		        window.location.hash = '#!dashboard';
-		    }
+            alerts.show({ message: localisation.value('exceptions.resource-not-found', { hash: window.location.hash, interpolation: { escape: false } }), type: 'warning', name: 'route-error' });
 
 		    return;
 		}
 
 		if (resource.permission && !security.hasPermission(resource.permission)) {
-		    security.accessDenied(resource.permission);
+		    alerts.show({ message: localisation.value('security.access-denied', { name: resource.name || window.location.hash, permission: resource.permission, interpolation: { escape: false } }), type: 'danger', name: 'route-error' });
+	    
+		    return;
 		}
 
-		componentName = resource.componentName || 'sentinel-' + resource.name + (isActionRoute ? '-' + actionName : '');
+	    alerts.remove({ name: 'route-error' });
+
+		var componentName = resource.componentName || 'sentinel-' + resource.name + (isActionRoute ? '-' + actionName : '');
 
 		$('#application-content').html(can.stache('<' + componentName + '></' + componentName + '>')(this));
     },

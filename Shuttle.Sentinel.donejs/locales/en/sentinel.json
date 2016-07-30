@@ -5,7 +5,7 @@
     "login":  "Could not sign in username '{{username}}'.  Please ensure that you have entered the correct credentials."
 	},
 	"security": {
-		"access-denied": "You do not have access to '{{hash}}' as you require permission '{{permission}}'."
+		"access-denied": "You do not have access to '{{name}}' as you require permission '{{permission}}'."
 	},
   "text": {
     "register": "Register",
