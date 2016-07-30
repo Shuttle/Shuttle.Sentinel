@@ -32,19 +32,17 @@ localisation.start(function(error) {
 
             can.route.map(state.route);
 
+            can.route.ready();
+
+            alerts.show({ message: 'hello' });
+            alerts.show({ message: 'hello', type: 'danger' });
+        })
+        .always(function() {
             $('#application-container').html(template, state);
 
             window.location.hash = '';
             window.location.hash = state.attr('loginStatus') === 'user-required'
                                        ? '#!user/register'
                                        : '#!dashboard';
-
-            can.route.ready();
-
-            alerts.show({ message: 'hello' });
-            alerts.show({ message: 'hello', type: 'danger' });
-        })
-        .fail(function(e) {
-            alert('[TODO: proper page] / ERROR : ' + e);
         });
 });

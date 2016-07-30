@@ -13,6 +13,31 @@
     </div>
     <div class="navbar-header collapse navbar-collapse" id="sentinel-navigation">
       <ul class='nav navbar-nav'>
+        {{#each state.navigationItems}}
+        {{#if href}}
+        <li>
+          <a href='{{href}}'>{{i18n text}}</a>
+        </li>
+        {{else}}
+        {{#if items}}
+        <li class='dropdown'>
+          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+            {{i18n text}}
+            <b class='caret'></b>
+          </a>
+          <ul class='dropdown-menu'>
+            {{#each items}}
+            <li>
+              <a href='{{href}}'>{{i18n text}}</a>
+            </li>
+          {{/each}}
+          </ul>
+        </li>
+        {{/if}}
+        {{/if}}
+
+        {{/each}}
+        <!--        
         <li>
           <a href='#!dashboard'>{{i18n "navigation:dashboard"}}</a>
         </li>
@@ -39,6 +64,7 @@
             </li>
           </ul>
         </li>
+-->
       </ul>
     </div>
 

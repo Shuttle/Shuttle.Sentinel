@@ -6,7 +6,7 @@ import template from './list.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 
-resources.add('user', { action: 'list', permission: Permissions.View.User });
+resources.add('user', { action: 'list', permission: Permissions.View.Users });
 
 export const ViewModel = Map.extend({
   define: {

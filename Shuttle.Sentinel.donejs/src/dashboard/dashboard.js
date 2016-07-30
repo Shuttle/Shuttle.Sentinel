@@ -4,6 +4,12 @@ import 'can/map/define/';
 import template from './dashboard.stache!';
 import resources from 'sentinel/resources';
 import localisation from 'sentinel/localisation';
+import Permissions from 'sentinel/permissions';
+
+localisation.addNamespace('dashboard');
+
+resources.add('dashboard', { permission: Permissions.View.Dashboard });
+
 
 export const ViewModel = Map.extend({
     define: {
@@ -19,5 +25,3 @@ export default Component.extend({
     template
 });
 
-localisation.addNamespace('dashboard');
-resources.add('dashboard');

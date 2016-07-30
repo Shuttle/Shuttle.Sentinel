@@ -1,16 +1,14 @@
 var Permissions = {
-    Management: {
+    Manage: {
         Users: 'management://users'
-    },
-    Roles: {
-        Administrator: 'roles://administrator'
-    },
-    States: {
-        UserRequired: 'states://user-required'
     },
     View: {
         Dashboard: 'view://dashboard',
-        User: 'view://user'
+        Messages: 'view://messages',
+        Subscriptions: 'view://subscriptions',
+        Queues: 'view://queues',
+        DataStores: 'view://datastores',
+        Users: 'view://users'
     },
     Register: {
         User: 'register://user'

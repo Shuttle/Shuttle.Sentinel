@@ -1,9 +1,9 @@
 import can from 'can';
 import localisation from 'sentinel/localisation';
-import AnonymousPermissions from 'sentinel/models/anonymous-permissions';
 import RegisterSession from 'sentinel/models/register-session';
 import state from 'sentinel/application-state';
 import alerts from 'sentinel/alerts';
+import api from 'sentinel/api';
 
 var security = {
     hasSession: function () {
@@ -33,21 +33,18 @@ var security = {
 
     fetchAnonymousPermissions: function () {
         var self = this;
-        var deferred = can.Deferred();
 
-        AnonymousPermissions.findAll()
-			.done(function (data) {
-			    can.each(data, function (item) {
-			        self._addPermission('anonymous', item.permission);
-			    });
+        return api.get('anonymouspermissions')
+            .done(function(data) {
+                state.attr('requiresInitialAdministrator', data.requiresInitialAdministrator);
 
-			    deferred.resolve();
-			})
-			.fail(function () {
-			    deferred.reject(localisation.value('exceptions.anonymous-permissions'));
-			});
-
-        return deferred;
+                can.each(data.permissions, function(permission) {
+                    self._addPermission('anonymous', permission);
+                });
+            })
+            .fail(function() {
+                alerts.show({ message: localisation.value('exceptions.anonymous-permissions'), type: 'danger' });
+            });
     },
 
     _addPermission: function (type, permission) {
@@ -55,6 +52,7 @@ var security = {
     },
 
     login: function (username, password) {
+        var self = this;
         var deferred = can.Deferred();
 
         new RegisterSession({
@@ -65,6 +63,12 @@ var security = {
 			    if (response.registered) {
 			        state.userLoggedIn(username, response.token);
 			        alerts.remove({ name: 'login-failure' });
+
+			        self.removeUserPermissions();
+
+			        can.each(response.permissions, function (permission) {
+			            self._addPermission('user', permission);
+			        });
 
 			        deferred.resolve();
 			    } else {
@@ -81,6 +85,16 @@ var security = {
     },
 
     logout: function() {
+        state.attr('username', undefined);
+        state.attr('token', undefined);
+
+        this.removeUserPermissions();
+    },
+
+    removeUserPermissions: function() {
+        state.attr('permissions', state.attr('permissions').filter(function(item) {
+            return item.type !== 'user';
+        }));
     }
 };
 

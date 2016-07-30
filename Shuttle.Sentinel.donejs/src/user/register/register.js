@@ -46,8 +46,6 @@ export const ViewModel = Map.extend({
 
                 window.location.hash = '#!dashboard';
             })
-            .fail(function() {
-            })
             .always(function() {
                 self.attr('working', false);
             });

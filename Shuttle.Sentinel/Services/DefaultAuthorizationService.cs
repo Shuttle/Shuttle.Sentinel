@@ -41,8 +41,8 @@ namespace Shuttle.Sentinel
 
             if (count == 0)
             {
-                result.Add(SystemPermissions.States.UserRequired);
                 result.Add(SystemPermissions.Register.User);
+                result.Add(SystemPermissions.Register.InitialAdministrator);
             }
 
             return result;
