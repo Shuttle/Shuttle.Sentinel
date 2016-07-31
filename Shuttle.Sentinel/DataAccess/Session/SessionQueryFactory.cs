@@ -13,7 +13,7 @@ namespace Shuttle.Sentinel
 
 		public IQuery GetPermissions(Guid token)
 		{
-			return RawQuery.Create("select Permission [dbo].[SessionPermission] where Token = @Token")
+			return RawQuery.Create("select Permission from [dbo].[SessionPermission] where Token = @Token")
 				.AddParameterValue(SessionColumns.Token, token);
 		}
 
@@ -67,5 +67,25 @@ values
 			return RawQuery.Create("delete from [dbo].[Session] where Token = @Token")
 				.AddParameterValue(SessionColumns.Token, token);
 		}
+
+	    public IQuery Contains(Guid token)
+	    {
+            return RawQuery.Create("if exists (select null from [dbo].[Session] where Token = @Token) select 1 else select 0")
+                .AddParameterValue(SessionColumns.Token, token);
+        }
+
+	    public IQuery Contains(Guid token, string permission)
+	    {
+            return RawQuery.Create("if exists (select null from [dbo].[SessionPermission] where Token = @Token and Permission = @Permission) select 1 else select 0")
+                .AddParameterValue(SessionPermissionColumns.Token, token)
+                .AddParameterValue(SessionPermissionColumns.Permission, permission);
+        }
+
+	    public IQuery Renewed(Session session)
+	    {
+	        return RawQuery.Create("update [dbo].[Session] set Token = @Token where Username = @Username")
+	            .AddParameterValue(SessionColumns.Token, session.Token)
+	            .AddParameterValue(SessionColumns.Username, session.Username);
+	    }
 	}
 }

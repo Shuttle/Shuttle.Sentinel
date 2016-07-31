@@ -7,6 +7,7 @@ import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import api from 'sentinel/api';
 import security from 'sentinel/security';
+import state from 'sentinel/application-state';
 
 resources.add('user', { action: 'register', permission: Permissions.Register.User });
 
@@ -28,7 +29,7 @@ export const ViewModel = Map.extend({
         },
         title: {
             get: function() {
-                return security.hasPermission(Permissions.States.UserRequired) ? 'user:register.user-required' : 'user:register.title';
+                return state.attr('requiresInitialAdministrator') ? 'user:register.user-required' : 'user:register.title';
             }
         }
     },

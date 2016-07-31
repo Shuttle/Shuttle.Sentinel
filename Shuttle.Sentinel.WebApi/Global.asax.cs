@@ -63,6 +63,9 @@ namespace Shuttle.Sentinel.WebApi
 
 			    _container.Register(Component.For<IServiceBus>().Instance(_bus));
 
+                RequiresPermissionAttribute.Assign(_container);
+                RequiresSessionAttribute.Assign(_container);
+
 				_log.Information("[started]");
 			}
 			catch (Exception ex)

@@ -7,5 +7,6 @@ namespace Shuttle.Sentinel
 		void Save(Session session);
 		Session Get(Guid token);
 		void Remove(Guid token);
+	    void Renewed(Session session);
 	}
 }

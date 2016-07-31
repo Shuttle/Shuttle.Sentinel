@@ -117,6 +117,8 @@
     <Compile Include="ApplicationStart\WebApiConfiguration.cs" />
     <Compile Include="Controllers\AnonymousPermissionsController.cs" />
     <Compile Include="Controllers\EnvironmentsController.cs" />
+    <Compile Include="Infrastructure\RequiresSessionAttribute.cs" />
+    <Compile Include="Infrastructure\RequiresPermissionAttribute.cs" />
     <Compile Include="Infrastructure\SentinelApiController.cs" />
     <Compile Include="Controllers\ServerController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

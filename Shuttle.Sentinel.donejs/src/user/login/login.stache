@@ -1,4 +1,3 @@
-<p>{{message}}</p>
 <sentinel-form title="user:login.title">
   <form>
     <fieldset class="form-group">

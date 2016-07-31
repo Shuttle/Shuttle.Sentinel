@@ -10,10 +10,10 @@ namespace Shuttle.Sentinel
 	{
 		private readonly List<string> _permissions = new List<string>();
 
-		public Session(Guid token, string email, DateTime dateRegistered)
+		public Session(Guid token, string username, DateTime dateRegistered)
 		{
 			Token = token;
-			Username = email;
+			Username = username;
 			DateRegistered = dateRegistered;
 		}
 
@@ -38,6 +38,11 @@ namespace Shuttle.Sentinel
 	    public bool HasPermission(string permission)
 	    {
 	        return _permissions.Contains(permission);
+	    }
+
+	    public void Renew()
+	    {
+	        Token = Guid.NewGuid();
 	    }
 	}
 }

@@ -1,4 +1,6 @@
-﻿using Shuttle.Core.Data;
+﻿using System.Collections.Generic;
+using System.Data;
+using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Recall;
 using Shuttle.Sentinel.DomainEvents.User.v1;
@@ -29,7 +31,12 @@ namespace Shuttle.Sentinel
             _databaseGateway.ExecuteUsing(_queryFactory.RoleAdded(projectionEvent.Id, domainEvent));
         }
 
-        public int Count()
+	    public IEnumerable<DataRow> Search()
+	    {
+	        return _databaseGateway.GetRowsUsing(_queryFactory.Search());
+	    }
+
+	    public int Count()
 		{
 			return _databaseGateway.GetScalarUsing<int>(_queryFactory.Count());
 		}

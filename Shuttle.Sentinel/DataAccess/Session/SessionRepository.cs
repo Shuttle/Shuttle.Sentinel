@@ -51,5 +51,10 @@ namespace Shuttle.Sentinel
 		{
 			_databaseGateway.ExecuteUsing(_queryFactory.Remove(token));
 		}
+
+	    public void Renewed(Session session)
+	    {
+	        _databaseGateway.ExecuteUsing(_queryFactory.Renewed(session));
+	    }
 	}
 }

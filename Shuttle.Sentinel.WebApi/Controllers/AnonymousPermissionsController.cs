@@ -5,7 +5,7 @@ using Shuttle.Core.Infrastructure;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    public class AnonymousPermissionsController : ApiController
+    public class AnonymousPermissionsController : SentinelApiController
     {
         private readonly IAuthorizationService _authorizationService;
         private readonly List<string> _emptyAnonymousPermissions = new List<string>();

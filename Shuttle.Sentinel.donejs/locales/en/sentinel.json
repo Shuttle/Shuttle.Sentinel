@@ -8,8 +8,10 @@
 		"access-denied": "You do not have access to '{{name}}' as you require permission '{{permission}}'."
 	},
   "text": {
+    "add": "Add",
+    "remove": "Remove",
     "register": "Register",
-    "sign-in":  "Sign In",
-    "sign-out":  "Sign Out"
+    "sign-in": "Sign In",
+    "sign-out": "Sign Out"
   }
 }

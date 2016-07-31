@@ -1,1 +1,31 @@
-<p>{{message}}</p>
+<sentinel-page-title title="user:list.title" />
+<sentinel-button ($click)="add()" text="text.add" />
+{{#if users.isPending}}
+LOADING...
+{{/if}}
+{{#if users.isResolved}}
+<div class="users">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Date Registered</th>
+        <th>Registered By</th>
+        <th>Permissions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users.value}}
+      <tr>
+        <td data-title="Username">{{username}}</td>
+        <td data-title="Date Registered">{{dateRegistered}}</td>
+        <td data-title="Registered By">{{registeredBy}}</td>
+        <td data-title="Permissions">
+          <sentinel-button class-type="default" ($click)="permissions()" text="user:list.permissions" />
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/if}}

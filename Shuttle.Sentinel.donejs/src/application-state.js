@@ -75,7 +75,7 @@ var State = Map.extend({
         });
     },
 
-    handleRoute: function (ev, prop, change, newVal, oldVal) {
+    handleRoute: function () {
         var resource;
         var resourceName = this.route.attr('resource');
         var actionName = this.route.attr('action');
@@ -86,7 +86,7 @@ var State = Map.extend({
         }
 
         if (isActionRoute) {
-            if (prop === 'resource') {
+            if (!actionName) {
                 return;
             }
 

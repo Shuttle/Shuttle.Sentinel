@@ -5,13 +5,16 @@ import './list.less!';
 import template from './list.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
+import User from 'sentinel/models/user';
 
 resources.add('user', { action: 'list', permission: Permissions.View.Users });
 
 export const ViewModel = Map.extend({
   define: {
-    message: {
-      value: 'This is the sentinel-user-list component'
+    users: {
+      value: function() {
+          return User.getList();
+      }
     }
   }
 });

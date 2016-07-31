@@ -6,9 +6,8 @@ namespace Shuttle.Sentinel
 	public enum AuthenticationResultType
 	{
 		Authenticated = 0,
-		ActivationRequired = 1,
-		PasswordExpired = 2,
-		Failure = 3
+		PasswordExpired = 1,
+		Failure = 2
 	}
 
 	public class AuthenticationResult

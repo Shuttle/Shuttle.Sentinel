@@ -1,3 +1,4 @@
+using System;
 using System.Web.Http;
 using Shuttle.Core.Infrastructure;
 
@@ -18,7 +19,20 @@ namespace Shuttle.Sentinel.WebApi
 		{
 			Guard.AgainstNull(model, "model");
 
-			var registerSessionResult = _sessionService.Register(model.Username, model.Password);
+		    if (string.IsNullOrEmpty(model.Username) ||
+		        (string.IsNullOrEmpty(model.Password) && string.IsNullOrEmpty(model.Token)))
+		    {
+                return Ok(new
+                {
+                    Registered = false
+                });
+            }
+
+		    Guid token;
+
+		    Guid.TryParse(model.Token, out token);
+
+			var registerSessionResult = _sessionService.Register(model.Username, model.Password, token);
 
 			return registerSessionResult.Ok
 				? (IHttpActionResult) Ok(new

@@ -1,9 +1,22 @@
+import $ from 'jquery';
 import can from 'can';
 import localisation from 'sentinel/localisation';
 import RegisterSession from 'sentinel/models/register-session';
 import state from 'sentinel/application-state';
 import alerts from 'sentinel/alerts';
 import api from 'sentinel/api';
+
+$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+    options.beforeSend = function (xhr) {
+        if (state.attr('token')) {
+            xhr.setRequestHeader('sentinel-sessiontoken', state.attr('token'));
+        }
+
+        if (originalOptions.beforeSend) {
+            originalOptions.beforeSend(xhr);
+        }
+    }
+});
 
 var security = {
     hasSession: function () {
@@ -31,37 +44,67 @@ var security = {
         }));
     },
 
-    fetchAnonymousPermissions: function () {
+    start: function () {
         var self = this;
+        var deferred = $.Deferred();
 
-        return api.get('anonymouspermissions')
+        api.get('anonymouspermissions')
             .done(function(data) {
+                var username = localStorage.getItem('username');
+                var token = localStorage.getItem('token');
+
                 state.attr('requiresInitialAdministrator', data.requiresInitialAdministrator);
 
                 can.each(data.permissions, function(permission) {
                     self._addPermission('anonymous', permission);
                 });
+
+                if (!!username && !!token) {
+                    self.login({ username: username, token: token })
+                        .done(function() {
+                            deferred.resolve();
+                        })
+                        .fail(function() {
+                            deferred.reject();
+                        });
+                } else {
+                    deferred.resolve();
+                }
             })
             .fail(function() {
                 alerts.show({ message: localisation.value('exceptions.anonymous-permissions'), type: 'danger' });
+
+                deferred.reject();
             });
+
+        return deferred;
     },
 
     _addPermission: function (type, permission) {
         state.attr('permissions').push({ type: type, permission: permission });
     },
 
-    login: function (username, password) {
+    login: function (options) {
         var self = this;
-        var deferred = can.Deferred();
 
-        new RegisterSession({
-            username: username,
-            password: password
+        if (!options) {
+            return $.Deferred().reject();
+        }
+
+        var usingToken = !!options.token;
+
+        return new RegisterSession({
+            username: options.username,
+            password: options.password,
+            token: options.token
         }).save()
 			.done(function (response) {
 			    if (response.registered) {
-			        state.userLoggedIn(username, response.token);
+			        state.userLoggedIn(options.username, response.token);
+
+			        localStorage.setItem('username', options.username);
+			        localStorage.setItem('token', response.token);
+			        
 			        alerts.remove({ name: 'login-failure' });
 
 			        self.removeUserPermissions();
@@ -69,24 +112,23 @@ var security = {
 			        can.each(response.permissions, function (permission) {
 			            self._addPermission('user', permission);
 			        });
-
-			        deferred.resolve();
 			    } else {
-			        alerts.show({ message: localisation.value('exceptions.login', { username: username }), type: 'danger', name: 'login-failure' });
-			        deferred.reject();
+			        if (usingToken) {
+			            alerts.show({ message: localisation.value('exceptions.login', { username: options.username }), type: 'danger', name: 'login-failure' });
+			        }
 			    }
 			})
 			.fail(function (error) {
 			    alerts.show(error, 'danger');
-			    deferred.reject();
 			});
-
-        return deferred;
     },
 
     logout: function() {
         state.attr('username', undefined);
         state.attr('token', undefined);
+
+        localStorage.removeItem('username');
+        localStorage.removeItem('token');
 
         this.removeUserPermissions();
     },

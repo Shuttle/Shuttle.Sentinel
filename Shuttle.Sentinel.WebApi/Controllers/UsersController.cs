@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Threading;
 using System.Web.Http;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
@@ -9,13 +11,14 @@ namespace Shuttle.Sentinel.WebApi
     public class UsersController : SentinelApiController
     {
         private readonly IAuthorizationService _authorizationService;
-        private readonly ISystemUserQuery _systemUserQuery;
-        private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IServiceBus _bus;
+        private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IHashingService _hashingService;
         private readonly ISessionRepository _sessionRepository;
+        private readonly ISystemUserQuery _systemUserQuery;
 
-        public UsersController(IDatabaseContextFactory databaseContextFactory, IServiceBus bus, IHashingService hashingService, ISessionRepository sessionRepository,
+        public UsersController(IDatabaseContextFactory databaseContextFactory, IServiceBus bus,
+            IHashingService hashingService, ISessionRepository sessionRepository,
             IAuthorizationService authorizationService, ISystemUserQuery systemUserQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
@@ -31,6 +34,27 @@ namespace Shuttle.Sentinel.WebApi
             _sessionRepository = sessionRepository;
             _authorizationService = authorizationService;
             _systemUserQuery = systemUserQuery;
+        }
+
+        [RequiresPermission(SystemPermissions.View.Users)]
+        public IHttpActionResult Get()
+        {
+            Thread.Sleep(3000);
+
+            using (_databaseContextFactory.Create())
+            {
+                return Ok(new
+                {
+                    Data = from row in _systemUserQuery.Search()
+                        select new
+                        {
+                            Id = SystemUserColumns.Id.MapFrom(row),
+                            Username = SystemUserColumns.Username.MapFrom(row),
+                            DateRegistered = SystemUserColumns.DateRegistered.MapFrom(row),
+                            RegisteredBy = SystemUserColumns.RegisteredBy.MapFrom(row)
+                        }
+                });
+            }
         }
 
         public IHttpActionResult Post([FromBody] RegisterUserModel model)

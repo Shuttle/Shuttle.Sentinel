@@ -4,23 +4,23 @@
 	{
 		public static class Manage
 		{
-			public static readonly string Users = "manage://users";
+			public const string Users = "manage://users";
 		}
 
 		public static class Register
 		{
-			public static readonly string InitialAdministrator = "register://initial-administrator";
-			public static readonly string User = "register://user";
+			public const string InitialAdministrator = "register://initial-administrator";
+			public const string User = "register://user";
 		}
 
 		public static class View
 		{
-			public static readonly string Dashboard = "view://dashboard";
-			public static readonly string Messages = "view://messages";
-			public static readonly string Subscriptions = "view://subscriptions";
-			public static readonly string DataStores = "view://datastores";
-			public static readonly string Queues = "view://queues";
-			public static readonly string Users = "view://users";
+			public const string Dashboard = "view://dashboard";
+			public const string Messages = "view://messages";
+			public const string Subscriptions = "view://subscriptions";
+			public const string DataStores = "view://datastores";
+			public const string Queues = "view://queues";
+			public const string Users = "view://users";
 		}
 	}
 }

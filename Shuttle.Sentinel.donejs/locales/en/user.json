@@ -1,6 +1,7 @@
 ﻿{
   "list": {
-    "title":  "Users"
+    "title": "Users",
+    "permissions":  "Permissions"
   },
   "register": {
     "user-required": "Register an administrator",

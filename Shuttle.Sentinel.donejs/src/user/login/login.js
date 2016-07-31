@@ -31,7 +31,10 @@ export const ViewModel = Map.extend({
         var self = this;
         this.attr('working', true);
 
-        security.login(this.attr('username'), this.attr('password'))
+        security.login({
+            username: this.attr('username'),
+            password: this.attr('password')
+        })
             .done(function() {
                 window.location.hash = '#!dashboard';
             })
@@ -42,7 +45,7 @@ export const ViewModel = Map.extend({
 });
 
 export default Component.extend({
-  tag: 'sentinel-user-login',
-  viewModel: ViewModel,
-  template
+    tag: 'sentinel-user-login',
+    viewModel: ViewModel,
+    template
 });

@@ -24,25 +24,48 @@ namespace Shuttle.Sentinel
             _sessionRepository = sessionRepository;
         }
 
-        public RegisterSessionResult Register(string username, string password)
+        public RegisterSessionResult Register(string username, string password, Guid token)
         {
-            var authenticationResult = _authenticationService.Authenticate(username, password);
+            AuthenticationResult authenticationResult;
 
-            if (!authenticationResult.Authenticated)
+            if (string.IsNullOrEmpty(username) || (string.IsNullOrEmpty(password) && token.Equals(Guid.Empty)))
             {
                 return RegisterSessionResult.Failure();
             }
 
-            var session = new Session(Guid.NewGuid(), username, DateTime.Now);
+            Session session;
 
-            foreach (var permission in _authorizationService.Permissions(username, authenticationResult.AuthenticationTag))
+            if (!string.IsNullOrEmpty(password))
             {
-                session.AddPermission(permission);
+                authenticationResult = _authenticationService.Authenticate(username, password);
+
+                if (!authenticationResult.Authenticated)
+                {
+                    return RegisterSessionResult.Failure();
+                }
+
+                session = new Session(Guid.NewGuid(), username, DateTime.Now);
+
+                foreach (var permission in _authorizationService.Permissions(username, authenticationResult.AuthenticationTag))
+                {
+                    session.AddPermission(permission);
+                }
+
+                using (_databaseContextFactory.Create())
+                {
+                    _sessionRepository.Save(session);
+                }
             }
-
-            using (_databaseContextFactory.Create())
+            else
             {
-                _sessionRepository.Save(session);
+                using (_databaseContextFactory.Create())
+                {
+                    session = _sessionRepository.Get(token);
+
+                    session.Renew();
+
+                    _sessionRepository.Renewed(session);
+                }
             }
 
             return RegisterSessionResult.Success(session.Token, session.Permissions);

@@ -78,6 +78,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Session\ISessionQuery.cs" />
+    <Compile Include="DataAccess\Session\SessionQuery.cs" />
     <Compile Include="DataAccess\SystemRole\ISystemRoleQuery.cs" />
     <Compile Include="DataAccess\SystemRole\SystemRoleQuery.cs" />
     <Compile Include="DataAccess\SystemUser\SystemUserRoleColumns.cs" />

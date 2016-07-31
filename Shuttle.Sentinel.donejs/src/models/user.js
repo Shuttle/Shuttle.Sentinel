@@ -5,10 +5,6 @@ import 'can/map/define/define';
 import configuration from 'sentinel/configuration';
 
 export const User = can.Map.extend({
-    define: {
-        username: {},
-        password: {}
-    }
 });
 
 User.List = can.List.extend({

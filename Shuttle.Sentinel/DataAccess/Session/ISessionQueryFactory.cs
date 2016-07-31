@@ -11,5 +11,8 @@ namespace Shuttle.Sentinel
 		IQuery Add(Session session);
 		IQuery AddPermission(Guid token, string permission);
 		IQuery Remove(Guid token);
+	    IQuery Contains(Guid token);
+	    IQuery Contains(Guid token, string permission);
+	    IQuery Renewed(Session session);
 	}
 }

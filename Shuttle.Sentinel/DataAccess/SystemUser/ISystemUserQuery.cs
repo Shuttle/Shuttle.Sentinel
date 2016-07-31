@@ -1,4 +1,7 @@
-﻿using Shuttle.Recall;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using Shuttle.Recall;
 using Shuttle.Sentinel.DomainEvents.User.v1;
 
 namespace Shuttle.Sentinel
@@ -8,5 +11,6 @@ namespace Shuttle.Sentinel
         int Count();
         void Register(ProjectionEvent projectionEvent, Registered domainEvent);
 	    void RoleAdded(ProjectionEvent projectionEvent, RoleAdded domainEvent);
+	    IEnumerable<DataRow> Search();
 	}
 }
