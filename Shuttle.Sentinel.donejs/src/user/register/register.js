@@ -7,7 +7,7 @@ import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import api from 'sentinel/api';
 import security from 'sentinel/security';
-import state from 'sentinel/application-state';
+import state from 'sentinel/state';
 
 resources.add('user', { action: 'register', permission: Permissions.Register.User });
 

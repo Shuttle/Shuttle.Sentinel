@@ -1,4 +1,4 @@
-import state from 'sentinel/application-state';
+import state from 'sentinel/state';
 
 var alerts = {
     _key: 1,

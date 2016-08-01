@@ -3,7 +3,7 @@ import template from 'sentinel/index.stache!';
 import $ from 'jquery';
 import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
-import state from 'sentinel/application-state';
+import state from 'sentinel/state';
 import 'bootstrap/dist/js/bootstrap'
 
 import 'sentinel/dashboard/';

@@ -22,7 +22,7 @@ var State = Map.extend({
         },
         loginStatus: {
             get: function() {
-                return security.requiresInitialAdministrator ? 'user-required' : this.attr('token') == undefined ? 'not-logged-in' : 'logged-in';
+                return this.attr('requiresInitialAdministrator') ? 'user-required' : this.attr('token') == undefined ? 'not-logged-in' : 'logged-in';
             }
         },
         username: {

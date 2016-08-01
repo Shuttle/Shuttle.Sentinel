@@ -2,7 +2,7 @@ import $ from 'jquery';
 import can from 'can';
 import localisation from 'sentinel/localisation';
 import RegisterSession from 'sentinel/models/register-session';
-import state from 'sentinel/application-state';
+import state from 'sentinel/state';
 import alerts from 'sentinel/alerts';
 import api from 'sentinel/api';
 
@@ -55,8 +55,8 @@ var security = {
 
                 state.attr('requiresInitialAdministrator', data.requiresInitialAdministrator);
 
-                can.each(data.permissions, function(permission) {
-                    self._addPermission('anonymous', permission);
+                can.each(data.permissions, function(item) {
+                    self._addPermission('anonymous', item.permission);
                 });
 
                 if (!!username && !!token) {

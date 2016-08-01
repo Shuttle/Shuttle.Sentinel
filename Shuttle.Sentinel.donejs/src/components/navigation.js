@@ -1,7 +1,7 @@
 import can from 'can';
 import Map from 'can/map/';
 import template from './navigation.stache!';
-import state from 'sentinel/application-state';
+import state from 'sentinel/state';
 import security from 'sentinel/security';
 
 export const ViewModel = Map.extend({
