@@ -121,6 +121,10 @@ var State = Map.extend({
 
     userLoggedOut: function() {
         security.logout();
+    },
+
+    goto: function(href) {
+        window.location.hash = (href.indexOf('#!') === -1 ? '#!' : '') + href;
     }
 });
 

@@ -39,8 +39,6 @@ namespace Shuttle.Sentinel.WebApi
         [RequiresPermission(SystemPermissions.View.Users)]
         public IHttpActionResult Get()
         {
-            Thread.Sleep(3000);
-
             using (_databaseContextFactory.Create())
             {
                 return Ok(new

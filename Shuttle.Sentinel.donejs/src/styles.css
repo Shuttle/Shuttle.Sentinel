@@ -3,7 +3,7 @@ body {
   font-weight: 300;
 }
 
-.sentinel-navigation-p-l { padding: 0 15px 0 15px; }
+.sentinel-buttons { margin: 15px 0; }
 
 @media only screen and (max-width: 800px) {
 	/* Force table to not be like tables anymore */

@@ -1,8 +1,9 @@
 ﻿import can from 'can';
 import template from './button.stache!';
+import security from 'sentinel/security';
 
 export default can.Component.extend({
-	tag: 'sentinel-button',
+    tag: 'sentinel-button',
     template,
     viewModel: can.Map.extend({
         define: {
@@ -20,7 +21,18 @@ export default can.Component.extend({
                 value: ''
             },
             disabled: {
-                value: false
+                get: function(value) {
+                    var disabled = value;
+
+                    if (this.attr('permission')) {
+                        disabled = value && !security.hasPermission(this.attr('permission'));
+                    }
+
+                    return disabled;
+                }
+            },
+            permission: {
+                value:''
             }
         }
     })

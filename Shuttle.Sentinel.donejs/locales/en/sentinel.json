@@ -12,6 +12,7 @@
     "remove": "Remove",
     "register": "Register",
     "sign-in": "Sign In",
-    "sign-out": "Sign Out"
+    "sign-out": "Sign Out",
+    "fetching":  "Fetching {{name}}"
   }
 }

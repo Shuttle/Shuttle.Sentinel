@@ -10,7 +10,9 @@ import 'sentinel/dashboard/';
 import 'sentinel/user/';
 
 import 'sentinel/components/button';
+import 'sentinel/components/buttons';
 import 'sentinel/components/container';
+import 'sentinel/components/fetching';
 import 'sentinel/components/label';
 import 'sentinel/components/input';
 import 'sentinel/components/text';
@@ -40,9 +42,11 @@ localisation.start(function(error) {
 
             $('#application-container').html(template, state);
 
-            window.location.hash = state.attr('loginStatus') === 'user-required'
-                                       ? '#!user/register'
-                                       : '#!dashboard';
+            if (window.location.hash === '#!' || !window.location.hash) {
+                window.location.hash = state.attr('loginStatus') === 'user-required'
+                                           ? '#!user/register'
+                                           : '#!dashboard';
+            }
 
             if (hash === window.location.hash) {
                 state.handleRoute();

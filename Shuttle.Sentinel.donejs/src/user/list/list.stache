@@ -1,9 +1,11 @@
 <sentinel-page-title title="user:list.title" />
-<sentinel-button ($click)="add()" text="text.add" />
 {{#if users.isPending}}
-LOADING...
+<sentinel-fetching title="user:list.title" />
 {{/if}}
 {{#if users.isResolved}}
+<sentinel-buttons>
+  <sentinel-button ($click)="add()" text="text.add" permission="register://user" />
+</sentinel-buttons>
 <div class="users">
   <table class="table table-striped table-hover">
     <thead>
@@ -11,7 +13,7 @@ LOADING...
         <th>Username</th>
         <th>Date Registered</th>
         <th>Registered By</th>
-        <th>Permissions</th>
+        <th class="text-right">Permissions</th>
       </tr>
     </thead>
     <tbody>
@@ -20,7 +22,7 @@ LOADING...
         <td data-title="Username">{{username}}</td>
         <td data-title="Date Registered">{{dateRegistered}}</td>
         <td data-title="Registered By">{{registeredBy}}</td>
-        <td data-title="Permissions">
+        <td data-title="Permissions" class="text-right">
           <sentinel-button class-type="default" ($click)="permissions()" text="user:list.permissions" />
         </td>
       </tr>
