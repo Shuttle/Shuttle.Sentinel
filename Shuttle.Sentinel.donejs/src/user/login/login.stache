@@ -3,7 +3,7 @@
     <fieldset class="form-group">
       <sentinel-text focus="true" label="user:register.username" {(value)}="username" />
       <sentinel-text label="user:register.password" {(value)}="password" type="password" validation-message="{{passwordValidationMessage}}" />
-      <sentinel-button type="submit" ($click)="login" text="text.sign-in" {icon-name}="submitIconName" {disabled}="working"/>
+      <sentinel-button type="submit" ($click)="login" text="sign-in" {icon-name}="submitIconName" {disabled}="working"/>
     </fieldset>
   </form>
 </sentinel-form>

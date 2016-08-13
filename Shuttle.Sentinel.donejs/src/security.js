@@ -53,7 +53,7 @@ var security = {
                 var username = localStorage.getItem('username');
                 var token = localStorage.getItem('token');
 
-                state.attr('requiresInitialAdministrator', data.requiresInitialAdministrator);
+                state.attr('isUserRequired', data.isUserRequired);
 
                 can.each(data.permissions, function(item) {
                     self._addPermission('anonymous', item.permission);

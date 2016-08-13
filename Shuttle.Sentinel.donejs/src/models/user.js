@@ -5,6 +5,11 @@ import 'can/map/define/define';
 import configuration from 'sentinel/configuration';
 
 export const User = can.Map.extend({
+    define: {
+        username: {
+            value: 'eben'
+        }
+    }
 });
 
 User.List = can.List.extend({
@@ -13,7 +18,7 @@ User.List = can.List.extend({
 
 export const userConnection = superMap({
     url: configuration.controllerUrl('users'),
-    idProp: 'username',
+    idProp: 'id',
     Map: User,
     List: User.List,
     name: 'user'

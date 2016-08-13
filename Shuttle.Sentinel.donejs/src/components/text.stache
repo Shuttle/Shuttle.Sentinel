@@ -1,5 +1,5 @@
 ﻿<sentinel-container>
-	<sentinel-label {label}="label" />
+  <sentinel-label {label}="label" {required}="required" />
 	<sentinel-input {focus}="focus" {(value)}="value" {type}="type"/>
 	<sentinel-core-validation {message}="validationMessage" />
 </sentinel-container>

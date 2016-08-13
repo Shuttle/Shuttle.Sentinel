@@ -8,3 +8,11 @@ import 'sentinel/user/register/register_test';
 import 'sentinel/user/login/login_test';
 
 import 'sentinel/user/list/list_test';
+
+import 'sentinel/role/permissions/permissions_test';
+
+import 'sentinel/role/list/list_test';
+
+import 'sentinel/user/roles/roles_test';
+
+import 'sentinel/role/add/add_test';

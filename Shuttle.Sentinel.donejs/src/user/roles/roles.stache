@@ -1,0 +1,14 @@
+<sentinel-page-title title="user:list.roles" />
+<sentinel-buttons>
+  <sentinel-back-button />
+  <sentinel-button ($click)="refresh()" text="refresh" icon-name="glyphicon-refresh" />
+</sentinel-buttons>
+{{#if user.isPending}}
+<sentinel-fetching title="user:list.roles" />
+{{/if}}
+{{#if user.isResolved}}
+{{user}}<br/>
+{{user.data.id}}<br/>
+{{id}}<br/>
+{{username}}
+{{/if}}

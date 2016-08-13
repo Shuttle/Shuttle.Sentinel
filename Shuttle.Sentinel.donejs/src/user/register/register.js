@@ -6,7 +6,6 @@ import template from './register.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import api from 'sentinel/api';
-import security from 'sentinel/security';
 import state from 'sentinel/state';
 
 resources.add('user', { action: 'register', permission: Permissions.Register.User });
@@ -29,7 +28,12 @@ export const ViewModel = Map.extend({
         },
         title: {
             get: function() {
-                return state.attr('requiresInitialAdministrator') ? 'user:register.user-required' : 'user:register.title';
+                return state.isUserRequired ? 'user:register.user-required' : 'user:register.title';
+            }
+        },
+        showClose: {
+            get: function() {
+                return !state.isUserRequired;
             }
         }
     },
@@ -43,13 +47,21 @@ export const ViewModel = Map.extend({
         };
         api.post('users', { data: user })
             .done(function() {
-                security.removePermission(Permissions.States.UserRequired);
+                if (state.isUserRequired) {
+                    state.isUserRequired = false;
 
-                window.location.hash = '#!dashboard';
+                    state.goto('dashboard');
+                } else {
+                    state.goto('user/list');
+                }
             })
             .always(function() {
                 self.attr('working', false);
             });
+    },
+
+    close: function() {
+        state.goto('user/list');
     }
 });
 

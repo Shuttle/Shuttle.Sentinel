@@ -1,18 +1,20 @@
 ﻿{
-	"exceptions": {
-		"anonymous-permissions": "Could not retrieve the anonymous permissions from the server.",
-    "resource-not-found": "Could not find resource with for '{{hash}}'.",
-    "login":  "Could not sign in username '{{username}}'.  Please ensure that you have entered the correct credentials."
-	},
-	"security": {
-		"access-denied": "You do not have access to '{{name}}' as you require permission '{{permission}}'."
-	},
-  "text": {
-    "add": "Add",
-    "remove": "Remove",
-    "register": "Register",
-    "sign-in": "Sign In",
-    "sign-out": "Sign Out",
-    "fetching":  "Fetching {{name}}"
+  "add": "Add",
+  "back": "Back",
+  "close": "Close",
+  "fetching": "Fetching {{name}}",
+  "name":  "Name",
+  "refresh": "Refresh",
+  "register": "Register",
+  "remove": "Remove",
+  "sign-in": "Sign In",
+  "sign-out": "Sign Out",
+  "exceptions": {
+    "anonymous-permissions": "Could not retrieve the anonymous permissions from the server.",
+    "resource-not-found": "Could not find resource for '{{hash}}'.",
+    "login": "Could not sign in username '{{username}}'.  Please ensure that you have entered the correct credentials."
+  },
+  "security": {
+    "access-denied": "You do not have access to '{{name}}' as you require permission '{{permission}}'."
   }
 }

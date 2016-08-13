@@ -7,6 +7,16 @@ namespace Shuttle.Sentinel
 {
     public class SystemUserQueryFactory : ISystemUserQueryFactory
     {
+        private const string selectClause = @"
+select
+    Id,
+    Username,
+    DateRegistered,
+    RegisteredBy
+from
+    dbo.SystemUser
+";
+
         public IQuery Register(Guid id, Registered domainEvent)
         {
             return RawQuery.Create(@"
@@ -57,15 +67,19 @@ if not exists(select null from [dbo].[SystemUserRole] where UserId = @UserId and
 
         public IQuery Search()
         {
-            return RawQuery.Create(@"
-select
-    Id,
-    Username,
-    DateRegistered,
-    RegisteredBy
-from
-    dbo.SystemUser
-");
+            return RawQuery.Create(selectClause);
+        }
+
+        public IQuery Get(Guid id)
+        {
+            return RawQuery.Create(string.Concat(selectClause, " where Id = @Id"))
+                .AddParameterValue(SystemUserColumns.Id, id);
+        }
+
+        public IQuery Roles(Guid id)
+        {
+            return RawQuery.Create(@"select RoleName from dbo.SystemUserRole where UserId = @UserId")
+                .AddParameterValue(SystemUserRoleColumns.UserId, id);
         }
     }
 }

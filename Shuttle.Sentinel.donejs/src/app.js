@@ -8,7 +8,10 @@ import 'bootstrap/dist/js/bootstrap'
 
 import 'sentinel/dashboard/';
 import 'sentinel/user/';
+import 'sentinel/role/';
 
+import 'sentinel/components/back-button';
+import 'sentinel/components/refresh-button';
 import 'sentinel/components/button';
 import 'sentinel/components/buttons';
 import 'sentinel/components/container';
@@ -31,7 +34,7 @@ localisation.start(function(error) {
         .done(function() {
             can.route(':resource');
             can.route(':resource/:action');
-            can.route(':resource/:action/:id');
+            can.route(':resource/:id/:action');
 
             can.route.map(state.route);
 
@@ -43,7 +46,7 @@ localisation.start(function(error) {
             $('#application-container').html(template, state);
 
             if (window.location.hash === '#!' || !window.location.hash) {
-                window.location.hash = state.attr('loginStatus') === 'user-required'
+                window.location.hash = state.isUserRequired
                                            ? '#!user/register'
                                            : '#!dashboard';
             }

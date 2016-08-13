@@ -37,7 +37,7 @@ namespace Shuttle.Sentinel
 
 	    public bool HasPermission(string permission)
 	    {
-	        return _permissions.Contains(permission);
+	        return _permissions.Contains(permission) || _permissions.Contains("*");
 	    }
 
 	    public void Renew()

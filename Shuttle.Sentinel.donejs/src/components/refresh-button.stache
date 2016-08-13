@@ -1,0 +1,3 @@
+﻿<button class="btn" {($click)}="click()">
+	<span class="glyphicon glyphicon-refresh" /> {{i18n "refresh"}}
+</button>

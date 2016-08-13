@@ -30,9 +30,14 @@ var map = [
         text: 'navigation:system',
         items: [
             {
-                href: '#user/list',
+                href: '#!user/list',
                 text: 'user:list.title',
                 permission: Permissions.View.Users
+            },
+            {
+                href: '#!role/list',
+                text: 'role:list.title',
+                permission: Permissions.View.Roles
             }
         ]
     }

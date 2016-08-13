@@ -4,27 +4,28 @@
 {{/if}}
 {{#if users.isResolved}}
 <sentinel-buttons>
-  <sentinel-button ($click)="add()" text="text.add" permission="register://user" />
+  <sentinel-button ($click)="add()" text="add" permission="sentinel://user/register" />
+  <sentinel-button ($click)="refresh()" text="refresh" icon-name="glyphicon-refresh" />
 </sentinel-buttons>
 <div class="users">
   <table class="table table-striped table-hover">
     <thead>
       <tr>
+        <th>Roles</th>
         <th>Username</th>
         <th>Date Registered</th>
         <th>Registered By</th>
-        <th class="text-right">Permissions</th>
       </tr>
     </thead>
     <tbody>
       {{#each users.value}}
       <tr>
+        <td data-title="Roles">
+          <sentinel-button class-type="default" ($click)="roles(id)" text="user:list.roles" />
+        </td>
         <td data-title="Username">{{username}}</td>
         <td data-title="Date Registered">{{dateRegistered}}</td>
         <td data-title="Registered By">{{registeredBy}}</td>
-        <td data-title="Permissions" class="text-right">
-          <sentinel-button class-type="default" ($click)="permissions()" text="user:list.permissions" />
-        </td>
       </tr>
       {{/each}}
     </tbody>

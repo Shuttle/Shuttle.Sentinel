@@ -1,17 +1,22 @@
 var Permissions = {
+    Add: {
+        Role: 'sentinel://role/add'
+    },
     Manage: {
-        Users: 'management://users'
+        Roles: 'sentinel://roles/manage',
+        Users: 'sentinel://users/manage'
     },
     View: {
-        Dashboard: 'view://dashboard',
-        Messages: 'view://messages',
-        Subscriptions: 'view://subscriptions',
-        Queues: 'view://queues',
-        DataStores: 'view://datastores',
-        Users: 'view://users'
+        Dashboard: 'sentinel://dashboard/view',
+        Messages: 'sentinel://messages/view',
+        Subscriptions: 'sentinel://subscriptions/view',
+        Queues: 'sentinel://queues/view',
+        DataStores: 'sentinel://data-stores/view',
+        Roles: 'sentinel://roles/view',
+        Users: 'sentinel://users/view'
     },
     Register: {
-        User: 'register://user'
+        User: 'sentinel://user/register'
     }
 };
 

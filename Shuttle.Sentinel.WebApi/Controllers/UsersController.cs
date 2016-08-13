@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading;
 using System.Web.Http;
@@ -55,6 +56,18 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
+        [RequiresPermission(SystemPermissions.Manage.Users)]
+        public IHttpActionResult Get(Guid id)
+        {
+             using (_databaseContextFactory.Create())
+            {
+                return Ok(new
+                {
+                    Data = _systemUserQuery.Get(id)
+                });
+            }
+        }
+
         public IHttpActionResult Post([FromBody] RegisterUserModel model)
         {
             Guard.AgainstNull(model, "model");
@@ -65,11 +78,14 @@ namespace Shuttle.Sentinel.WebApi
 
             if (result.OK)
             {
-                var session = _sessionRepository.Get(result.SessionToken);
+                using (_databaseContextFactory.Create())
+                {
+                    var session = _sessionRepository.Get(result.SessionToken);
 
-                registeredBy = session.Username;
+                    registeredBy = session.Username;
 
-                ok = session.HasPermission(SystemPermissions.Register.User);
+                    ok = session.HasPermission(SystemPermissions.Register.User);
+                }
             }
             else
             {

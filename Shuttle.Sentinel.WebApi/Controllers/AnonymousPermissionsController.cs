@@ -27,7 +27,7 @@ namespace Shuttle.Sentinel.WebApi
 
             return Ok(new
             {
-                RequiresInitialAdministrator = permissions.Contains(SystemPermissions.Register.InitialAdministrator),
+                IsUserRequired = permissions.Contains(SystemPermissions.Register.UserRequired),
                 Permissions =
                     from permission in permissions
                     select new

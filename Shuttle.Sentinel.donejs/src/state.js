@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import can from 'can';
 import Map from 'can/map/';
 import resources from 'sentinel/resources';
@@ -22,7 +23,7 @@ var State = Map.extend({
         },
         loginStatus: {
             get: function() {
-                return this.attr('requiresInitialAdministrator') ? 'user-required' : this.attr('token') == undefined ? 'not-logged-in' : 'logged-in';
+                return this.isUserRequired ? 'user-required' : this.attr('token') == undefined ? 'not-logged-in' : 'logged-in';
             }
         },
         username: {
@@ -72,6 +73,19 @@ var State = Map.extend({
 
         this.route.bind('change', function (ev, prop, change, newVal, oldVal) {
             self.handleRoute.call(self, ev, prop, change, newVal, oldVal);
+        });
+    
+        $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+            options.error = function (xhr) {
+                if (xhr.responseJSON) {
+                    alerts.show({ message: xhr.responseJSON.message, type: 'danger', name: 'ajax-prefilter-error' });
+                } else {
+                    alerts.show({ message: xhr.status + ' / ' + xhr.statusText, type: 'danger', name: 'ajax-prefilter-error' });
+                }
+
+                if (originalOptions.error) {
+                    originalOptions.error(xhr);
+                }            }
         });
     },
 

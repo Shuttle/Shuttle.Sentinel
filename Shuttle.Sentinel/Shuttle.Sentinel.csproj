@@ -78,10 +78,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Query\User.cs" />
     <Compile Include="DataAccess\Session\ISessionQuery.cs" />
     <Compile Include="DataAccess\Session\SessionQuery.cs" />
     <Compile Include="DataAccess\SystemRole\ISystemRoleQuery.cs" />
+    <Compile Include="DataAccess\SystemRole\ISystemRoleQueryFactory.cs" />
+    <Compile Include="DataAccess\SystemRole\SystemRolePermissionColumns.cs" />
     <Compile Include="DataAccess\SystemRole\SystemRoleQuery.cs" />
+    <Compile Include="DataAccess\SystemRole\SystemRoleQueryFactory.cs" />
+    <Compile Include="DataAccess\SystemRole\SystemRoleColumns.cs" />
     <Compile Include="DataAccess\SystemUser\SystemUserRoleColumns.cs" />
     <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
     <Compile Include="Domain\SystemPermissions.cs" />

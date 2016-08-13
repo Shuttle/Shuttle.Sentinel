@@ -1,1 +1,1 @@
-﻿<label>{{label}}</label>
+﻿<label>{{label}}{{#if required}}<span class="glyphicon glyphicon-asterisk" />{{/if}}</label>

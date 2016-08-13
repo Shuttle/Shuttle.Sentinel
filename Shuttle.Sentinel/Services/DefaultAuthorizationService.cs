@@ -35,14 +35,13 @@ namespace Shuttle.Sentinel
             using (_databaseContextFactory.Create())
             {
                 count = _systemUserQuery.Count();
+                result.AddRange(_systemRoleQuery.Permissions("Anonymous"));
             }
-
-            result.AddRange(_systemRoleQuery.Permissions("Anonymous"));
 
             if (count == 0)
             {
                 result.Add(SystemPermissions.Register.User);
-                result.Add(SystemPermissions.Register.InitialAdministrator);
+                result.Add(SystemPermissions.Register.UserRequired);
             }
 
             return result;

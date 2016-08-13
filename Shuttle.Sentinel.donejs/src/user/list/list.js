@@ -21,6 +21,14 @@ export const ViewModel = Map.extend({
 
     add: function() {
         state.goto('user/register');
+    },
+
+    refresh: function() {
+        
+    },
+
+    roles: function(id) {
+        state.goto('user/' + id + '/roles');
     }
 });
 

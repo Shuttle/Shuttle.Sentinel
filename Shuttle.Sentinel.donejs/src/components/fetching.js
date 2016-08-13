@@ -7,7 +7,7 @@ export const ViewModel = Map.extend({
     define: {
         title: {
             get: function(value) {
-                return localisation.value('text.fetching', { name: localisation.value(value)});
+                return localisation.value('fetching', { name: localisation.value(value)});
             }
         }
     }

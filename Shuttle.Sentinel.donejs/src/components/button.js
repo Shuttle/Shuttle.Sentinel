@@ -17,6 +17,13 @@ export default can.Component.extend({
                     return type || 'btn-primary';
                 }
             },
+            classVisibility: {
+                get: function() {
+                    var visible = this.attr('visible');
+
+                    return visible != undefined && !visible ? 'hidden' : '';
+                }
+            },
             iconName: {
                 value: ''
             },

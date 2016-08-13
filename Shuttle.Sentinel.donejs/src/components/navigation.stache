@@ -35,36 +35,7 @@
         </li>
         {{/if}}
         {{/if}}
-
         {{/each}}
-        <!--        
-        <li>
-          <a href='#!dashboard'>{{i18n "navigation:dashboard"}}</a>
-        </li>
-        <li>
-          <a href='#!messages'>{{i18n "navigation:messages"}}</a>
-        </li>
-        <li>
-          <a href='#!subscriptions'>{{i18n "navigation:subscriptions"}}</a>
-        </li>
-        <li>
-          <a href='#!datastores'>{{i18n "navigation:data-stores"}}</a>
-        </li>
-        <li>
-          <a href='#!queues'>{{i18n "navigation:queues"}}</a>
-        </li>
-        <li class='dropdown'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-            {{i18n "navigation:system"}}
-            <b class='caret'></b>
-          </a>
-          <ul class='dropdown-menu'>
-            <li>
-              <a href='#!user/list'>{{i18n "user:list.title"}}</a>
-            </li>
-          </ul>
-        </li>
--->
       </ul>
     </div>
 
@@ -73,12 +44,12 @@
         {{#switch state.loginStatus}}
         {{#case "user-required"}}
         <li>
-          <a href='#!user/register'>{{i18n "text.register"}}</a>
+          <a href='#!user/register'>{{i18n "register"}}</a>
         </li>
         {{/case}}
         {{#case "not-logged-in"}}
         <li>
-          <a href='#!user/login'>{{i18n "text.sign-in"}}</a>
+          <a href='#!user/login'>{{i18n "sign-in"}}</a>
         </li>
         {{/case}}
         {{#case "logged-in"}}
@@ -92,7 +63,7 @@
               <a href="/users/id" title="Profile">Profile</a>
             </li>
             <li>
-              <a href='#!user/login' ($click)='state.userLoggedOut()'>{{i18n "text.sign-out"}}</a>
+              <a href='#!user/login' ($click)='state.userLoggedOut()'>{{i18n "sign-out"}}</a>
             </li>
           </ul>
         </li>
