@@ -12,6 +12,7 @@ import 'sentinel/role/';
 
 import 'sentinel/components/back-button';
 import 'sentinel/components/refresh-button';
+import 'sentinel/components/working-button';
 import 'sentinel/components/button';
 import 'sentinel/components/buttons';
 import 'sentinel/components/container';

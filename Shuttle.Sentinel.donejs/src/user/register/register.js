@@ -18,11 +18,6 @@ export const ViewModel = Map.extend({
         password: {
             value: ''
         },
-        submitIconName: {
-            get: function() {
-                return this.attr('working') ? 'glyphicon-hourglass' : '';
-            }
-        },
         working: {
             value: false
         },

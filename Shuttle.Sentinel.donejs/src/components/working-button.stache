@@ -1,0 +1,3 @@
+﻿<button {type}="type" class="btn {{classType}} {{classVisibility}}" {($click)}="click()" {$disabled}="getDisabled" {^working}="working">
+	<span class="glyphicon {{getIconName}}" /> {{i18n text}}
+</button>
