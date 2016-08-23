@@ -88,8 +88,11 @@
     <Compile Include="DataAccess\SystemRole\SystemRoleQueryFactory.cs" />
     <Compile Include="DataAccess\SystemRole\SystemRoleColumns.cs" />
     <Compile Include="DataAccess\SystemUser\SystemUserRoleColumns.cs" />
+    <Compile Include="DomainEvents\Role.v1\Added.cs" />
+    <Compile Include="DomainEvents\Role.v1\PermissionAdded.cs" />
     <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
     <Compile Include="Domain\SystemPermissions.cs" />
+    <Compile Include="Domain\Role.cs" />
     <Compile Include="Services\IAnonymousPermissions.cs" />
     <Compile Include="SentinelResources.Designer.cs">
       <DependentUpon>SentinelResources.resx</DependentUpon>

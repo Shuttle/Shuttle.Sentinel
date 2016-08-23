@@ -1,4 +1,6 @@
-﻿using Shuttle.Core.Data;
+﻿using System;
+using Shuttle.Core.Data;
+using Shuttle.Sentinel.DomainEvents.Role.v1;
 
 namespace Shuttle.Sentinel
 {
@@ -27,6 +29,24 @@ select
 from
     SystemRole
 ");
+        }
+
+        public IQuery Added(Guid id, Added domainEvent)
+        {
+            return RawQuery.Create(@"
+insert into [dbo].[SystemRole]
+(
+	[Id],
+	[RoleName]
+)
+values
+(
+	@Id,
+	@RoleName
+)
+")
+                .AddParameterValue(SystemRoleColumns.Id, id)
+                .AddParameterValue(SystemRoleColumns.RoleName, domainEvent.Name);
         }
     }
 }

@@ -93,7 +93,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\UserProjectionHandler.cs" />
+    <Compile Include="Handlers\RoleHandler.cs" />
+    <Compile Include="Handlers\UserHandler.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

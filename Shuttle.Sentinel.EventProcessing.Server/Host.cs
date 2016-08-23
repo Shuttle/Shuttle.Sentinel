@@ -37,11 +37,13 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 			_container.Register(Component.For<IProjectionConfiguration>().Instance(ProjectionSection.Configuration()));
 			_container.RegisterConfiguration(SentinelSection.Configuration());
 
-			_container.Register(Component.For<object>().ImplementedBy<UserProjectionHandler>().Named("UserProjectionHandler"));
+			_container.Register(Component.For<object>().ImplementedBy<UserHandler>().Named("UserHandler"));
+			_container.Register(Component.For<object>().ImplementedBy<RoleHandler>().Named("RoleHandler"));
 
 			_processor = EventProcessor.Create(c => { c.ProjectionService(_container.Resolve<IProjectionService>()); });
 
-			_processor.AddEventProjection(new EventProjection("User").AddEventHandler(_container.Resolve<object>("UserProjectionHandler")));
+			_processor.AddEventProjection(new EventProjection("User").AddEventHandler(_container.Resolve<object>("UserHandler")));
+			_processor.AddEventProjection(new EventProjection("Role").AddEventHandler(_container.Resolve<object>("RoleHandler")));
 
 			_processor.Start();
 		}

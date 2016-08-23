@@ -13,7 +13,9 @@ resources.add('role', { action: 'list', permission: Permissions.View.Roles });
 export const ViewModel = Map.extend({
     define: {
         roles: {
-            value: function() {
+            get: function() {
+                var refresh = this.attr('_refresh');
+
                 return Role.getList();
             }
         }
@@ -24,6 +26,7 @@ export const ViewModel = Map.extend({
     },
 
     refresh: function() {
+        this.attr('_refresh', new Date());
     },
 
     permissions: function(id) {

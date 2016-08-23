@@ -39,11 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="v1\ActivateUserCommand.cs" />
-    <Compile Include="v1\RegisterRoleCommand.cs" />
+    <Compile Include="v1\AddRoleCommand.cs" />
     <Compile Include="v1\RegisterUserCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="v1\UserRegisteredEvent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

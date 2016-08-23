@@ -42,8 +42,6 @@ namespace Shuttle.Sentinel.Server
 
             var subscriptionManager = _container.Resolve<ISubscriptionManager>();
 
-            subscriptionManager.Subscribe<UserRegisteredEvent>();
-
             _bus = ServiceBus.Create(
                 c =>
                 {

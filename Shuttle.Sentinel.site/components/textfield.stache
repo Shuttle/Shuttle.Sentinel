@@ -1,5 +1,0 @@
-﻿<sentinel-container>
-	<sentinel-core-label label="{{label}}" />
-	<sentinel-core-textfield {(value)}="value" type="{{type}}"/>
-	<sentinel-core-validation {(message)}="validationMessage" />
-</sentinel-container>

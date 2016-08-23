@@ -100,8 +100,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\RegisterUserHandler.cs" />
-    <Compile Include="Handlers\UserRegiseredHandler.cs" />
+    <Compile Include="Handlers\UserHandler.cs" />
+    <Compile Include="Handlers\RoleHandler.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

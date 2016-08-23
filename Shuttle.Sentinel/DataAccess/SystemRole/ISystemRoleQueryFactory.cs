@@ -1,4 +1,6 @@
-﻿using Shuttle.Core.Data;
+﻿using System;
+using Shuttle.Core.Data;
+using Shuttle.Sentinel.DomainEvents.Role.v1;
 
 namespace Shuttle.Sentinel
 {
@@ -6,5 +8,6 @@ namespace Shuttle.Sentinel
     {
         IQuery Permissions(string roleName);
         IQuery Search();
+        IQuery Added(Guid id, Added domainEvent);
     }
 }

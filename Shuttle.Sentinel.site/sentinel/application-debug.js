@@ -1,1 +1,0 @@
-Sentinel.DEBUG = true;

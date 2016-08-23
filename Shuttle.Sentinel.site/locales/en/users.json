@@ -1,8 +1,0 @@
-﻿{
-	"title": "Users",
-	"register": {
-		"title": "Register a new user",
-		"email": "E-mail (as your username)",
-		"password": "Password"
-	}
-}

@@ -1,3 +1,0 @@
-﻿<button type="button" class="btn {type}" ($click)="{{click}}">
-	<span class="glyphicon {iconName)" /> {{i18n text}}
-</button>

@@ -66,9 +66,9 @@ namespace Shuttle.Sentinel.WebApi
         {
             Guard.AgainstNull(model, "model");
 
-            _bus.Send(new RegisterRoleCommand
+            _bus.Send(new AddRoleCommand
             {
-                RoleName = model.RoleName
+                Name = model.Name
             });
 
             return Ok();

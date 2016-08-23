@@ -32,7 +32,8 @@
       "lib": "src"
     },
     "configDependencies": [
-      "node_modules/can-zone/register"
+      "node_modules/can-zone/register",
+      "node_modules/steal-cache-bust/cache-bust"
     ],
     "npmAlgorithm": "flat"
   },
@@ -49,7 +50,8 @@
     "i18next": "^3.3.1",
     "i18next-xhr-backend": "^0.6.0",
     "jquery": "~2.2.1",
-    "steal": "^0.16.0"
+    "steal": "^0.16.0",
+    "steal-cache-bust": "^0.1.0"
   },
   "devDependencies": {
     "can-fixture": "^0.1.2",

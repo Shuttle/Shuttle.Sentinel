@@ -2,6 +2,6 @@ namespace Shuttle.Sentinel.WebApi
 {
     public class RegisterRoleModel
     {
-        public string RoleName { get; set; }
+        public string Name { get; set; }
     }
 }

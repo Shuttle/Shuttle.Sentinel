@@ -2,22 +2,22 @@
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
-using Shuttle.Esb.EMail;
 using Shuttle.Recall;
 using Shuttle.Sentinel.DomainEvents.User.v1;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
 {
-    public class RegisterUserHandler : IMessageHandler<RegisterUserCommand>
+    public class UserHandler :
+        IMessageHandler<RegisterUserCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
         private readonly IKeyStore _keyStore;
         private readonly ISystemUserQuery _systemUserQuery;
-        private readonly ILog _log;
 
-        public RegisterUserHandler(IDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore, ISystemUserQuery systemUserQuery)
+        public UserHandler(IDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IKeyStore keyStore,
+            ISystemUserQuery systemUserQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
             Guard.AgainstNull(eventStore, "eventStore");
@@ -28,8 +28,6 @@ namespace Shuttle.Sentinel.Server
             _eventStore = eventStore;
             _keyStore = keyStore;
             _systemUserQuery = systemUserQuery;
-
-            _log = Log.For(this);
         }
 
         public void ProcessMessage(IHandlerContext<RegisterUserCommand> context)
@@ -77,13 +75,6 @@ namespace Shuttle.Sentinel.Server
 
                 _eventStore.SaveEventStream(stream);
             }
-
-            context.Publish(new UserRegisteredEvent
-            {
-                Username = message.Username,
-                RegisteredBy = message.RegisteredBy,
-                DateRegistered = registered.DateRegistered
-            });
         }
 
         public bool IsReusable

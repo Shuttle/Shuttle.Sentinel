@@ -3,6 +3,8 @@ using System.Data;
 using System.Linq;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
+using Shuttle.Recall;
+using Shuttle.Sentinel.DomainEvents.Role.v1;
 
 namespace Shuttle.Sentinel
 {
@@ -31,6 +33,11 @@ namespace Shuttle.Sentinel
 	    public IEnumerable<DataRow> Search()
 	    {
             return _databaseGateway.GetRowsUsing(_queryFactory.Search());
+        }
+
+	    public void Added(ProjectionEvent projectionEvent, Added domainEvent)
+	    {
+            _databaseGateway.ExecuteUsing(_queryFactory.Added(projectionEvent.Id, domainEvent));
         }
     }
 }

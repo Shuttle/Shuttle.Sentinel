@@ -6,8 +6,8 @@ import configuration from 'sentinel/configuration';
 
 export const Role = can.Map.extend({
     define: {
-        rolename: {
-            value: 'eben'
+        name: {
+            value: ''
         }
     }
 });

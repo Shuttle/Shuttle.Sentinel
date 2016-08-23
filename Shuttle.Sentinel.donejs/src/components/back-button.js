@@ -6,7 +6,7 @@ export default can.Component.extend({
     template,
     viewModel: {
         back: function() {
-            alert('go back!');
+            window.history.back();
         }
     }
 });

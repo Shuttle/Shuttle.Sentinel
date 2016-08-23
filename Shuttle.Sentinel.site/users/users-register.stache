@@ -1,6 +1,0 @@
-<h1>{{i18n "users:register.title"}}</h1>
-{{email}}
-<sentinel-core-textfield {(value)}="email" />
-<sentinel-textfield {(value)}="email" validation-message="{{emailValidationMessage}}" label="users:register.email"/>
-<sentinel-textfield type="password" {(value)}="password" validation-message="{{passwordValidationMessage}}" label="users:register.password" />
-<sentinel-button click="submit" text="text.register" />

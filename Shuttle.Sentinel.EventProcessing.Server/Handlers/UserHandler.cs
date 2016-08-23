@@ -4,13 +4,13 @@ using Shuttle.Sentinel.DomainEvents.User.v1;
 
 namespace Shuttle.Sentinel.EventProcessing.Server
 {
-    public class UserProjectionHandler :
+    public class UserHandler :
         IEventHandler<Registered>,
         IEventHandler<RoleAdded>
     {
         private readonly ISystemUserQuery _query;
 
-        public UserProjectionHandler(ISystemUserQuery query)
+        public UserHandler(ISystemUserQuery query)
         {
             Guard.AgainstNull(query, "query");
 
