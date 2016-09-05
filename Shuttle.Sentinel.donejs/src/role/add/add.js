@@ -8,8 +8,15 @@ import Permissions from 'sentinel/permissions';
 import Role from 'sentinel/models/role';
 import api from 'sentinel/api';
 import state from 'sentinel/state';
+import 'validate.js';
 
 resources.add('role', { action: 'add', permission: Permissions.Add.Role});
+
+var constraints = {
+    name: {
+        presence: true
+    }
+};
 
 export const ViewModel = Map.extend({
     define: {
@@ -19,6 +26,8 @@ export const ViewModel = Map.extend({
     },
 
     add: function() {
+        var result = validate(this, constraints);
+
         var role = new Role({
             name: this.attr('name')
         });
