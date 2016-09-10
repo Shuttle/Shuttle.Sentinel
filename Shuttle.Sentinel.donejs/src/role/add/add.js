@@ -8,31 +8,39 @@ import Permissions from 'sentinel/permissions';
 import Role from 'sentinel/models/role';
 import api from 'sentinel/api';
 import state from 'sentinel/state';
-import 'validate.js';
+import 'sentinel/can-validate';
+import 'sentinel/validations';
 
 resources.add('role', { action: 'add', permission: Permissions.Add.Role});
-
-var constraints = {
-    name: {
-        presence: true
-    }
-};
 
 export const ViewModel = Map.extend({
     define: {
         name: {
-            value: ''
+            value: '',
+            validate: {
+                required: true
+            }
         }
     },
 
+    init: function() {
+        this.validate();
+    },
+
     add: function() {
-        var result = validate(this, constraints);
+        if (!this.validate()) {
+            return;
+        }
 
         var role = new Role({
             name: this.attr('name')
         });
 
         role.save();
+    },
+
+    close: function() {
+        state.goto('role/list');
     }
 });
 
