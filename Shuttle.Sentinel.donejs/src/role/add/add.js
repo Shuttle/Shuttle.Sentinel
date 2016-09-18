@@ -1,6 +1,5 @@
 import Component from 'can/component/';
-import Map from 'can/map/';
-import 'can/map/define/';
+import can from 'can/';
 import './add.less!';
 import template from './add.stache!';
 import resources from 'sentinel/resources';
@@ -8,28 +7,35 @@ import Permissions from 'sentinel/permissions';
 import Role from 'sentinel/models/role';
 import api from 'sentinel/api';
 import state from 'sentinel/state';
-import 'sentinel/can-validate';
-import 'sentinel/validations';
+
+import validation from 'sentinel/validation';
 
 resources.add('role', { action: 'add', permission: Permissions.Add.Role});
 
-export const ViewModel = Map.extend({
+export const ViewModel = can.Map.extend({
     define: {
         name: {
-            value: '',
-            validate: {
-                required: true
+            value: ''
+        },
+
+        nameConstraint: {
+            get: function() {
+                return validation.get('name', this.attr('name'), {
+                    name: {
+                        presence: true
+                    }
+                });
             }
         }
     },
 
-    init: function() {
-        this.validate();
+    hasErrors: function() {
+        return this.attr('nameConstraint');
     },
 
     add: function() {
-        if (!this.validate()) {
-            return;
+        if (this.hasErrors()) {
+            return false;
         }
 
         var role = new Role({
@@ -37,6 +43,8 @@ export const ViewModel = Map.extend({
         });
 
         role.save();
+
+        return false;
     },
 
     close: function() {

@@ -1,4 +1,4 @@
-﻿<sentinel-form-group {(validation-name)}="validationName">
-  <sentinel-label {label}="label" {required}="required" />
+﻿<sentinel-form-group {validation-message}="validationMessage">
+	<sentinel-label {label}="label" {required}="required" />
 	<sentinel-input {focus}="focus" {(value)}="value" {type}="type"/>
 </sentinel-form-group>

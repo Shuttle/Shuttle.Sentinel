@@ -4,13 +4,15 @@ import template from './form-group.stache!';
 
 export const ViewModel = Map.extend({
     define: {
-        validationName: {
+        validationMessage: {
             value: ''
         },
 
         classType: {
             get: function() {
-                return !!this.attr('errors.' + this.attr('validationName')) ? 'has-error' : '';
+                var errors = this.attr('errors');
+
+                return !!errors && !!errors.attr(this.attr('validationName')) ? 'has-error' : '';
             }
         }
     }
@@ -18,7 +20,13 @@ export const ViewModel = Map.extend({
 
 export default can.Component.extend({
     tag: 'sentinel-form-group',
-    viewModel: ViewModel,
+    viewModel: function(attrs, scope) {
+        let map = new ViewModel(attrs);
+
+        map.attr('errors', scope.attr('errors'));
+
+        return map;
+    },
 	template
 });
 

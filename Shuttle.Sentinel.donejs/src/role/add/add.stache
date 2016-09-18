@@ -1,7 +1,7 @@
 <sentinel-form title="role:add.title">
   <form>
     <fieldset class="form-group">
-      <sentinel-text focus="true" label="name" {(value)}="name" required="true" validation-name="name"/>
+      <sentinel-text focus="true" label="name" {(value)}="name" required="true" {validation-message}="nameConstraint"/>
       <sentinel-button type="submit" ($click)="add" text="add" {icon-name}="submitIconName" {disabled}="working"/>
       <sentinel-button ($click)="close" text="close" {disabled}="working" {visible}="showClose" />
     </fieldset>

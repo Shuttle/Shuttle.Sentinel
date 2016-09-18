@@ -4,6 +4,7 @@ import $ from 'jquery';
 import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
 import state from 'sentinel/state';
+import 'can/map/define/';
 import 'bootstrap/dist/js/bootstrap'
 
 import 'sentinel/dashboard/';
@@ -26,6 +27,10 @@ import 'sentinel/components/validation';
 
 import 'sentinel/components/navigation';
 import 'sentinel/components/alerts';
+
+import 'validate.js';
+
+
 
 localisation.start(function(error) {
     if (error) {

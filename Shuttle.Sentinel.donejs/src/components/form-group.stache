@@ -1,4 +1,4 @@
 ﻿<div class="form-group {{classType}}">
 	<content/>
-  <sentinel-validation {name}="validationName" />
+  <sentinel-validation {message}="validationMessage" />
 </div>

@@ -4,19 +4,13 @@ import template from './validation.stache!';
 
 export const ViewModel = Map.extend({
     define: {
-        name: {
+        message: {
             value: ''
         },
 
         classVisibility: {
             get: function() {
-                return !this.attr('validationMessage') ? 'hidden' : '';
-            }
-        },
-        
-        validationMessage: {
-            get: function (value) {
-                return this.attr('errors.' + value) || '';
+                return !this.attr('message') ? 'hidden' : '';
             }
         }
     }
