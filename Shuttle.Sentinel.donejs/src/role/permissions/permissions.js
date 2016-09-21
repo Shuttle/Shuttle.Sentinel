@@ -17,9 +17,6 @@ export const ViewModel = Map.extend({
                 return Role.get({ id: state.route.id });
             }
         }
-    },
-    back: function() {
-        state.goto('role/list');
     }
 });
 

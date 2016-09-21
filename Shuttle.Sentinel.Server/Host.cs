@@ -45,7 +45,7 @@ namespace Shuttle.Sentinel.Server
             _bus = ServiceBus.Create(
                 c =>
                 {
-                    c.MessageHandlerFactory(new CastleMessageHandlerFactory(_container).RegisterHandlers());
+                    c.MessageHandlerFactory(new CastleMessageHandlerFactory(_container));
                     c.SubscriptionManager(subscriptionManager);
                 }).Start();
         }

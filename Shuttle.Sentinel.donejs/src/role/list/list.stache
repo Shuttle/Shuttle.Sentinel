@@ -13,15 +13,19 @@
       <tr>
         <th class="col-md-1">Permissions</th>
         <th>Role name</th>
+        <th class="col-md-1">Remove</th>
       </tr>
     </thead>
     <tbody>
       {{#each roles.value}}
       <tr>
-        <td data-title="Permissions">
-          <sentinel-button class-type="default" ($click)="permissions(id)" text="role:permissions.title" />
+        <td data-title="Action">
+          <sentinel-button class-type="btn-default" ($click)="permissions(id)" text="role:permissions.title" />
         </td>
         <td data-title="Role name">{{rolename}}</td>
+        <td data-title="Action">
+          <sentinel-button class-type="btn-danger" ($click)="remove(id)" text="remove" />
+        </td>
       </tr>
       {{/each}}
     </tbody>

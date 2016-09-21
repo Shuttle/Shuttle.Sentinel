@@ -20,6 +20,19 @@ where
                 .AddParameterValue(SystemRoleColumns.RoleName, roleName);
         }
 
+        public IQuery Permissions(Guid roleId)
+        {
+            return RawQuery.Create(@"
+select 
+    Permission
+from
+    SystemRolePermission
+where
+    RoleId = @RoleId
+")
+                .AddParameterValue(SystemRolePermissionColumns.RoleId, roleId);
+        }
+
         public IQuery Search()
         {
             return RawQuery.Create(@"
@@ -47,6 +60,19 @@ values
 ")
                 .AddParameterValue(SystemRoleColumns.Id, id)
                 .AddParameterValue(SystemRoleColumns.RoleName, domainEvent.Name);
+        }
+
+        public IQuery Get(Guid id)
+        {
+            return RawQuery.Create(@"
+select
+    RoleName as Name
+from
+    SystemRole
+where
+    Id = @Id
+")
+                .AddParameterValue(SystemRoleColumns.Id, id);
         }
     }
 }

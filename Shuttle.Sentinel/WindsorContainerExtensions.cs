@@ -54,6 +54,7 @@ namespace Shuttle.Sentinel
 			container.Register(Component.For<IKeyStore>().ImplementedBy<KeyStore>());
             container.Register(Component.For<IEventStoreQueryFactory>().ImplementedBy<EventStoreQueryFactory>());
             container.Register(Component.For<IKeyStoreQueryFactory>().ImplementedBy<KeyStoreQueryFactory>());
+            container.Register(Component.For<IQueryMapper>().ImplementedBy<QueryMapper>());
         }
 
         public static void Register(this IWindsorContainer container, string assemblyName, string endsWith)

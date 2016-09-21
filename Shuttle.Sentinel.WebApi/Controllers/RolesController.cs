@@ -56,7 +56,7 @@ namespace Shuttle.Sentinel.WebApi
             {
                 return Ok(new
                 {
-                    Data = new {} // _systemRoleQuery.Get(id)
+                    Data = _systemRoleQuery.Get(id)
                 });
             }
         }

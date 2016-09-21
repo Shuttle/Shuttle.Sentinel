@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Shuttle.Core.Data;
@@ -12,14 +13,17 @@ namespace Shuttle.Sentinel
 	{
         private readonly IDatabaseGateway _databaseGateway;
         private readonly ISystemRoleQueryFactory _queryFactory;
+	    private readonly IQueryMapper _queryMapper;
 
-        public SystemRoleQuery(IDatabaseGateway databaseGateway, ISystemRoleQueryFactory queryFactory)
+	    public SystemRoleQuery(IDatabaseGateway databaseGateway, ISystemRoleQueryFactory queryFactory, IQueryMapper queryMapper)
         {
             Guard.AgainstNull(databaseGateway, "databaseGateway");
             Guard.AgainstNull(queryFactory, "queryFactory");
+            Guard.AgainstNull(queryMapper, "queryMapper");
 
             _databaseGateway = databaseGateway;
             _queryFactory = queryFactory;
+	        _queryMapper = queryMapper;
         }
 
         public IEnumerable<string> Permissions(string roleName)
@@ -39,5 +43,14 @@ namespace Shuttle.Sentinel
 	    {
             _databaseGateway.ExecuteUsing(_queryFactory.Added(projectionEvent.Id, domainEvent));
         }
-    }
+
+	    public Query.Role Get(Guid id)
+	    {
+	        var result = _queryMapper.MapObject<Query.Role>(_queryFactory.Get(id));
+
+            result.Permissions = new List<string>(_queryMapper.MapValues<string>(_queryFactory.Permissions(id)));
+
+	        return result;
+	    }
+	}
 }
