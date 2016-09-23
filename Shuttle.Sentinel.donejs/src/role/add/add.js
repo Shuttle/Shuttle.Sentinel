@@ -5,14 +5,14 @@ import template from './add.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import Role from 'sentinel/models/role';
-import api from 'sentinel/api';
 import state from 'sentinel/state';
+import Item from 'sentinel/item-model';
 
 import validation from 'sentinel/validation';
 
 resources.add('role', { action: 'add', permission: Permissions.Add.Role});
 
-export const ViewModel = can.Map.extend({
+export const ViewModel = Item.extend({
     define: {
         name: {
             value: ''
@@ -38,11 +38,9 @@ export const ViewModel = can.Map.extend({
             return false;
         }
 
-        var role = new Role({
+        this.post('roles', {
             name: this.attr('name')
         });
-
-        role.save();
 
         return false;
     },
