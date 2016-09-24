@@ -13,6 +13,7 @@ import 'sentinel/role/';
 
 import 'sentinel/components/back-button';
 import 'sentinel/components/refresh-button';
+import 'sentinel/components/remove-button';
 import 'sentinel/components/working-button';
 import 'sentinel/components/button';
 import 'sentinel/components/buttons';
@@ -24,6 +25,7 @@ import 'sentinel/components/text';
 import 'sentinel/components/form';
 import 'sentinel/components/page-title';
 import 'sentinel/components/validation';
+import 'sentinel/components/modal';
 
 import 'sentinel/components/navigation';
 import 'sentinel/components/alerts';

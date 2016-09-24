@@ -1,10 +1,7 @@
 import Component from 'can/component/';
-import can from 'can/';
-import './add.less!';
 import template from './add.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
-import Role from 'sentinel/models/role';
 import state from 'sentinel/state';
 import Item from 'sentinel/item-model';
 
@@ -41,6 +38,8 @@ export const ViewModel = Item.extend({
         this.post('roles', {
             name: this.attr('name')
         });
+
+        this.close();
 
         return false;
     },

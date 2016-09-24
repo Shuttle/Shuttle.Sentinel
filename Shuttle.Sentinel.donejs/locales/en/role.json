@@ -7,5 +7,6 @@
   },
   "permissions": {
     "title": "Permissions"
-  }
+  },
+  "name":  "Role name"
 }

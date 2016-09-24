@@ -1,7 +1,6 @@
 import Component from 'can/component/';
 import Map from 'can/map/';
 import 'can/map/define/';
-import './roles.less!';
 import template from './roles.stache!';
 import Permissions from 'sentinel/permissions';
 import resources from 'sentinel/resources';
