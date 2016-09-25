@@ -4,11 +4,13 @@ import template from './list.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import state from 'sentinel/state';
-import List from 'sentinel/list-model';
+import Model from 'sentinel/model';
+import alerts from 'sentinel/alerts';
+import localisation from 'sentinel/localisation';
 
 resources.add('role', { action: 'list', permission: Permissions.View.Roles });
 
-export const ViewModel = List.extend({
+export const ViewModel = Model.extend({
     init: function() {
         this.refresh();
     },
@@ -18,21 +20,24 @@ export const ViewModel = List.extend({
     },
 
     refresh: function() {
-        this.fetch('roles');
+        this.get('roles');
     },
 
     remove: function(id) {
-        alert('removing - ' + id);
+        this.delete(`roles/${id}`)
+            .done(function() {
+                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('role:role') }) });
+            });
     },
 
     permissions: function(id) {
-        state.goto('role/' + id + '/permissions');
+        state.goto(`role/${id}/permissions`);
     }
 });
 
 
 export default Component.extend({
-  tag: 'sentinel-role-list',
-  viewModel: ViewModel,
-  template
+    tag: 'sentinel-role-list',
+    viewModel: ViewModel,
+    template
 });

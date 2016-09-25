@@ -117,6 +117,7 @@
     <Compile Include="ApplicationStart\WebApiConfiguration.cs" />
     <Compile Include="Controllers\AnonymousPermissionsController.cs" />
     <Compile Include="Controllers\EnvironmentsController.cs" />
+    <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Models\RegisterRoleModel.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Infrastructure\RequiresSessionAttribute.cs" />

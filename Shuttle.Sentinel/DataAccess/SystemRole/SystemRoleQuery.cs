@@ -52,5 +52,10 @@ namespace Shuttle.Sentinel
 
 	        return result;
 	    }
+
+	    public IEnumerable<string> Permissions(Guid id)
+	    {
+	        return _queryMapper.MapValues<string>(_queryFactory.Permissions(id));
+	    }
 	}
 }

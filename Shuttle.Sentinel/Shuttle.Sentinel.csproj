@@ -94,6 +94,7 @@
     <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
     <Compile Include="Domain\SystemPermissions.cs" />
     <Compile Include="Domain\Role.cs" />
+    <Compile Include="Queues\IInspectionQueue.cs" />
     <Compile Include="Services\IAnonymousPermissions.cs" />
     <Compile Include="SentinelResources.Designer.cs">
       <DependentUpon>SentinelResources.resx</DependentUpon>

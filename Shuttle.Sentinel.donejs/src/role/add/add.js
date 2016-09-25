@@ -3,13 +3,13 @@ import template from './add.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import state from 'sentinel/state';
-import Item from 'sentinel/item-model';
+import Model from 'sentinel/model';
 
 import validation from 'sentinel/validation';
 
 resources.add('role', { action: 'add', permission: Permissions.Add.Role});
 
-export const ViewModel = Item.extend({
+export const ViewModel = Model.extend({
     define: {
         name: {
             value: ''

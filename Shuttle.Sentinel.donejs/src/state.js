@@ -78,8 +78,8 @@ var State = Map.extend({
     init: function () {
         var self = this;
 
-        this.route.bind('change', function (ev, prop, change, newVal, oldVal) {
-            self.handleRoute.call(self, ev, prop, change, newVal, oldVal);
+        this.route.delegate('*', 'change', function () {
+            self.handleRoute.call(self);
         });
     
         $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
@@ -101,6 +101,17 @@ var State = Map.extend({
         var resourceName = this.route.attr('resource');
         var actionName = this.route.attr('action');
         var isActionRoute = !!actionName;
+        var previousHash = this.attr('previousHash');
+
+        if ($('#application-content').length === 0) {
+            return;
+        }
+
+        if (previousHash && previousHash === window.location.hash) {
+            return;
+        }
+
+        this.attr('previousHash', window.location.hash);
 
         if (!resourceName) {
             return;

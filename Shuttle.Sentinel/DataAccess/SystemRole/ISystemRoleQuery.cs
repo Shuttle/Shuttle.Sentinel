@@ -12,5 +12,6 @@ namespace Shuttle.Sentinel
 	    IEnumerable<DataRow> Search();
 	    void Added(ProjectionEvent projectionEvent, Added domainEvent);
 	    Query.Role Get(Guid id);
+	    IEnumerable<string> Permissions(Guid id);
 	}
 }

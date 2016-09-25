@@ -1,0 +1,22 @@
+<div class="{{class}}">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        {{#columns}}
+          <th class="{{class}}">{{i18n title}}</th>
+        {{/columns}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+      <tr>
+        {{#columns}}
+          <td data-title="{{i18n title}}">
+            {{columnValue ../. .}}
+          </td>
+        {{/columns}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

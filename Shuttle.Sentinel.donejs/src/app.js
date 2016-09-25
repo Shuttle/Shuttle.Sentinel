@@ -5,6 +5,7 @@ import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
 import state from 'sentinel/state';
 import 'can/map/define/';
+import 'can/map/delegate/';
 import 'bootstrap/dist/js/bootstrap'
 
 import 'sentinel/dashboard/';
@@ -49,8 +50,6 @@ localisation.start(function(error) {
             can.route.ready();
         })
         .always(function() {
-            var hash = window.location.hash;
-
             $('#application-container').html(template(state));
 
             if (window.location.hash === '#!' || !window.location.hash) {
@@ -59,8 +58,6 @@ localisation.start(function(error) {
                                            : '#!dashboard';
             }
 
-            if (hash === window.location.hash) {
-                state.handleRoute();
-            }
+            state.handleRoute();
         });
 });

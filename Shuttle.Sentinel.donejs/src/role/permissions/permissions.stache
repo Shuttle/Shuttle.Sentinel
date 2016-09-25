@@ -3,11 +3,11 @@
   <sentinel-back-button />
   <sentinel-button ($click)="refresh()" text="refresh" icon-name="glyphicon-refresh" />
 </sentinel-buttons>
-{{#if role.isPending}}
-<sentinel-fetching title="user:permissions.title" />
+{{#if isPending}}
+<sentinel-fetching title="role:permissions.title" />
 {{/if}}
-{{#if role.isResolved}}
-{{user}}<br/>
-{{role.data.id}}<br/>
-{{id}}<br/>
+{{#if isResolved}}
+{{#list}}
+{{permission}}
+{{/list}}
 {{/if}}

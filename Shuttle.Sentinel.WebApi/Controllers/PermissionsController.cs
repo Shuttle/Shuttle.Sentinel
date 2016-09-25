@@ -8,13 +8,13 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    public class RolesController : SentinelApiController
+    public class PermissionsController : SentinelApiController
     {
         private readonly IServiceBus _bus;
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly ISystemRoleQuery _systemRoleQuery;
 
-        public RolesController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory, ISystemRoleQuery systemRoleQuery)
+        public PermissionsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory, ISystemRoleQuery systemRoleQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
             Guard.AgainstNull(bus, "bus");
@@ -25,23 +25,6 @@ namespace Shuttle.Sentinel.WebApi
             _systemRoleQuery = systemRoleQuery;
         }
 
-        [RequiresPermission(SystemPermissions.View.Roles)]
-        public IHttpActionResult Get()
-        {
-            using (_databaseContextFactory.Create())
-            {
-                return Ok(new
-                {
-                    Data = from row in _systemRoleQuery.Search()
-                        select new
-                        {
-                            Id = SystemRoleColumns.Id.MapFrom(row),
-                            Rolename = SystemRoleColumns.RoleName.MapFrom(row)
-                        }
-                });
-            }
-        }
-
         [RequiresPermission(SystemPermissions.Manage.Roles)]
         public IHttpActionResult Get(Guid id)
         {
@@ -49,7 +32,7 @@ namespace Shuttle.Sentinel.WebApi
             {
                 return Ok(new
                 {
-                    Data = _systemRoleQuery.Get(id)
+                    Data = _systemRoleQuery.Permissions(id)
                 });
             }
         }

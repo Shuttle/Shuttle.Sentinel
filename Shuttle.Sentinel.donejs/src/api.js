@@ -43,6 +43,21 @@ let api = {
         });
     },
 
+    'delete': function (endpoint, options) {
+        var o = options || {};
+
+        if (o.async == undefined) {
+            o.async = true;
+        }
+
+        return $.ajax({
+            url: this.url(endpoint),
+            type: 'DELETE',
+            async: o.async,
+            timeout: o.timeout || 60000
+        });
+    },
+
     url: function(endpoint) {
         return endpoint.indexOf('http') < 0 ? configuration.controllerUrl(endpoint) : endpoint;
     }
