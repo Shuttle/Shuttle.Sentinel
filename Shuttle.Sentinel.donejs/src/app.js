@@ -33,7 +33,6 @@ import 'sentinel/components/alerts';
 import 'validate.js';
 
 
-
 localisation.start(function(error) {
     if (error) {
         throw new Error(error);
@@ -52,7 +51,7 @@ localisation.start(function(error) {
         .always(function() {
             var hash = window.location.hash;
 
-            $('#application-container').html(template, state);
+            $('#application-container').html(template(state));
 
             if (window.location.hash === '#!' || !window.location.hash) {
                 window.location.hash = state.isUserRequired

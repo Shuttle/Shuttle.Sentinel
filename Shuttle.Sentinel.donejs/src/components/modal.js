@@ -23,6 +23,10 @@ export const ViewModel = Map.extend({
             }
         },
 
+        message: {
+            value: ''
+        },
+
         hasMessage: {
             get: function() {
                 return !!this.attr('message');
@@ -30,8 +34,19 @@ export const ViewModel = Map.extend({
         }
     },
 
-    primaryClick: function() {
-        this.primaryClickTarget.call();
+    _primaryClick: function() {
+        var modalElement = $('#' + this.attr('modalId'));
+
+        if (!this.__bindEvents['primaryClick']) {
+            alert('Assign a primary click handler by adding \'something\' to your modal component definition.');
+            return;
+        }
+
+        if (modalElement) {
+            modalElement.modal('hide');
+        }
+
+        can.trigger(this, 'primaryClick', arguments);
     }
 });
 

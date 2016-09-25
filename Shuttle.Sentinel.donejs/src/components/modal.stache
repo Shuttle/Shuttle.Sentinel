@@ -17,7 +17,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{{i18n dismissText}}</button>
         {{#if hasPrimary}}
-        <button type="button" class="btn btn-primary" ($click)="primaryClick()">{{i18n primaryText}}</button>
+        <button type="button" class="btn btn-primary" ($click)="_primaryClick()">{{i18n primaryText}}</button>
         {{/if}}
       </div>
     </div>

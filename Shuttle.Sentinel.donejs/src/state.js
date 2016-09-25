@@ -32,7 +32,7 @@ var State = Map.extend({
         navigationItems: {
             get: function() {
                 var result = new can.List();
-                
+
                 can.each(navigationItems, function(item) {
                     var add = false;
                     var navigationItem = new can.Map({
@@ -40,7 +40,7 @@ var State = Map.extend({
                         text: item.text,
                         items: new can.List()
                     });
-                
+
                     if (!item.permission || security.hasPermission(item.permission)) {
                         if (item.items !== undefined) {
                             can.each(item.items, function(subitem) {
@@ -65,6 +65,13 @@ var State = Map.extend({
 
                 return result;
             }
+        },
+        modal: {
+            value: new Map({
+                confirmation: new Map({
+                    message: 'hello'
+                })
+            })
         }
     },
 
