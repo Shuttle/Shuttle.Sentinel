@@ -27,6 +27,7 @@ import 'sentinel/components/form';
 import 'sentinel/components/page-title';
 import 'sentinel/components/validation';
 import 'sentinel/components/modal';
+import 'sentinel/components/table';
 
 import 'sentinel/components/navigation';
 import 'sentinel/components/alerts';

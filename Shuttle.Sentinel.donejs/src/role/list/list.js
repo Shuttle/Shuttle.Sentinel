@@ -11,6 +11,31 @@ import localisation from 'sentinel/localisation';
 resources.add('role', { action: 'list', permission: Permissions.View.Roles });
 
 export const ViewModel = Model.extend({
+    define: {
+        columns: {
+            value: [
+                {
+                    columnTitle: 'role:permissions.title',
+                    columnClass: 'col-md-1',
+                    columnType: 'button',
+                    buttonTitle: 'role:permissions.title',
+                    buttonClick: 'permissions(id)'
+                },
+                {
+                    columnTitle: 'role:name', 
+                    attributeName: 'rolename'
+                },
+                {
+                    columnTitle: 'remove', 
+                    columnClass: 'col-md-1',
+                    columnType: 'remove-button',
+                    buttonTitle: 'role:permissions.title',
+                    buttonClick: 'remove(id)'
+                }
+            ]
+        }
+    },
+
     init: function() {
         this.refresh();
     },

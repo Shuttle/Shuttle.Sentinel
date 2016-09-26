@@ -7,28 +7,5 @@
 <sentinel-fetching title="role:list.title" />
 {{/if}}
 {{#if isResolved}}
-<div class="roles">
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th class="col-md-1">{{i18n 'role:permissions.title'}}</th>
-        <th>{{i18n 'role:name'}}</th>
-        <th class="col-md-1">{{i18n 'remove'}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each list}}
-      <tr>
-        <td data-title="{{i18n 'role:permissions.title'}}">
-          <sentinel-button class-type="btn-default" ($click)="permissions(id)" text="role:permissions.title" />
-        </td>
-        <td data-title="{{i18n 'role:name'}}">{{rolename}}</td>
-        <td data-title="{{i18n 'remove'}}">
-          <sentinel-remove-button class-type="btn-danger" (click)="remove(id)" text="remove" />
-        </td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+<sentinel-table {columns}="columns" {rows}="list" />
 {{/if}}

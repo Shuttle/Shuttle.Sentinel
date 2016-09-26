@@ -1,9 +1,9 @@
-<div class="{{class}}">
+<div class="{{containerClass}}">
   <table class="table table-striped table-hover">
     <thead>
       <tr>
         {{#columns}}
-          <th class="{{class}}">{{i18n title}}</th>
+          <th class="{{columnClass}}">{{i18n columnTitle}}</th>
         {{/columns}}
       </tr>
     </thead>
@@ -11,8 +11,18 @@
       {{#each rows}}
       <tr>
         {{#columns}}
-          <td data-title="{{i18n title}}">
-            {{columnValue ../. .}}
+          <td data-title="{{i18n columnTitle}}">
+            {{#switch columnType}}
+              {{#case 'button'}}
+                <sentinel-button class-type="btn-default buttonClass" ($click)="{{buttonClick}}" text="{{buttonTitle}}" />
+              {{/case}}
+              {{#case 'remove-button'}}
+                <sentinel-remove-button (click)="{{buttonClick}}" text="remove" />
+              {{/case}}
+              {{#default}}
+                {{columnValue ../. .}}
+               {{/default}}
+            {{/switch}}
           </td>
         {{/columns}}
       </tr>
