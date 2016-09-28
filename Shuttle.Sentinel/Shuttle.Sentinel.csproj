@@ -136,6 +136,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".script\0-Data.sql" />
     <Content Include=".script\0-Schema.sql" />
   </ItemGroup>
   <ItemGroup>

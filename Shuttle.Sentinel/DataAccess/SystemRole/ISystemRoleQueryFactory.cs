@@ -11,5 +11,6 @@ namespace Shuttle.Sentinel
         IQuery Search();
         IQuery Added(Guid id, Added domainEvent);
         IQuery Get(Guid id);
+        IQuery AvailablePermissions();
     }
 }

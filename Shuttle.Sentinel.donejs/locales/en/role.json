@@ -9,5 +9,6 @@
     "title": "Permissions"
   },
   "name": "Role name",
+  "permission":  "Permission",
   "role": "Role"
 }

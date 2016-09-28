@@ -70,9 +70,6 @@ namespace Shuttle.Sentinel.WebApi
 
         public IHttpActionResult Post([FromBody] RegisterUserModel model)
         {
-            Thread.Sleep(5000);
-            return Ok();
-
             Guard.AgainstNull(model, "model");
 
             var registeredBy = "system";
@@ -87,7 +84,7 @@ namespace Shuttle.Sentinel.WebApi
 
                     registeredBy = session.Username;
 
-                    ok = session.HasPermission(SystemPermissions.Register.User);
+                    ok = session.HasPermission(SystemPermissions.Manage.Users);
                 }
             }
             else
@@ -105,7 +102,7 @@ namespace Shuttle.Sentinel.WebApi
 
                     if (anonymousPermissions != null)
                     {
-                        ok = anonymousPermissions.HasPermission(SystemPermissions.Register.User);
+                        ok = anonymousPermissions.HasPermission(SystemPermissions.Manage.Users);
                     }
                 }
             }

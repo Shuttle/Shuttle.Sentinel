@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       {{#each rows}}
-      <tr>
+      <tr class="{{rowClass .}}">
         {{#columns}}
           <td data-title="{{i18n columnTitle}}">
             {{#switch columnType}}
@@ -18,10 +18,13 @@
               {{/case}}
               {{#case 'remove-button'}}
                 <sentinel-remove-button (click)="{{buttonClick}}" text="remove" />
-              {{/case}}
-              {{#default}}
-                {{columnValue ../. .}}
-               {{/default}}
+            {{/case}}
+            {{#case 'template'}}
+            {{template ../. .}}
+            {{/case}}
+            {{#default}}
+            {{columnValue ../. .}}
+            {{/default}}
             {{/switch}}
           </td>
         {{/columns}}

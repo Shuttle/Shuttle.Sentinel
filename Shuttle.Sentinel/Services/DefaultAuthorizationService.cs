@@ -40,7 +40,7 @@ namespace Shuttle.Sentinel
 
             if (count == 0)
             {
-                result.Add(SystemPermissions.Register.User);
+                result.Add(SystemPermissions.Manage.Users);
                 result.Add(SystemPermissions.Register.UserRequired);
             }
 

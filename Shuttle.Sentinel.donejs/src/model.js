@@ -40,7 +40,7 @@ var Model = Map.extend({
                 }
 
                 self.resolved();
-                deferred.resolve(response);
+                deferred.resolve(response.data);
             })
             .fail(function() {
                 self.failed();

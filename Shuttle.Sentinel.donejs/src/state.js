@@ -107,12 +107,6 @@ var State = Map.extend({
             return;
         }
 
-        if (previousHash && previousHash === window.location.hash) {
-            return;
-        }
-
-        this.attr('previousHash', window.location.hash);
-
         if (!resourceName) {
             return;
         }
@@ -126,6 +120,12 @@ var State = Map.extend({
         } else {
             resource = resources.find(resourceName);
         }
+
+        if (previousHash && previousHash === window.location.hash) {
+            return;
+        }
+
+        this.attr('previousHash', window.location.hash);
 
         if (!resource) {
             alerts.show({ message: localisation.value('exceptions.resource-not-found', { hash: window.location.hash, interpolation: { escape: false } }), type: 'warning', name: 'route-error' });

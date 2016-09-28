@@ -26,6 +26,18 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Roles)]
+        public IHttpActionResult Get()
+        {
+            using (_databaseContextFactory.Create())
+            {
+                return Ok(new
+                {
+                    Data = _systemRoleQuery.AvailablePermissions()
+                });
+            }
+        }
+
+        [RequiresPermission(SystemPermissions.Manage.Roles)]
         public IHttpActionResult Get(Guid id)
         {
             using (_databaseContextFactory.Create())

@@ -7,7 +7,5 @@
 <sentinel-fetching title="role:permissions.title" />
 {{/if}}
 {{#if isResolved}}
-{{#list}}
-{{permission}}
-{{/list}}
+<sentinel-table {columns}="columns" {rows}="permissions" />
 {{/if}}

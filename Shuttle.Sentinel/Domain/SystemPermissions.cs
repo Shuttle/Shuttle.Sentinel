@@ -2,11 +2,6 @@
 {
 	public static class SystemPermissions
 	{
-        public static class Add
-        {
-            public const string Role = "sentinel://role/add";
-        }
-
         public static class Manage
 		{
 			public const string Roles = "sentinel://roles/manage";
@@ -16,7 +11,6 @@
 		public static class Register
 		{
 			public const string UserRequired = "sentinel://user/required";
-			public const string User = "sentinel://user/register";
 		}
 
 		public static class View

@@ -13,5 +13,6 @@ namespace Shuttle.Sentinel
 	    void Added(ProjectionEvent projectionEvent, Added domainEvent);
 	    Query.Role Get(Guid id);
 	    IEnumerable<string> Permissions(Guid id);
+	    IEnumerable<string> AvailablePermissions();
 	}
 }

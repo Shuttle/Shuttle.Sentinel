@@ -1,4 +1,5 @@
 ﻿{
+  "active":  "Active",
   "add": "Add",
   "back": "Back",
   "close": "Close",
@@ -6,7 +7,7 @@
   "itemRemovalRequested": "The request to remove the {{itemName}} has been successfully sent.  You may need to refresh the data to see the changes as it may take a while to process.",
   "fetching": "Fetching {{name}}",
   "name": "Name",
-  "no":  "No",
+  "no": "No",
   "refresh": "Refresh",
   "register": "Register",
   "remove": "Remove",

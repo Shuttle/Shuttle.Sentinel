@@ -74,5 +74,10 @@ where
 ")
                 .AddParameterValue(SystemRoleColumns.Id, id);
         }
+
+        public IQuery AvailablePermissions()
+        {
+            return RawQuery.Create(@"select Permission from AvailablePermission");
+        }
     }
 }
