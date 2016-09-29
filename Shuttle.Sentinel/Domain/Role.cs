@@ -40,6 +40,13 @@ namespace Shuttle.Sentinel
 
         public PermissionAdded AddPermission(string permission)
         {
+            Guard.AgainstNullOrEmptyString(permission, "permission");
+
+            if (HasPermission(permission))
+            {
+                throw new InvalidOperationException(string.Format(SentinelResources.DuplicatePermissionException, permission, _name));
+            }
+
             return On(new PermissionAdded {Permission = permission});
         }
 
@@ -50,6 +57,32 @@ namespace Shuttle.Sentinel
             _permissions.Add(permissionAdded.Permission);
 
             return permissionAdded;
+        }
+
+        public bool HasPermission(string permission)
+        {
+            return _permissions.Contains(permission);
+        }
+
+        public PermissionRemoved RemovePermission(string permission)
+        {
+            Guard.AgainstNullOrEmptyString(permission, "permission");
+
+            if (!HasPermission(permission))
+            {
+                throw new InvalidOperationException(string.Format(SentinelResources.PermissionNotFoundException, permission, _name));
+            }
+
+            return On(new PermissionRemoved { Permission = permission });
+        }
+
+        public PermissionRemoved On(PermissionRemoved permissionRemoved)
+        {
+            Guard.AgainstNull(permissionRemoved, "permissionRemoved");
+
+            _permissions.Remove(permissionRemoved.Permission);
+
+            return permissionRemoved;
         }
     }
 }

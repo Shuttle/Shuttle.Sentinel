@@ -8,7 +8,8 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class RoleHandler :
-        IMessageHandler<AddRoleCommand>
+        IMessageHandler<AddRoleCommand>,
+        IMessageHandler<SetRolePermissionCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
@@ -56,6 +57,29 @@ namespace Shuttle.Sentinel.Server
             }
         }
 
-        public bool IsReusable { get { return true; } }
+        public void ProcessMessage(IHandlerContext<SetRolePermissionCommand> context)
+        {
+            var message = context.Message;
+
+            using (_databaseContextFactory.Create())
+            {
+                var role = new Role(message.RoleId);
+                var stream = _eventStore.Get(message.RoleId);
+
+                stream.Apply(role);
+
+                if (message.Active && !role.HasPermission(message.Permission))
+                {
+                    stream.AddEvent(role.AddPermission(message.Permission));
+                }
+
+                if (!message.Active && role.HasPermission(message.Permission))
+                {
+                    stream.AddEvent(role.RemovePermission(message.Permission));
+                }
+
+                _eventStore.SaveEventStream(stream);
+            }
+        }
     }
 }

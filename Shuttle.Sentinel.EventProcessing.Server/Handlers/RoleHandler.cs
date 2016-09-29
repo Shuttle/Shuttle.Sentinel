@@ -5,7 +5,9 @@ using Shuttle.Sentinel.DomainEvents.Role.v1;
 namespace Shuttle.Sentinel.EventProcessing.Server
 {
     public class RoleHandler :
-        IEventHandler<Added>
+        IEventHandler<Added>,
+        IEventHandler<PermissionAdded>,
+        IEventHandler<PermissionRemoved>
     {
         private readonly ISystemRoleQuery _query;
 
@@ -16,10 +18,19 @@ namespace Shuttle.Sentinel.EventProcessing.Server
             _query = query;
         }
 
-
         public void ProcessEvent(IEventHandlerContext<Added> context)
         {
             _query.Added(context.ProjectionEvent, context.DomainEvent);
+        }
+
+        public void ProcessEvent(IEventHandlerContext<PermissionAdded> context)
+        {
+            _query.PermissionAdded(context.ProjectionEvent, context.DomainEvent);
+        }
+
+        public void ProcessEvent(IEventHandlerContext<PermissionRemoved> context)
+        {
+            _query.PermissionRemoved(context.ProjectionEvent, context.DomainEvent);
         }
     }
 }

@@ -6,8 +6,10 @@ namespace Shuttle.Sentinel.WebApi
     {
         public static void Register(HttpConfiguration configuration)
         {
-            configuration.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional}
-                );
+            configuration.MapHttpAttributeRoutes();
+            configuration.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional});
+
+            GlobalConfiguration.Configuration.EnsureInitialized();
         }
     }
 }

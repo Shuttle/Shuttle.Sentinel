@@ -44,7 +44,17 @@ namespace Shuttle.Sentinel
             _databaseGateway.ExecuteUsing(_queryFactory.Added(projectionEvent.Id, domainEvent));
         }
 
-	    public Query.Role Get(Guid id)
+	    public void PermissionAdded(ProjectionEvent projectionEvent, PermissionAdded domainEvent)
+	    {
+            _databaseGateway.ExecuteUsing(_queryFactory.PermissionAdded(projectionEvent.Id, domainEvent));
+        }
+
+	    public void PermissionRemoved(ProjectionEvent projectionEvent, PermissionRemoved domainEvent)
+	    {
+            _databaseGateway.ExecuteUsing(_queryFactory.PermissionRemoved(projectionEvent.Id, domainEvent));
+        }
+
+        public Query.Role Get(Guid id)
 	    {
 	        var result = _queryMapper.MapObject<Query.Role>(_queryFactory.Get(id));
 

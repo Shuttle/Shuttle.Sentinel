@@ -10,9 +10,12 @@ namespace Shuttle.Sentinel
 	{
 		IEnumerable<string> Permissions(string roleName);
 	    IEnumerable<DataRow> Search();
-	    void Added(ProjectionEvent projectionEvent, Added domainEvent);
 	    Query.Role Get(Guid id);
 	    IEnumerable<string> Permissions(Guid id);
 	    IEnumerable<string> AvailablePermissions();
+
+        void Added(ProjectionEvent projectionEvent, Added domainEvent);
+        void PermissionAdded(ProjectionEvent projectionEvent, PermissionAdded domainEvent);
+	    void PermissionRemoved(ProjectionEvent projectionEvent, PermissionRemoved domainEvent);
 	}
 }

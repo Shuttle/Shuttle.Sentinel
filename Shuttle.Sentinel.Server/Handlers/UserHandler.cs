@@ -76,10 +76,5 @@ namespace Shuttle.Sentinel.Server
                 _eventStore.SaveEventStream(stream);
             }
         }
-
-        public bool IsReusable
-        {
-            get { return true; }
-        }
     }
 }

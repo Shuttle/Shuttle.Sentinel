@@ -16,6 +16,7 @@
   "sign-in": "Sign In",
   "sign-out": "Sign Out",
   "yes": "Yes",
+  "workingMessage": "Please wait until the current operation completes and then try again.",
   "exceptions": {
     "anonymous-permissions": "Could not retrieve the anonymous permissions from the server.",
     "resource-not-found": "Could not find resource for '{{hash}}'.",

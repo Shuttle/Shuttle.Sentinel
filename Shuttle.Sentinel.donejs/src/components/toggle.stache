@@ -1,1 +1,0 @@
-﻿<span class="glyphicon {{#if value}}glyphicon-ok{{else}}glyphicon-remove{{/if}}" />

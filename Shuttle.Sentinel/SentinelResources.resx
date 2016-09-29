@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DuplicatePermissionException" xml:space="preserve">
+    <value>Permission '{0}' already exists on role '{1}'.</value>
+    <comment>0 = permission, 1 = role name</comment>
+  </data>
+  <data name="PermissionNotFoundException" xml:space="preserve">
+    <value>Permission '{0}' does not exist on role '{1}'.</value>
+    <comment>0 = permission, 1 = role name</comment>
+  </data>
   <data name="TypeNotFoundException" xml:space="preserve">
     <value>Type '{0}' could not be loaded using value '{1}'.  Exception: {2}</value>
     <comment>0 = the friendly name of the type  sought, 1 = the value representing the type, 2 = the exception reported.</comment>

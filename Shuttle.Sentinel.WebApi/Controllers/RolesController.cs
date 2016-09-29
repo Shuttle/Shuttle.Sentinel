@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Shuttle.Core.Data;
@@ -14,7 +15,8 @@ namespace Shuttle.Sentinel.WebApi
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly ISystemRoleQuery _systemRoleQuery;
 
-        public RolesController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory, ISystemRoleQuery systemRoleQuery)
+        public RolesController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
+            ISystemRoleQuery systemRoleQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
             Guard.AgainstNull(bus, "bus");
@@ -23,6 +25,46 @@ namespace Shuttle.Sentinel.WebApi
             _databaseContextFactory = databaseContextFactory;
             _bus = bus;
             _systemRoleQuery = systemRoleQuery;
+        }
+
+        [Route("api/roles/setpermission")]
+        public IHttpActionResult SetPermission([FromBody] SetRolePermissionModel model)
+        {
+            Guard.AgainstNull(model, "model");
+
+            _bus.Send(new SetRolePermissionCommand
+            {
+                RoleId = model.RoleId,
+                Permission = model.Permission,
+                Active = model.Active
+            });
+
+            return Ok();
+        }
+
+
+        [Route("api/roles/permissionstatus")]
+        public IHttpActionResult PermissionStatus([FromBody] RolePermissionStatusModel model)
+        {
+            Guard.AgainstNull(model, "model");
+
+            List<string> permissions;
+
+            using (_databaseContextFactory.Create())
+            {
+                permissions = _systemRoleQuery.Permissions(model.RoleId).ToList();
+            }
+
+            return Ok(
+                new
+                {
+                    Data = from permission in model.Permissions
+                        select new
+                        {
+                            Permission = permission,
+                            Active = permissions.Find(item => item.Equals(permission)) != null
+                        }
+                });
         }
 
         [RequiresPermission(SystemPermissions.View.Roles)]

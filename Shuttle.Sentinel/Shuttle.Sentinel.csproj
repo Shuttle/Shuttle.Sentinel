@@ -90,6 +90,7 @@
     <Compile Include="DataAccess\SystemRole\SystemRoleColumns.cs" />
     <Compile Include="DataAccess\SystemUser\SystemUserRoleColumns.cs" />
     <Compile Include="DomainEvents\Role.v1\Added.cs" />
+    <Compile Include="DomainEvents\Role.v1\PermissionRemoved.cs" />
     <Compile Include="DomainEvents\Role.v1\PermissionAdded.cs" />
     <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
     <Compile Include="Domain\SystemPermissions.cs" />

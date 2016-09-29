@@ -79,5 +79,38 @@ where
         {
             return RawQuery.Create(@"select Permission from AvailablePermission");
         }
+
+        public IQuery PermissionAdded(Guid id, PermissionAdded domainEvent)
+        {
+            return RawQuery.Create(@"
+insert into [dbo].[SystemRolePermission]
+(
+	[RoleId],
+	[Permission]
+)
+values
+(
+	@RoleId,
+	@Permission
+)
+")
+                .AddParameterValue(SystemRolePermissionColumns.RoleId, id)
+                .AddParameterValue(SystemRolePermissionColumns.Permission, domainEvent.Permission);
+        }
+
+        public IQuery PermissionRemoved(Guid id, PermissionRemoved domainEvent)
+        {
+            return RawQuery.Create(@"
+delete 
+from 
+    [dbo].[SystemRolePermission]
+where	
+    [RoleId] = @RoleId
+and
+	[Permission] = @Permission
+")
+                .AddParameterValue(SystemRolePermissionColumns.RoleId, id)
+                .AddParameterValue(SystemRolePermissionColumns.Permission, domainEvent.Permission);
+        }
     }
 }
