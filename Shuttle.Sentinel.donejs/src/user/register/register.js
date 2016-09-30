@@ -7,7 +7,7 @@ import Permissions from 'sentinel/permissions';
 import api from 'sentinel/api';
 import state from 'sentinel/state';
 
-resources.add('user', { action: 'register', permission: Permissions.Register.User });
+resources.add('user', { action: 'register', permission: Permissions.Manage.Users });
 
 export const ViewModel = Map.extend({
     define: {

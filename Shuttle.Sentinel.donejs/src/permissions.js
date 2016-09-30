@@ -1,7 +1,4 @@
 var Permissions = {
-    Add: {
-        Role: 'sentinel://role/add'
-    },
     Manage: {
         Roles: 'sentinel://roles/manage',
         Users: 'sentinel://users/manage'
@@ -14,9 +11,6 @@ var Permissions = {
         DataStores: 'sentinel://data-stores/view',
         Roles: 'sentinel://roles/view',
         Users: 'sentinel://users/view'
-    },
-    Register: {
-        User: 'sentinel://user/register'
     }
 };
 
