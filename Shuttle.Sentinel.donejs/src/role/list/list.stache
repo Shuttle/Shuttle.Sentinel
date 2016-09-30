@@ -1,7 +1,7 @@
 <sentinel-page-title title="role:list.title" />
 <sentinel-buttons>
-  <sentinel-button (click)="add()" text="add" permission="sentinel://role/add" />
-  <sentinel-button (click)="refresh()" text="refresh" icon-name="glyphicon-refresh" />
+  <sentinel-button ($click)="add()" text="add" permission="sentinel://role/add" />
+  <sentinel-refresh-button ($click)="refresh()" />
 </sentinel-buttons>
 {{#if isPending}}
 <sentinel-fetching title="role:list.title" />

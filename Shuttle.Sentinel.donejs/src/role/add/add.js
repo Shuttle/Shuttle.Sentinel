@@ -4,10 +4,9 @@ import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import state from 'sentinel/state';
 import Model from 'sentinel/model';
-
 import validation from 'sentinel/validation';
 
-resources.add('role', { action: 'add', permission: Permissions.Add.Role});
+resources.add('role', { action: 'add', permission: Permissions.Manage.Roles});
 
 export const ViewModel = Model.extend({
     define: {

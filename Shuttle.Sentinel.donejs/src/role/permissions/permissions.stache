@@ -1,7 +1,7 @@
 <sentinel-page-title title="role:permissions.title" />
 <sentinel-buttons>
   <sentinel-back-button />
-  <sentinel-button ($click)="refresh()" text="refresh" icon-name="glyphicon-refresh" />
+  <sentinel-refresh-button ($click)="refresh()" />
 </sentinel-buttons>
 {{#if isPending}}
 <sentinel-fetching title="role:permissions.title" />

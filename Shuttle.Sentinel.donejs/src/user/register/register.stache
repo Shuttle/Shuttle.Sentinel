@@ -1,8 +1,8 @@
 <sentinel-form {title}="title">
   <form>
     <fieldset class="form-group">
-      <sentinel-text focus="true" label="user:register.username" {(value)}="username" />
-      <sentinel-text label="user:register.password" {(value)}="password" type="password" validation-message="{{passwordValidationMessage}}" />
+      <sentinel-text focus="true" label="user:register.username" {(value)}="username" {validation-message}="usernameConstraint" />
+      <sentinel-text label="user:register.password" {(value)}="password" type="password" {validation-message}="passwordConstraint" />
       <sentinel-working-button type="submit" ($click)="register" text="register" />
       <sentinel-button ($click)="close" text="close" {visible}="showClose" />
     </fieldset>

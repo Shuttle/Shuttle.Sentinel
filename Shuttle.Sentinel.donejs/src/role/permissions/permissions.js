@@ -24,7 +24,7 @@ let PermissionModel = Map.extend({
 
         rowClass: {
             get: function() {
-                return this.attr('active') ? 'text-success' : 'text-muted';
+                return this.attr('active') ? 'text-success success' : 'text-muted';
             }
         }
     },
@@ -83,18 +83,18 @@ export const ViewModel = Model.extend({
         self.attr('permissions').replace(new List());
 
         this.get('permissions')
-            .done(function(permissions) {
-                $.each(permissions, function(index, permission) {
-                    self.attr('permissions').push(new PermissionModel({
-                        viewModel: self,
-                        permission: permission,
-                        active: false
-                    }));
-                });
+            .done(function(availablePermissions) {
+                self.get('permissions/' + state.attr('route.id'))
+                    .done(function(rolePermissions) {
+                        $.each(availablePermissions, function(availablePermissionIndex, availablePermission) {
+                            self.attr('permissions').push(new PermissionModel({
+                                viewModel: self,
+                                permission: availablePermission,
+                                active: $.inArray(availablePermission, rolePermissions) > -1
+                            }));
+                        });
+                    });
             });
-
-
-        //this.get('permissions/' + state.attr('route.id'));
     },
 
     remove: function(id) {

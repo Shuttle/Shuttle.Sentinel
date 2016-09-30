@@ -29,10 +29,10 @@ export default can.Component.extend({
             },
             disabled: {
                 get: function(value) {
-                    var disabled = value;
+                    var disabled = value || false;
 
-                    if (this.attr('permission')) {
-                        disabled = value && !security.hasPermission(this.attr('permission'));
+                    if (this.attr('permission') && !disabled) {
+                        disabled = !security.hasPermission(this.attr('permission'));
                     }
 
                     return disabled;
