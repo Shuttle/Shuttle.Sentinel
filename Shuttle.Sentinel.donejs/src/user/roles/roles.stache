@@ -3,12 +3,9 @@
   <sentinel-back-button />
   <sentinel-refresh-button ($click)="refresh()" />
 </sentinel-buttons>
-{{#if user.isPending}}
+{{#if isPending}}
 <sentinel-fetching title="user:list.roles" />
 {{/if}}
-{{#if user.isResolved}}
-{{user}}<br/>
-{{user.data.id}}<br/>
-{{id}}<br/>
-{{username}}
+{{#if isResolved}}
+<sentinel-table {columns}="columns" {rows}="roles" />
 {{/if}}

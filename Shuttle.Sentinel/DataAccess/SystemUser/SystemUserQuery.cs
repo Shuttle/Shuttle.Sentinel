@@ -12,14 +12,17 @@ namespace Shuttle.Sentinel
     {
         private readonly IDatabaseGateway _databaseGateway;
         private readonly ISystemUserQueryFactory _queryFactory;
+        private readonly IQueryMapper _queryMapper;
 
-        public SystemUserQuery(IDatabaseGateway databaseGateway, ISystemUserQueryFactory queryFactory)
+        public SystemUserQuery(IDatabaseGateway databaseGateway, ISystemUserQueryFactory queryFactory, IQueryMapper queryMapper)
         {
             Guard.AgainstNull(databaseGateway, "databaseGateway");
             Guard.AgainstNull(queryFactory, "queryFactory");
+            Guard.AgainstNull(queryMapper, "queryMapper");
 
             _databaseGateway = databaseGateway;
             _queryFactory = queryFactory;
+            _queryMapper = queryMapper;
         }
 
         public void Register(ProjectionEvent projectionEvent, Registered domainEvent)
@@ -55,6 +58,11 @@ namespace Shuttle.Sentinel
             }
 
             return result;
+        }
+
+        public IEnumerable<string> Roles(Guid id)
+        {
+            return _queryMapper.MapValues<string>(_queryFactory.Roles(id));
         }
 
         public int Count()

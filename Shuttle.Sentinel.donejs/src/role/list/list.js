@@ -23,7 +23,7 @@ export const ViewModel = Model.extend({
                 },
                 {
                     columnTitle: 'role:name', 
-                    attributeName: 'rolename'
+                    attributeName: 'roleName'
                 },
                 {
                     columnTitle: 'remove', 

@@ -1,4 +1,8 @@
 ﻿{
+  "username": "Username",
+  "dateRegistered": "Date registered",
+  "registeredBy": "Registered by",
+  "roleName":  "Role",
   "list": {
     "title": "Users",
     "roles": "Roles"
@@ -6,10 +10,9 @@
   "register": {
     "user-required": "Register an administrator",
     "title": "Register a new user",
-    "username": "Username",
     "password": "Password"
   },
   "login": {
-    "title":  "Sign-in"
+    "title": "Sign-in"
   }
 }

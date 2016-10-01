@@ -27,6 +27,7 @@ namespace Shuttle.Sentinel.WebApi
             _systemRoleQuery = systemRoleQuery;
         }
 
+        [RequiresPermission(SystemPermissions.Manage.Roles)]
         [Route("api/roles/setpermission")]
         public IHttpActionResult SetPermission([FromBody] SetRolePermissionModel model)
         {
@@ -42,7 +43,7 @@ namespace Shuttle.Sentinel.WebApi
             return Ok();
         }
 
-
+        [RequiresPermission(SystemPermissions.Manage.Roles)]
         [Route("api/roles/permissionstatus")]
         public IHttpActionResult PermissionStatus([FromBody] RolePermissionStatusModel model)
         {
@@ -67,7 +68,6 @@ namespace Shuttle.Sentinel.WebApi
                 });
         }
 
-        [RequiresPermission(SystemPermissions.View.Roles)]
         public IHttpActionResult Get()
         {
             using (_databaseContextFactory.Create())
@@ -78,7 +78,7 @@ namespace Shuttle.Sentinel.WebApi
                         select new
                         {
                             Id = SystemRoleColumns.Id.MapFrom(row),
-                            Rolename = SystemRoleColumns.RoleName.MapFrom(row)
+                            RoleName = SystemRoleColumns.RoleName.MapFrom(row)
                         }
                 });
             }

@@ -118,7 +118,9 @@
     <Compile Include="Controllers\AnonymousPermissionsController.cs" />
     <Compile Include="Controllers\EnvironmentsController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
+    <Compile Include="Models\UserRoleStatusModel.cs" />
     <Compile Include="Models\RolePermissionStatusModel.cs" />
+    <Compile Include="Models\SetUserRoleModel.cs" />
     <Compile Include="Models\SetRolePermissionModel.cs" />
     <Compile Include="Models\RegisterRoleModel.cs" />
     <Compile Include="Controllers\RolesController.cs" />

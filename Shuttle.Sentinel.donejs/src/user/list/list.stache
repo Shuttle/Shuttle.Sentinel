@@ -1,34 +1,11 @@
 <sentinel-page-title title="user:list.title" />
-{{#if users.isPending}}
-<sentinel-fetching title="user:list.title" />
-{{/if}}
-{{#if users.isResolved}}
 <sentinel-buttons>
   <sentinel-button ($click)="add()" text="add" permission="sentinel://user/register" />
   <sentinel-refresh-button ($click)="refresh()" />
 </sentinel-buttons>
-<div class="users">
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Roles</th>
-        <th>Username</th>
-        <th>Date Registered</th>
-        <th>Registered By</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each users.value}}
-      <tr>
-        <td data-title="Roles">
-          <sentinel-button class-type="default" ($click)="roles(id)" text="user:list.roles" />
-        </td>
-        <td data-title="Username">{{username}}</td>
-        <td data-title="Date Registered">{{dateRegistered}}</td>
-        <td data-title="Registered By">{{registeredBy}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+{{#if isPending}}
+<sentinel-fetching title="user:list.title" />
+{{/if}}
+{{#if isResolved}}
+<sentinel-table {columns}="columns" {rows}="list" />
 {{/if}}

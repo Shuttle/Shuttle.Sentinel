@@ -8,10 +8,6 @@ import 'can/map/define/';
 import 'can/map/delegate/';
 import 'bootstrap/dist/js/bootstrap'
 
-import 'sentinel/dashboard/';
-import 'sentinel/user/';
-import 'sentinel/role/';
-
 import 'sentinel/components/back-button';
 import 'sentinel/components/refresh-button';
 import 'sentinel/components/remove-button';
@@ -34,6 +30,10 @@ import 'sentinel/components/alerts';
 
 import 'validate.js';
 
+import 'sentinel/dashboard/';
+import 'sentinel/user/';
+import 'sentinel/role/';
+import 'sentinel/message/';
 
 localisation.start(function(error) {
     if (error) {

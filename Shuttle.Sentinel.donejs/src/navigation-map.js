@@ -7,22 +7,22 @@ var map = [
         permission: Permissions.View.Dashboard
     },
     {
-        href: '#!messages',
+        href: '#!message/manage',
         text: 'navigation:messages',
         permission: Permissions.View.Messages
     },
     {
-        href: '#!subscriptions',
+        href: '#!subscription/list',
         text: 'navigation:subscriptions',
         permission: Permissions.View.Subscriptions
     },
     {
-        href: '#!datastores',
+        href: '#!datastore/list',
         text: 'navigation:data-stores',
         permission: Permissions.View.DataStores
     },
     {
-        href: '#!queues',
+        href: '#!queue/list',
         text: 'navigation:queues',
         permission: Permissions.View.Queues
     },

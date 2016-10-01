@@ -43,6 +43,7 @@
     <Compile Include="v1\AddRoleCommand.cs" />
     <Compile Include="v1\RegisterUserCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="v1\SetUserRoleCommand.cs" />
     <Compile Include="v1\SetRolePermissionCommand.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

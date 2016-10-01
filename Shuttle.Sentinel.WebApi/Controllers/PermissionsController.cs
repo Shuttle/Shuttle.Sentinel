@@ -25,7 +25,6 @@ namespace Shuttle.Sentinel.WebApi
             _systemRoleQuery = systemRoleQuery;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Roles)]
         public IHttpActionResult Get()
         {
             using (_databaseContextFactory.Create())

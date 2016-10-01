@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Http;
@@ -66,6 +67,60 @@ namespace Shuttle.Sentinel.WebApi
                     Data = _systemUserQuery.Get(id)
                 });
             }
+        }
+
+        [RequiresPermission(SystemPermissions.Manage.Users)]
+        [Route("api/users/{id}/roles")]
+        public IHttpActionResult GetRoles(Guid id)
+        {
+            using (_databaseContextFactory.Create())
+            {
+                return Ok(new
+                {
+                    Data = _systemUserQuery.Roles(id)
+                });
+            }
+        }
+
+        [RequiresPermission(SystemPermissions.Manage.Roles)]
+        [Route("api/users/setrole")]
+        public IHttpActionResult SetRole([FromBody] SetUserRoleModel model)
+        {
+            Guard.AgainstNull(model, "model");
+
+            _bus.Send(new SetUserRoleCommand
+            {
+                UserId = model.UserId,
+                RoleName = model.RoleName,
+                Active = model.Active
+            });
+
+            return Ok();
+        }
+
+        [RequiresPermission(SystemPermissions.Manage.Roles)]
+        [Route("api/users/rolestatus")]
+        public IHttpActionResult PermissionStatus([FromBody] UserRoleStatusModel model)
+        {
+            Guard.AgainstNull(model, "model");
+
+            List<string> roles;
+
+            using (_databaseContextFactory.Create())
+            {
+                roles = _systemUserQuery.Roles(model.UserId).ToList();
+            }
+
+            return Ok(
+                new
+                {
+                    Data = from role in model.Roles
+                           select new
+                           {
+                               RoleName = role,
+                               Active = roles.Find(item => item.Equals(role)) != null
+                           }
+                });
         }
 
         public IHttpActionResult Post([FromBody] RegisterUserModel model)

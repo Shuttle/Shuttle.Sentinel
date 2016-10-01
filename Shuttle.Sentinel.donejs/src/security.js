@@ -1,13 +1,12 @@
 import $ from 'jquery';
 import can from 'can';
 import localisation from 'sentinel/localisation';
-import RegisterSession from 'sentinel/models/register-session';
 import state from 'sentinel/state';
 import alerts from 'sentinel/alerts';
 import api from 'sentinel/api';
 
-$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
-    options.beforeSend = function (xhr) {
+$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+    options.beforeSend = function(xhr) {
         if (state.attr('token')) {
             xhr.setRequestHeader('sentinel-sessiontoken', state.attr('token'));
         }
@@ -15,19 +14,19 @@ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
         if (originalOptions.beforeSend) {
             originalOptions.beforeSend(xhr);
         }
-    }
+    };
 });
 
 var security = {
-    hasSession: function () {
+    hasSession: function() {
         return state.attr('token') != undefined;
     },
 
-    hasPermission: function (permission) {
+    hasPermission: function(permission) {
         var result = false;
         var permissionCompare = permission.toLowerCase();
 
-        state.attr('permissions').each(function (item) {
+        state.attr('permissions').each(function(item) {
             if (result) {
                 return;
             }
@@ -44,15 +43,14 @@ var security = {
         }));
     },
 
-    start: function () {
+    start: function() {
         var self = this;
         var deferred = $.Deferred();
 
         api.get('anonymouspermissions')
             .done(function(data) {
-                var username = localStorage.getItem('username');
-                var token = localStorage.getItem('token');
-
+                const username = localStorage.getItem('username');
+                const token = localStorage.getItem('token');
                 state.attr('isUserRequired', data.isUserRequired);
 
                 can.each(data.permissions, function(item) {
@@ -80,11 +78,11 @@ var security = {
         return deferred;
     },
 
-    _addPermission: function (type, permission) {
+    _addPermission: function(type, permission) {
         state.attr('permissions').push({ type: type, permission: permission });
     },
 
-    login: function (options) {
+    login: function(options) {
         var self = this;
 
         if (!options) {
@@ -93,34 +91,36 @@ var security = {
 
         var usingToken = !!options.token;
 
-        return new RegisterSession({
-            username: options.username,
-            password: options.password,
-            token: options.token
-        }).save()
-			.done(function (response) {
-			    if (response.registered) {
-			        state.userLoggedIn(options.username, response.token);
+        return api.post('sessions', {
+                data: {
+                    username: options.username,
+                    password: options.password,
+                    token: options.token
+                }
+            })
+            .done(function(response) {
+                if (response.registered) {
+                    state.userLoggedIn(options.username, response.token);
 
-			        localStorage.setItem('username', options.username);
-			        localStorage.setItem('token', response.token);
-			        
-			        alerts.remove({ name: 'login-failure' });
+                    localStorage.setItem('username', options.username);
+                    localStorage.setItem('token', response.token);
 
-			        self.removeUserPermissions();
+                    alerts.remove({ name: 'login-failure' });
 
-			        can.each(response.permissions, function (permission) {
-			            self._addPermission('user', permission);
-			        });
-			    } else {
-			        if (usingToken) {
-			            alerts.show({ message: localisation.value('exceptions.login', { username: options.username }), type: 'danger', name: 'login-failure' });
-			        }
-			    }
-			})
-			.fail(function (error) {
-			    alerts.show(error, 'danger');
-			});
+                    self.removeUserPermissions();
+
+                    can.each(response.permissions, function(permission) {
+                        self._addPermission('user', permission);
+                    });
+                } else {
+                    if (usingToken) {
+                        alerts.show({ message: localisation.value('exceptions.login', { username: options.username }), type: 'danger', name: 'login-failure' });
+                    }
+                }
+            })
+            .fail(function(error) {
+                alerts.show(error, 'danger');
+            });
     },
 
     logout: function() {

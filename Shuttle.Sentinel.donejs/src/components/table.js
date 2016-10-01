@@ -38,7 +38,7 @@ export default can.Component.extend({
 
             return stache(stacheTemplate)(row);
         },
-        rowCloass(row) {
+        rowClass(row) {
             return typeof(row.attr) === 'function' ? row.attr('rowClass') : row['rowClass'];
         }
     }
