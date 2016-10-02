@@ -88,6 +88,20 @@ namespace Shuttle.Sentinel.WebApi
         {
             Guard.AgainstNull(model, "model");
 
+            using (_databaseContextFactory.Create())
+            {
+                if (model.RoleName.Equals("Administrator", StringComparison.InvariantCultureIgnoreCase)
+                    &&
+                    _systemUserQuery.AdministratorCount() == 1)
+                {
+                    return Ok(new
+                    {
+                        Success = false,
+                        FailureReason = "LastAdministrator"
+                    });
+                }
+            }
+
             _bus.Send(new SetUserRoleCommand
             {
                 UserId = model.UserId,
@@ -95,12 +109,15 @@ namespace Shuttle.Sentinel.WebApi
                 Active = model.Active
             });
 
-            return Ok();
+            return Ok(new
+            {
+                Success = true
+            });
         }
 
         [RequiresPermission(SystemPermissions.Manage.Roles)]
         [Route("api/users/rolestatus")]
-        public IHttpActionResult PermissionStatus([FromBody] UserRoleStatusModel model)
+        public IHttpActionResult RoleStatus([FromBody] UserRoleStatusModel model)
         {
             Guard.AgainstNull(model, "model");
 

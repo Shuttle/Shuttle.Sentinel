@@ -31,6 +31,8 @@ let RoleModel = Map.extend({
     },
 
     toggle: function() {
+        var self = this;
+
         if (this.attr('working')) {
             alerts.show({ message: localisation.value('workingMessage'), name: 'working-message' });
             return;
@@ -39,11 +41,27 @@ let RoleModel = Map.extend({
         this.attr('active', !this.attr('active'));
         this.attr('working', true);
 
-        api.post('roles/setpermission', { data: {
-            roleId: state.attr('route.id'), 
-            permission: this.attr('permission'),
+        api.post('users/setrole', { data: {
+            userId: state.attr('route.id'), 
+            roleName: this.attr('roleName'),
             active: this.attr('active')
-        } });
+        } })
+        .done(function(response) {
+            if (response.success) {
+                return;
+            }
+
+            switch (response.failureReason.toLowerCase()) {
+                case 'lastadministrator':
+                    {
+                        self.attr('active', true);
+                        self.attr('working', false);
+
+                        alerts.show({ message: localisation.value('user:exceptions.last-administrator'), name: 'last-administrator', type: 'danger' });
+                        break;
+                    }
+            }
+        });
 
         this.attr('viewModel')._working();
     }
@@ -101,18 +119,15 @@ export const ViewModel = Model.extend({
             });
     },
 
-    remove: function(id) {
-    },
-
-    getPermissionItem: function(permission) {
+    getRoleItem: function(roleName) {
         var result;
 
-        $.each(this.attr('permissions'), function(index, item) {
+        $.each(this.attr('roles'), function(index, item) {
             if (result) {
                 return;
             }
 
-            if (item.permission === permission) {
+            if (item.roleName === roleName) {
                 result = item;
             }
         });
@@ -122,7 +137,7 @@ export const ViewModel = Model.extend({
 
     _working: function() {
         var self = this;
-        var workingList = this.attr('permissions').filter(function(item) {
+        var workingList = this.attr('roles').filter(function(item) {
             return item.attr('working');
         });
 
@@ -131,24 +146,24 @@ export const ViewModel = Model.extend({
         }
 
         var data = {
-            roleId: state.attr('route.id'),
-            permissions: []
+            userId: state.attr('route.id'),
+            roles: []
         }
 
         $.each(workingList, function(index, item) {
-            data.permissions.push(item.attr('permission'));
+            data.roles.push(item.attr('roleName'));
         });
 
-        api.post('roles/permissionstatus', { data: data})
+        api.post('users/rolestatus', { data: data})
             .done(function(response) {
                 $.each(response.data, function(index, item) {
-                    var permissionItem = self.getPermissionItem(item.permission);
+                    var roleItem = self.getRoleItem(item.roleName);
 
-                    if (!permissionItem) {
+                    if (!roleItem) {
                         return;
                     }
 
-                    permissionItem.attr('working', !(permissionItem.active === item.active));
+                    roleItem.attr('working', !(roleItem.active === item.active));
                 });
             })
             .always(function() {

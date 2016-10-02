@@ -79,6 +79,15 @@ namespace Shuttle.Sentinel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role &apos;{0}&apos; does not exist on user &apos;{1}&apos;..
+        /// </summary>
+        public static string RoleNotFoundException {
+            get {
+                return ResourceManager.GetString("RoleNotFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type &apos;{0}&apos; could not be loaded using value &apos;{1}&apos;.  Exception: {2}.
         /// </summary>
         public static string TypeNotFoundException {

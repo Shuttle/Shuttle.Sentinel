@@ -6,7 +6,8 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 {
     public class UserHandler :
         IEventHandler<Registered>,
-        IEventHandler<RoleAdded>
+        IEventHandler<RoleAdded>,
+        IEventHandler<RoleRemoved>
     {
         private readonly ISystemUserQuery _query;
 
@@ -25,6 +26,11 @@ namespace Shuttle.Sentinel.EventProcessing.Server
         public void ProcessEvent(IEventHandlerContext<RoleAdded> context)
         {
             _query.RoleAdded(context.ProjectionEvent, context.DomainEvent);
+        }
+
+        public void ProcessEvent(IEventHandlerContext<RoleRemoved> context)
+        {
+            _query.RoleRemoved(context.ProjectionEvent, context.DomainEvent);
         }
     }
 }

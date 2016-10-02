@@ -81,5 +81,25 @@ if not exists(select null from [dbo].[SystemUserRole] where UserId = @UserId and
             return RawQuery.Create(@"select RoleName from dbo.SystemUserRole where UserId = @UserId")
                 .AddParameterValue(SystemUserRoleColumns.UserId, id);
         }
+
+        public IQuery RoleRemoved(Guid id, RoleRemoved domainEvent)
+        {
+            return RawQuery.Create(@"
+delete 
+from 
+    [dbo].[SystemUserRole]
+where
+    [UserId] = @UserId
+and
+	[RoleName] = @RoleName
+")
+                .AddParameterValue(SystemUserRoleColumns.UserId, id)
+                .AddParameterValue(SystemUserRoleColumns.RoleName, domainEvent.Role);
+        }
+
+        public IQuery AdministratorCount()
+        {
+            return RawQuery.Create("select count(*) as count from dbo.SystemUserRole where RoleName = 'administrator'");
+        }
     }
 }

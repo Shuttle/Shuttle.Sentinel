@@ -2,7 +2,7 @@
   "username": "Username",
   "dateRegistered": "Date registered",
   "registeredBy": "Registered by",
-  "roleName":  "Role",
+  "roleName": "Role",
   "list": {
     "title": "Users",
     "roles": "Roles"
@@ -14,5 +14,8 @@
   },
   "login": {
     "title": "Sign-in"
+  },
+  "exceptions": {
+    "last-administrator": "The 'administrator' role cannot be removed as this is the last user with administrator rights."
   }
 }

@@ -12,5 +12,7 @@ namespace Shuttle.Sentinel
 	    IQuery Search();
 	    IQuery Get(Guid id);
 	    IQuery Roles(Guid id);
+	    IQuery RoleRemoved(Guid id, RoleRemoved domainEvent);
+	    IQuery AdministratorCount();
 	}
 }

@@ -97,9 +97,6 @@ export const ViewModel = Model.extend({
             });
     },
 
-    remove: function(id) {
-    },
-
     getPermissionItem: function(permission) {
         var result;
 

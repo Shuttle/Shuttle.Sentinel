@@ -125,6 +125,10 @@
     <value>Permission '{0}' does not exist on role '{1}'.</value>
     <comment>0 = permission, 1 = role name</comment>
   </data>
+  <data name="RoleNotFoundException" xml:space="preserve">
+    <value>Role '{0}' does not exist on user '{1}'.</value>
+    <comment>0 = role name, 1 = user name</comment>
+  </data>
   <data name="TypeNotFoundException" xml:space="preserve">
     <value>Type '{0}' could not be loaded using value '{1}'.  Exception: {2}</value>
     <comment>0 = the friendly name of the type  sought, 1 = the value representing the type, 2 = the exception reported.</comment>

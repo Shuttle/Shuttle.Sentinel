@@ -9,7 +9,8 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class UserHandler :
-        IMessageHandler<RegisterUserCommand>
+        IMessageHandler<RegisterUserCommand>,
+        IMessageHandler<SetUserRoleCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
@@ -72,6 +73,36 @@ namespace Shuttle.Sentinel.Server
                 }
 
                 stream.AddEvent(registered);
+
+                _eventStore.SaveEventStream(stream);
+            }
+        }
+
+        public void ProcessMessage(IHandlerContext<SetUserRoleCommand> context)
+        {
+            var message = context.Message;
+
+            using (_databaseContextFactory.Create())
+            {
+                if (!message.Active && message.RoleName.Equals("administrator") && _systemUserQuery.AdministratorCount() == 1)
+                {
+                    return;
+                }
+
+                var user = new User(message.UserId);
+                var stream = _eventStore.Get(message.UserId);
+
+                stream.Apply(user);
+
+                if (message.Active && !user.IsInRole(message.RoleName))
+                {
+                    stream.AddEvent(user.AddRole(message.RoleName));
+                }
+
+                if (!message.Active && user.IsInRole(message.RoleName))
+                {
+                    stream.AddEvent(user.RemoveRole(message.RoleName));
+                }
 
                 _eventStore.SaveEventStream(stream);
             }

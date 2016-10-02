@@ -69,5 +69,31 @@ namespace Shuttle.Sentinel
 
             return roleAdded;
         }
+
+        public bool IsInRole(string role)
+        {
+            return _roles.Contains(role);
+        }
+
+        public object RemoveRole(string role)
+        {
+            Guard.AgainstNullOrEmptyString(role, "role");
+
+            if (!IsInRole(role))
+            {
+                throw new InvalidOperationException(string.Format(SentinelResources.RoleNotFoundException, role, _username));
+            }
+
+            return On(new RoleRemoved { Role = role });
+        }
+
+        public RoleRemoved On(RoleRemoved roleRemoved)
+        {
+            Guard.AgainstNull(roleRemoved, "roleRemoved");
+
+            _roles.Remove(roleRemoved.Role);
+
+            return roleRemoved;
+        }
     }
 }

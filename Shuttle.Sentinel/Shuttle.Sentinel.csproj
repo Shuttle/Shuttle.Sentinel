@@ -59,12 +59,12 @@
       <HintPath>..\packages\Shuttle.Esb.7.0.1\lib\net45-full\Shuttle.Esb.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Recall, Version=3.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Recall.3.6.2\lib\net45-full\Shuttle.Recall.dll</HintPath>
+    <Reference Include="Shuttle.Recall, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Recall.4.0.0\lib\net45-full\Shuttle.Recall.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Recall.SqlServer, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Recall.SqlServer.1.8.6\lib\net45-full\Shuttle.Recall.SqlServer.dll</HintPath>
+    <Reference Include="Shuttle.Recall.SqlServer, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Recall.SqlServer.4.0.1\lib\net45-full\Shuttle.Recall.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -92,6 +92,7 @@
     <Compile Include="DomainEvents\Role.v1\Added.cs" />
     <Compile Include="DomainEvents\Role.v1\PermissionRemoved.cs" />
     <Compile Include="DomainEvents\Role.v1\PermissionAdded.cs" />
+    <Compile Include="DomainEvents\User.v1\RoleRemoved.cs" />
     <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
     <Compile Include="Domain\SystemPermissions.cs" />
     <Compile Include="Domain\Role.cs" />
@@ -137,8 +138,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".script\0-Data.sql" />
-    <Content Include=".script\0-Schema.sql" />
+    <Content Include=".script\0-clear-projections.sql" />
+    <Content Include=".script\0-data.sql" />
+    <Content Include=".script\0-schema.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataAccess\SystemUserRole\" />
