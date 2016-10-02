@@ -18,6 +18,9 @@ namespace Shuttle.Sentinel
 		[ConfigurationProperty("connectionStringName", IsRequired = false, DefaultValue = "Sentinel")]
 		public string ConnectionStringName => (string)this["connectionStringName"];
 
+		[ConfigurationProperty("serializerType", IsRequired = false, DefaultValue = "Shuttle.Core.DefaultSerializer, Shuttle.Core")]
+		public string SerializerType => (string)this["serializerType"];
+
 		public static ISentinelConfiguration Configuration()
 		{
 			var section = ConfigurationSectionProvider.Open<SentinelSection>("shuttle", "sentinel") ?? new SentinelSection();
@@ -42,6 +45,16 @@ namespace Shuttle.Sentinel
 			{
 				throw new ConfigurationErrorsException(string.Format(SentinelResources.TypeNotFoundException, "AuthorizationServiceType",
 					section.AuthorizationServiceType, ex.Message));
+			}
+
+			try
+			{
+				result.SerializerType = Type.GetType(section.SerializerType, true, true);
+			}
+			catch (Exception ex)
+			{
+				throw new ConfigurationErrorsException(string.Format(SentinelResources.TypeNotFoundException, "SerializerType",
+					section.SerializerType, ex.Message));
 			}
 
 			var connectionString = ConfigurationManager.ConnectionStrings[section.ConnectionStringName];

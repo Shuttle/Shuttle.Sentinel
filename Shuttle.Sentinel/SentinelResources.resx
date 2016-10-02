@@ -121,6 +121,10 @@
     <value>Permission '{0}' already exists on role '{1}'.</value>
     <comment>0 = permission, 1 = role name</comment>
   </data>
+  <data name="EnqueueException" xml:space="preserve">
+    <value>Could not enqueue message id '{0}' on inspection queue.  Exception: {1}</value>
+    <comment>{0} = message id, {1} = exception message</comment>
+  </data>
   <data name="PermissionNotFoundException" xml:space="preserve">
     <value>Permission '{0}' does not exist on role '{1}'.</value>
     <comment>0 = permission, 1 = role name</comment>

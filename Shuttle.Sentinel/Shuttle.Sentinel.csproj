@@ -78,6 +78,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\InspectionQueue\IInspectionQueueQueryFactory.cs" />
+    <Compile Include="DataAccess\InspectionQueue\InspectionQueueColumns.cs" />
+    <Compile Include="DataAccess\InspectionQueue\InspectionQueueQueryFactoryFactory.cs" />
     <Compile Include="DataAccess\Query\Role.cs" />
     <Compile Include="DataAccess\Query\User.cs" />
     <Compile Include="DataAccess\Session\ISessionQuery.cs" />
@@ -96,7 +99,9 @@
     <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
     <Compile Include="Domain\SystemPermissions.cs" />
     <Compile Include="Domain\Role.cs" />
+    <Compile Include="Queues\DefaultInspectionQueue.cs" />
     <Compile Include="Queues\IInspectionQueue.cs" />
+    <Compile Include="Queues\InspectionMessage.cs" />
     <Compile Include="Services\IAnonymousPermissions.cs" />
     <Compile Include="SentinelResources.Designer.cs">
       <DependentUpon>SentinelResources.resx</DependentUpon>

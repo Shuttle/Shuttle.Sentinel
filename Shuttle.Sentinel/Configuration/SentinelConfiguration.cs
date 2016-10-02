@@ -8,5 +8,6 @@ namespace Shuttle.Sentinel
 		public Type AuthorizationServiceType { get; set; }
 		public string ProviderName { get; set; }
 		public string ConnectionString { get; set; }
+	    public Type SerializerType { get; set; }
 	}
 }

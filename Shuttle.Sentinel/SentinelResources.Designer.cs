@@ -70,6 +70,15 @@ namespace Shuttle.Sentinel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not enqueue message id &apos;{0}&apos; on inspection queue.  Exception: {1}.
+        /// </summary>
+        public static string EnqueueException {
+            get {
+                return ResourceManager.GetString("EnqueueException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission &apos;{0}&apos; does not exist on role &apos;{1}&apos;..
         /// </summary>
         public static string PermissionNotFoundException {
