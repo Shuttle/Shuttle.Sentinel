@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
@@ -16,7 +17,8 @@ namespace Shuttle.Sentinel.Queues
 
         private readonly ILog _log;
 
-        public DefaultInspectionQueue(IDatabaseContextFactory databaseContextFactory, IDatabaseGateway databaseGateway, IInspectionQueueQueryFactory inspectionQueueQueryFactory)
+        public DefaultInspectionQueue(IDatabaseContextFactory databaseContextFactory, IDatabaseGateway databaseGateway,
+            IInspectionQueueQueryFactory inspectionQueueQueryFactory)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
             Guard.AgainstNull(databaseGateway, "databaseGateway");
@@ -35,7 +37,7 @@ namespace Shuttle.Sentinel.Queues
             {
                 using (_databaseContextFactory.Create())
                 {
-                    _databaseGateway.ExecuteUsing(_inspectionQueueQueryFactory.Enqueue(transportMessage,stream));
+                    _databaseGateway.ExecuteUsing(_inspectionQueueQueryFactory.Enqueue(transportMessage, stream));
                 }
             }
             catch (Exception ex)
@@ -49,12 +51,27 @@ namespace Shuttle.Sentinel.Queues
 
         public IEnumerable<InspectionMessage> Messages()
         {
-            throw new NotImplementedException();
+            var result = new List<InspectionMessage>();
+
+            using (_databaseContextFactory.Create())
+            {
+                result.AddRange(
+                    _databaseGateway.GetRowsUsing(_inspectionQueueQueryFactory.Messages())
+                        .Select(
+                            row =>
+                                new InspectionMessage(InspectionQueueColumns.MessageId.MapFrom(row),
+                                    new MemoryStream(InspectionQueueColumns.MessageBody.MapFrom(row)))));
+            }
+
+            return result;
         }
 
         public void Remove(Guid messageId)
         {
-            throw new NotImplementedException();
+            using (_databaseContextFactory.Create())
+            {
+                _databaseGateway.ExecuteUsing(_inspectionQueueQueryFactory.Remove(messageId));
+            }
         }
     }
 }

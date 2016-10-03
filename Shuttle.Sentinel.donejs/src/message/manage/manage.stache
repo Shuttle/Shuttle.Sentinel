@@ -1,1 +1,2 @@
 <sentinel-page-title title="message:title" />
+<sentinel-text focus="true" label="message:source-queue" {(value)}="sourceQueue" required="true" {validation-message}="nameConstraint"/>

@@ -18,7 +18,7 @@ namespace Shuttle.Sentinel
 		[ConfigurationProperty("connectionStringName", IsRequired = false, DefaultValue = "Sentinel")]
 		public string ConnectionStringName => (string)this["connectionStringName"];
 
-		[ConfigurationProperty("serializerType", IsRequired = false, DefaultValue = "Shuttle.Core.DefaultSerializer, Shuttle.Core")]
+		[ConfigurationProperty("serializerType", IsRequired = false, DefaultValue = "Shuttle.Core.Infrastructure.DefaultSerializer, Shuttle.Core.Infrastructure")]
 		public string SerializerType => (string)this["serializerType"];
 
 		public static ISentinelConfiguration Configuration()

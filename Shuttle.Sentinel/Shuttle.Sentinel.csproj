@@ -80,7 +80,7 @@
   <ItemGroup>
     <Compile Include="DataAccess\InspectionQueue\IInspectionQueueQueryFactory.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueColumns.cs" />
-    <Compile Include="DataAccess\InspectionQueue\InspectionQueueQueryFactoryFactory.cs" />
+    <Compile Include="DataAccess\InspectionQueue\InspectionQueueQueryFactory.cs" />
     <Compile Include="DataAccess\Query\Role.cs" />
     <Compile Include="DataAccess\Query\User.cs" />
     <Compile Include="DataAccess\Session\ISessionQuery.cs" />

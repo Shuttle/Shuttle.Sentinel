@@ -19,7 +19,6 @@ namespace Shuttle.Sentinel
 			container.Register(Component.For<ISentinelConfiguration>().Instance(configuration));
 			container.Register(Component.For<IAuthenticationService>().ImplementedBy(configuration.AuthenticationServiceType));
 			container.Register(Component.For<IAuthorizationService>().ImplementedBy(configuration.AuthorizationServiceType));
-			container.Register(Component.For<ISerializer>().ImplementedBy(configuration.SerializerType));
 
 			container.Resolve<IDatabaseContextFactory>().ConfigureWith(configuration.ProviderName, configuration.ConnectionString);
 		}

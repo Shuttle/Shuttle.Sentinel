@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
 
@@ -6,12 +7,14 @@ namespace Shuttle.Sentinel.Queues
 {
     public class InspectionMessage
     {
+        public Guid MessageId { get; private set; }
         public Stream Stream { get; private set; }
 
-        public InspectionMessage(Stream stream)
+        public InspectionMessage(Guid messageId, Stream stream)
         {
             Guard.AgainstNull(stream, "stream");
 
+            MessageId = messageId;
             Stream = stream;
         }
 
