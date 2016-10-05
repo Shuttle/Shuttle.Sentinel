@@ -1,4 +1,7 @@
 ﻿{
+  "get": "Get message(s)",
+  "message-id": "Message Id",
   "title": "Messages",
-  "source-queue":  "Source queue"
+  "return-to-source": "Return to source",
+  "source-queue": "Source queue"
 }

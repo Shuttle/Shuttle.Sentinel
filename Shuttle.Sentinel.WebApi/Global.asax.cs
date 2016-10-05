@@ -16,6 +16,7 @@ using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
 using Shuttle.Esb.Castle;
 using Shuttle.Esb;
+using Shuttle.Sentinel.Queues;
 using ILog = Shuttle.Core.Infrastructure.ILog;
 
 namespace Shuttle.Sentinel.WebApi
@@ -214,6 +215,7 @@ namespace Shuttle.Sentinel.WebApi
 		    _container.RegisterConfiguration(configuration);
 
             _container.Register(Component.For<ISerializer>().ImplementedBy(configuration.SerializerType));
+            _container.Register(Component.For<IInspectionQueue>().ImplementedBy<DefaultInspectionQueue>());
 
             _container.Register("Shuttle.Sentinel.WebApi", typeof (ApiController), "Controller");
 			_container.Register("Shuttle.Sentinel", "Service");

@@ -2,6 +2,7 @@ import can from 'can';
 import Map from 'can/map/';
 import stache from 'can/view/stache/';
 import template from './table.stache!';
+import localisation from 'sentinel/localisation';
 
 export const ViewModel = Map.extend({
     define: {
@@ -26,7 +27,21 @@ export default can.Component.extend({
     template,
     viewModel: ViewModel,
     helpers: {
+        columnTitle(column) {
+            if (!!column.columnTitleTemplate) {
+                return stache(column.columnTitleTemplate)(column);
+            } else {
+                return localisation.value(column.columnTitle || '');
+            }
+        },
+        columnClass(column) {
+            return column.columnClass || '';
+        },
         columnValue(row, column) {
+            if (!column.attributeName) {
+                throw new Error('The column requires an \'attributeName\'');
+            }
+
             return typeof(row.attr) === 'function' ? row.attr(column.attributeName) : row[column.attributeName];
         },
         template(row, column) {
@@ -40,6 +55,13 @@ export default can.Component.extend({
         },
         rowClass(row) {
             return typeof(row.attr) === 'function' ? row.attr('rowClass') : row['rowClass'];
+        },
+        rowClick(row) {
+            if (!this.attr('rowClick')) {
+                return;
+            }
+
+            this.attr('rowClick').call(this, row);
         }
     }
 });

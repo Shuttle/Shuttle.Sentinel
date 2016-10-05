@@ -19,7 +19,9 @@ export default can.Component.extend({
     events: {
         'inserted': function(el) {
             if (this.viewModel.attr('focus')) {
-                el[0].childNodes[0].focus();
+                if (el[0] && el[0].childNodes[0] && el[0].childNodes[0].focus) {
+                    el[0].childNodes[0].focus();
+                }
             }
         }
     }

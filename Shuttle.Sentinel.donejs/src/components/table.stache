@@ -3,13 +3,15 @@
     <thead>
       <tr>
         {{#columns}}
-          <th class="{{columnClass}}">{{i18n columnTitle}}</th>
+          <th class="{{columnClass .}}">
+            {{columnTitle .}}
+          </th>
         {{/columns}}
-      </tr>
+        </tr>
     </thead>
     <tbody>
       {{#each rows}}
-      <tr class="{{rowClass .}}">
+      <tr class="{{rowClass .}}" ($click)="rowClick(.)">
         {{#columns}}
           <td data-title="{{i18n columnTitle}}">
             {{#switch columnType}}
@@ -17,7 +19,7 @@
                 <sentinel-button class-type="btn-default buttonClass" ($click)="{{buttonClick}}" text="{{buttonTitle}}" />
               {{/case}}
               {{#case 'remove-button'}}
-                <sentinel-remove-button (click)="{{buttonClick}}" text="remove" />
+                <sentinel-remove-button ($click)="buttonClick" text="remove" />
             {{/case}}
             {{#case 'template'}}
             {{template ../. .}}

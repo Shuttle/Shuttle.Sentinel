@@ -1,13 +1,16 @@
 ﻿<sentinel-form-group {validation-message}="validationMessage">
 	<sentinel-label {label}="label" {required}="required" />
-	{{#if hasButton}}
-	<div class="input-group">
-		<span class="input-group-btn">
-			<button class="btn btn-default" type="button">{{buttonText}}</button>
-		</span>
-		<sentinel-input {focus}="focus" {(value)}="value" {type}="type"/>
-	</div>
-	{{else}}
-    <sentinel-input {focus}="focus" {(value)}="value" {type}="type"/>
-	{{/if}}
+	{{#switch displayType}}
+		{{#case "button"}}
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button class="btn {{buttonClassType}}" type="button">{{buttonText}}</button>
+				</span>
+				<sentinel-input {focus}="focus" {(value)}="value" {type}="type"/>
+			</div>
+		{{/case}}
+		{{#default}}
+		    <sentinel-input {focus}="focus" {(value)}="value" {type}="type"/>
+        {{/default}}
+    {{/switch}}
 </sentinel-form-group>
