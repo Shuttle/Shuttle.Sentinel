@@ -19,6 +19,10 @@ export const MessageModel = Map.extend({
         checked: {
             value: false
         }
+    },
+
+    toggleSelection: function(ev) {
+        ev.stopPropagation();
     }
 });
 
@@ -56,7 +60,7 @@ export const ViewModel = Model.extend({
             columnClass: 'col-md-1',
             columnTitleTemplate: '<sentinel-input type="checkbox" ($click)="toggleSelection()" {(checked)}="checked"/>---should be button',
             columnType: 'template',
-            template: '<sentinel-input type="checkbox" {(checked)}="checked"/>',
+            template: '<sentinel-input type="checkbox" {(checked)}="checked" ($click)="toggleSelection(%event)"/>',
             toggleSelection: function() {
                 self.toggleSelection(!this.attr('checked'));
             }
@@ -79,7 +83,11 @@ export const ViewModel = Model.extend({
                 self.attr('messages', new List());
 
                 can.each(messages, function(message) {
-                    self.attr('messages').push(new MessageModel(message));
+                    let messageModel = new MessageModel(message);
+
+                    messageModel.attr('messageSelected', self.messageSelected);
+
+                    self.attr('messages').push(messageModel);
                 });
             });
     },
@@ -113,6 +121,10 @@ export const ViewModel = Model.extend({
             });
 
         return true;
+    },
+
+    messageSelected: function(row) {
+        alert(row.attr('messageId'));
     }
 });
 

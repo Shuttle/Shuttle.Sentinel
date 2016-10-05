@@ -12,5 +12,5 @@
 <sentinel-fetching title="message:title" />
 {{/if}}
 {{#if isResolved}}
-<sentinel-table {columns}="columns" {rows}="messages" />
+<sentinel-table {columns}="columns" {rows}="messages" row-click="messageSelected" />
 {{/if}}

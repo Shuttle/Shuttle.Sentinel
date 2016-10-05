@@ -55,13 +55,6 @@ export default can.Component.extend({
         },
         rowClass(row) {
             return typeof(row.attr) === 'function' ? row.attr('rowClass') : row['rowClass'];
-        },
-        rowClick(row) {
-            if (!this.attr('rowClick')) {
-                return;
-            }
-
-            this.attr('rowClick').call(this, row);
         }
     }
 });
