@@ -18,11 +18,25 @@ export const MessageModel = Map.extend({
     define: {
         checked: {
             value: false
+        },
+
+        selected: {
+            value: false
+        },
+
+        rowClass: {
+            get: function() {
+                return this.attr('selected') ? 'text-success success' : '';
+            }
         }
     },
 
     toggleSelection: function(ev) {
         ev.stopPropagation();
+    },
+
+    messageSelected: function(message) {
+        this.attr('viewModel').messageSelected(message);
     }
 });
 
@@ -33,7 +47,29 @@ export const ViewModel = Model.extend({
         },
 
         messages: {
-            valie: new List()
+            value: new List()
+        },
+
+        messageColumns: {
+            value: [
+                {
+                    columnClass: 'col-md-2',
+                    columnTitle: 'name',
+                    attributeName: 'name'
+                },
+                {
+                    columnTitle: 'value',
+                    attributeName: 'value'
+                }
+            ]
+        },
+
+        messageActions: {
+            value: new List()
+        },
+
+        checkActions: {
+            value: new List()
         },
 
         sourceQueueUri: {
@@ -53,25 +89,114 @@ export const ViewModel = Model.extend({
 
     init: function() {
         var self = this;
+        let columns = this.attr('columns');
+        let messageActions = this.attr('messageActions');
+        let checkActions = this.attr('checkActions');
 
-        this.attr('columns').push(new Map(
-        {
-            checked: false,
-            columnClass: 'col-md-1',
-            columnTitleTemplate: '<sentinel-input type="checkbox" ($click)="toggleSelection()" {(checked)}="checked"/>---should be button',
-            columnType: 'template',
-            template: '<sentinel-input type="checkbox" {(checked)}="checked" ($click)="toggleSelection(%event)"/>',
-            toggleSelection: function() {
-                self.toggleSelection(!this.attr('checked'));
-            }
-        }));
+        if (!columns.length) {
+            columns.push(new Map(
+            {
+                checked: false,
+                columnClass: 'col-md-1',
+                columnType: 'template',
+                template: '<sentinel-input type="checkbox" {(checked)}="checked" ($click)="toggleSelection(%event)"/>'
+            }));
 
-        this.attr('columns').push(
-        {
-            columnTitle: 'message:message-id',
-            attributeName: 'messageId'
-        });
+            columns.push(
+            {
+                columnTitle: 'message:message-id',
+                attributeName: 'messageId'
+            });
+        }
 
+        if (!messageActions.length) {
+            messageActions.push({
+                text: "message:get",
+                click: function() {
+                    self.fetchMessage();
+                }
+            });
+
+            messageActions.push({
+                text: "message:return-to-source",
+                click: function() {
+                    alert('return');
+                }
+            });
+
+            messageActions.push({
+                text: "message:send-to-recipient",
+                click: function() {
+                    alert('recipient');
+                }
+            });
+
+            messageActions.push({
+                isSeparator: true
+            });
+
+            messageActions.push({
+                text: "copy",
+                click: function() {
+                    alert('copy');
+                }
+            });
+
+            messageActions.push({
+                text: "move",
+                click: function() {
+                    alert('move');
+                }
+            });
+
+            messageActions.push({
+                isSeparator: true
+            });
+
+            messageActions.push({
+                text: "message:stop-ignoring",
+                click: function() {
+                    alert('stop ignoring');
+                }
+            });
+
+            messageActions.push({
+                text: "message:release",
+                click: function() {
+                    alert('release');
+                }
+            });
+
+            messageActions.push({
+                text: "message:acknowledge",
+                click: function() {
+                    alert('acknowledge');
+                }
+            });
+        }
+
+        if (!checkActions.length) {
+            checkActions.push({
+                text: "all",
+                click: function() {
+                    self.checkAll();
+                }
+            });
+
+            checkActions.push({
+                text: "none",
+                click: function() {
+                    self.checkNone();
+                }
+            });
+
+            checkActions.push({
+                text: "invert",
+                click: function() {
+                    self.checkInvert();
+                }
+            });
+        }
         this.refresh();
     },
 
@@ -85,7 +210,7 @@ export const ViewModel = Model.extend({
                 can.each(messages, function(message) {
                     let messageModel = new MessageModel(message);
 
-                    messageModel.attr('messageSelected', self.messageSelected);
+                    messageModel.attr('viewModel', self);
 
                     self.attr('messages').push(messageModel);
                 });
@@ -108,11 +233,11 @@ export const ViewModel = Model.extend({
         this.attr('fetchingMessage', true);
 
         api.post('messages/fetch', {
-                data: {
-                    queueUri: this.attr('sourceQueueUri'),
-                    count: 1
-                }
-            })
+            data: {
+                queueUri: this.attr('sourceQueueUri'),
+                count: 1
+            }
+        })
             .done(function(response) {
                 self.refresh();
             })
@@ -123,8 +248,50 @@ export const ViewModel = Model.extend({
         return true;
     },
 
-    messageSelected: function(row) {
-        alert(row.attr('messageId'));
+    messageSelected: function(message) {
+        if (this.attr('message')) {
+            this.attr('message.selected', false);
+        }
+
+        this.attr('message', message);
+        this.attr('message.selected', true);
+        this.attr('messageRows', new List());
+
+        this.addMessageRow('MessageId', message.attr('messageId'));
+        this.addMessageRow('Message', message.attr('message'));
+        this.addMessageRow('AssemblyQualifiedName', message.attr('assemblyQualifiedName'));
+        this.addMessageRow('CompressionAlgorithm', message.attr('compressionAlgorithm'));
+        this.addMessageRow('CorrelationId', message.attr('correlationId'));
+        this.addMessageRow('EncryptionAlgorithm', message.attr('encryptionAlgorithm'));
+        this.addMessageRow('ExpiryDate', message.attr('expiryDate'));
+
+        if (message.attr('failureMessages') && message.attr('failureMessages').length) {
+            can.each(message.attr('failureMessages'), function(item, index) {
+                this.addMessageRow('FailureMessages.' + index, item);
+            });
+        } else {
+            this.addMessageRow('FailureMessages', "(none)");
+        }
+
+        if (message.attr('headers') && message.attr('headers').length) {
+            can.each(message.attr('headers'), function(item, index) {
+                this.addMessageRow('Headers.' + index, item);
+            });
+        } else {
+            this.addMessageRow('Headers', "(none)");
+        }
+
+        this.addMessageRow('IgnoreTillDate', message.attr('ignoreTillDate'));
+        this.addMessageRow('MessageReceivedId', message.attr('messageReceivedId'));
+        this.addMessageRow('MessageType', message.attr('messageType'));
+        this.addMessageRow('PrincipalIdentityName', message.attr('principalIdentityName'));
+        this.addMessageRow('RecipientInboxWorkQueueUri', message.attr('recipientInboxWorkQueueUri'));
+        this.addMessageRow('SendDate', message.attr('sendDate'));
+        this.addMessageRow('SenderInboxWorkQueueUri', message.attr('senderInboxWorkQueueUri'));
+    },
+
+    addMessageRow: function(name, value) {
+        this.attr('messageRows').push({ name: name, value: value });
     }
 });
 

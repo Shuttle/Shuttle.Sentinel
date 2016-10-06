@@ -1,16 +1,19 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
+      {{#if state.navigationItems}}
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sentinel-navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="glyphicon glyphicon-menu-hamburger"></span>
       </button>
+      {{/if}}
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sentinel-navigation-user">
         <span class="sr-only">Toggle user</span>
         <span class="glyphicon glyphicon-user"></span>
       </button>
       <a class="navbar-brand" href="#">Shuttle.Sentinel</a>
     </div>
+    {{#if state.navigationItems}}
     <div class="navbar-header collapse navbar-collapse" id="sentinel-navigation">
       <ul class='nav navbar-nav'>
         {{#each state.navigationItems}}
@@ -38,6 +41,7 @@
         {{/each}}
       </ul>
     </div>
+    {{/if}}
 
     <div class="navbar-header collapse navbar-collapse navbar-right" id="sentinel-navigation-user">
       <ul class="nav navbar-nav">

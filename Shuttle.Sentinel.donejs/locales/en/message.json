@@ -1,7 +1,12 @@
 ﻿{
+  "acknowledge": "Acknowledge",
   "get": "Get message(s)",
   "message-id": "Message Id",
+  "messages": "Messages",
   "title": "Messages",
+  "release": "Release",
   "return-to-source": "Return to source",
+  "send-to-recipient": "Send to recipient",
+  "stop-ignoring": "Stop ignoring",
   "source-queue": "Source queue"
 }
