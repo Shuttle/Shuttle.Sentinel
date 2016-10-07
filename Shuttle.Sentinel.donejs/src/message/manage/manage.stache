@@ -1,7 +1,23 @@
 <sentinel-page-title title="message:title" />
-<sentinel-text focus="true" label="message:source-queue" {(value)}="sourceQueueUri" required="true" {validation-message}="sourceQueueUriConstraint" display-type="button"/>
-<sentinel-button {actions}="messageActions" text="message:messages" class-type="btn-primary" icon-name="glyphicon-envelope" />
-<sentinel-button {actions}="checkActions" text="check" class-type="btn-default" icon-name="glyphicon-unchecked" />
+<form>
+  <div class="row">
+    <div class="col-md-4">
+      <sentinel-text focus="true" label="message:source-queue-uri" {(value)}="sourceQueueUri" required="true" {validation-message}="sourceQueueUriConstraint" display-type="button"/>
+    </div>
+    <div class="col-md-4">
+      <sentinel-text focus="true" label="message:destination-queue-uri" {(value)}="destinationQueueUri" required="true" {validation-message}="destinationQueueUriConstraint" display-type="button"/>
+      <sentinel-button {actions}="moveActions" text="move" class-type="btn-primary" />
+      <sentinel-button {actions}="copyActions" text="copy" class-type="btn-primary" />
+    </div>
+  </div>
+  <div class="form-group">
+  </div>
+  <div class="form-group">
+    <sentinel-button ($click)="self.fetchMessage()" text="message:get" class-type="btn-primary" icon-name="glyphicon-envelope" />
+    <sentinel-button {actions}="checkActions" text="check" class-type="btn-default" icon-name="glyphicon-unchecked" />
+    <sentinel-button {actions}="messageActions" text="message:messages" class-type="btn-primary" />
+  </div>
+</form>
 {{#if isPending}}
 <sentinel-fetching title="message:title" />
 {{/if}}
@@ -9,5 +25,8 @@
 <sentinel-table {columns}="columns" {rows}="messages" row-click="messageSelected" />
 {{/if}}
 {{#if message}}
+  <div>
+    <pre>{{message.message}}</pre>
+  </div>
   <sentinel-table {columns}="messageColumns" {rows}="messageRows" />
 {{/if}}

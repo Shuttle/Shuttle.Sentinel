@@ -8,5 +8,6 @@
   "return-to-source": "Return to source",
   "send-to-recipient": "Send to recipient",
   "stop-ignoring": "Stop ignoring",
-  "source-queue": "Source queue"
+  "source-queue-uri": "Source queue uri",
+  "destination-queue-uri": "Destination queue uri"
 }

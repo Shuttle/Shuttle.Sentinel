@@ -7,7 +7,7 @@ namespace Shuttle.Sentinel.InspectionQueue
 {
     public interface IInspectionQueueQueryFactory
     {
-        IQuery Enqueue(TransportMessage transportMessage, Stream stream);
+        IQuery Enqueue(string sourceQueueUri, TransportMessage transportMessage, Stream stream);
         IQuery Messages();
         IQuery Remove(Guid messageId);
     }

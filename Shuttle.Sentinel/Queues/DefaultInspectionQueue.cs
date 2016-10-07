@@ -31,13 +31,14 @@ namespace Shuttle.Sentinel.Queues
             _log = Log.For(this);
         }
 
-        public void Enqueue(TransportMessage transportMessage, Stream stream)
+        public void Enqueue(string sourceQueueUri, TransportMessage transportMessage, Stream stream)
         {
             try
             {
                 using (_databaseContextFactory.Create())
                 {
-                    _databaseGateway.ExecuteUsing(_inspectionQueueQueryFactory.Enqueue(transportMessage, stream));
+                    _databaseGateway.ExecuteUsing(_inspectionQueueQueryFactory.Enqueue(sourceQueueUri, transportMessage,
+                        stream));
                 }
             }
             catch (Exception ex)
@@ -59,7 +60,9 @@ namespace Shuttle.Sentinel.Queues
                     _databaseGateway.GetRowsUsing(_inspectionQueueQueryFactory.Messages())
                         .Select(
                             row =>
-                                new InspectionMessage(InspectionQueueColumns.MessageId.MapFrom(row),
+                                new InspectionMessage(
+                                    InspectionQueueColumns.SourceQueueUri.MapFrom(row),
+                                    InspectionQueueColumns.MessageId.MapFrom(row),
                                     new MemoryStream(InspectionQueueColumns.MessageBody.MapFrom(row)))));
             }
 

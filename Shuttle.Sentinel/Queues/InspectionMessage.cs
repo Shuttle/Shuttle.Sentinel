@@ -7,13 +7,15 @@ namespace Shuttle.Sentinel.Queues
 {
     public class InspectionMessage
     {
+        public string SourceQueueUri { get; private set; }
         public Guid MessageId { get; private set; }
         public Stream Stream { get; private set; }
 
-        public InspectionMessage(Guid messageId, Stream stream)
+        public InspectionMessage(string sourceQueueUri, Guid messageId, Stream stream)
         {
             Guard.AgainstNull(stream, "stream");
 
+            SourceQueueUri = sourceQueueUri;
             MessageId = messageId;
             Stream = stream;
         }

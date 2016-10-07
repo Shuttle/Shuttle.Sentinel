@@ -38,7 +38,8 @@ namespace Shuttle.Sentinel.WebApi
 
             return new
             {
-                Message = Beautify(Encoding.UTF8.GetString(transportMessage.Message)),
+                SourceQueueUri = message.SourceQueueUri,
+                Message = Encoding.UTF8.GetString(transportMessage.Message),
                 transportMessage.AssemblyQualifiedName,
                 transportMessage.CompressionAlgorithm,
                 transportMessage.CorrelationId,
@@ -100,7 +101,7 @@ namespace Shuttle.Sentinel.WebApi
                             return InternalServerError(ex);
                         }
 
-                        _inspectionQueue.Enqueue(transportMessage, receivedMessage.Stream);
+                        _inspectionQueue.Enqueue(model.QueueUri, transportMessage, receivedMessage.Stream);
 
                         queue.Acknowledge(receivedMessage.AcknowledgementToken);
                     }

@@ -8,9 +8,10 @@ namespace Shuttle.Sentinel.InspectionQueue
 {
     public class InspectionQueueQueryFactory : IInspectionQueueQueryFactory
     {
-        public IQuery Enqueue(TransportMessage transportMessage, Stream stream)
+        public IQuery Enqueue(string sourceQueueUri, TransportMessage transportMessage, Stream stream)
         {
-            return RawQuery.Create(@"insert into [dbo].[InspectionQueue] (MessageId, MessageBody) values (@MessageId, @MessageBody)")
+            return RawQuery.Create(@"insert into [dbo].[InspectionQueue] (SourceQueueUri, MessageId, MessageBody) values (@SourceQueueUri, @MessageId, @MessageBody)")
+                .AddParameterValue(InspectionQueueColumns.SourceQueueUri, sourceQueueUri)
                 .AddParameterValue(InspectionQueueColumns.MessageId, transportMessage.MessageId)
                 .AddParameterValue(InspectionQueueColumns.MessageBody, stream.ToBytes());
         }

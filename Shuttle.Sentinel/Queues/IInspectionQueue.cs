@@ -7,7 +7,7 @@ namespace Shuttle.Sentinel.Queues
 {
     public interface IInspectionQueue
     {
-        void Enqueue(TransportMessage transportMessage, Stream stream);
+        void Enqueue(string sourceQueueUri, TransportMessage transportMessage, Stream stream);
         IEnumerable<InspectionMessage> Messages();
         void Remove(Guid messageId);
     }

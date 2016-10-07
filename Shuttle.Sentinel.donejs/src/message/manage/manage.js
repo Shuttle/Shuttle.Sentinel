@@ -31,7 +31,7 @@ export const MessageModel = Map.extend({
         }
     },
 
-    toggleSelection: function(ev) {
+    toggleCheck: function(ev) {
         ev.stopPropagation();
     },
 
@@ -99,7 +99,7 @@ export const ViewModel = Model.extend({
                 checked: false,
                 columnClass: 'col-md-1',
                 columnType: 'template',
-                template: '<sentinel-input type="checkbox" {(checked)}="checked" ($click)="toggleSelection(%event)"/>'
+                template: '<sentinel-input type="checkbox" {(checked)}="checked" ($click)="toggleCheck(%event)"/>'
             }));
 
             columns.push(
@@ -110,13 +110,6 @@ export const ViewModel = Model.extend({
         }
 
         if (!messageActions.length) {
-            messageActions.push({
-                text: "message:get",
-                click: function() {
-                    self.fetchMessage();
-                }
-            });
-
             messageActions.push({
                 text: "message:return-to-source",
                 click: function() {
@@ -129,28 +122,6 @@ export const ViewModel = Model.extend({
                 click: function() {
                     alert('recipient');
                 }
-            });
-
-            messageActions.push({
-                isSeparator: true
-            });
-
-            messageActions.push({
-                text: "copy",
-                click: function() {
-                    alert('copy');
-                }
-            });
-
-            messageActions.push({
-                text: "move",
-                click: function() {
-                    alert('move');
-                }
-            });
-
-            messageActions.push({
-                isSeparator: true
             });
 
             messageActions.push({
@@ -217,12 +188,6 @@ export const ViewModel = Model.extend({
             });
     },
 
-    toggleSelection: function(value) {
-        can.each(this.attr('messages'), function(item) {
-            item.attr('checked', value);
-        });
-    },
-
     fetchMessage: function() {
         var self = this;
 
@@ -258,7 +223,6 @@ export const ViewModel = Model.extend({
         this.attr('messageRows', new List());
 
         this.addMessageRow('MessageId', message.attr('messageId'));
-        this.addMessageRow('Message', message.attr('message'));
         this.addMessageRow('AssemblyQualifiedName', message.attr('assemblyQualifiedName'));
         this.addMessageRow('CompressionAlgorithm', message.attr('compressionAlgorithm'));
         this.addMessageRow('CorrelationId', message.attr('correlationId'));
@@ -292,6 +256,24 @@ export const ViewModel = Model.extend({
 
     addMessageRow: function(name, value) {
         this.attr('messageRows').push({ name: name, value: value });
+    },
+
+    checkAll: function() {
+        this._setCheckMarks(true);
+    },
+
+    checkNone: function() {
+        this._setCheckMarks(false);
+    },
+
+    checkInvert: function() {
+        this._setCheckMarks();
+    },
+
+    _setCheckMarks: function(value) {
+        can.each(this.attr('messages'), function(item) {
+            item.attr('checked', value == undefined? !item.attr('checked'): value);
+        });
     }
 });
 
