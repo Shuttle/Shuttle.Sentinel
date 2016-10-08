@@ -1,4 +1,16 @@
 <sentinel-page-title title="message:title" />
+{{#if isPending}}
+<sentinel-fetching title="message:title" />
+{{/if}}
+{{#if message}}
+<div class="form-group">
+     <sentinel-button text="close" element-class="btn-primary" ($click)="showMessages()"/>
+</div>
+<div>
+  <pre>{{message.message}}</pre>
+</div>
+<sentinel-table {columns}="messageColumns" {rows}="messageRows" />
+{{else}}
 <form>
   <div class="row form-group">
     <div class="col-md-6">
@@ -51,15 +63,6 @@
     <sentinel-button {actions}="messageActions" text="message:messages" element-class="btn-default" />
   </div>
 </form>
-{{#if isPending}}
-<sentinel-fetching title="message:title" />
-{{/if}}
-{{#if message}}
-<div>
-  <pre>{{message.message}}</pre>
-</div>
-<sentinel-table {columns}="messageColumns" {rows}="messageRows" />
-{{else}}
 {{#if isResolved}}
 {{#if hasMessages}}
 <div class="pre-scrollale">

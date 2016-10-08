@@ -22,12 +22,6 @@ export const MessageModel = Map.extend({
 
         selected: {
             value: false
-        },
-
-        rowClass: {
-            get: function() {
-                return this.attr('selected') ? 'text-success success' : '';
-            }
         }
     },
 
@@ -185,6 +179,10 @@ export const ViewModel = Model.extend({
         this.refresh();
     },
 
+    showMessages: function() {
+        this.attr('message', undefined);
+    },
+
     refresh: function() {
         var self = this;
 
@@ -236,12 +234,7 @@ export const ViewModel = Model.extend({
     },
 
     messageSelected: function(message) {
-        if (this.attr('message')) {
-            this.attr('message.selected', false);
-        }
-
         this.attr('message', message);
-        this.attr('message.selected', true);
         this.attr('messageRows', new List());
 
         this.addMessageRow('MessageId', message.attr('messageId'));
