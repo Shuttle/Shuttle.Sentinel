@@ -58,6 +58,7 @@ let RoleModel = Map.extend({
                         self.attr('working', false);
 
                         alerts.show({ message: localisation.value('user:exceptions.last-administrator'), name: 'last-administrator', type: 'danger' });
+
                         break;
                     }
             }

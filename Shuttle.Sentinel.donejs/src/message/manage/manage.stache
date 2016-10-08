@@ -1,33 +1,52 @@
 <sentinel-page-title title="message:title" />
 <form>
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row form-group">
+    <div class="col-md-6">
       <sentinel-label label="message:source-queue-uri" />
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button class="btn" type="button"><span class="glyphicon glyphicon-menu-down" /></button>
-        </span>
-        <sentinel-input {(value)}="sourceQueueUri" />
+      <div class="row">
+        <div class="col-md-8">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button class="btn" type="button">
+                <span class="glyphicon glyphicon-menu-down" />
+              </button>
+            </span>
+            <sentinel-input {(value)}="sourceQueueUri" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <sentinel-input {(value)}="fetchCount" placeholder="count"/>
+            <span class="input-group-btn">
+              <button type="button" ($click)="fetchMessage()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-envelope"></span>
+              </button>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <sentinel-text focus="true" label="message:destination-queue-uri" {(value)}="destinationQueueUri" required="true" display-type="button" button-icon="glyphicon-menu-down"/>
-      <sentinel-button {actions}="moveActions" text="move" element-class="btn-default" />
-      <sentinel-button {actions}="copyActions" text="copy" element-class="btn-default" />
+    <div class="col-md-6 {{#unless hasMessages}}hidden{{/if}}">
+      <sentinel-label label="message:destination-queue-uri" />
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn" type="button">
+            <span class="glyphicon glyphicon-menu-down" />
+          </button>
+        </span>
+        <sentinel-input {(value)}="destinationQueueUri"/>
+        <span class="input-group-btn">
+          <button type="button" ($click)="move()" class="btn btn-default" >
+            {{i18n "move"}}
+          </button>
+          <button type="button" ($click)="copy()" class="btn btn-default  ">
+            {{i18n "copy"}}
+          </button>
+        </span>
+      </div>
     </div>
   </div>
-  <div class="form-group">
-  </div>
-  <div class="form-group form-inline">
-    <div class="input-group">
-      <sentinel-input {(value)}="fetchCount" element-class="col-md-1" />
-      <span class="input-group-btn">
-        <button type="button" ($click)="fetchMessage()" class="btn btn-primary ">
-          <span class="glyphicon glyphicon-envelope"></span>
-        </button>
-        <!--<sentinel-button ($click)="self." text="message:get" element-class="btn-primary" icon-name="glyphicon-envelope" />-->
-      </span>
-    </div>
+  <div class="form-group form-inline {{#unless hasMessages}}hidden{{/if}}">
     <sentinel-button {actions}="checkActions" text="check" element-class="btn-default" icon-name="glyphicon-unchecked" />
     <sentinel-button {actions}="messageActions" text="message:messages" element-class="btn-default" />
   </div>
@@ -35,12 +54,17 @@
 {{#if isPending}}
 <sentinel-fetching title="message:title" />
 {{/if}}
-{{#if isResolved}}
-<sentinel-table {columns}="columns" {rows}="messages" row-click="messageSelected" />
-{{/if}}
 {{#if message}}
 <div>
   <pre>{{message.message}}</pre>
 </div>
 <sentinel-table {columns}="messageColumns" {rows}="messageRows" />
+{{else}}
+{{#if isResolved}}
+{{#if hasMessages}}
+<div class="pre-scrollale">
+  <sentinel-table {columns}="columns" {rows}="messages" row-click="messageSelected" />
+</div>
+{{/if}}
+{{/if}}
 {{/if}}

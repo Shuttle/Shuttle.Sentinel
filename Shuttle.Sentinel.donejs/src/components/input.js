@@ -10,6 +10,10 @@ export const ViewModel = Map.extend({
             }
         },
 
+        placeholder: {
+            value: ''
+        },
+
         elementClass: {
             value: ''
         }

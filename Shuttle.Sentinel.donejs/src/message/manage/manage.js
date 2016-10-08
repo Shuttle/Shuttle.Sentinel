@@ -32,6 +32,8 @@ export const MessageModel = Map.extend({
     },
 
     toggleCheck: function(ev) {
+        this.attr('checked', !this.attr('checked'));
+
         ev.stopPropagation();
     },
 
@@ -76,13 +78,31 @@ export const ViewModel = Model.extend({
             value: ''
         },
 
-        sourceQueueUriConstraint: {
+        hasMessages: {
             get: function() {
-                return validation.get('sourceQueueUri', this.attr('sourceQueueUri'), {
-                    sourceQueueUri: {
-                        presence: true
+                return this.attr('messages.length') > 0;
+            }
+        },
+
+        hasSourceQueueUri: {
+          get: function() {
+              return !!this.attr('sourceQueueUri');
+          }
+        },
+
+        noCheckedMessages: {
+            get: function() {
+                var checked = false;
+
+                can.each(this.attr('messages'), function(item) {
+                    if (checked) {
+                        return;
                     }
+
+                    checked = checked || item.attr('checked');
                 });
+
+                return !checked;
             }
         }
     },
@@ -98,8 +118,9 @@ export const ViewModel = Model.extend({
             {
                 checked: false,
                 columnClass: 'col-md-1',
+                columnTitle: 'check',
                 columnType: 'template',
-                template: '<sentinel-input type="checkbox" {(checked)}="checked" ($click)="toggleCheck(%event)"/>'
+                template: '<span ($click)="toggleCheck(%event)" class="glyphicon {{#if checked}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" />'
             }));
 
             columns.push(
@@ -178,13 +199,19 @@ export const ViewModel = Model.extend({
 
                     self.attr('messages').push(messageModel);
                 });
+
+                if (!self.attr('messages').length) {
+                    alerts.show({ message: localisation.value('message:no-messages'), name: 'message:no-messages'});
+                }
             });
     },
 
     fetchMessage: function() {
         var self = this;
 
-        if (!!this.attr('sourceQueueUriConstraint')) {
+        if (!this.attr('hasSourceQueueUri')) {
+            alerts.show({ message: localisation.value('message:exceptions.source-queue-uri'), name: 'message:exceptions.source-queue-uri', type: 'danger' });
+
             return false;
         }
 
@@ -193,14 +220,16 @@ export const ViewModel = Model.extend({
         api.post('messages/fetch', {
             data: {
                 queueUri: this.attr('sourceQueueUri'),
-                count: 1
+                count: this.attr('fetchCount') || 1
             }
         })
             .done(function(response) {
+                alerts.show({ message: localisation.value('message:count-retrieved', { count: response.data.countRetrieved }), name: 'message:count-retrieved'});
+
                 self.refresh();
             })
             .always(function() {
-                this.attr('fetchingMessage', false);
+                self.attr('fetchingMessage', false);
             });
 
         return true;

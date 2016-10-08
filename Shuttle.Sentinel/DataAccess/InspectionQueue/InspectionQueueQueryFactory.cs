@@ -18,7 +18,7 @@ namespace Shuttle.Sentinel.InspectionQueue
 
         public IQuery Messages()
         {
-            return RawQuery.Create(@"select MessageId, MessageBody from [dbo].[InspectionQueue]");
+            return RawQuery.Create(@"select SourceQueueUri, MessageId, MessageBody from [dbo].[InspectionQueue]");
         }
 
         public IQuery Remove(Guid messageId)

@@ -84,26 +84,33 @@ namespace Shuttle.Sentinel.WebApi
 
                 try
                 {
-                    var receivedMessage = queue.GetMessage();
-
-                    if (receivedMessage != null)
+                    for (int i = 0; i < model.Count; i++)
                     {
-                        countRetrieved++;
+                        var receivedMessage = queue.GetMessage();
 
-                        TransportMessage transportMessage;
-
-                        try
+                        if (receivedMessage != null)
                         {
-                            transportMessage = GetTransportMessage(receivedMessage.Stream);
+                            countRetrieved++;
+
+                            TransportMessage transportMessage;
+
+                            try
+                            {
+                                transportMessage = GetTransportMessage(receivedMessage.Stream);
+                            }
+                            catch (Exception ex)
+                            {
+                                return InternalServerError(ex);
+                            }
+
+                            _inspectionQueue.Enqueue(model.QueueUri, transportMessage, receivedMessage.Stream);
+
+                            queue.Acknowledge(receivedMessage.AcknowledgementToken);
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            return InternalServerError(ex);
+                            break;
                         }
-
-                        _inspectionQueue.Enqueue(model.QueueUri, transportMessage, receivedMessage.Stream);
-
-                        queue.Acknowledge(receivedMessage.AcknowledgementToken);
                     }
                 }
                 finally
