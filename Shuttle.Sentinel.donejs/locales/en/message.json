@@ -4,6 +4,7 @@
   "get": "Get message(s)",
   "message-id": "Message Id",
   "messages": "Messages",
+  "message": "Message",
   "no-messages": "There are no messages in the inspection queue.  Click the envelope button next to the 'Source queue uri' to fetch the specified 'count' number of messages from the queue.",
   "title": "Inspection Queue Messages",
   "release": "Release",

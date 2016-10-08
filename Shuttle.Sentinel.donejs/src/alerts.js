@@ -15,6 +15,10 @@ var alerts = {
         this._push(options);
     },
 
+    clear: function() {
+        state.attr('alerts', new can.List());
+    },
+
     remove: function(options) {
         if (!options || (!options.key && !options.name && !options.type)) {
             return;

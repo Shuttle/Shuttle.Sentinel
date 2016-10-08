@@ -139,7 +139,7 @@ var State = Map.extend({
             return;
         }
 
-        alerts.remove({ name: 'route-error' });
+        alerts.clear();
 
         var componentName = resource.componentName || 'sentinel-' + resource.name + (isActionRoute ? '-' + actionName : '');
 

@@ -119,8 +119,16 @@ export const ViewModel = Model.extend({
 
             columns.push(
             {
+                columnClass: 'col-md-2',
                 columnTitle: 'message:message-id',
                 attributeName: 'messageId'
+            });
+
+            columns.push(
+            {
+                columnTitle: 'message:message',
+                columnType: 'template',
+                template: '<pre>{{message}}</pre>'
             });
         }
 
