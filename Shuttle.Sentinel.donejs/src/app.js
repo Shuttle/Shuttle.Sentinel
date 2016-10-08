@@ -9,6 +9,7 @@ import 'can/map/delegate/';
 import 'bootstrap/dist/js/bootstrap'
 
 import 'sentinel/components/back-button';
+import 'sentinel/components/checkbox';
 import 'sentinel/components/refresh-button';
 import 'sentinel/components/remove-button';
 import 'sentinel/components/working-button';
