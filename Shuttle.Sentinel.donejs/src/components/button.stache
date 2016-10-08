@@ -1,7 +1,7 @@
 ﻿{{#switch buttonType}}
 	{{#case "dropdown"}}
 		<div class="btn-group">
-		  <button type="button" class="btn {{classType}} {{classVisibility}} dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {$disabled}="disabled">
+		  <button type="button" class="btn {{elementClass}} {{classVisibility}} dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {$disabled}="disabled">
 			<span class="glyphicon {{iconName}}" />&nbsp;{{i18n text}}&nbsp;<span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu">
@@ -16,7 +16,7 @@
 		</div>
 	{{/case}}
 	{{#default}}
-		<button {type}="type" class="btn {{classType}} {{classVisibility}}" ($click)="click" {$disabled}="disabled">
+		<button {type}="type" class="btn {{elementClass}} {{classVisibility}}" ($click)="click" {$disabled}="disabled">
 			<span class="glyphicon {{iconName}}" /> {{i18n text}}
 		</button>
 	{{/default}}

@@ -18,7 +18,7 @@ export default can.Component.extend({
                         return scope._parent._context.attr('working');
                     }
                 },
-                classType: {
+                elementClass: {
                     get: function(type) {
                         return type || 'btn-primary';
                     }

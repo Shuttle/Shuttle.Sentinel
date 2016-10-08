@@ -16,7 +16,7 @@
           <td data-title="{{i18n columnTitle}}">
             {{#switch columnType}}
               {{#case 'button'}}
-                <sentinel-button class-type="btn-default buttonClass" ($click)="{{buttonClick}}" text="{{buttonTitle}}" />
+                <sentinel-button element-class="btn-default {{buttonClass}}" ($click)="{{buttonClick}}" text="{{buttonTitle}}" />
               {{/case}}
               {{#case 'remove-button'}}
                 <sentinel-remove-button ($click)="buttonClick" text="remove" />

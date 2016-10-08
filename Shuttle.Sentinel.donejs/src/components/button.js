@@ -17,7 +17,7 @@ export const ViewModel = Map.extend({
                 return type || 'button';
             }
         },
-        classType: {
+        elementClass: {
             get: function(type) {
                 return type || 'btn-primary';
             }

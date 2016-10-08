@@ -132,16 +132,9 @@ export const ViewModel = Model.extend({
             });
 
             messageActions.push({
-                text: "message:release",
+                text: "remove",
                 click: function() {
-                    alert('release');
-                }
-            });
-
-            messageActions.push({
-                text: "message:acknowledge",
-                click: function() {
-                    alert('acknowledge');
+                    alert('remove');
                 }
             });
         }
@@ -223,6 +216,7 @@ export const ViewModel = Model.extend({
         this.attr('messageRows', new List());
 
         this.addMessageRow('MessageId', message.attr('messageId'));
+        this.addMessageRow('SourceQueueUri', message.attr('sourceQueueUri'));
         this.addMessageRow('AssemblyQualifiedName', message.attr('assemblyQualifiedName'));
         this.addMessageRow('CompressionAlgorithm', message.attr('compressionAlgorithm'));
         this.addMessageRow('CorrelationId', message.attr('correlationId'));

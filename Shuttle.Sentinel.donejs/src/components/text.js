@@ -4,16 +4,12 @@ import template from './text.stache!';
 
 export const ViewModel = Map.extend({
     define: {
-        buttonClassType: {
-            get: function(value) {
-                return value || 'btn-default';
-            }
+        inputClass: {
+            value: ''
         },
 
-        buttonText: {
-            get: function(value) {
-                return value || '?';
-            }
+        formGroupClass: {
+            value: ''
         }
     }
 });

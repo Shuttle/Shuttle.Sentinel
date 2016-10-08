@@ -2,20 +2,34 @@
 <form>
   <div class="row">
     <div class="col-md-4">
-      <sentinel-text focus="true" label="message:source-queue-uri" {(value)}="sourceQueueUri" required="true" {validation-message}="sourceQueueUriConstraint" display-type="button"/>
+      <sentinel-label label="message:source-queue-uri" />
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn" type="button"><span class="glyphicon glyphicon-menu-down" /></button>
+        </span>
+        <sentinel-input {(value)}="sourceQueueUri" />
+      </div>
     </div>
     <div class="col-md-4">
-      <sentinel-text focus="true" label="message:destination-queue-uri" {(value)}="destinationQueueUri" required="true" {validation-message}="destinationQueueUriConstraint" display-type="button"/>
-      <sentinel-button {actions}="moveActions" text="move" class-type="btn-primary" />
-      <sentinel-button {actions}="copyActions" text="copy" class-type="btn-primary" />
+      <sentinel-text focus="true" label="message:destination-queue-uri" {(value)}="destinationQueueUri" required="true" display-type="button" button-icon="glyphicon-menu-down"/>
+      <sentinel-button {actions}="moveActions" text="move" element-class="btn-default" />
+      <sentinel-button {actions}="copyActions" text="copy" element-class="btn-default" />
     </div>
   </div>
   <div class="form-group">
   </div>
-  <div class="form-group">
-    <sentinel-button ($click)="self.fetchMessage()" text="message:get" class-type="btn-primary" icon-name="glyphicon-envelope" />
-    <sentinel-button {actions}="checkActions" text="check" class-type="btn-default" icon-name="glyphicon-unchecked" />
-    <sentinel-button {actions}="messageActions" text="message:messages" class-type="btn-primary" />
+  <div class="form-group form-inline">
+    <div class="input-group">
+      <sentinel-input {(value)}="fetchCount" element-class="col-md-1" />
+      <span class="input-group-btn">
+        <button type="button" ($click)="fetchMessage()" class="btn btn-primary ">
+          <span class="glyphicon glyphicon-envelope"></span>
+        </button>
+        <!--<sentinel-button ($click)="self." text="message:get" element-class="btn-primary" icon-name="glyphicon-envelope" />-->
+      </span>
+    </div>
+    <sentinel-button {actions}="checkActions" text="check" element-class="btn-default" icon-name="glyphicon-unchecked" />
+    <sentinel-button {actions}="messageActions" text="message:messages" element-class="btn-default" />
   </div>
 </form>
 {{#if isPending}}
@@ -25,8 +39,8 @@
 <sentinel-table {columns}="columns" {rows}="messages" row-click="messageSelected" />
 {{/if}}
 {{#if message}}
-  <div>
-    <pre>{{message.message}}</pre>
-  </div>
-  <sentinel-table {columns}="messageColumns" {rows}="messageRows" />
+<div>
+  <pre>{{message.message}}</pre>
+</div>
+<sentinel-table {columns}="messageColumns" {rows}="messageRows" />
 {{/if}}

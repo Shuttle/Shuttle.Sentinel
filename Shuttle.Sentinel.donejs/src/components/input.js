@@ -8,6 +8,10 @@ export const ViewModel = Map.extend({
             get: function(type) {
                 return type || 'text';
             }
+        },
+
+        elementClass: {
+            value: ''
         }
     }
 });

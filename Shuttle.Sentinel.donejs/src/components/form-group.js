@@ -8,7 +8,7 @@ export const ViewModel = Map.extend({
             value: ''
         },
 
-        classType: {
+        elementClass: {
             get: function() {
                 var errors = this.attr('errors');
 
