@@ -139,6 +139,18 @@ namespace Shuttle.Sentinel.WebApi
             {
                 foreach (var messageId in model.MessageIds)
                 {
+                    var action = model.Action.ToLower();
+
+                    if (action.Equals("remove"))
+                    {
+                        using (_databaseContextFactory.Create())
+                        {
+                            _inspectionQueue.Remove(messageId);
+                        }
+
+                        continue;
+                    }
+
                     var inspectionMessage = _inspectionQueue.Get(messageId);
 
                     TransportMessage transportMessage;
@@ -152,7 +164,6 @@ namespace Shuttle.Sentinel.WebApi
                         return InternalServerError(ex);
                     }
 
-                    var action = model.Action.ToLower();
                     var queueUri = string.Empty;
                     var stream = inspectionMessage.Stream;
 
@@ -190,7 +201,7 @@ namespace Shuttle.Sentinel.WebApi
 
                     if (!string.IsNullOrEmpty(queueUri))
                     {
-                        var queue = _queueManager.CreateQueue(model.DestinationQueueUri);
+                        var queue = _queueManager.CreateQueue(queueUri);
 
                         try
                         {

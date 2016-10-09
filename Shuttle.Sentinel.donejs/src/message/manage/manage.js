@@ -142,28 +142,28 @@ export const ViewModel = Model.extend({
             messageActions.push({
                 text: "message:return-to-source",
                 click: function() {
-                    alert('return');
+                    self._move('ReturnToSourceQueue');
                 }
             });
 
             messageActions.push({
                 text: "message:send-to-recipient",
                 click: function() {
-                    alert('recipient');
+                    self._move('SendToRecipientQueue');
                 }
             });
 
             messageActions.push({
                 text: "message:stop-ignoring",
                 click: function() {
-                    alert('stop ignoring');
+                    self._move('StopIgnoring');
                 }
             });
 
             messageActions.push({
                 text: "remove",
                 click: function() {
-                    alert('remove');
+                    self._move('Remove');
                 }
             });
         }
@@ -252,10 +252,22 @@ export const ViewModel = Model.extend({
     },
 
     move: function() {
+        return this._move('Move');
+    },
+
+    copy: function() {
+        return this._move('Copy');
+    },
+
+    returnToSourceQueue: function() {
+        return this._move('Copy');
+    },
+
+    _move: function(action) {
         var self = this;
 
-        if (!this.attr('destinationQueueUri')) {
-            alerts.show({ message: localisation.value('message:exceptions.move-destination-queue-uri'), name: 'message:exceptions.move-destination-queue-uri', type: 'danger' });
+        if (!this.attr('destinationQueueUri') && (action === 'Move' || action === 'Copy')) {
+            alerts.show({ message: localisation.value('message:exceptions.destination-queue-uri'), name: 'message:exceptions.destination-queue-uri', type: 'danger' });
 
             return false;
         }
@@ -266,7 +278,7 @@ export const ViewModel = Model.extend({
             data: {
                 messageIds: this.checkedMessageIds(),
                 destinationQueueUri: this.attr('destinationQueueUri'),
-                action: 'Move'
+                action: action
             }
         })
             .done(function() {
