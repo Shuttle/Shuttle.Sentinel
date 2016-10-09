@@ -29,7 +29,7 @@
           <div class="input-group">
             <sentinel-input {(value)}="fetchCount" placeholder="count"/>
             <span class="input-group-btn">
-              <button type="button" ($click)="fetchMessage()" class="btn btn-primary">
+              <button type="button" ($click)="fetch()" class="btn btn-primary">
                 <span class="glyphicon glyphicon-envelope"></span>
               </button>
             </span>

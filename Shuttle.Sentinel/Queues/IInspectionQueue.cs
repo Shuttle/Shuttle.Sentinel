@@ -10,5 +10,6 @@ namespace Shuttle.Sentinel.Queues
         void Enqueue(string sourceQueueUri, TransportMessage transportMessage, Stream stream);
         IEnumerable<InspectionMessage> Messages();
         void Remove(Guid messageId);
+        InspectionMessage Get(Guid messageId);
     }
 }

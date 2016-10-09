@@ -137,6 +137,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Models\FetchMessageModel.cs" />
+    <Compile Include="Models\MessageMoveModel.cs" />
     <Compile Include="Models\UserRoleStatusModel.cs" />
     <Compile Include="Models\RolePermissionStatusModel.cs" />
     <Compile Include="Models\SetUserRoleModel.cs" />

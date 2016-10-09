@@ -84,6 +84,12 @@ export const ViewModel = Model.extend({
           }
         },
 
+        hasDestinationQueueUri: {
+            get: function() {
+                return !!this.attr('destinationQueueUri');
+            }
+        },
+
         noCheckedMessages: {
             get: function() {
                 var checked = false;
@@ -212,7 +218,7 @@ export const ViewModel = Model.extend({
             });
     },
 
-    fetchMessage: function() {
+    fetch: function() {
         var self = this;
 
         if (!this.attr('hasSourceQueueUri')) {
@@ -221,7 +227,7 @@ export const ViewModel = Model.extend({
             return false;
         }
 
-        this.attr('fetchingMessage', true);
+        this.attr('fetching', true);
 
         api.post('messages/fetch', {
             data: {
@@ -235,7 +241,39 @@ export const ViewModel = Model.extend({
                 self.refresh();
             })
             .always(function() {
-                self.attr('fetchingMessage', false);
+                self.attr('fetching', false);
+            });
+
+        return true;
+    },
+
+    checkedMessageIds: function() {
+        return $.map(this.attr('messages'), function(message) { return message.attr('checked') ? message.attr('messageId') : undefined; });
+    },
+
+    move: function() {
+        var self = this;
+
+        if (!this.attr('destinationQueueUri')) {
+            alerts.show({ message: localisation.value('message:exceptions.move-destination-queue-uri'), name: 'message:exceptions.move-destination-queue-uri', type: 'danger' });
+
+            return false;
+        }
+
+        this.attr('moving', true);
+
+        api.post('messages/move', {
+            data: {
+                messageIds: this.checkedMessageIds(),
+                destinationQueueUri: this.attr('destinationQueueUri'),
+                action: 'Move'
+            }
+        })
+            .done(function() {
+                self.refresh();
+            })
+            .always(function() {
+                self.attr('moving', false);
             });
 
         return true;

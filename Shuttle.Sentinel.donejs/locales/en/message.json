@@ -13,6 +13,7 @@
   "stop-ignoring": "Stop ignoring",
   "source-queue-uri": "Source queue uri",
   "exceptions": {
-    "source-queue-uri": "Enter or select the 'Source queue uri' to retrieve messages from."
+    "source-queue-uri": "Enter or select the 'Source queue uri' to retrieve messages from.",
+    "move-destination-queue-uri": "Enter or select the 'Destination queue uri' to move the messages to."
   }
 }

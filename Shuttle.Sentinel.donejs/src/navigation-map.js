@@ -9,7 +9,7 @@ var map = [
     {
         href: '#!message/manage',
         text: 'navigation:messages',
-        permission: Permissions.View.Messages
+        permission: Permissions.Manage.Messages
     },
     {
         href: '#!subscription/list',

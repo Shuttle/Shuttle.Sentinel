@@ -26,5 +26,11 @@ namespace Shuttle.Sentinel.InspectionQueue
             return RawQuery.Create(@"delete from [dbo].[InspectionQueue] where MessageId = @MessageId")
                 .AddParameterValue(InspectionQueueColumns.MessageId, messageId);
         }
+
+        public IQuery Get(Guid messageId)
+        {
+            return RawQuery.Create(@"select SourceQueueUri, MessageId, MessageBody from [dbo].[InspectionQueue]")
+                .AddParameterValue(InspectionQueueColumns.MessageId, messageId);
+        }
     }
 }

@@ -76,5 +76,18 @@ namespace Shuttle.Sentinel.Queues
                 _databaseGateway.ExecuteUsing(_inspectionQueueQueryFactory.Remove(messageId));
             }
         }
+
+        public InspectionMessage Get(Guid messageId)
+        {
+            using (_databaseContextFactory.Create())
+            {
+                var row = _databaseGateway.GetSingleRowUsing(_inspectionQueueQueryFactory.Get(messageId));
+
+                return new InspectionMessage(
+                    InspectionQueueColumns.SourceQueueUri.MapFrom(row),
+                    InspectionQueueColumns.MessageId.MapFrom(row),
+                    new MemoryStream(InspectionQueueColumns.MessageBody.MapFrom(row)));
+            }
+        }
     }
 }

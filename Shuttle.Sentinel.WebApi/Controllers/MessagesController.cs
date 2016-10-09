@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Http;
-using System.Xml;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
@@ -11,6 +10,7 @@ using Shuttle.Sentinel.Queues;
 
 namespace Shuttle.Sentinel.WebApi
 {
+    [RequiresPermission(SystemPermissions.Manage.Messages)]
     public class MessagesController : SentinelApiController
     {
         private readonly Type _transportMessageType = typeof(TransportMessage);
@@ -73,7 +73,6 @@ namespace Shuttle.Sentinel.WebApi
 
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Roles)]
         [Route("api/messages/fetch")]
         public IHttpActionResult Fetch([FromBody] FetchMessageModel model)
         {
@@ -133,31 +132,94 @@ namespace Shuttle.Sentinel.WebApi
 
         }
 
+        [Route("api/messages/move")]
+        public IHttpActionResult Fetch([FromBody] MessageMoveModel model)
+        {
+            try
+            {
+                foreach (var messageId in model.MessageIds)
+                {
+                    var inspectionMessage = _inspectionQueue.Get(messageId);
+
+                    TransportMessage transportMessage;
+
+                    try
+                    {
+                        transportMessage = GetTransportMessage(inspectionMessage.Stream);
+                    }
+                    catch (Exception ex)
+                    {
+                        return InternalServerError(ex);
+                    }
+
+                    var action = model.Action.ToLower();
+                    var queueUri = string.Empty;
+                    var stream = inspectionMessage.Stream;
+
+                    switch (action)
+                    {
+                        case "copy":
+                        case "move":
+                            {
+                                queueUri = model.DestinationQueueUri;
+
+                                break;
+                            }
+                        case "returntosourcequeue":
+                            {
+                                queueUri = inspectionMessage.SourceQueueUri;
+
+                                break;
+                            }
+                        case "sendtorecipientqueue":
+                            {
+                                queueUri = transportMessage.RecipientInboxWorkQueueUri;
+
+                                break;
+                            }
+                        case "stopignoring":
+                            {
+                                queueUri = transportMessage.RecipientInboxWorkQueueUri;
+
+                                transportMessage.IgnoreTillDate = DateTime.MinValue;
+                                stream = _serializer.Serialize(transportMessage);
+
+                                break;
+                            }
+                    }
+
+                    if (!string.IsNullOrEmpty(queueUri))
+                    {
+                        var queue = _queueManager.CreateQueue(model.DestinationQueueUri);
+
+                        try
+                        {
+                            queue.Enqueue(transportMessage, stream);
+
+                            if (!action.Equals("copy"))
+                            {
+                                _inspectionQueue.Remove(messageId);
+                            }
+                        }
+                        finally
+                        {
+                            queue.AttemptDispose();
+                        }
+                    }
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         private TransportMessage GetTransportMessage(Stream stream)
         {
             return (TransportMessage)_serializer.Deserialize(_transportMessageType, stream);
-        }
-
-        private string Beautify(string xml)
-        {
-            XmlDocument doc = new XmlDocument();
-
-            doc.LoadXml(xml);
-
-            StringBuilder sb = new StringBuilder();
-            XmlWriterSettings settings = new XmlWriterSettings
-            {
-                Indent = true,
-                IndentChars = "  ",
-                NewLineChars = "\r\n",
-                NewLineHandling = NewLineHandling.Replace
-            };
-            using (XmlWriter writer = XmlWriter.Create(sb, settings))
-            {
-                doc.Save(writer);
-            }
-
-            return sb.ToString();
         }
     }
 }

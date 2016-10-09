@@ -10,5 +10,6 @@ namespace Shuttle.Sentinel.InspectionQueue
         IQuery Enqueue(string sourceQueueUri, TransportMessage transportMessage, Stream stream);
         IQuery Messages();
         IQuery Remove(Guid messageId);
+        IQuery Get(Guid messageId);
     }
 }
