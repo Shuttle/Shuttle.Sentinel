@@ -44,10 +44,10 @@ export const ViewModel = Map.extend({
             }
         },
         permission: {
-            value:''
+            value: ''
         }
     }
-})
+});
 
 export default can.Component.extend({
     tag: 'sentinel-button',

@@ -292,6 +292,8 @@ export const ViewModel = Model.extend({
     },
 
     messageSelected: function(message) {
+        var self = this;
+
         this.attr('message', message);
         this.attr('messageRows', new List());
 
@@ -305,7 +307,7 @@ export const ViewModel = Model.extend({
 
         if (message.attr('failureMessages') && message.attr('failureMessages').length) {
             can.each(message.attr('failureMessages'), function(item, index) {
-                this.addMessageRow('FailureMessages.' + index, item);
+                self.addMessageRow('FailureMessages.' + index, item);
             });
         } else {
             this.addMessageRow('FailureMessages', "(none)");
@@ -313,7 +315,7 @@ export const ViewModel = Model.extend({
 
         if (message.attr('headers') && message.attr('headers').length) {
             can.each(message.attr('headers'), function(item, index) {
-                this.addMessageRow('Headers.' + index, item);
+                self.addMessageRow('Headers.' + index, item);
             });
         } else {
             this.addMessageRow('Headers', "(none)");

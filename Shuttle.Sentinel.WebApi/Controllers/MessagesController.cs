@@ -19,7 +19,7 @@ namespace Shuttle.Sentinel.WebApi
         private readonly ISerializer _serializer;
         private readonly QueueManager _queueManager;
 
-        [RequiresPermission(SystemPermissions.View.Users)]
+        [RequiresPermission(SystemPermissions.Manage.Messages)]
         public IHttpActionResult Get()
         {
             using (_databaseContextFactory.Create())

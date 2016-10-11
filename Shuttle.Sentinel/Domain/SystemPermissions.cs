@@ -7,6 +7,7 @@
 			public const string Roles = "sentinel://roles/manage";
 			public const string Users = "sentinel://users/manage";
 			public const string Messages = "sentinel://messages/manage";
+			public const string Queues = "sentinel://messages/queues";
 		}
 
 		public static class Register
@@ -19,9 +20,6 @@
 			public const string Dashboard = "sentinel://dashboard/view";
 			public const string Subscriptions = "sentinel://subscriptions/view";
 			public const string DataStores = "sentinel://data-stores/view";
-			public const string Queues = "sentinel://queues/view";
-			public const string Roles = "sentinel://roles/view";
-			public const string Users = "sentinel://users/view";
 		}
 	}
 }

@@ -1,5 +1,4 @@
 import Component from 'can/component/';
-import 'can/map/define/';
 import template from './list.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
@@ -8,22 +7,15 @@ import Model from 'sentinel/model';
 import alerts from 'sentinel/alerts';
 import localisation from 'sentinel/localisation';
 
-resources.add('role', { action: 'list', permission: Permissions.Manage.Roles });
+resources.add('queue', { action: 'list', permission: Permissions.Manage.Queues });
 
 export const ViewModel = Model.extend({
     define: {
         columns: {
             value: [
                 {
-                    columnTitle: 'role:permissions.title',
-                    columnClass: 'col-md-1',
-                    columnType: 'button',
-                    buttonTitle: 'role:permissions.title',
-                    buttonClick: 'permissions(id)'
-                },
-                {
-                    columnTitle: 'role:name', 
-                    attributeName: 'roleName'
+                    columnTitle: 'queue:queue-uri', 
+                    attributeName: 'queueUri'
                 },
                 {
                     columnTitle: 'remove', 
@@ -40,28 +32,24 @@ export const ViewModel = Model.extend({
     },
 
     add: function() {
-        state.goto('role/add');
+        state.goto('queue/add');
     },
 
     refresh: function() {
-        this.get('roles');
+        this.get('queues');
     },
 
     remove: function(id) {
-        this.delete(`roles/${id}`)
+        this.delete(`queues/${id}`)
             .done(function() {
-                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('role:role') }) });
+                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('queue:queue-uri') }) });
             });
-    },
-
-    permissions: function(id) {
-        state.goto(`role/${id}/permissions`);
     }
 });
 
 
 export default Component.extend({
-    tag: 'sentinel-role-list',
+    tag: 'sentinel-queue-list',
     viewModel: ViewModel,
     template
 });

@@ -12,6 +12,12 @@ export const ViewModel = Map.extend({
           }
         },
 
+        buttonClass: {
+          get: function(value) {
+              return value || '';
+          }
+        },
+
         columns: {
             value: new can.List()
         },

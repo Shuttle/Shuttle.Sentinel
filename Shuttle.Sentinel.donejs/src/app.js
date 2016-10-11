@@ -35,6 +35,7 @@ import 'sentinel/dashboard/';
 import 'sentinel/user/';
 import 'sentinel/role/';
 import 'sentinel/message/';
+import 'sentinel/queue/';
 
 localisation.start(function(error) {
     if (error) {

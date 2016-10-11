@@ -38,7 +38,7 @@ namespace Shuttle.Sentinel.WebApi
             _systemUserQuery = systemUserQuery;
         }
 
-        [RequiresPermission(SystemPermissions.View.Users)]
+        [RequiresPermission(SystemPermissions.Manage.Users)]
         public IHttpActionResult Get()
         {
             using (_databaseContextFactory.Create())

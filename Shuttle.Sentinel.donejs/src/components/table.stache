@@ -19,7 +19,7 @@
                 <sentinel-button element-class="btn-default {{buttonClass}}" ($click)="{{buttonClick}}" text="{{buttonTitle}}" />
               {{/case}}
               {{#case 'remove-button'}}
-                <sentinel-remove-button ($click)="buttonClick" text="remove" />
+                <sentinel-remove-button ($click)="{{buttonClick}}" text="remove" />
             {{/case}}
             {{#case 'template'}}
             {{template ../. .}}
