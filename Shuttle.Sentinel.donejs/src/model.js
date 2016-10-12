@@ -1,15 +1,18 @@
 ﻿import Map from 'can/map/';
+import List from 'can/list/';
 import 'can/map/define/';
 import api from 'sentinel/api';
+
+var _emptyItem = {};
 
 var Model = Map.extend({
     define: {
         list: {
-            value: new can.List()
+            value: new List()
         },
 
         item: {
-            value: new can.Map()  
+            value: _emptyItem
         },
 
         isPending: {
@@ -17,6 +20,14 @@ var Model = Map.extend({
         },
 
         isResolved: {
+            value: false
+        },
+
+        isListResolved: {
+            value: false
+        },
+
+        isItemResolved: {
             value: false
         },
 
@@ -95,18 +106,24 @@ var Model = Map.extend({
         this.attr('isPending', true);
         this.attr('isResolved', false);
         this.attr('hasFailed', false);
+        this.attr('isListResolved', false);
+        this.attr('isItemResolved', false);
     },
 
     resolved: function() {
         this.attr('isPending', false);
         this.attr('isResolved', true);
         this.attr('hasFailed', false);
+        this.attr('isListResolved', this.attr('list') && !!this.attr('list').length);
+        this.attr('isItemResolved', this.attr('item') && (this.attr('item') !== _emptyItem));
     },
 
     failed: function() {
         this.attr('isPending', false);
         this.attr('isResolved', false);
         this.attr('hasFailed', true);
+        this.attr('isListResolved', false);
+        this.attr('isItemResolved', false);
     }
 });
 

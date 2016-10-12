@@ -65,9 +65,8 @@
 {{#if isPending}}
 <sentinel-fetching title="message:title" />
 {{/if}}
-{{#if isResolved}}
-{{#if hasMessages}}
+{{isListResolved}}
+{{#if isListResolved}}
 <sentinel-table {columns}="columns" {rows}="messages" row-click="messageSelected" />
-{{/if}}
 {{/if}}
 {{/if}}
