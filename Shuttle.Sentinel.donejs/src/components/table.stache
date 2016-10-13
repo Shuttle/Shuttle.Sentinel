@@ -1,4 +1,7 @@
 <div class="{{containerClass}}">
+  {{#if shouldShowEmptyMessage}}
+  <div class="alert alert-info" role="alert">{{i18n emptyMessage}}</div>
+  {{else}}
   <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -34,4 +37,5 @@
       {{/each}}
     </tbody>
   </table>
+  {{/if}}
 </div>

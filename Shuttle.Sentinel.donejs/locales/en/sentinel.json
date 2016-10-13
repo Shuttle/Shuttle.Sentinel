@@ -22,13 +22,16 @@
   "removeItemNameConfirmation": "Are you sure that you want to remove the selected {{itemName}}?",
   "sign-in": "Sign In",
   "sign-out": "Sign Out",
+  "table-empty-message": "There are no items to display.",
+  "uri": "Uri",
   "value": "Value",
   "yes": "Yes",
   "workingMessage": "Please wait until the current operation completes and then try again.",
   "exceptions": {
     "anonymous-permissions": "Could not retrieve the anonymous permissions from the server.",
     "resource-not-found": "Could not find resource for '{{hash}}'.",
-    "login": "Could not sign in username '{{username}}'.  Please ensure that you have entered the correct credentials."
+    "login": "Could not sign in username '{{username}}'.  Please ensure that you have entered the correct credentials.",
+    "invalid-uri": "'{{attributeName}}' is not a valid uri."
   },
   "security": {
     "access-denied": "You do not have access to '{{name}}' as you require permission '{{permission}}'."

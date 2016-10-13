@@ -6,6 +6,12 @@ import localisation from 'sentinel/localisation';
 
 export const ViewModel = Map.extend({
     define: {
+        emptyMessage: {
+            get: function() {
+                return this.attr('emptyMessage') || 'table-empty-message';
+            }
+        },
+
         containerClass: {
           get: function(value) {
               return value || '';
@@ -24,6 +30,12 @@ export const ViewModel = Map.extend({
 
         rows: {
             value: new can.List()
+        },
+
+        shouldShowEmptyMessage: {
+            get: function() {
+                return this.attr('rows').length === 0 && !!this.attr('emptyMessage');
+            }
         }
     }
 });

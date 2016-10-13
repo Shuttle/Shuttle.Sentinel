@@ -1,5 +1,5 @@
 ﻿import './list/';
-//import './add/';
+import './add/';
 
 import localisation from 'sentinel/localisation'
 

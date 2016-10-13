@@ -5,12 +5,10 @@ import List from 'can/list/';
 import template from './manage.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
-import state from 'sentinel/state';
 import Model from 'sentinel/model';
 import alerts from 'sentinel/alerts';
 import api from 'sentinel/api';
 import localisation from 'sentinel/localisation';
-import validation from 'sentinel/validation';
 
 resources.add('message', { action: 'manage', permission: Permissions.Manage.Users });
 
@@ -211,10 +209,6 @@ export const ViewModel = Model.extend({
 
                     self.attr('messages').push(messageModel);
                 });
-
-                if (!self.attr('messages').length) {
-                    alerts.show({ message: localisation.value('message:no-messages'), name: 'message:no-messages'});
-                }
             });
     },
 

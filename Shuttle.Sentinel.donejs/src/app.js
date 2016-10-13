@@ -4,6 +4,8 @@ import $ from 'jquery';
 import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
 import state from 'sentinel/state';
+import uri from 'sentinel/uri';
+
 import 'can/map/define/';
 import 'can/map/delegate/';
 import 'bootstrap/dist/js/bootstrap'
@@ -36,6 +38,14 @@ import 'sentinel/user/';
 import 'sentinel/role/';
 import 'sentinel/message/';
 import 'sentinel/queue/';
+
+validate.validators.uri = function(value, attributes, attributeName) {
+    var result = uri.get(value);
+
+    return !result
+        ? localisation.value('exceptions.invalid-uri', { attributeName: attributeName })
+        : undefined;
+}
 
 localisation.start(function(error) {
     if (error) {
