@@ -46,5 +46,19 @@ namespace Shuttle.Sentinel.WebApi
                 });
             }
         }
+
+        [RequiresPermission(SystemPermissions.Manage.Queues)]
+        public IHttpActionResult Post([FromBody] AddQueueModel model)
+        {
+            Guard.AgainstNull(model, "model");
+
+            _bus.Send(new AddQueueCommand
+            {
+                QueueUri = model.Uri
+            });
+
+            return Ok();
+        }
+
     }
 }

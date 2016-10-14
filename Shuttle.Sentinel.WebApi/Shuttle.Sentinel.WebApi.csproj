@@ -137,13 +137,14 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\QueuesController.cs" />
+    <Compile Include="Models\AddQueueModel.cs" />
     <Compile Include="Models\FetchMessageModel.cs" />
     <Compile Include="Models\MessageMoveModel.cs" />
     <Compile Include="Models\UserRoleStatusModel.cs" />
     <Compile Include="Models\RolePermissionStatusModel.cs" />
     <Compile Include="Models\SetUserRoleModel.cs" />
     <Compile Include="Models\SetRolePermissionModel.cs" />
-    <Compile Include="Models\RegisterRoleModel.cs" />
+    <Compile Include="Models\AddRoleModel.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Infrastructure\RequiresSessionAttribute.cs" />
     <Compile Include="Infrastructure\RequiresPermissionAttribute.cs" />

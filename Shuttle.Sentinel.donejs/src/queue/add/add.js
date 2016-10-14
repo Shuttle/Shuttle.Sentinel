@@ -46,7 +46,7 @@ export const ViewModel = Model.extend({
     },
 
     close: function() {
-        state.goto('queues/list');
+        state.goto('queue/list');
     }
 });
 

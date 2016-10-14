@@ -47,29 +47,5 @@ namespace Shuttle.Sentinel.WebApi
                 });
             }
         }
-
-        [RequiresPermission(SystemPermissions.Manage.Roles)]
-        public IHttpActionResult Delete(Guid id)
-        {
-            _bus.Send(new RemoveRoleCommand
-            {
-                Id = id
-            });
-
-            return Ok();
-        }
-
-        [RequiresPermission(SystemPermissions.Manage.Roles)]
-        public IHttpActionResult Post([FromBody] RegisterRoleModel model)
-        {
-            Guard.AgainstNull(model, "model");
-
-            _bus.Send(new AddRoleCommand
-            {
-                Name = model.Name
-            });
-
-            return Ok();
-        }
     }
 }

@@ -34,7 +34,7 @@ export const ViewModel = Map.extend({
 
         shouldShowEmptyMessage: {
             get: function() {
-                return this.attr('rows').length === 0 && !!this.attr('emptyMessage');
+                return this.attr('rows.length') === 0 && !!this.attr('emptyMessage');
             }
         }
     }

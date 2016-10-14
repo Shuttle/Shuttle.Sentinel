@@ -108,7 +108,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Roles)]
-        public IHttpActionResult Post([FromBody] RegisterRoleModel model)
+        public IHttpActionResult Post([FromBody] AddRoleModel model)
         {
             Guard.AgainstNull(model, "model");
 
