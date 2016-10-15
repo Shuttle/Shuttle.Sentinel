@@ -6,6 +6,7 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 {
     public class RoleHandler :
         IEventHandler<Added>,
+        IEventHandler<Removed>,
         IEventHandler<PermissionAdded>,
         IEventHandler<PermissionRemoved>
     {
@@ -31,6 +32,11 @@ namespace Shuttle.Sentinel.EventProcessing.Server
         public void ProcessEvent(IEventHandlerContext<PermissionRemoved> context)
         {
             _query.PermissionRemoved(context.ProjectionEvent, context.DomainEvent);
+        }
+
+        public void ProcessEvent(IEventHandlerContext<Removed> context)
+        {
+            _query.Removed(context.ProjectionEvent, context.DomainEvent);
         }
     }
 }

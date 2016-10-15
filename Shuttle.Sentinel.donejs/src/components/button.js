@@ -2,9 +2,13 @@
 import Map from 'can/map/';
 import template from './button.stache!';
 import security from 'sentinel/security';
+import click from 'sentinel/components/click';
 
 export const ViewModel = Map.extend({
     define: {
+        context: {
+            value: null
+        },
         buttonType: {
             get: function() {
                 return (this.attr('actions') && this.attr('actions').length > 0)
@@ -46,6 +50,10 @@ export const ViewModel = Map.extend({
         permission: {
             value: ''
         }
+    },
+
+    _clickHandler: function() {
+        click.on(this);
     }
 });
 

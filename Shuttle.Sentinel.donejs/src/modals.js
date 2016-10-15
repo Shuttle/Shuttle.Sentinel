@@ -1,11 +1,10 @@
-﻿import can from 'can';
-import state from 'sentinel/state';
+﻿import state from 'sentinel/state';
 
 var modals = {
-    confirm: function(target, message, args) {
+    confirm: function(message, callback) {
         state.attr('modal.confirmation.message', message);
         state.attr('modal.confirmation.primaryClick', function() {
-            can.trigger(target, 'click', args);
+            callback();
         });
 
         $('#modal-confirmation').modal({ show: true });

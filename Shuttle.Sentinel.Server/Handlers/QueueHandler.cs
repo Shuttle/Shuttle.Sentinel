@@ -5,7 +5,9 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
 {
-    public class QueueHandler : IMessageHandler<AddQueueCommand>
+    public class QueueHandler : 
+        IMessageHandler<AddQueueCommand>,
+        IMessageHandler<RemoveQueueCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IQueueQuery _queueQuery;
@@ -24,6 +26,14 @@ namespace Shuttle.Sentinel.Server
             using (_databaseContextFactory.Create())
             {
                 _queueQuery.Add(context.Message.QueueUri);
+            }
+        }
+
+        public void ProcessMessage(IHandlerContext<RemoveQueueCommand> context)
+        {
+            using (_databaseContextFactory.Create())
+            {
+                _queueQuery.Remove(context.Message.QueueUri);
             }
         }
     }

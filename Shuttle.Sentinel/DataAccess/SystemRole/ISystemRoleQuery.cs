@@ -17,5 +17,6 @@ namespace Shuttle.Sentinel
         void Added(ProjectionEvent projectionEvent, Added domainEvent);
         void PermissionAdded(ProjectionEvent projectionEvent, PermissionAdded domainEvent);
 	    void PermissionRemoved(ProjectionEvent projectionEvent, PermissionRemoved domainEvent);
+	    void Removed(ProjectionEvent projectionEvent, Removed domainEvent);
 	}
 }

@@ -9,6 +9,7 @@ namespace Shuttle.Sentinel.Server
 {
     public class RoleHandler :
         IMessageHandler<AddRoleCommand>,
+        IMessageHandler<RemoveRoleCommand>,
         IMessageHandler<SetRolePermissionCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
@@ -77,6 +78,23 @@ namespace Shuttle.Sentinel.Server
                 {
                     stream.AddEvent(role.RemovePermission(message.Permission));
                 }
+
+                _eventStore.SaveEventStream(stream);
+            }
+        }
+
+        public void ProcessMessage(IHandlerContext<RemoveRoleCommand> context)
+        {
+            var message = context.Message;
+
+            using (_databaseContextFactory.Create())
+            {
+                var role = new Role(message.Id);
+                var stream = _eventStore.Get(message.Id);
+
+                stream.Apply(role);
+
+                stream.AddEvent(role.Remove());
 
                 _eventStore.SaveEventStream(stream);
             }

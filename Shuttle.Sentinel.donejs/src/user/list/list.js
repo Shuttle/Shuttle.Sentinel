@@ -1,5 +1,5 @@
 import Component from 'can/component/';
-import 'can/map/define/';
+import List from 'can/list/';
 import template from './list.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
@@ -13,39 +13,48 @@ resources.add('user', { action: 'list', permission: Permissions.View.Users });
 export const ViewModel = Model.extend({
     define: {
         columns: {
-            value: [
-                {
-                    columnTitle: 'user:list.roles',
-                    columnClass: 'col-md-1',
-                    columnType: 'button',
-                    buttonTitle: 'user:list.roles',
-                    buttonClick: 'roles(id)'
-                },
-                {
-                    columnTitle: 'user:username', 
-                    attributeName: 'username'
-                },
-                {
-                    columnTitle: 'user:dateRegistered', 
-                    attributeName: 'dateRegistered'
-                },
-                {
-                    columnTitle: 'user:registeredBy', 
-                    attributeName: 'registeredBy'
-                },
-                {
-                    columnTitle: 'remove', 
-                    columnClass: 'col-md-1',
-                    columnType: 'remove-button',
-                    buttonTitle: 'role:permissions.title',
-                    buttonClick: 'remove(id)'
-                }
-            ]
+            value: new List()
         }
     },
 
     init: function() {
+        let columns = this.attr('columns');
+
         this.refresh();
+
+        if (!columns.length) {
+            columns.push({
+                columnTitle: 'user:list.roles',
+                columnClass: 'col-md-1',
+                columnType: 'button',
+                buttonTitle: 'user:list.roles',
+                buttonClick: 'roles',
+                buttonContext: this
+            });
+
+            columns.push({
+                columnTitle: 'user:username', 
+                attributeName: 'username'
+            });
+
+            columns.push({
+                columnTitle: 'user:dateRegistered', 
+                attributeName: 'dateRegistered'
+            });
+
+            columns.push({
+                columnTitle: 'user:registeredBy', 
+                attributeName: 'registeredBy'
+            });
+
+            columns.push({
+                columnTitle: 'remove', 
+                columnClass: 'col-md-1',
+                columnType: 'remove-button',
+                buttonContext: this,
+                buttonClick: 'remove'
+            });
+        }
     },
 
     add: function() {

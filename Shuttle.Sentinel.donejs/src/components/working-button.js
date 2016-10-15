@@ -1,6 +1,7 @@
 ﻿import can from 'can';
 import template from './working-button.stache!';
 import security from 'sentinel/security';
+import click from 'sentinel/components/click';
 
 export default can.Component.extend({
     tag: 'sentinel-working-button',
@@ -44,6 +45,9 @@ export default can.Component.extend({
                 permission: {
                     value: ''
                 }
+            },
+            _clickHandler: function() {
+                click.on(this);
             }
         });
     }

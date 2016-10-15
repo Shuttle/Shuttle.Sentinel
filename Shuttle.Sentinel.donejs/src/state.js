@@ -6,9 +6,13 @@ import localisation from 'sentinel/localisation';
 import security from 'sentinel/security';
 import alerts from 'sentinel/alerts';
 import navigationItems from 'sentinel/navigation-map';
+import guard from 'sentinel/guard';
 
 var State = Map.extend({
     define: {
+        data: {
+            value: Map()
+        },
         alerts: {
             value: new can.List()
         },
@@ -153,6 +157,23 @@ var State = Map.extend({
 
     userLoggedOut: function() {
         security.logout();
+    },
+
+    set: function(name, data) {
+        guard.againstUndefined(name, 'name');
+
+        this.attr('data.' + name, data);
+    },
+
+    get: function(name) {
+        guard.againstUndefined(name, 'name');
+        
+        let key = 'data.' + name;
+        let result = this.attr(key);
+
+        this.removeAttr(key);
+
+        return result;
     },
 
     goto: function(href) {

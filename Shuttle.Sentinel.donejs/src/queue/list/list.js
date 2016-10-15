@@ -1,4 +1,5 @@
 import Component from 'can/component/';
+import List from 'can/list/';
 import template from './list.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
@@ -12,23 +13,37 @@ resources.add('queue', { action: 'list', permission: Permissions.Manage.Queues }
 export const ViewModel = Model.extend({
     define: {
         columns: {
-            value: [
-                {
-                    columnTitle: 'queue:queue-uri', 
-                    attributeName: 'queueUri'
-                },
-                {
-                    columnTitle: 'remove', 
-                    columnClass: 'col-md-1',
-                    columnType: 'remove-button',
-                    buttonClick: 'remove(id)'
-                }
-            ]
+            value: new List()
         }
     },
 
     init: function() {
+        const columns = this.attr('columns');
         this.refresh();
+
+        if (!columns.length) {
+            columns.push({
+                columnTitle: 'clone',
+                columnClass: 'col-md-1',
+                columnType: 'button',
+                buttonTitle: 'clone',
+                buttonClick: 'clone',
+                buttonContext: this
+            });
+
+            columns.push({
+                columnTitle: 'queue:queue-uri',
+                attributeName: 'uri'
+            });
+
+            columns.push({
+                columnTitle: 'remove',
+                columnClass: 'col-md-1',
+                columnType: 'remove-button',
+                buttonContext: this,
+                buttonClick: 'remove'
+            });
+        }
     },
 
     add: function() {
@@ -39,11 +54,20 @@ export const ViewModel = Model.extend({
         this.get('queues');
     },
 
-    remove: function(id) {
-        this.delete(`queues/${id}`)
+    remove: function(row) {
+        this.post('queues/remove', {
+                    uri: row.attr('uri')
+                }
+            )
             .done(function() {
-                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('queue:queue-uri') }) });
+                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('queue:queue-uri') }), name: 'item-removal' });
             });
+    },
+
+    clone: function(row) {
+        state.set('queue-clone', row);
+
+        this.add();
     }
 });
 

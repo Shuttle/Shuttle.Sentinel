@@ -13,42 +13,33 @@ namespace Shuttle.Sentinel.WebApi
     {
         private readonly IServiceBus _bus;
         private readonly IDatabaseContextFactory _databaseContextFactory;
+        private readonly IQueueQuery _queueQuery;
 
-        public QueuesController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory)
+        public QueuesController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory, IQueueQuery queueQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
+            Guard.AgainstNull(queueQuery, "queueQuery");
             Guard.AgainstNull(bus, "bus");
 
             _databaseContextFactory = databaseContextFactory;
+            _queueQuery = queueQuery;
             _bus = bus;
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
         public IHttpActionResult Get()
         {
-            var queues = new List<string>
-            {
-                "rabbitmq://shuttle:shuttle!@localhost/shuttle-server-work",
-                "rabbitmq://shuttle:shuttle!@localhost/shuttle-error"
-            };
-
             using (_databaseContextFactory.Create())
             {
                 return Ok(new
                 {
-                    Queues = queues
-                    //Data = from row in _systemRoleQuery.Search()
-                    //    select new
-                    //    {
-                    //        Id = SystemRoleColumns.Id.MapFrom(row),
-                    //        RoleName = SystemRoleColumns.RoleName.MapFrom(row)
-                    //    }
+                    Data = _queueQuery.All()
                 });
             }
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
-        public IHttpActionResult Post([FromBody] AddQueueModel model)
+        public IHttpActionResult Post([FromBody] QueueModel model)
         {
             Guard.AgainstNull(model, "model");
 
@@ -60,5 +51,18 @@ namespace Shuttle.Sentinel.WebApi
             return Ok();
         }
 
+        [RequiresPermission(SystemPermissions.Manage.Queues)]
+        [Route("api/queues/remove")]
+        public IHttpActionResult RemoveQueue([FromBody] QueueModel model)
+        {
+            Guard.AgainstNull(model, "model");
+
+            _bus.Send(new RemoveQueueCommand
+            {
+                QueueUri = model.Uri
+            });
+
+            return Ok();
+        }
     }
 }

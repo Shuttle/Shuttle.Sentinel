@@ -1,6 +1,6 @@
 namespace Shuttle.Sentinel.WebApi
 {
-    public class AddQueueModel
+    public class QueueModel
     {
         public string Uri { get; set; }
     }

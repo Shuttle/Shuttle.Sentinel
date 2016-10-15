@@ -98,6 +98,7 @@
     <Compile Include="DataAccess\SystemRole\SystemRoleQueryFactory.cs" />
     <Compile Include="DataAccess\SystemRole\SystemRoleColumns.cs" />
     <Compile Include="DataAccess\SystemUser\SystemUserRoleColumns.cs" />
+    <Compile Include="DomainEvents\Role.v1\Removed.cs" />
     <Compile Include="DomainEvents\Role.v1\Added.cs" />
     <Compile Include="DomainEvents\Role.v1\PermissionRemoved.cs" />
     <Compile Include="DomainEvents\Role.v1\PermissionAdded.cs" />

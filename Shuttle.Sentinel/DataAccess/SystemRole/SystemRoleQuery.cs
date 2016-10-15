@@ -54,7 +54,12 @@ namespace Shuttle.Sentinel
             _databaseGateway.ExecuteUsing(_queryFactory.PermissionRemoved(projectionEvent.Id, domainEvent));
         }
 
-        public Query.Role Get(Guid id)
+	    public void Removed(ProjectionEvent projectionEvent, Removed domainEvent)
+	    {
+            _databaseGateway.ExecuteUsing(_queryFactory.Removed(projectionEvent.Id, domainEvent));
+        }
+
+	    public Query.Role Get(Guid id)
 	    {
 	        var result = _queryMapper.MapObject<Query.Role>(_queryFactory.Get(id));
 

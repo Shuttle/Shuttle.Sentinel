@@ -9,14 +9,14 @@
 				{{#if isSeparator}}
 					<li role="separator" class="divider"></li>
 				{{else}}
-					<li><a href="#" ($click)="click()">{{i18n text}}</a></li>
+					<li><a href="#" ($click)="_clickHandler()">{{i18n text}}</a></li>
 				{{/if}}
 			{{/each}}
 		  </ul>
 		</div>
 	{{/case}}
 	{{#default}}
-		<button {type}="type" class="btn {{elementClass}} {{classVisibility}}" ($click)="click()" {$disabled}="disabled">
+		<button {type}="type" class="btn {{elementClass}} {{classVisibility}}" ($click)="_clickHandler()" {$disabled}="disabled">
 			<span class="glyphicon {{iconName}}" /> {{i18n text}}
 		</button>
 	{{/default}}

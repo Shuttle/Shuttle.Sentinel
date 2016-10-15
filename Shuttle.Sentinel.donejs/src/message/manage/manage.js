@@ -112,14 +112,13 @@ export const ViewModel = Model.extend({
         let checkActions = this.attr('checkActions');
 
         if (!columns.length) {
-            columns.push(new Map(
-            {
+            columns.push({
                 checked: false,
                 columnClass: 'col-md-1',
                 columnTitle: 'check',
                 columnType: 'template',
                 template: '<span ($click)="toggleCheck(%event)" class="glyphicon {{#if checked}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" />'
-            }));
+            });
 
             columns.push(
             {

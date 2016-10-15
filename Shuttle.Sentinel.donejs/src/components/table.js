@@ -73,6 +73,11 @@ export default can.Component.extend({
         },
         rowClass(row) {
             return typeof(row.attr) === 'function' ? row.attr('rowClass') : row['rowClass'];
+        },
+        buttonContext(row, column) {
+            var context = column.attr('buttonContext');
+
+            return !!context ? context : row;
         }
     }
 });

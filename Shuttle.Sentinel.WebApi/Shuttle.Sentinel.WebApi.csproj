@@ -137,7 +137,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\QueuesController.cs" />
-    <Compile Include="Models\AddQueueModel.cs" />
+    <Compile Include="Models\QueueModel.cs" />
     <Compile Include="Models\FetchMessageModel.cs" />
     <Compile Include="Models\MessageMoveModel.cs" />
     <Compile Include="Models\UserRoleStatusModel.cs" />

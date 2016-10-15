@@ -84,5 +84,20 @@ namespace Shuttle.Sentinel
 
             return permissionRemoved;
         }
+
+        public Removed Remove()
+        {
+            return On(new Removed
+            {
+                Id = _id
+            });
+        }
+
+        public Removed On(Removed removed)
+        {
+            Guard.AgainstNull(removed, "removed");
+
+            return removed;
+        }
     }
 }

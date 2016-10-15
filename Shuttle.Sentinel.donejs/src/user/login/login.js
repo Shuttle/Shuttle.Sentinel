@@ -3,8 +3,8 @@ import Map from 'can/map/';
 import 'can/map/define/';
 import template from './login.stache!';
 import resources from 'sentinel/resources';
-import api from 'sentinel/api';
 import security from 'sentinel/security';
+import validation from 'sentinel/validation';
 
 resources.add('user', { action: 'login' });
 
@@ -23,11 +23,30 @@ export const ViewModel = Map.extend({
         },
         working: {
             value: false
+        },
+
+        usernameConstraint: {
+            get: function() {
+                return validation.item(this, {
+                    username: {
+                        presence: true
+                    }
+                });
+            }
         }
+    },
+
+    hasErrors: function() {
+        return this.attr('usernameConstraint');
     },
 
     login: function() {
         var self = this;
+
+        if (this.hasErrors()) {
+            return false;
+        }
+
         this.attr('working', true);
 
         security.login({

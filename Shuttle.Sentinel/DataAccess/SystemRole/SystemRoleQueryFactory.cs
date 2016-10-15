@@ -112,5 +112,17 @@ and
                 .AddParameterValue(SystemRolePermissionColumns.RoleId, id)
                 .AddParameterValue(SystemRolePermissionColumns.Permission, domainEvent.Permission);
         }
+
+        public IQuery Removed(Guid id, Removed domainEvent)
+        {
+            return RawQuery.Create(@"
+delete 
+from 
+    [dbo].[SystemRole]
+where	
+    [Id] = @Id
+")
+                .AddParameterValue(SystemRoleColumns.Id, id);
+        }
     }
 }

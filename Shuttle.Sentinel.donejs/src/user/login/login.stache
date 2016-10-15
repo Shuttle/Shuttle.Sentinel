@@ -1,9 +1,9 @@
 <sentinel-form title="user:login.title">
   <form>
     <fieldset class="form-group">
-      <sentinel-text focus="true" label="user:register.username" {(value)}="username" />
-      <sentinel-text label="user:register.password" {(value)}="password" type="password" validation-message="{{passwordValidationMessage}}" />
-      <sentinel-button type="submit" ($click)="login" text="sign-in" {icon-name}="submitIconName" {disabled}="working"/>
+      <sentinel-text focus="true" label="user:username" {(value)}="username" {validation-message}="usernameConstraint" />
+      <sentinel-text label="user:register.password" {(value)}="password" type="password" />
+      <sentinel-button type="submit" {click}="@login" argument="test" text="sign-in" {icon-name}="submitIconName" {disabled}="working"/>
     </fieldset>
   </form>
 </sentinel-form>

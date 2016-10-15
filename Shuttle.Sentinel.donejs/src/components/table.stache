@@ -19,10 +19,10 @@
           <td data-title="{{i18n columnTitle}}">
             {{#switch columnType}}
               {{#case 'button'}}
-                <sentinel-button element-class="btn-default {{buttonClass}}" ($click)="{{buttonClick}}" text="{{buttonTitle}}" />
+                <sentinel-button {context}="buttonContext ../. ." {click}="@buttonClick" {argument}="../." text="{{buttonTitle}}" element-class="btn-default btn-xs {{buttonClass}}" />
               {{/case}}
               {{#case 'remove-button'}}
-                <sentinel-remove-button ($click)="{{buttonClick}}" text="remove" />
+                <sentinel-remove-button {context}="buttonContext ../. ." {click}="@buttonClick" {argument}="../." text="remove" element-class="btn-xs" />
             {{/case}}
             {{#case 'template'}}
             {{template ../. .}}

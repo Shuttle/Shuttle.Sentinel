@@ -5,14 +5,26 @@ import Permissions from 'sentinel/permissions';
 import state from 'sentinel/state';
 import Model from 'sentinel/model';
 import validation from 'sentinel/validation';
-import localisation from 'sentinel/localisation';
 
 resources.add('queue', { action: 'add', permission: Permissions.Manage.Queues});
 
 export const ViewModel = Model.extend({
     define: {
         uri: {
-            value: ''
+            value: '',
+            get: function(value) {
+                var result = value;
+
+                if (!value) {
+                    result = state.get('queue-clone');
+
+                    if (result) {
+                        result = result.attr('uri');
+                    }
+                }
+
+                return result || value;
+            }
         },
 
         uriConstraint: {
