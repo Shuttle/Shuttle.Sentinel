@@ -36,5 +36,10 @@ namespace Shuttle.Sentinel
         {
             return _queryMapper.MapObjects<Queue>(_queueQueryFactory.All());
         }
+
+        public IEnumerable<Queue> Search(string match)
+        {
+            return _queryMapper.MapObjects<Queue>(_queueQueryFactory.Search(match));
+        }
     }
 }

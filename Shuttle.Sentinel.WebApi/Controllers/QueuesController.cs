@@ -39,6 +39,19 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
+        [Route("api/queues/search")]
+        public IHttpActionResult Search([FromBody] QueueModel model)
+        {
+            using (_databaseContextFactory.Create())
+            {
+                return Ok(new
+                {
+                    Data = _queueQuery.Search(model.Uri)
+                });
+            }
+        }
+
+        [RequiresPermission(SystemPermissions.Manage.Queues)]
         public IHttpActionResult Post([FromBody] QueueModel model)
         {
             Guard.AgainstNull(model, "model");

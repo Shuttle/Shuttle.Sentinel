@@ -22,5 +22,11 @@ namespace Shuttle.Sentinel
         {
             return RawQuery.Create(@"select Uri from Queue");
         }
+
+        public IQuery Search(string match)
+        {
+            return RawQuery.Create(@"select Uri from Queue where Uri like @Uri")
+                .AddParameterValue(QueueColumns.Uri, string.Concat("%", match, "%"));
+        }
     }
 }

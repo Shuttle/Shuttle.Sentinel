@@ -8,5 +8,6 @@ namespace Shuttle.Sentinel
         void Add(string uri);
         void Remove(string uri);
         IEnumerable<Queue> All();
+        IEnumerable<Queue> Search(string match);
     }
 }

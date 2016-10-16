@@ -9,7 +9,7 @@
 				{{#if isSeparator}}
 					<li role="separator" class="divider"></li>
 				{{else}}
-					<li><a href="#" ($click)="_clickHandler()">{{i18n text}}</a></li>
+					<li><a href="#" ($click)="click()">{{i18n text}}</a></li>
 				{{/if}}
 			{{/each}}
 		  </ul>

@@ -31,6 +31,8 @@ import 'sentinel/components/table';
 import 'sentinel/components/navigation';
 import 'sentinel/components/alerts';
 
+import 'sentinel/components/queue';
+
 import 'validate.js';
 
 import 'sentinel/dashboard/';

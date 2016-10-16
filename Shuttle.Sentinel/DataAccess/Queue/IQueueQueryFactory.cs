@@ -7,5 +7,6 @@ namespace Shuttle.Sentinel
         IQuery Add(string uri);
         IQuery Remove(string uri);
         IQuery All();
+        IQuery Search(string match);
     }
 }

@@ -1,10 +1,8 @@
 using System;
-using System.Linq;
 using System.Web.Http;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
-using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
 {
@@ -14,7 +12,8 @@ namespace Shuttle.Sentinel.WebApi
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly ISystemRoleQuery _systemRoleQuery;
 
-        public PermissionsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory, ISystemRoleQuery systemRoleQuery)
+        public PermissionsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
+            ISystemRoleQuery systemRoleQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
             Guard.AgainstNull(bus, "bus");

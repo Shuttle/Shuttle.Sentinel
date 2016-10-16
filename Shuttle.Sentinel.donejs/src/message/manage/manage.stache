@@ -1,7 +1,7 @@
 {{#if message}}
 <sentinel-page-title title="message:message" />
 <div class="form-group">
-  <sentinel-button text="close" element-class="btn-primary" ($click)="showMessages()"/>
+  <sentinel-button text="close" element-class="btn-primary" {click}="@showMessages"/>
   <sentinel-checkbox ($click)="message.toggleCheck(%event)" {checked}="message.checked" />
 </div>
 <div>
@@ -16,14 +16,7 @@
       <sentinel-label label="message:source-queue-uri" />
       <div class="row">
         <div class="col-md-8">
-          <div class="input-group">
-            <span class="input-group-btn">
-              <button class="btn" type="button">
-                <span class="glyphicon glyphicon-menu-down" />
-              </button>
-            </span>
-            <sentinel-input {(value)}="sourceQueueUri" />
-          </div>
+		  <sentinel-queue {(value)}="sourceQueueUri" />
         </div>
         <div class="col-md-4">
           <div class="input-group">
@@ -39,13 +32,7 @@
     </div>
     <div class="col-md-6 {{#unless hasMessages}}hidden{{/if}}">
       <sentinel-label label="message:destination-queue-uri" />
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button class="btn" type="button">
-            <span class="glyphicon glyphicon-menu-down" />
-          </button>
-        </span>
-        <sentinel-input {(value)}="destinationQueueUri"/>
+		<sentinel-queue {(value)}="destinationQueueUri">
         <span class="input-group-btn">
           <button type="button" ($click)="move()" class="btn btn-default" >
             {{i18n "move"}}
@@ -54,7 +41,7 @@
             {{i18n "copy"}}
           </button>
         </span>
-      </div>
+      </sentinel-queue>
     </div>
   </div>
   <div class="form-group form-inline {{#unless hasMessages}}hidden{{/if}}">
