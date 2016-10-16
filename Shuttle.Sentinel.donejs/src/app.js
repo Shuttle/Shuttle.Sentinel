@@ -40,6 +40,7 @@ import 'sentinel/user/';
 import 'sentinel/role/';
 import 'sentinel/message/';
 import 'sentinel/queue/';
+import 'sentinel/datastore/';
 
 validate.validators.uri = function(value, attributes, attributeName) {
     var result = uri.get(value);
