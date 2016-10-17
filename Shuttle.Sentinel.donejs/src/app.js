@@ -14,7 +14,7 @@ import 'sentinel/components/back-button';
 import 'sentinel/components/checkbox';
 import 'sentinel/components/refresh-button';
 import 'sentinel/components/remove-button';
-import 'sentinel/components/working-button';
+import 'sentinel/components/submit-button';
 import 'sentinel/components/button';
 import 'sentinel/components/buttons';
 import 'sentinel/components/form-group';

@@ -62,10 +62,6 @@ export const ViewModel = Model.extend({
             value: new List()
         },
 
-        checkActions: {
-            value: new List()
-        },
-
         sourceQueueUri: {
             value: ''
         },
@@ -109,7 +105,6 @@ export const ViewModel = Model.extend({
         var self = this;
         let columns = this.attr('columns');
         let messageActions = this.attr('messageActions');
-        let checkActions = this.attr('checkActions');
 
         if (!columns.length) {
             columns.push({
@@ -165,28 +160,6 @@ export const ViewModel = Model.extend({
             });
         }
 
-        if (!checkActions.length) {
-            checkActions.push({
-                text: "all",
-                click: function() {
-                    self.checkAll();
-                }
-            });
-
-            checkActions.push({
-                text: "none",
-                click: function() {
-                    self.checkNone();
-                }
-            });
-
-            checkActions.push({
-                text: "invert",
-                click: function() {
-                    self.checkInvert();
-                }
-            });
-        }
         this.refresh();
     },
 

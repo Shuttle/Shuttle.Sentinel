@@ -45,7 +45,11 @@
     </div>
   </div>
   <div class="form-group form-inline {{#unless hasMessages}}hidden{{/if}}">
-    <sentinel-button {actions}="checkActions" text="check" element-class="btn-default" icon-name="glyphicon-unchecked" />
+	<div class="btn-group" role="group" aria-label="...">
+		<button type="button" class="btn btn-default" ($click)="checkNone()"><span class="glyphicon glyphicon-unchecked"></span></button>
+		<button type="button" class="btn btn-default" ($click)="checkInvert()"><span class="glyphicon glyphicon-transfer"></span></button>
+		<button type="button" class="btn btn-default" ($click)="checkAll"><span class="glyphicon glyphicon-check"></span></button>
+	</div>
     <sentinel-button {actions}="messageActions" text="message:messages" element-class="btn-default" />
   </div>
 </form>
