@@ -45,6 +45,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Shuttle.Sentinel.donejs", "
 		SlnRelativePath = "Shuttle.Sentinel.donejs\"
 	EndProjectSection
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Shuttle.Sentinel.Database", "Shuttle.Sentinel.Database\Shuttle.Sentinel.Database.sqlproj", "{74B3869C-0977-4516-A308-A4C0A5E61E46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,12 @@ Global
 		{248A78CE-E349-41F1-A714-2F76EF8C647A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{248A78CE-E349-41F1-A714-2F76EF8C647A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{248A78CE-E349-41F1-A714-2F76EF8C647A}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
