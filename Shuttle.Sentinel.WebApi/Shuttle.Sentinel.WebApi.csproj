@@ -136,7 +136,10 @@
     <Compile Include="Controllers\EnvironmentsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
+    <Compile Include="Controllers\DataStoresController.cs" />
     <Compile Include="Controllers\QueuesController.cs" />
+    <Compile Include="Models\RemoveDataStoreModel.cs" />
+    <Compile Include="Models\AddDataStoreModel.cs" />
     <Compile Include="Models\QueueModel.cs" />
     <Compile Include="Models\FetchMessageModel.cs" />
     <Compile Include="Models\MessageMoveModel.cs" />

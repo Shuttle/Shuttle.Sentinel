@@ -20,12 +20,12 @@ namespace Shuttle.Sentinel
 
         public IQuery All()
         {
-            return RawQuery.Create(@"select Uri from Queue");
+            return RawQuery.Create(@"select Uri from Queue order by Uri");
         }
 
         public IQuery Search(string match)
         {
-            return RawQuery.Create(@"select Uri from Queue where Uri like @Uri")
+            return RawQuery.Create(@"select Uri from Queue where Uri like @Uri order by Uri")
                 .AddParameterValue(QueueColumns.Uri, string.Concat("%", match, "%"));
         }
     }
