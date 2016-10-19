@@ -1,7 +1,9 @@
-<sentinel-form title="queue:add.title">
+<sentinel-form title="datastore:add.title">
   <form>
     <fieldset class="form-group">
-      <sentinel-text focus="true" label="uri" {(value)}=uri" required="true" {validation-message}="uriConstraint"/>
+      <sentinel-text focus="true" label="name" {(value)}="name" required="true" {validation-message}="nameConstraint"/>
+      <sentinel-text label="datastore:connection-string" {(value)}="connectionString" required="true" {validation-message}="connectionStringConstraint"/>
+      <sentinel-text label="datastore:provider-name" {(value)}="providerName" required="true" {validation-message}="providerNameConstraint"/>
       <sentinel-submit-button {click}="@add" text="add" />
       <sentinel-button {click}="@close" text="close" />
     </fieldset>

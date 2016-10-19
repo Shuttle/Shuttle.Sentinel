@@ -34,7 +34,9 @@ export const ViewModel = Map.extend({
             }
         },
         iconName: {
-            value: ''
+            get: function(value) {
+                return value || '';
+            }
         },
         disabled: {
             get: function(value) {

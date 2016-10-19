@@ -1,7 +1,7 @@
 <sentinel-form title="queue:add.title">
   <form>
     <fieldset class="form-group">
-      <sentinel-text focus="true" label="uri" {(value)}=uri" required="true" {validation-message}="uriConstraint"/>
+      <sentinel-text focus="true" label="uri" {(value)}="uri" required="true" {validation-message}="uriConstraint"/>
       <sentinel-submit-button {click}="@add" text="add" />
       <sentinel-button {click}="@close" text="close" />
     </fieldset>

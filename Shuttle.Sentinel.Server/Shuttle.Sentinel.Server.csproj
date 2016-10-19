@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\DataStoreHandler.cs" />
     <Compile Include="Handlers\QueueHandler.cs" />
     <Compile Include="Handlers\UserHandler.cs" />
     <Compile Include="Handlers\RoleHandler.cs" />

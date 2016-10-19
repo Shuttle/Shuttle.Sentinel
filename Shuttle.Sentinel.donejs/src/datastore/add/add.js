@@ -6,20 +6,20 @@ import state from 'sentinel/state';
 import Model from 'sentinel/model';
 import validation from 'sentinel/validation';
 
-resources.add('queue', { action: 'add', permission: Permissions.Manage.Queues});
+resources.add('datastore', { action: 'add', permission: Permissions.Manage.DataStores});
 
 export const ViewModel = Model.extend({
     define: {
-        uri: {
+        name: {
             value: '',
             get: function(value) {
                 var result = value;
 
                 if (!value) {
-                    result = state.get('queue-clone');
+                    result = state.get('datastore-clone');
 
                     if (result) {
-                        result = result.attr('uri');
+                        result = result.attr('name');
                     }
                 }
 
@@ -27,12 +27,70 @@ export const ViewModel = Model.extend({
             }
         },
 
-        uriConstraint: {
+        connectionString: {
+            value: '',
+            get: function(value) {
+                var result = value;
+
+                if (!value) {
+                    result = state.get('datastore-clone');
+
+                    if (result) {
+                        result = result.attr('connectionString');
+                    }
+                }
+
+                return result || value;
+            }
+        },
+
+        providerName: {
+            value: '',
+            get: function(value) {
+                var result = value;
+
+                if (!value) {
+                    result = state.get('datastore-clone');
+
+                    if (result) {
+                        result = result.attr('providerName');
+                    }
+                }
+
+                return result || value;
+            }
+        },
+
+        nameConstraint: {
             get: function() {
-                return validation.get('uri', this.attr('uri'), {
-                    uri: {
-                        presence: true,
-                        uri: true
+                return validation.get('name', this.attr('name'), {
+                    name: {
+                        presence: true
+                    }
+                });
+                return validation.item(this, {
+                    name: {
+                        presence: true
+                    }
+                });
+            }
+        },
+
+        connectionStringConstraint: {
+            get: function() {
+                return validation.item(this, {
+                    connectionString: {
+                        presence: true
+                    }
+                });
+            }
+        },
+
+        providerNameConstraint: {
+            get: function() {
+                return validation.item(this, {
+                    providerName: {
+                        presence: true
                     }
                 });
             }
@@ -40,7 +98,7 @@ export const ViewModel = Model.extend({
     },
 
     hasErrors: function() {
-        return this.attr('uriConstraint');
+        return this.attr('nameConstraint');
     },
 
     add: function() {
@@ -48,8 +106,10 @@ export const ViewModel = Model.extend({
             return false;
         }
 
-        this.post('queues', {
-            uri: this.attr('uri')
+        this.post('datastores', {
+            name: this.attr('name'),
+            connectionString: this.attr('connectionString'),
+            providerName: this.attr('providerName')
         });
 
         this.close();
@@ -58,12 +118,12 @@ export const ViewModel = Model.extend({
     },
 
     close: function() {
-        state.goto('queue/list');
+        state.goto('datastore/list');
     }
 });
 
 export default Component.extend({
-    tag: 'sentinel-queue-add',
+    tag: 'sentinel-datastore-add',
     viewModel: ViewModel,
     template
 });

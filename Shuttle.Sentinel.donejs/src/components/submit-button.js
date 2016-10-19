@@ -24,7 +24,7 @@ export const ViewModel = Map.extend({
         },
         iconName: {
             get: function(value) {
-                return this.attr('working') ? 'glyphicon-hourglass' : value;
+                return this.attr('working') ? 'glyphicon-hourglass' : value || '';
             }
         },
         disabled: {
