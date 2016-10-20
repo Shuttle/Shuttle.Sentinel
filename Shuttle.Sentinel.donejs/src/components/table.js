@@ -3,6 +3,7 @@ import Map from 'can/map/';
 import stache from 'can/view/stache/';
 import template from './table.stache!';
 import localisation from 'sentinel/localisation';
+import click from 'sentinel/components/click';
 
 export const ViewModel = Map.extend({
     define: {
@@ -36,6 +37,14 @@ export const ViewModel = Map.extend({
             get: function() {
                 return this.attr('rows.length') === 0 && !!this.attr('emptyMessage');
             }
+        }
+    },
+
+    _rowClick: function(row) {
+        if (this.attr('rowClick')) {
+            this.attr('rowClick')(row);
+        } else {
+            click.on(row);
         }
     }
 });

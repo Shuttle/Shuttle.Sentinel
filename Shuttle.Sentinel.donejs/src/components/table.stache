@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       {{#each rows}}
-      <tr class="{{rowClass .}}" ($click)="{{#if rowClick}}{{rowClick}}(.){{/if}}">
+      <tr class="{{rowClass .}}" ($click)="_rowClick(.)">
         {{#columns}}
           <td data-title="{{i18n columnTitle}}">
             {{#switch columnType}}

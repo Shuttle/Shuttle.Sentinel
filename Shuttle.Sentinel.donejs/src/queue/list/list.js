@@ -60,7 +60,7 @@ export const ViewModel = Model.extend({
                 }
             )
             .done(function() {
-                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('queue:queue-uri') }), name: 'item-removal' });
+                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('queue:title') }), name: 'item-removal' });
             });
     },
 

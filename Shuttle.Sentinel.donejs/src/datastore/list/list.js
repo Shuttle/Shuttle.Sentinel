@@ -33,7 +33,19 @@ export const ViewModel = Model.extend({
 
             columns.push({
                 columnTitle: 'name',
-                attributeName: 'uri'
+                columnClass: 'col-md-1',
+                attributeName: 'name'
+            });
+
+            columns.push({
+                columnTitle: 'datastore:connection-string',
+                attributeName: 'connectionString'
+            });
+
+            columns.push({
+                columnTitle: 'datastore:provider-name',
+                columnClass: 'col-md-1',
+                attributeName: 'providerName'
             });
 
             columns.push({
@@ -54,13 +66,17 @@ export const ViewModel = Model.extend({
         this.get('datastores');
     },
 
+    rowClick: function() {
+        alert('preety cool!');
+    },
+
     remove: function(row) {
         this.post('datastores/remove', {
                     uri: row.attr('uri')
                 }
             )
             .done(function() {
-                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('datastore:datastore-uri') }), name: 'item-removal' });
+                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('datastore:title') }), name: 'item-removal' });
             });
     },
 

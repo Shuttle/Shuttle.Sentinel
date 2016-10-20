@@ -68,17 +68,12 @@ export const ViewModel = Model.extend({
                         presence: true
                     }
                 });
-                return validation.item(this, {
-                    name: {
-                        presence: true
-                    }
-                });
             }
         },
 
         connectionStringConstraint: {
             get: function() {
-                return validation.item(this, {
+                return validation.get('connectionString', this.attr('connectionString'), {
                     connectionString: {
                         presence: true
                     }
@@ -88,7 +83,7 @@ export const ViewModel = Model.extend({
 
         providerNameConstraint: {
             get: function() {
-                return validation.item(this, {
+                return validation.get('providerName', this.attr('providerName'), {
                     providerName: {
                         presence: true
                     }
@@ -98,7 +93,7 @@ export const ViewModel = Model.extend({
     },
 
     hasErrors: function() {
-        return this.attr('nameConstraint');
+        return this.attr('nameConstraint') || this.attr('connectionStringConstraint') || this.attr('providerNameConstraint');
     },
 
     add: function() {

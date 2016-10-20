@@ -68,7 +68,7 @@ export const ViewModel = Model.extend({
     remove: function(id) {
         this.delete(`roles/${id}`)
             .done(function() {
-                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('role:role') }) });
+                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('user:title') }) });
             });
     },
 

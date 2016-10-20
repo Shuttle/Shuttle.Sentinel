@@ -1,4 +1,5 @@
 ﻿{
+  "title": "Data Store",
   "add": {
     "title": "Add a data store"
   },
@@ -9,5 +10,5 @@
     "title": "Data Stores"
   },
   "connection-string": "Connection string",
-  "provider-name":  "Provider name"
+  "provider-name": "Provider name"
 }

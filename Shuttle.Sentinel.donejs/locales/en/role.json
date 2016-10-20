@@ -1,4 +1,5 @@
 ﻿{
+  "title": "Role",
   "add": {
     "title": "Add a role"
   },
@@ -9,6 +10,5 @@
     "title": "Permissions"
   },
   "name": "Role name",
-  "permission":  "Permission",
-  "role": "Role"
+  "permission":  "Permission"
 }

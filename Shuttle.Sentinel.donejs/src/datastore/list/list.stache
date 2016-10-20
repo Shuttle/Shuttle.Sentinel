@@ -7,5 +7,5 @@
 <sentinel-fetching title="queue:list.title" />
 {{/if}}
 {{#if isResolved}}
-<sentinel-table {columns}="columns" {rows}="list" />
+<sentinel-table {columns}="columns" {rows}="list" {row-click}="@rowClick" />
 {{/if}}
