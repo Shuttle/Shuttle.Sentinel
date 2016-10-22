@@ -67,7 +67,7 @@ export const ViewModel = Model.extend({
     },
 
     rowClick: function() {
-        alert('preety cool!');
+        state.goto('datastore/edit');
     },
 
     remove: function(row) {
@@ -81,7 +81,7 @@ export const ViewModel = Model.extend({
     },
 
     clone: function(row) {
-        state.set('datastore-clone', row);
+        state.set('datastore', row);
 
         this.add();
     }

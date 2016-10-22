@@ -1,7 +1,7 @@
 ﻿import guard from 'sentinel/guard';
 
 var click = {
-    on: function(viewModel) {
+    on: function(viewModel, ev) {
         guard.againstUndefined(viewModel, 'viewModel');
 
         var click = viewModel.attr('click');
@@ -23,6 +23,10 @@ var click = {
         }
 
         clickHandler.call(context, viewModel.attr('argument'));
+
+        if (!!ev) {
+            ev.stopPropagation();
+        }
     }
 };
 

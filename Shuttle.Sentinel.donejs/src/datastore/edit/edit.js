@@ -1,11 +1,11 @@
 import Component from 'can/component/';
-import template from './add.stache!';
+import template from './edit.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import state from 'sentinel/state';
 import PropertiesModel from '../views/properties-model';
 
-resources.add('datastore', { action: 'add', permission: Permissions.Manage.DataStores});
+resources.add('datastore', { action: 'edit', permission: Permissions.Manage.DataStores});
 
 export const ViewModel = PropertiesModel.extend({
     define: {
@@ -14,7 +14,13 @@ export const ViewModel = PropertiesModel.extend({
         }
     },
 
-    add: function() {
+    init: function() {
+        if (!state.get('datastore')) {
+            this.close();
+        }
+    },
+
+    save: function() {
         if (this.attr('properties').hasErrors()) {
             return false;
         }
@@ -36,7 +42,7 @@ export const ViewModel = PropertiesModel.extend({
 });
 
 export default Component.extend({
-    tag: 'sentinel-datastore-add',
+    tag: 'sentinel-datastore-edit',
     viewModel: ViewModel,
     template
 });

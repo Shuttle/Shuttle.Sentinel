@@ -16,7 +16,7 @@ export const ViewModel = Model.extend({
                 var result = value;
 
                 if (!value) {
-                    result = state.get('queue-clone');
+                    result = state.get('queue');
 
                     if (result) {
                         result = result.attr('uri');

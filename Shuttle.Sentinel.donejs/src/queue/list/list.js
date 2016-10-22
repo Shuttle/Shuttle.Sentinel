@@ -65,7 +65,7 @@ export const ViewModel = Model.extend({
     },
 
     clone: function(row) {
-        state.set('queue-clone', row);
+        state.set('queue', row);
 
         this.add();
     }

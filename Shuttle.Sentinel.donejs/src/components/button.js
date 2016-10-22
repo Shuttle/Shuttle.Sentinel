@@ -54,8 +54,8 @@ export const ViewModel = Map.extend({
         }
     },
 
-    _clickHandler: function() {
-        click.on(this);
+    _clickHandler: function(ev) {
+        click.on(this, ev);
     }
 });
 
