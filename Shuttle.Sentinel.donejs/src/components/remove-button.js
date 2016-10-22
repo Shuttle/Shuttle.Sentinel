@@ -15,12 +15,14 @@ export default can.Component.extend({
                 }
             }
         },
-        _click: function() {
+        _click: function(ev) {
             var self = this;
             var itemName = this.attr('itemName');
             var message = !itemName
                               ? localisation.value('removeItemConfirmation')
                               : localisation.value('removeItemNameConfirmation', { itemName: itemName });
+
+            ev.stopPropagation();
 
             modals.confirm(message, function() {
                 click.on(self);

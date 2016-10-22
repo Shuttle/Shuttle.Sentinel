@@ -22,6 +22,26 @@ let api = {
         });
     },
 
+    put: function(endpoint, options) {
+        const o = options || {};
+
+        if (o.async == undefined) {
+            o.async = true;
+        }
+
+        var data = o.data || {};
+
+        return $.ajax({
+            url: this.url(endpoint),
+            type: 'PUT',
+            async: o.async,
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            beforeSend: o.beforeSend,
+            timeout: o.timeout || 60000
+        });
+    },
+
     get: function (endpoint, options) {
         var o = options || {};
 

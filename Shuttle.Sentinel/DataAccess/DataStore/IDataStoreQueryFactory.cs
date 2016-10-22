@@ -8,5 +8,6 @@ namespace Shuttle.Sentinel
         IQuery Add(DataStore dataStore);
         IQuery Remove(string name);
         IQuery All();
+        IQuery Edit(string key, DataStore dataStore);
     }
 }

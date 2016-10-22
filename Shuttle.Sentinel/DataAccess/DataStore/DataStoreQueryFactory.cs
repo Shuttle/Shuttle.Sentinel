@@ -21,12 +21,6 @@ if not exists (select null from DataStore where Name = @Name)
         @ConnectionString,
         @ProviderName
     )
-else
-    update DataStore set
-        ConnectionString = @ConnectionString,
-        ProviderName = @ProviderName
-    where
-        Name = @Name
 ")
                 .AddParameterValue(DataStoreColumns.Name, dataStore.Name)
                 .AddParameterValue(DataStoreColumns.ConnectionString, dataStore.ConnectionString)
@@ -43,6 +37,22 @@ else
         public IQuery All()
         {
             return RawQuery.Create(@"select Name, ConnectionString, ProviderName from DataStore order by Name");
+        }
+
+        public IQuery Edit(string key, DataStore dataStore)
+        {
+            return RawQuery.Create(@"
+update DataStore set
+    Name = @Name,
+    ConnectionString = @ConnectionString,
+    ProviderName = @ProviderName
+where
+    Name = @Key
+")
+                .AddParameterValue(DataStoreColumns.Key, key)
+                .AddParameterValue(DataStoreColumns.Name, dataStore.Name)
+                .AddParameterValue(DataStoreColumns.ConnectionString, dataStore.ConnectionString)
+                .AddParameterValue(DataStoreColumns.ProviderName, dataStore.ProviderName);
         }
     }
 }

@@ -3,11 +3,12 @@ import template from './add.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import state from 'sentinel/state';
+import Model from 'sentinel/model';
 import PropertiesModel from '../views/properties-model';
 
 resources.add('datastore', { action: 'add', permission: Permissions.Manage.DataStores});
 
-export const ViewModel = PropertiesModel.extend({
+export const ViewModel = Model.extend({
     define: {
         properties: {
             Value: PropertiesModel

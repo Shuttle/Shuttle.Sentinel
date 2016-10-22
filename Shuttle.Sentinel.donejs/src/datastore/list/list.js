@@ -66,15 +66,16 @@ export const ViewModel = Model.extend({
         this.get('datastores');
     },
 
-    rowClick: function() {
+    rowClick: function(row) {
+        state.set('datastore', row);
+
         state.goto('datastore/edit');
     },
 
     remove: function(row) {
         this.post('datastores/remove', {
-                    uri: row.attr('uri')
-                }
-            )
+                name: row.attr('name')
+            })
             .done(function() {
                 alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('datastore:title') }), name: 'item-removal' });
             });

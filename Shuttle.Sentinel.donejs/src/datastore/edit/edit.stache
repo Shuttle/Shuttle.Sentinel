@@ -1,7 +1,7 @@
 <sentinel-form title="datastore:edit.title">
   <form>
     <fieldset class="form-group">
-      <sentinel-datastore-properties {(name)}="properties.name" {(connectionString)}="properties.connectionString" {(providerName)}="properties.providerName" />
+      <sentinel-datastore-properties {(name)}="properties.name" {(connection-string)}="properties.connectionString" {(provider-name)}="properties.providerName" />
       <sentinel-submit-button {click}="@save" text="save" />
       <sentinel-button {click}="@close" text="close" />
     </fieldset>

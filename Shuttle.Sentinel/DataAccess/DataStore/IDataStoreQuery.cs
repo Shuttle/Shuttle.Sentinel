@@ -8,5 +8,6 @@ namespace Shuttle.Sentinel
         void Add(DataStore dataStore);
         void Remove(string name);
         IEnumerable<DataStore> All();
+        void Edit(string key, DataStore dataStore);
     }
 }

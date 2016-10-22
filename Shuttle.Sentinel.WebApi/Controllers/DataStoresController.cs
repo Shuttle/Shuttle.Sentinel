@@ -52,6 +52,22 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
+        public IHttpActionResult Put([FromBody] EditDataStoreModel model)
+        {
+            Guard.AgainstNull(model, "model");
+
+            _bus.Send(new EditDataStoreCommand
+            {
+                Key = model.Key,
+                Name = model.Name,
+                ConnectionString = model.ConnectionString,
+                ProviderName = model.ProviderName
+            });
+
+            return Ok();
+        }
+
+        [RequiresPermission(SystemPermissions.Manage.DataStores)]
         [Route("api/dataStores/remove")]
         public IHttpActionResult RemoveDataStore([FromBody] RemoveDataStoreModel model)
         {

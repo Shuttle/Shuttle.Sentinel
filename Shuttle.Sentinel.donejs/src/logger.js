@@ -5,7 +5,7 @@ var Logger = new can.Construct({
     _displayMessage: function (message, options) {
         options = options ? options : {};
 
-        if ((options.type === 'error' || options.type === 'warn') || configuration.settings().DEBUG) {
+        if ((options.type === 'error' || options.type === 'warn') || configuration.settings().debug) {
             var logMessage = '[' + new Date().toTimeString() + '] : ' + message;
 
             switch (options.type) {

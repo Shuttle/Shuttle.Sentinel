@@ -7,6 +7,7 @@ import security from 'sentinel/security';
 import alerts from 'sentinel/alerts';
 import navigationItems from 'sentinel/navigation-map';
 import guard from 'sentinel/guard';
+import logger from 'sentinel/logger';
 
 var State = Map.extend({
     define: {
@@ -169,9 +170,18 @@ var State = Map.extend({
         guard.againstUndefined(name, 'name');
         
         let key = 'data.' + name;
+        let previousKey = this.attr('data.__previousKey');
         let result = this.attr(key);
 
-        this.removeAttr(key);
+        if (result) {
+            this.removeAttr(key);
+        } else {
+            if (key === previousKey) {
+                logger.info('There is no data item available for key \'' + key + '\'.  However, your last access was to this key.  Keep in mind that when you call \'get\' the data item is destroyed.  To re-use it you wil need to place it in a local variable.');
+            }
+        }
+
+        this.attr('data.__previousKey', key);
 
         return result;
     },

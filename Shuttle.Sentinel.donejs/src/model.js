@@ -1,7 +1,7 @@
 ﻿import Map from 'can/map/';
 import List from 'can/list/';
-import 'can/map/define/';
 import api from 'sentinel/api';
+import guard from 'sentinel/guard';
 
 var _emptyItem = {};
 
@@ -83,6 +83,28 @@ var Model = Map.extend({
         return deferred;
     },
 
+    put: function(endpoint, data, options) {
+        var o = options || {};
+        var self = this;
+        var deferred = $.Deferred();
+
+        self.pending();
+
+        o.data = data;
+
+        api.put(endpoint, o)
+            .done(function() {
+                self.resolved();
+                deferred.resolve();
+            })
+            .fail(function() {
+                self.failed();
+                deferred.reject();
+            });
+
+        return deferred;
+    },
+
     'delete': function(endpoint, data, options) {
         var self = this;
         var deferred = $.Deferred();
@@ -124,6 +146,24 @@ var Model = Map.extend({
         this.attr('hasFailed', true);
         this.attr('isListResolved', false);
         this.attr('isItemResolved', false);
+    },
+
+    automap: function(map) {
+        var o;
+        var attribute;
+
+        guard.againstUndefined(map, 'map');
+        guard.againstMissingFunction(map.serialize, 'map.serialize');
+
+        o = map.serialize();
+
+        for (attribute in o) {
+            if (!o.hasOwnProperty(attribute)) {
+                continue;
+            }
+
+            this.attr(attribute, map.attr(attribute));
+        }
     }
 });
 

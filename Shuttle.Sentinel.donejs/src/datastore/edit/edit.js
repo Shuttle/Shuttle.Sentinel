@@ -3,11 +3,12 @@ import template from './edit.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import state from 'sentinel/state';
+import Model from 'sentinel/model';
 import PropertiesModel from '../views/properties-model';
 
 resources.add('datastore', { action: 'edit', permission: Permissions.Manage.DataStores});
 
-export const ViewModel = PropertiesModel.extend({
+export const ViewModel = Model.extend({
     define: {
         properties: {
             Value: PropertiesModel
@@ -15,8 +16,13 @@ export const ViewModel = PropertiesModel.extend({
     },
 
     init: function() {
-        if (!state.get('datastore')) {
+        let datastore = state.get('datastore');
+
+        if (!datastore) {
             this.close();
+        } else {
+            this.attr('properties').values(datastore);
+            this.attr('key', datastore.attr('name'));
         }
     },
 
@@ -25,7 +31,8 @@ export const ViewModel = PropertiesModel.extend({
             return false;
         }
 
-        this.post('datastores', {
+        this.put('datastores', {
+            key: this.attr('key'),
             name: this.attr('properties.name'),
             connectionString: this.attr('properties.connectionString'),
             providerName: this.attr('properties.providerName')

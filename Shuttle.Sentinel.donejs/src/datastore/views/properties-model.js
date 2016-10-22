@@ -5,54 +5,15 @@ import validation from 'sentinel/validation';
 export default Model.extend({
     define: {
         name: {
-            value: '',
-            get: function(value) {
-                var result = value;
-
-                if (!value) {
-                    result = state.get('datastore');
-
-                    if (result) {
-                        result = result.attr('name');
-                    }
-                }
-
-                return result || value;
-            }
+            value: ''
         },
 
         connectionString: {
-            value: '',
-            get: function(value) {
-                var result = value;
-
-                if (!value) {
-                    result = state.get('datastore');
-
-                    if (result) {
-                        result = result.attr('connectionString');
-                    }
-                }
-
-                return result || value;
-            }
+            value: ''
         },
 
         providerName: {
-            value: '',
-            get: function(value) {
-                var result = value;
-
-                if (!value) {
-                    result = state.get('datastore');
-
-                    if (result) {
-                        result = result.attr('providerName');
-                    }
-                }
-
-                return result || value;
-            }
+            value: ''
         },
 
         nameConstraint: {
@@ -88,5 +49,9 @@ export default Model.extend({
 
     hasErrors: function() {
         return this.attr('nameConstraint') || this.attr('connectionStringConstraint') || this.attr('providerNameConstraint');
+    },
+
+    values: function(map) {
+        this.automap(map);
     }
 });

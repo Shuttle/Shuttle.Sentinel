@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="v1\EditDataStoreCommand.cs" />
     <Compile Include="v1\AddDataStoreCommand.cs" />
     <Compile Include="v1\RemoveDataStoreCommand.cs" />
     <Compile Include="v1\RemoveQueueCommand.cs" />
