@@ -5,7 +5,6 @@ namespace Shuttle.Sentinel
 {
     public class DataStoreColumns
     {
-        public static readonly MappedColumn<string> Key = new MappedColumn<string>("Key", DbType.AnsiString, 64);
         public static readonly MappedColumn<string> Name = new MappedColumn<string>("Name", DbType.AnsiString, 64);
 
         public static readonly MappedColumn<string> ConnectionString = new MappedColumn<string>("ConnectionString",

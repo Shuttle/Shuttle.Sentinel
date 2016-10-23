@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Columns.cs" />
     <Compile Include="DataAccess\InspectionQueue\IInspectionQueueQueryFactory.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueColumns.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueQueryFactory.cs" />

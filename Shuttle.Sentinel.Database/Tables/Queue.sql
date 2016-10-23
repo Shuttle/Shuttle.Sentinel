@@ -1,5 +1,10 @@
 ﻿CREATE TABLE [dbo].[Queue] (
-    [Uri] VARCHAR (130) NOT NULL,
-    CONSTRAINT [PK_Queue] PRIMARY KEY CLUSTERED ([Uri] ASC)
+    [Id] UNIQUEIDENTIFIER NOT NULL DEFAULT newid(),
+    [Uri] VARCHAR (130) NOT NULL, 
+    CONSTRAINT [PK_Queue] PRIMARY KEY ([Id])
 );
 
+
+GO
+
+CREATE INDEX [IX_Queue] ON [dbo].[Queue] ([Uri])

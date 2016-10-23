@@ -58,7 +58,7 @@ namespace Shuttle.Sentinel.WebApi
 
             _bus.Send(new EditDataStoreCommand
             {
-                Key = model.Key,
+                Id = model.Id,
                 Name = model.Name,
                 ConnectionString = model.ConnectionString,
                 ProviderName = model.ProviderName

@@ -1,13 +1,12 @@
 import Component from 'can/component/';
-import template from './edit.stache!';
+import template from './add.stache!';
 import resources from 'sentinel/resources';
 import Permissions from 'sentinel/permissions';
 import state from 'sentinel/state';
 import Model from 'sentinel/model';
-import '../views/properties';
 import PropertiesModel from '../views/properties-model';
 
-resources.add('datastore', { action: 'edit', permission: Permissions.Manage.DataStores});
+resources.add('subscription', { action: 'add', permission: Permissions.Manage.subscriptions});
 
 export const ViewModel = Model.extend({
     define: {
@@ -16,24 +15,12 @@ export const ViewModel = Model.extend({
         }
     },
 
-    init: function() {
-        let datastore = state.get('datastore');
-
-        if (!datastore) {
-            this.close();
-        } else {
-            this.attr('properties').values(datastore);
-            this.attr('id', datastore.attr('id'));
-        }
-    },
-
-    save: function() {
+    add: function() {
         if (this.attr('properties').hasErrors()) {
             return false;
         }
 
-        this.put('datastores', {
-            id: this.attr('id'),
+        this.post('subscriptions', {
             name: this.attr('properties.name'),
             connectionString: this.attr('properties.connectionString'),
             providerName: this.attr('properties.providerName')
@@ -45,12 +32,12 @@ export const ViewModel = Model.extend({
     },
 
     close: function() {
-        state.goto('datastore/list');
+        state.goto('subscription/list');
     }
 });
 
 export default Component.extend({
-    tag: 'sentinel-datastore-edit',
+    tag: 'sentinel-subscription-add',
     viewModel: ViewModel,
     template
 });

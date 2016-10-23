@@ -1,0 +1,3 @@
+<sentinel-text focus="true" label="name" {(value)}="name" required="true" {validation-message}="nameConstraint"/>
+<sentinel-text label="subscription:connection-string" {(value)}="connectionString" required="true" {validation-message}="connectionStringConstraint"/>
+<sentinel-text label="subscription:provider-name" {(value)}="providerName" required="true" {validation-message}="providerNameConstraint"/>

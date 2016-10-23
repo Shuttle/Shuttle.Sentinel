@@ -1,0 +1,9 @@
+<sentinel-form title="subscription:edit.title">
+  <form>
+    <fieldset class="form-group">
+      <sentinel-subscription-properties {(name)}="properties.name" {(connection-string)}="properties.connectionString" {(provider-name)}="properties.providerName" />
+      <sentinel-submit-button {click}="@save" text="save" />
+      <sentinel-button {click}="@close" text="close" />
+    </fieldset>
+  </form>
+</sentinel-form>

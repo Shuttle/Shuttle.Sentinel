@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
@@ -37,9 +38,9 @@ namespace Shuttle.Sentinel
             return _queryMapper.MapObjects<DataStore>(_dataStoreQueryFactory.All());
         }
 
-        public void Edit(string key, DataStore dataStore)
+        public void Edit(DataStore dataStore)
         {
-            _databaseGateway.ExecuteUsing(_dataStoreQueryFactory.Edit(key, dataStore));
+            _databaseGateway.ExecuteUsing(_dataStoreQueryFactory.Edit(dataStore));
         }
     }
 }

@@ -52,8 +52,9 @@ namespace Shuttle.Sentinel.Server
 
             using (_databaseContextFactory.Create())
             {
-                _dataStoreQuery.Edit(message.Key, new DataStore
+                _dataStoreQuery.Edit(new DataStore
                 {
+                    Id = message.Id,
                     Name = message.Name,
                     ConnectionString = message.ConnectionString,
                     ProviderName = message.ProviderName

@@ -1,7 +1,10 @@
-﻿namespace Shuttle.Sentinel.Query
+﻿using System;
+
+namespace Shuttle.Sentinel.Query
 {
     public class DataStore
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string ConnectionString { get; set; }
         public string ProviderName { get; set; }

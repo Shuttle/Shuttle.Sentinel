@@ -7,7 +7,7 @@ import Model from 'sentinel/model';
 import '../views/properties';
 import PropertiesModel from '../views/properties-model';
 
-resources.add('datastore', { action: 'edit', permission: Permissions.Manage.DataStores});
+resources.add('subscription', { action: 'edit', permission: Permissions.Manage.subscriptions});
 
 export const ViewModel = Model.extend({
     define: {
@@ -17,13 +17,13 @@ export const ViewModel = Model.extend({
     },
 
     init: function() {
-        let datastore = state.get('datastore');
+        let subscription = state.get('subscription');
 
-        if (!datastore) {
+        if (!subscription) {
             this.close();
         } else {
-            this.attr('properties').values(datastore);
-            this.attr('id', datastore.attr('id'));
+            this.attr('properties').values(subscription);
+            this.attr('id', subscription.attr('id'));
         }
     },
 
@@ -32,7 +32,7 @@ export const ViewModel = Model.extend({
             return false;
         }
 
-        this.put('datastores', {
+        this.put('subscriptions', {
             id: this.attr('id'),
             name: this.attr('properties.name'),
             connectionString: this.attr('properties.connectionString'),
@@ -45,12 +45,12 @@ export const ViewModel = Model.extend({
     },
 
     close: function() {
-        state.goto('datastore/list');
+        state.goto('subscription/list');
     }
 });
 
 export default Component.extend({
-    tag: 'sentinel-datastore-edit',
+    tag: 'sentinel-subscription-edit',
     viewModel: ViewModel,
     template
 });

@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Data;
+﻿using System;
+using Shuttle.Core.Data;
 using Shuttle.Sentinel.Query;
 
 namespace Shuttle.Sentinel
@@ -8,6 +9,6 @@ namespace Shuttle.Sentinel
         IQuery Add(DataStore dataStore);
         IQuery Remove(string name);
         IQuery All();
-        IQuery Edit(string key, DataStore dataStore);
+        IQuery Edit(DataStore dataStore);
     }
 }

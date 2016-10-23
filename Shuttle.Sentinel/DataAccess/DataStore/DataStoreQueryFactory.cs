@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Data;
+﻿using System;
+using Shuttle.Core.Data;
 using Shuttle.Sentinel.Query;
 
 namespace Shuttle.Sentinel
@@ -36,10 +37,10 @@ if not exists (select null from DataStore where Name = @Name)
 
         public IQuery All()
         {
-            return RawQuery.Create(@"select Name, ConnectionString, ProviderName from DataStore order by Name");
+            return RawQuery.Create(@"select Id, Name, ConnectionString, ProviderName from DataStore order by Name");
         }
 
-        public IQuery Edit(string key, DataStore dataStore)
+        public IQuery Edit(DataStore dataStore)
         {
             return RawQuery.Create(@"
 update DataStore set
@@ -47,9 +48,9 @@ update DataStore set
     ConnectionString = @ConnectionString,
     ProviderName = @ProviderName
 where
-    Name = @Key
+    Id = @Id
 ")
-                .AddParameterValue(DataStoreColumns.Key, key)
+                .AddParameterValue(Columns.Id, dataStore.Id)
                 .AddParameterValue(DataStoreColumns.Name, dataStore.Name)
                 .AddParameterValue(DataStoreColumns.ConnectionString, dataStore.ConnectionString)
                 .AddParameterValue(DataStoreColumns.ProviderName, dataStore.ProviderName);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Shuttle.Sentinel.Query;
 
 namespace Shuttle.Sentinel
@@ -8,6 +9,6 @@ namespace Shuttle.Sentinel
         void Add(DataStore dataStore);
         void Remove(string name);
         IEnumerable<DataStore> All();
-        void Edit(string key, DataStore dataStore);
+        void Edit(DataStore dataStore);
     }
 }

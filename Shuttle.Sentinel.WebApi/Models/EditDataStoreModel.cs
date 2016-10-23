@@ -1,8 +1,10 @@
-﻿namespace Shuttle.Sentinel.WebApi
+﻿using System;
+
+namespace Shuttle.Sentinel.WebApi
 {
     public class EditDataStoreModel
     {
-        public string Key { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string ConnectionString { get; set; }
         public string ProviderName { get; set; } 
