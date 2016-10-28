@@ -57,6 +57,6 @@
 <sentinel-fetching title="message:title" />
 {{/if}}
 {{#if isResolved}}
-<sentinel-table {columns}="columns" {rows}="messages" row-click="messageSelected" empty-message="message:no-messages" />
+<sentinel-table {columns}="columns" {rows}="messages" {row-click}="@messageSelected" empty-message="message:no-messages" />
 {{/if}}
 {{/if}}
