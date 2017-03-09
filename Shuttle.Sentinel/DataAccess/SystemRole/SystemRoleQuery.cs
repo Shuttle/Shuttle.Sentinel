@@ -39,24 +39,24 @@ namespace Shuttle.Sentinel
             return _databaseGateway.GetRowsUsing(_queryFactory.Search());
         }
 
-	    public void Added(ProjectionEvent projectionEvent, Added domainEvent)
+	    public void Added(PrimitiveEvent primitiveEvent, Added domainEvent)
 	    {
-            _databaseGateway.ExecuteUsing(_queryFactory.Added(projectionEvent.Id, domainEvent));
+            _databaseGateway.ExecuteUsing(_queryFactory.Added(primitiveEvent.Id, domainEvent));
         }
 
-	    public void PermissionAdded(ProjectionEvent projectionEvent, PermissionAdded domainEvent)
+	    public void PermissionAdded(PrimitiveEvent primitiveEvent, PermissionAdded domainEvent)
 	    {
-            _databaseGateway.ExecuteUsing(_queryFactory.PermissionAdded(projectionEvent.Id, domainEvent));
+            _databaseGateway.ExecuteUsing(_queryFactory.PermissionAdded(primitiveEvent.Id, domainEvent));
         }
 
-	    public void PermissionRemoved(ProjectionEvent projectionEvent, PermissionRemoved domainEvent)
+	    public void PermissionRemoved(PrimitiveEvent primitiveEvent, PermissionRemoved domainEvent)
 	    {
-            _databaseGateway.ExecuteUsing(_queryFactory.PermissionRemoved(projectionEvent.Id, domainEvent));
+            _databaseGateway.ExecuteUsing(_queryFactory.PermissionRemoved(primitiveEvent.Id, domainEvent));
         }
 
-	    public void Removed(ProjectionEvent projectionEvent, Removed domainEvent)
+	    public void Removed(PrimitiveEvent primitiveEvent, Removed domainEvent)
 	    {
-            _databaseGateway.ExecuteUsing(_queryFactory.Removed(projectionEvent.Id, domainEvent));
+            _databaseGateway.ExecuteUsing(_queryFactory.Removed(primitiveEvent.Id, domainEvent));
         }
 
 	    public Query.Role Get(Guid id)

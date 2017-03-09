@@ -2,50 +2,67 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using log4net;
+using Shuttle.Core.Castle;
 using Shuttle.Core.Data;
 using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
+using Shuttle.Esb.Msmq;
+using Shuttle.Esb.RabbitMQ;
 using Shuttle.Recall;
-using Shuttle.Recall.SqlServer;
+using Shuttle.Recall.Sql;
+using IScriptProvider = Shuttle.Recall.Sql.IScriptProvider;
+using IScriptProviderConfiguration = Shuttle.Recall.Sql.IScriptProviderConfiguration;
+using ScriptProvider = Shuttle.Recall.Sql.ScriptProvider;
+using ScriptProviderConfiguration = Shuttle.Recall.Sql.ScriptProviderConfiguration;
 
 namespace Shuttle.Sentinel.EventProcessing.Server
 {
 	public class Host : IHost, IDisposable
 	{
-		private WindsorContainer _container;
-		private IEventProcessor _processor;
+		private IWindsorContainer _container;
 
 		public void Dispose()
 		{
-			_processor.Dispose();
+			if (_container != null)
+			{
+				_container.Dispose();
+			}
 		}
 
 		public void Start()
 		{
-			Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof (Host))));
+			Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof(Host))));
 
 			_container = new WindsorContainer();
 
 			_container.RegisterDataAccessCore();
 			_container.RegisterDataAccess("Shuttle.Sentinel");
-			_container.RegisterDataAccess("Shuttle.Recall.SqlServer");
+			_container.RegisterDataAccess("Shuttle.Recall.Sql");
 
-			_container.Register(Component.For<IDatabaseContextCache>().ImplementedBy<ThreadStaticDatabaseContextCache>());
-			_container.Register(Component.For<ISerializer>().ImplementedBy<DefaultSerializer>());
-			_container.Register(Component.For<IProjectionService>().ImplementedBy<ProjectionService>());
-			_container.Register(Component.For<IProjectionConfiguration>().Instance(ProjectionSection.Configuration()));
-			_container.RegisterConfiguration(SentinelSection.Configuration());
+			var container = new WindsorComponentContainer(_container);
+
+			// TODO: load these dynamically somehow
+			container.Register<IRabbitMQConfiguration, RabbitMQConfiguration>();
+			container.Register<IMsmqConfiguration, MsmqConfiguration>();
+
+			container.Register<IDatabaseContextCache, ThreadStaticDatabaseContextCache>();
+
+			container.Register<IScriptProviderConfiguration, ScriptProviderConfiguration>();
+			container.Register<IScriptProvider, ScriptProvider>();
+
+			container.Register<IProjectionRepository, ProjectionRepository>();
+			container.Register<IProjectionQueryFactory, ProjectionQueryFactory>();
+
+			container.Register<IProjectionConfiguration>(ProjectionSection.Configuration());
+
+			EventProcessingModule.Register(container);
+			EventStore.Register(container);
 
 			_container.Register(Component.For<object>().ImplementedBy<UserHandler>().Named("UserHandler"));
 			_container.Register(Component.For<object>().ImplementedBy<RoleHandler>().Named("RoleHandler"));
 
-			_processor = EventProcessor.Create(c => { c.ProjectionService(_container.Resolve<IProjectionService>()); });
-
-			_processor.AddEventProjection(new EventProjection("User").AddEventHandler(_container.Resolve<object>("UserHandler")));
-			_processor.AddEventProjection(new EventProjection("Role").AddEventHandler(_container.Resolve<object>("RoleHandler")));
-
-			_processor.Start();
+			container.Resolve<EventProcessingModule>();
 		}
 	}
 }

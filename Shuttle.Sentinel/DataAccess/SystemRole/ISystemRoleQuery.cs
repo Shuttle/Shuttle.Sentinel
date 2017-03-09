@@ -14,9 +14,9 @@ namespace Shuttle.Sentinel
 	    IEnumerable<string> Permissions(Guid id);
 	    IEnumerable<string> AvailablePermissions();
 
-        void Added(ProjectionEvent projectionEvent, Added domainEvent);
-        void PermissionAdded(ProjectionEvent projectionEvent, PermissionAdded domainEvent);
-	    void PermissionRemoved(ProjectionEvent projectionEvent, PermissionRemoved domainEvent);
-	    void Removed(ProjectionEvent projectionEvent, Removed domainEvent);
+        void Added(PrimitiveEvent primitiveEvent, Added domainEvent);
+        void PermissionAdded(PrimitiveEvent primitiveEvent, PermissionAdded domainEvent);
+	    void PermissionRemoved(PrimitiveEvent primitiveEvent, PermissionRemoved domainEvent);
+	    void Removed(PrimitiveEvent primitiveEvent, Removed domainEvent);
 	}
 }

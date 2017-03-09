@@ -54,7 +54,7 @@ namespace Shuttle.Sentinel.Server
 
                 stream.AddEvent(role.Add(message.Name));
 
-                _eventStore.SaveEventStream(stream);
+                _eventStore.Save(stream);
             }
         }
 
@@ -79,7 +79,7 @@ namespace Shuttle.Sentinel.Server
                     stream.AddEvent(role.RemovePermission(message.Permission));
                 }
 
-                _eventStore.SaveEventStream(stream);
+                _eventStore.Save(stream);
             }
         }
 
@@ -96,7 +96,7 @@ namespace Shuttle.Sentinel.Server
 
                 stream.AddEvent(role.Remove());
 
-                _eventStore.SaveEventStream(stream);
+                _eventStore.Save(stream);
             }
         }
     }

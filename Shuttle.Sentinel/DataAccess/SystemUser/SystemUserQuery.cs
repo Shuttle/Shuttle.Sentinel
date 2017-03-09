@@ -25,19 +25,19 @@ namespace Shuttle.Sentinel
             _queryMapper = queryMapper;
         }
 
-        public void Register(ProjectionEvent projectionEvent, Registered domainEvent)
+        public void Register(PrimitiveEvent primitiveEvent, Registered domainEvent)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Register(projectionEvent.Id, domainEvent));
+            _databaseGateway.ExecuteUsing(_queryFactory.Register(primitiveEvent.Id, domainEvent));
         }
 
-        public void RoleAdded(ProjectionEvent projectionEvent, RoleAdded domainEvent)
+        public void RoleAdded(PrimitiveEvent primitiveEvent, RoleAdded domainEvent)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.RoleAdded(projectionEvent.Id, domainEvent));
+            _databaseGateway.ExecuteUsing(_queryFactory.RoleAdded(primitiveEvent.Id, domainEvent));
         }
 
-        public void RoleRemoved(ProjectionEvent projectionEvent, RoleRemoved domainEvent)
+        public void RoleRemoved(PrimitiveEvent primitiveEvent, RoleRemoved domainEvent)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.RoleRemoved(projectionEvent.Id, domainEvent));
+            _databaseGateway.ExecuteUsing(_queryFactory.RoleRemoved(primitiveEvent.Id, domainEvent));
         }
 
         public int AdministratorCount()

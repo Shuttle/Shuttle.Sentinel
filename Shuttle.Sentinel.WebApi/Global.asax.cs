@@ -10,12 +10,14 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using log4net;
 using Newtonsoft.Json.Serialization;
+using Shuttle.Core.Castle;
 using Shuttle.Core.Data;
 using Shuttle.Core.Data.Http;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
-using Shuttle.Esb.Castle;
 using Shuttle.Esb;
+using Shuttle.Esb.Msmq;
+using Shuttle.Esb.RabbitMQ;
 using Shuttle.Sentinel.Queues;
 using ILog = Shuttle.Core.Infrastructure.ILog;
 
@@ -33,7 +35,7 @@ namespace Shuttle.Sentinel.WebApi
 
 		public WebApiApplication()
 		{
-			var logger = LogManager.GetLogger(typeof (WebApiApplication));
+			var logger = LogManager.GetLogger(typeof(WebApiApplication));
 
 			Log.Assign(new Log4NetLog(logger));
 
@@ -50,7 +52,24 @@ namespace Shuttle.Sentinel.WebApi
 
 				ConfigureWindsorContainer();
 
-				WebApiConfiguration.Register(GlobalConfiguration.Configuration);
+				var container = new WindsorComponentContainer(_container);
+
+				// TODO: load these dynamically somehow
+				container.Register<IRabbitMQConfiguration, RabbitMQConfiguration>();
+				container.Register<IMsmqConfiguration, MsmqConfiguration>();
+
+				container.Register<Esb.Sql.IScriptProviderConfiguration, Esb.Sql.ScriptProviderConfiguration>();
+				container.Register<Esb.Sql.IScriptProvider, Esb.Sql.ScriptProvider>();
+
+				container.Register<Recall.Sql.IScriptProviderConfiguration, Recall.Sql.ScriptProviderConfiguration>();
+				container.Register<Recall.Sql.IScriptProvider, Recall.Sql.ScriptProvider>();
+
+				ServiceBus.Register(container);
+
+				_bus = ServiceBus.Create(container).Start();
+
+				RequiresPermissionAttribute.Assign(_container);
+				RequiresSessionAttribute.Assign(_container);
 
 				GlobalConfiguration.Configuration.DependencyResolver = new ApiResolver(_container);
 				GlobalConfiguration.Configuration.MessageHandlers.Add(new CorsMessageHandler());
@@ -60,12 +79,7 @@ namespace Shuttle.Sentinel.WebApi
 
 				ConfigureJson(GlobalConfiguration.Configuration);
 
-				_bus = ServiceBus.Create().Start();
-
-			    _container.Register(Component.For<IServiceBus>().Instance(_bus));
-
-                RequiresPermissionAttribute.Assign(_container);
-                RequiresSessionAttribute.Assign(_container);
+				WebApiConfiguration.Register(GlobalConfiguration.Configuration);
 
 				_log.Information("[started]");
 			}
@@ -210,14 +224,14 @@ namespace Shuttle.Sentinel.WebApi
 
 			_container.Register(Component.For<IDatabaseContextCache>().ImplementedBy<ContextDatabaseContextCache>());
 
-		    var configuration = SentinelSection.Configuration();
+			var configuration = SentinelSection.Configuration();
 
-		    _container.RegisterConfiguration(configuration);
+			_container.RegisterConfiguration(configuration);
 
-            _container.Register(Component.For<ISerializer>().ImplementedBy(configuration.SerializerType));
-            _container.Register(Component.For<IInspectionQueue>().ImplementedBy<DefaultInspectionQueue>());
+			_container.Register(Component.For<ISerializer>().ImplementedBy(configuration.SerializerType));
+			_container.Register(Component.For<IInspectionQueue>().ImplementedBy<DefaultInspectionQueue>());
 
-            _container.Register("Shuttle.Sentinel.WebApi", typeof (ApiController), "Controller");
+			_container.Register("Shuttle.Sentinel.WebApi", typeof(ApiController), "Controller");
 			_container.Register("Shuttle.Sentinel", "Service");
 		}
 	}

@@ -13,9 +13,9 @@ namespace Shuttle.Sentinel
         Query.User Get(Guid id);
         IEnumerable<string> Roles(Guid id);
 
-        void Register(ProjectionEvent projectionEvent, Registered domainEvent);
-        void RoleAdded(ProjectionEvent projectionEvent, RoleAdded domainEvent);
-        void RoleRemoved(ProjectionEvent projectionEvent, RoleRemoved domainEvent);
+        void Register(PrimitiveEvent primitiveEvent, Registered domainEvent);
+        void RoleAdded(PrimitiveEvent primitiveEvent, RoleAdded domainEvent);
+        void RoleRemoved(PrimitiveEvent primitiveEvent, RoleRemoved domainEvent);
         int AdministratorCount();
     }
 }

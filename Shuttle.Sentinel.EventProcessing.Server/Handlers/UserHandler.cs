@@ -20,17 +20,17 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 
         public void ProcessEvent(IEventHandlerContext<Registered> context)
         {
-            _query.Register(context.ProjectionEvent, context.DomainEvent);
+            _query.Register(context.PrimitiveEvent, context.Event);
         }
 
         public void ProcessEvent(IEventHandlerContext<RoleAdded> context)
         {
-            _query.RoleAdded(context.ProjectionEvent, context.DomainEvent);
+            _query.RoleAdded(context.PrimitiveEvent, context.Event);
         }
 
         public void ProcessEvent(IEventHandlerContext<RoleRemoved> context)
         {
-            _query.RoleRemoved(context.ProjectionEvent, context.DomainEvent);
+            _query.RoleRemoved(context.PrimitiveEvent, context.Event);
         }
     }
 }

@@ -1,53 +1,57 @@
 ﻿using System;
-using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using log4net;
+using Shuttle.Core.Castle;
 using Shuttle.Core.Data;
 using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
 using Shuttle.Esb;
-using Shuttle.Esb.Castle;
-using Shuttle.Esb.SqlServer;
-using Shuttle.Recall;
-using Shuttle.Recall.SqlServer;
-using Shuttle.Sentinel.Messages.v1;
+using Shuttle.Esb.Msmq;
+using Shuttle.Esb.RabbitMQ;
+using Shuttle.Esb.Sql;
 
 namespace Shuttle.Sentinel.Server
 {
-    public class Host : IHost, IDisposable
-    {
-        private IServiceBus _bus;
-        private WindsorContainer _container;
+	public class Host : IHost, IDisposable
+	{
+		private IServiceBus _bus;
+		private WindsorContainer _container;
 
-        public void Dispose()
-        {
-            _bus.Dispose();
-        }
+		public void Dispose()
+		{
+			_bus.Dispose();
+		}
 
-        public void Start()
-        {
-            Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof (Host))));
+		public void Start()
+		{
+			Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof(Host))));
 
-            _container = new WindsorContainer();
+			_container = new WindsorContainer();
 
-            _container.RegisterDataAccessCore();
-            _container.RegisterDataAccess("Shuttle.Sentinel");
+			_container.RegisterDataAccessCore();
+			_container.RegisterDataAccess("Shuttle.Sentinel");
 
-            _container.Register(Component.For<ISerializer>().ImplementedBy<DefaultSerializer>());
-            _container.Register(Component.For<ISubscriptionManager>().Instance(SubscriptionManager.Default()));
-            _container.Register(Component.For<IDatabaseContextCache>().ImplementedBy<ThreadStaticDatabaseContextCache>());
-            _container.Register(Component.For<IHashingService>().ImplementedBy<HashingService>());
-            _container.RegisterConfiguration(SentinelSection.Configuration());
+			var container = new WindsorComponentContainer(_container);
 
-            var subscriptionManager = _container.Resolve<ISubscriptionManager>();
+			// TODO: load these dynamically somehow
+			container.Register<IRabbitMQConfiguration, RabbitMQConfiguration>();
+			container.Register<IMsmqConfiguration, MsmqConfiguration>();
 
-            _bus = ServiceBus.Create(
-                c =>
-                {
-                    c.MessageHandlerFactory(new CastleMessageHandlerFactory(_container));
-                    c.SubscriptionManager(subscriptionManager);
-                }).Start();
-        }
-    }
+			container.Register<IDatabaseContextCache, ThreadStaticDatabaseContextCache>();
+
+			container.Register<Esb.Sql.IScriptProviderConfiguration, Esb.Sql.ScriptProviderConfiguration>();
+			container.Register<Esb.Sql.IScriptProvider, Esb.Sql.ScriptProvider>();
+
+			container.Register<Recall.Sql.IScriptProviderConfiguration, Recall.Sql.ScriptProviderConfiguration>();
+			container.Register<Recall.Sql.IScriptProvider, Recall.Sql.ScriptProvider>();
+
+			container.Register<ISqlConfiguration>(SqlSection.Configuration());
+			container.Register<ISubscriptionManager, SubscriptionManager>();
+
+			ServiceBus.Register(container);
+
+			_bus = ServiceBus.Create(container).Start();
+		}
+	}
 }

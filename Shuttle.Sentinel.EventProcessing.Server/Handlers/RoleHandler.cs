@@ -21,22 +21,22 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 
         public void ProcessEvent(IEventHandlerContext<Added> context)
         {
-            _query.Added(context.ProjectionEvent, context.DomainEvent);
+            _query.Added(context.PrimitiveEvent, context.Event);
         }
 
         public void ProcessEvent(IEventHandlerContext<PermissionAdded> context)
         {
-            _query.PermissionAdded(context.ProjectionEvent, context.DomainEvent);
+            _query.PermissionAdded(context.PrimitiveEvent, context.Event);
         }
 
         public void ProcessEvent(IEventHandlerContext<PermissionRemoved> context)
         {
-            _query.PermissionRemoved(context.ProjectionEvent, context.DomainEvent);
+            _query.PermissionRemoved(context.PrimitiveEvent, context.Event);
         }
 
         public void ProcessEvent(IEventHandlerContext<Removed> context)
         {
-            _query.Removed(context.ProjectionEvent, context.DomainEvent);
+            _query.Removed(context.PrimitiveEvent, context.Event);
         }
     }
 }
