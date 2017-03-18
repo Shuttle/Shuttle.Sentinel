@@ -51,6 +51,8 @@ namespace Shuttle.Sentinel.Server
 
 			ServiceBus.Register(container);
 
+			container.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
+
 			_bus = ServiceBus.Create(container).Start();
 		}
 	}
