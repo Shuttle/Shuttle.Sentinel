@@ -55,14 +55,14 @@ namespace Shuttle.Sentinel.WebApi
 				var container = new WindsorComponentContainer(_container);
 
 				// TODO: load these dynamically somehow
-				container.Register<IRabbitMQConfiguration, RabbitMQConfiguration>();
-				container.Register<IMsmqConfiguration, MsmqConfiguration>();
+				//container.Register<IRabbitMQConfiguration, RabbitMQConfiguration>();
+				//container.Register<IMsmqConfiguration, MsmqConfiguration>();
 
-				container.Register<Esb.Sql.IScriptProviderConfiguration, Esb.Sql.ScriptProviderConfiguration>();
-				container.Register<Esb.Sql.IScriptProvider, Esb.Sql.ScriptProvider>();
+				//container.Register<Esb.Sql.IScriptProviderConfiguration, Esb.Sql.ScriptProviderConfiguration>();
+				//container.Register<Esb.Sql.IScriptProvider, Esb.Sql.ScriptProvider>();
 
-				container.Register<Recall.Sql.IScriptProviderConfiguration, Recall.Sql.ScriptProviderConfiguration>();
-				container.Register<Recall.Sql.IScriptProvider, Recall.Sql.ScriptProvider>();
+				//container.Register<Recall.Sql.IScriptProviderConfiguration, Recall.Sql.ScriptProviderConfiguration>();
+				//container.Register<Recall.Sql.IScriptProvider, Recall.Sql.ScriptProvider>();
 
 				ServiceBus.Register(container);
 
