@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
-    "can": "^2.3.16",
+    "can": "^3.5.1",
     "can-connect": "^0.5.0",
     "can-zone": "^0.5.0",
     "done-autorender": "^0.8.0",
