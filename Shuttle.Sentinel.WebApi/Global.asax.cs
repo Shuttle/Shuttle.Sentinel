@@ -21,9 +21,6 @@ using ILog = Shuttle.Core.Infrastructure.ILog;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
     public class WebApiApplication : HttpApplication
     {
         private static Exception _startupException;
@@ -82,7 +79,7 @@ namespace Shuttle.Sentinel.WebApi
 
             var html = new StringBuilder();
 
-            html.Append("<html><head><title>Shuttle Process Magaement Web-Api Startup Exception</title><style>");
+            html.Append("<html><head><title>Shuttle Sentinel Web-Api Startup Exception</title><style>");
 
             html.Append(
                 "body { background: none repeat scroll 0 0 #CBE1EF; font-family: 'MS Tresbuchet',Verdana,Arial,Helvetica,sans-serif; font-size: 0.7em; margin: 0; }");
@@ -94,7 +91,7 @@ namespace Shuttle.Sentinel.WebApi
                 "div.information { border: solid 1px #5a7fa5; background-color: #ffffff; color: #555555; padding: 1em; font-size: 1em; width: 96%; margin: 1em auto; }");
 
             html.Append("</style></head><body>");
-            html.Append("<div class='header'>Shuttle Process Magaement Web-Api Startup Exception</div>");
+            html.Append("<div class='header'>Shuttle Sentinel Web-Api Startup Exception</div>");
             html.AppendFormat("<div class='error'><b>source</b>:<br>{0}</div>", _startupException.Source);
             html.AppendFormat("<div class='information'><b>message</b>:<br>{0}</div>", _startupException);
 
@@ -133,11 +130,6 @@ namespace Shuttle.Sentinel.WebApi
             HttpContext.Current.Response.End();
         }
 
-        /// <summary>
-        ///     Handles the End event of the Application control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void Application_End(object sender, EventArgs e)
         {
             _log.Information("[stopping]");
@@ -150,12 +142,6 @@ namespace Shuttle.Sentinel.WebApi
             LogManager.Shutdown();
         }
 
-
-        /// <summary>
-        ///     Handles the Error event of the Application control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
         private void Application_Error(object sender, EventArgs e)
         {
             var context = HttpContext.Current;
