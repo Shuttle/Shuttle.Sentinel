@@ -16,6 +16,7 @@ using Shuttle.Core.Data.Http;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
 using Shuttle.Esb;
+using Shuttle.Esb.Sql.Subscription;
 using Shuttle.Sentinel.Queues;
 using ILog = Shuttle.Core.Infrastructure.ILog;
 

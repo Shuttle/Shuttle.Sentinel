@@ -1,0 +1,14 @@
+﻿{
+  "title": "Data Store",
+  "add": {
+    "title": "Add a data store"
+  },
+  "edit": {
+    "title": "Edit data store"
+  },
+  "list": {
+    "title": "Data Stores"
+  },
+  "connection-string": "Connection string",
+  "provider-name": "Provider name"
+}
