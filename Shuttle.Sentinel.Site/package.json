@@ -34,6 +34,7 @@
     "can-set": "^1.2.0",
     "can-stache": "^3.0.22",
     "can-stache-bindings": "^3.0.14",
+    "can-util": "^3.3.6",
     "i18next": "^7.2.3",
     "i18next-xhr-backend": "^1.4.1",
     "steal": "^1.4.2",
