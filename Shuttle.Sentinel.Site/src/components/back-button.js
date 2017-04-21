@@ -1,7 +1,7 @@
-﻿import can from 'can';
+﻿import Component from 'can-component';
 import template from './back-button.stache!';
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-back-button',
     template,
     viewModel: {

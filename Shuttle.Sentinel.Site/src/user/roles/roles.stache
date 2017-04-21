@@ -1,0 +1,11 @@
+<sentinel-page-title title="user:list.roles" />
+<sentinel-buttons>
+  <sentinel-back-button />
+  <sentinel-refresh-button ($click)="refresh()" />
+</sentinel-buttons>
+{{#if isPending}}
+<sentinel-fetching title="user:list.roles" />
+{{/if}}
+{{#if isResolved}}
+<sentinel-table {columns}="columns" {rows}="roles" />
+{{/if}}

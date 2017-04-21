@@ -1,9 +1,8 @@
-﻿import can from 'can';
-import Map from 'can/map/';
-import template from './form-group.stache!';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
+import view from './form-group.stache!';
 
-export const ViewModel = Map.extend({
-    define: {
+export const ViewModel = DefineMap.extend({
         validationMessage: {
             value: ''
         },
@@ -15,19 +14,19 @@ export const ViewModel = Map.extend({
                 return !!errors && !!errors.attr(this.attr('validationName')) ? 'has-error' : '';
             }
         }
-    }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-form-group',
-    viewModel: function(attrs, scope) {
-        let map = new ViewModel(attrs);
+    //viewModel: function(attrs, scope) {
+    //    let map = new ViewModel(attrs);
 
-        map.attr('errors', scope.attr('errors'));
+    //    map.attr('errors', scope.attr('errors'));
 
-        return map;
-    },
-	template
+    //    return map;
+    //},
+    viewModel: ViewModel,
+	view
 });
 
 

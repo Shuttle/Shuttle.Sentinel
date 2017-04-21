@@ -1,4 +1,4 @@
-﻿import guard from 'sentinel/guard';
+﻿import guard from '~/guard';
 
 var click = {
     on: function(viewModel, ev) {

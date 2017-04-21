@@ -1,26 +1,24 @@
-﻿import can from 'can';
-import Map from 'can/map/';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import template from './input.stache!';
 
-export const ViewModel = Map.extend({
-    define: {
-        type: {
-            get: function(type) {
-                return type || 'text';
-            }
-        },
-
-        placeholder: {
-            value: ''
-        },
-
-        elementClass: {
-            value: ''
+export const ViewModel = DefineMap.extend({
+    type: {
+        get: function(type) {
+            return type || 'text';
         }
+    },
+
+    placeholder: {
+        value: ''
+    },
+
+    elementClass: {
+        value: ''
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-input',
     template,
     viewModel: ViewModel,

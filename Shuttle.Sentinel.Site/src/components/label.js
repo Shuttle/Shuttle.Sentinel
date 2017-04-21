@@ -1,21 +1,19 @@
-﻿import can from 'can';
-import Map from 'can/map/';
-import template from './label.stache!';
-import localisation from 'sentinel/localisation';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
+import view from './label.stache!';
+import localisation from '~/localisation';
 
-export const ViewModel = Map.extend({
-    define: {
-        label: {
-            get: function(value) {
-                return localisation.value(value);
-            }
+export const ViewModel = DefineMap.extend({
+    label: {
+        get: function(value) {
+            return localisation.value(value);
         }
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-label',
-    template,
+    view,
     viewModel: ViewModel
 });
 

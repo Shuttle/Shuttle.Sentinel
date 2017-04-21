@@ -7,10 +7,17 @@ import route from 'can-route';
 import router from '~/router';
 
 import '~/components/alerts';
+import '~/components/form';
+import '~/components/form-group';
+import '~/components/input';
+import '~/components/label';
 import '~/components/navigation';
 import '~/components/page-title';
+import '~/components/submit-button';
+import '~/components/text';
 
 import '~/dashboard/';
+import '~/user/';
 
 localisation.start(function(error) {
     if (error) {

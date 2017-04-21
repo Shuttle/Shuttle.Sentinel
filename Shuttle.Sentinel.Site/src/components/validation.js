@@ -1,8 +1,8 @@
-﻿import can from 'can';
-import Map from 'can/map/';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import template from './validation.stache!';
 
-export const ViewModel = Map.extend({
+export const ViewModel = DefineMap.extend({
     define: {
         message: {
             value: ''
@@ -16,7 +16,7 @@ export const ViewModel = Map.extend({
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-validation',
     viewModel: ViewModel,
     template

@@ -1,11 +1,11 @@
-import can from 'can';
-import Map from 'can/map/';
+import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import stache from 'can/view/stache/';
 import template from './table.stache!';
-import localisation from 'sentinel/localisation';
-import click from 'sentinel/components/click';
+import localisation from '~/localisation';
+import click from '~/components/click';
 
-export const ViewModel = Map.extend({
+export const ViewModel = DefineMap.extend({
     define: {
         emptyMessage: {
             get: function() {
@@ -49,7 +49,7 @@ export const ViewModel = Map.extend({
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-table',
     template,
     viewModel: ViewModel,

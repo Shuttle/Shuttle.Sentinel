@@ -1,10 +1,10 @@
-﻿import can from 'can';
+﻿import Component from 'can-component';
 import template from './remove-button.stache!';
-import modals from 'sentinel/modals';
-import localisation from 'sentinel/localisation';
-import click from 'sentinel/components/click';
+import modals from '~/modals';
+import localisation from '~/localisation';
+import click from '~/components/click';
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-remove-button',
     template,
     viewModel: can.Map.extend({

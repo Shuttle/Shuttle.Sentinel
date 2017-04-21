@@ -1,9 +1,9 @@
-import can from 'can';
-import Map from 'can/map/';
+import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import template from './modal.stache!';
-import localisation from 'sentinel/localisation';
+import localisation from '~/localisation';
 
-export const ViewModel = Map.extend({
+export const ViewModel = DefineMap.extend({
     define: {
         modalType: {
             get: function(value) {
@@ -50,7 +50,7 @@ export const ViewModel = Map.extend({
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-modal',
     template,
     viewModel: ViewModel

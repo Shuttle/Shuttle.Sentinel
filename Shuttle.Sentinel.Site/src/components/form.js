@@ -1,21 +1,19 @@
-﻿import can from 'can';
+﻿import Component from 'can-component';
 import template from './form.stache!';
-import localisation from 'sentinel/localisation';
+import localisation from '~/localisation';
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-form',
     template,
-    viewModel: can.Map.extend({
-        define: {
-            title: {
-                get: function(title) {
-                    return localisation.value(title);
-                }
-            },
-            type: {
-                get: function(type) {
-                    return type || '';
-                }
+    viewModel: DefineMap.extend({
+        title: {
+            get: function(title) {
+                return localisation.value(title);
+            }
+        },
+        type: {
+            get: function(type) {
+                return type || '';
             }
         }
     })

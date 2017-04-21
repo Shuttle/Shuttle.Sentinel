@@ -1,9 +1,9 @@
-﻿import can from 'can';
-import Map from 'can/map/';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import template from './refresh-button.stache!';
-import click from 'sentinel/components/click';
+import click from '~/components/click';
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-refresh-button',
     template,
     viewModel: Map.extend({

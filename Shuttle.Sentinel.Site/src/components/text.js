@@ -1,8 +1,8 @@
-﻿import can from 'can';
-import Map from 'can/map/';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import template from './text.stache!';
 
-export const ViewModel = Map.extend({
+export const ViewModel = DefineMap.extend({
     define: {
         inputClass: {
             value: ''
@@ -14,7 +14,7 @@ export const ViewModel = Map.extend({
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-text',
     template,
     viewModel: ViewModel

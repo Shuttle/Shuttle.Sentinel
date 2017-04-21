@@ -1,7 +1,7 @@
-﻿import can from 'can';
+﻿import Component from 'can-component';
 import template from './buttons.stache!';
 
-export default can.Component.extend({
+export default Component.extend({
 	tag: 'sentinel-buttons',
 	template
 });

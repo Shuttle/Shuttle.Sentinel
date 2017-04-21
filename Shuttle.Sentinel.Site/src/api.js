@@ -1,5 +1,5 @@
 ﻿import $ from 'jquery';
-import configuration from 'sentinel/configuration';
+import configuration from '~/configuration';
 
 let api = {
     post: function(endpoint, options) {

@@ -1,10 +1,10 @@
-﻿import can from 'can';
-import Map from 'can/map/';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import template from './submit-button.stache!';
-import security from 'sentinel/security';
-import click from 'sentinel/components/click';
+import security from '~/security';
+import click from '~/components/click';
 
-export const ViewModel = Map.extend({
+export const ViewModel = DefineMap.extend({
     define: {
         working: {
             get: function() {
@@ -43,7 +43,7 @@ export const ViewModel = Map.extend({
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-submit-button',
     template,
     viewModel: function(attrs, scope) {

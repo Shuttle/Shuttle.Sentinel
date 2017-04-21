@@ -1,10 +1,10 @@
-﻿import can from 'can';
-import Map from 'can/map/';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import template from './button.stache!';
-import security from 'sentinel/security';
-import click from 'sentinel/components/click';
+import security from '~/security';
+import click from '~/components/click';
 
-export const ViewModel = Map.extend({
+export const ViewModel = DefineMap.extend({
     define: {
         context: {
             value: null
@@ -59,7 +59,7 @@ export const ViewModel = Map.extend({
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-button',
     template,
     viewModel: ViewModel

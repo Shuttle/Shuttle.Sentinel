@@ -1,10 +1,10 @@
-﻿import can from 'can';
-import Map from 'can/map/';
+﻿import Component from 'can-component';
+import DefineMap from 'can-define/map/';
 import List from 'can/list/';
 import template from './queue.stache!';
-import api from 'sentinel/api';
+import api from '~/api';
 
-export const ViewModel = Map.extend({
+export const ViewModel = DefineMap.extend({
     define: {
         queues: {
             Value: List
@@ -48,7 +48,7 @@ export const ViewModel = Map.extend({
     }
 });
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-queue',
     template,
     viewModel: ViewModel
