@@ -1,9 +1,9 @@
-import can from 'can';
-import template from './alerts.stache!';
-import state from 'sentinel/state';
+import Component from 'can-component';
+import view from './alerts.stache!';
+import alerts from '~/alerts';
 
-export default can.Component.extend({
+export default Component.extend({
     tag: 'sentinel-alerts',
-    template,
-    viewModel: state
+    view,
+    viewModel: alerts
 });

@@ -7,6 +7,7 @@ import route from 'can-route';
 import router from '~/router';
 
 import '~/components/alerts';
+import '~/components/navigation';
 import '~/components/page-title';
 
 import '~/dashboard/';

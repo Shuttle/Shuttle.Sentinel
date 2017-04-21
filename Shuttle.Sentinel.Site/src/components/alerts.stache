@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {{#each alerts}}
+      {{#each messages}}
       <div class="alert alert-{{type}}" role="alert">
         <button type="button" class="close" aria-label="Close" ($click)="destroy()">
           <span aria-hidden="true">&times;</span>

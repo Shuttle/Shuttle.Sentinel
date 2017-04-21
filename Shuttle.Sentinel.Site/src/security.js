@@ -45,7 +45,8 @@ var Security = DefineMap.extend({
             .done(function(data) {
                 const username = localStorage.getItem('username');
                 const token = localStorage.getItem('token');
-                this.isUserRequired = data.isUserRequired;
+                
+                self.isUserRequired = data.isUserRequired;
 
                 each(data.permissions, function(item) {
                     self._addPermission('anonymous', item.permission);
@@ -129,6 +130,12 @@ var Security = DefineMap.extend({
         this.permissions = this.permissions.filter(function(item) {
             return item.type !== 'user';
         });
+    },
+
+    loginStatus: {
+        get: function() {
+            return this.isUserRequired ? 'user-required' : this.token == undefined ? 'not-logged-in' : 'logged-in';
+        }
     }
 });
 
@@ -137,7 +144,7 @@ var security = new Security();
 $.ajaxPrefilter(function(options, originalOptions) {
     options.beforeSend = function(xhr) {
         if (security.token) {
-            xhr.setRequestHeader('sentinel-sessiontoken', state.attr('token'));
+            xhr.setRequestHeader('sentinel-sessiontoken', statesecurity.token);
         }
 
         if (originalOptions.beforeSend) {

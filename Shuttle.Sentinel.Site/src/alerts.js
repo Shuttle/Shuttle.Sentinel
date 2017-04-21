@@ -1,5 +1,6 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
+import stache from 'can-stache';
 
 var Alerts = DefineMap.extend({
     messages: { Value: DefineList },
@@ -60,7 +61,7 @@ var Alerts = DefineMap.extend({
         expiryDate.setSeconds(expiryDate.getSeconds() + 10);
 
         const message = {
-            message: options.message,
+            message: stache.safeString(options.message),
             type: type,
             mode: mode,
             key: key,

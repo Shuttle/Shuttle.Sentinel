@@ -1,52 +1,12 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
-import navigationItems from '~/navigation-map';
 import guard from '~/guard';
 import logger from '~/logger';
-import each from 'can-util/js/each/';
-import security from '~/security';
 
 var State = DefineMap.extend({
     __previousKey: 'string',
     data: DefineList(),
 
-    navigationItems: {
-        get: function() {
-            var result = new DefineList();
-
-            each(navigationItems, function(item) {
-                var add = false;
-                var navigationItem = new DefineMap({
-                    href: item.href,
-                    text: item.text,
-                    items: new DefineList()
-                });
-
-                if (!item.permission || security.hasPermission(item.permission)) {
-                    if (item.items !== undefined) {
-                        each(item.items, function(subitem) {
-                            if (!subitem.permission || security.hasPermission(subitem.permission)) {
-                                add = true;
-
-                                navigationItem.attr('items').push(new DefineMap({
-                                    href: subitem.href,
-                                    text: subitem.text
-                                }));
-                            }
-                        });
-                    } else {
-                        add = true;
-                    }
-
-                    if (add) {
-                        result.push(navigationItem);
-                    }
-                }
-            });
-
-            return result;
-        }
-    },
     modal: {
         value: new DefineMap({
             confirmation: new DefineMap({
