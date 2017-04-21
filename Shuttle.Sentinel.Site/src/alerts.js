@@ -2,9 +2,9 @@ import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
 
 var Alerts = DefineMap.extend({
-    messages: DefineList,
+    messages: { Value: DefineList },
 
-    _key: 1,
+    _key: { type: 'number', value: 1 },
 
     show: function(options) {
         if (!options || !options.message) {

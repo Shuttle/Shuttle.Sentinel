@@ -1,0 +1,12 @@
+﻿<can-import from="./form.css!" />
+
+<div class="row">
+  <div class="sentinel-form {{type}} col-md-6 bd-content col-md-offset-3">
+    <div class="sentinel-form-heading">
+      <h2 class="sentinel-form-title">{{title}}</h2>
+    </div>
+    <div class="sentinel-form-body">
+      <content/>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,15 @@
-﻿import template from "~/main.stache!";
+﻿import template from '~/main.stache!';
 import $ from 'jquery';
-import DefineMap from 'can-define/map/';
-import configuration from '~/configuration';
 import localisation from '~/localisation';
 import security from '~/security';
+import state from '~/state';
+import route from 'can-route';
+import router from '~/router';
+
+import '~/components/alerts';
+import '~/components/page-title';
+
+import '~/dashboard/';
 
 localisation.start(function(error) {
     if (error) {
@@ -12,27 +18,25 @@ localisation.start(function(error) {
 
     security.start()
         .done(function() {
-    //        can.route(':resource');
-    //        can.route(':resource/:action');
-    //        can.route(':resource/:id/:action');
+            route('{resource}');
+            route('{resource}/{action}');
+            route('{resource}/{id}/{action}');
 
-    //        can.route.map(state.route);
+            route.data = router.route;
 
-    //        can.route.ready();
+            route.ready();
         })
         .always(function() {
             $('#application-container').html(template(state));
 
             if (window.location.hash === '#!' || !window.location.hash) {
-                window.location.hash = state.isUserRequired
+                window.location.hash = security.isUserRequired
                                            ? '#!user/register'
                                            : '#!dashboard';
             }
 
-            state.handleRoute();
+            router.process();
         });
-
-    document.body.appendChild(template(new DefineMap({message: 'Hello World'})));
 });
 
 

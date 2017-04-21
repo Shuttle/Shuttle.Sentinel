@@ -1,0 +1,3 @@
+﻿<button type="submit" class="btn {{elementClass}} {{classVisibility}}" ($click)="_clickHandler" {$disabled}="disabled" >
+	<span class="glyphicon {{iconName}}" /> {{i18n text}}
+</button>

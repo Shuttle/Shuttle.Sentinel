@@ -5,11 +5,12 @@ import api from '~/api';
 import localisation from '~/localisation';
 import alerts from '~/alerts';
 import each from 'can-util/js/each/';
-//import state from 'sentinel/state';
 
 var Security = DefineMap.extend({
     isUserRequired: 'boolean',
-    permissions: DefineList,
+    permissions: {
+        value: new DefineList() 
+    },
 
     hasSession: function() {
         return this.token != undefined;

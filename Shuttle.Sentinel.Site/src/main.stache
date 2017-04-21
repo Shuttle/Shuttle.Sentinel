@@ -1,2 +1,10 @@
-﻿<h1>{{message}}</h1>
-<h2>{{i18n "back"}}</h2>
+﻿<can-import from='bootstrap/dist/css/bootstrap.css!' />
+<can-import from='./styles.css!' />
+
+<!--
+<sentinel-navigation />
+<sentinel-alerts />
+<sentinel-modal modal-id='modal-confirmation' has-primary='true' primary-text='yes' dismiss-text='no' title='confirmation' {message}='modal.confirmation.message' (primary-click)='modal.confirmation.primaryClick()'/>
+-->
+
+<div id='application-content' class='container-fluid'></div>

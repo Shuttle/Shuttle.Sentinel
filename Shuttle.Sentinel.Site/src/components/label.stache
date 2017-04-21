@@ -1,0 +1,3 @@
+﻿<label class="control-label">
+  {{label}}{{#if required}}<small><span class="glyphicon glyphicon-asterisk text-danger" /></small>{{/if}}
+</label>

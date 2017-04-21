@@ -1,0 +1,87 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      {{#if state.navigationItems}}
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sentinel-navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+      </button>
+      {{/if}}
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sentinel-navigation-user">
+        <span class="sr-only">Toggle user</span>
+        <span class="glyphicon glyphicon-user"></span>
+      </button>
+      <a class="navbar-brand" href="#">Shuttle.Sentinel</a>
+    </div>
+    {{#if state.navigationItems}}
+    <div class="navbar-header collapse navbar-collapse" id="sentinel-navigation">
+      <ul class='nav navbar-nav'>
+        {{#each state.navigationItems}}
+        {{#if href}}
+        <li>
+          <a href='{{href}}'>{{i18n text}}</a>
+        </li>
+        {{else}}
+        {{#if items}}
+        <li class='dropdown'>
+          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+            {{i18n text}}
+            <b class='caret'></b>
+          </a>
+          <ul class='dropdown-menu'>
+            {{#each items}}
+            <li>
+              <a href='{{href}}'>{{i18n text}}</a>
+            </li>
+          {{/each}}
+          </ul>
+        </li>
+        {{/if}}
+        {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+    {{/if}}
+
+    <div class="navbar-header collapse navbar-collapse navbar-right" id="sentinel-navigation-user">
+      <ul class="nav navbar-nav">
+        {{#switch state.loginStatus}}
+        {{#case "user-required"}}
+        <li>
+          <a href='#!user/register'>{{i18n "register"}}</a>
+        </li>
+        {{/case}}
+        {{#case "not-logged-in"}}
+        <li>
+          <a href='#!user/login'>{{i18n "sign-in"}}</a>
+        </li>
+        {{/case}}
+        {{#case "logged-in"}}
+        <li class="dropdown">
+          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+            {{state.username}}
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/users/id" title="Profile">Profile</a>
+            </li>
+            <li>
+              <a href='#!user/login' ($click)='state.userLoggedOut()'>{{i18n "sign-out"}}</a>
+            </li>
+          </ul>
+        </li>
+        {{/case}}
+        {{/switch}}
+      </ul>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="https://github.com/Shuttle/Shuttle.Sentinel" class="hidden-xs hidden-sm" target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
