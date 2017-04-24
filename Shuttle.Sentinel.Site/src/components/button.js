@@ -1,6 +1,6 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import template from './button.stache!';
+import view from './button.stache!';
 import security from '~/security';
 import click from '~/components/click';
 
@@ -11,7 +11,7 @@ export const ViewModel = DefineMap.extend({
         },
         buttonType: {
             get: function() {
-                return (this.attr('actions') && this.attr('actions').length > 0)
+                return (this.actions && this.actions.length > 0)
                            ? 'dropdown'
                            : 'button';
             }
@@ -28,7 +28,7 @@ export const ViewModel = DefineMap.extend({
         },
         classVisibility: {
             get: function() {
-                var visible = this.attr('visible');
+                var visible = this.visible;
 
                 return visible != undefined && !visible ? 'hidden' : '';
             }
@@ -42,8 +42,8 @@ export const ViewModel = DefineMap.extend({
             get: function(value) {
                 var disabled = value || false;
 
-                if (this.attr('permission') && !disabled) {
-                    disabled = !security.hasPermission(this.attr('permission'));
+                if (this.permission && !disabled) {
+                    disabled = !security.hasPermission(this.permission);
                 }
 
                 return disabled;
@@ -61,6 +61,6 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-button',
-    template,
+    view,
     viewModel: ViewModel
 });

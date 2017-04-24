@@ -1,43 +1,43 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import template from './submit-button.stache!';
+import view from './submit-button.stache!';
 import security from '~/security';
 import click from '~/components/click';
 
 export const ViewModel = DefineMap.extend({
-    define: {
-        working: {
-            get: function() {
-                return this.attr('_parent.working');
-            }
-        },
-        elementClass: {
-            get: function(type) {
-                return type || 'btn-primary';
-            }
-        },
-        classVisibility: {
-            get: function() {
-                const visible = this.attr('visible');
-                return visible != undefined && !visible ? 'hidden' : '';
-            }
-        },
-        iconName: {
-            get: function(value) {
-                return this.attr('working') ? 'glyphicon-hourglass' : value || '';
-            }
-        },
-        disabled: {
-            get: function(value) {
-                return (this.attr('working') || false) || (!this.attr('permission')
-                                                               ? value || false
-                                                               : !security.hasPermission(this.attr('permission')));
-            }
-        },
-        permission: {
-            value: ''
+    working: {
+        get: function() {
+            return this.working;
         }
     },
+    elementClass: {
+        get: function(type) {
+            return type || 'btn-primary';
+        }
+    },
+    classVisibility: {
+        get: function() {
+            const visible = this.visible;
+            return visible != undefined && !visible ? 'hidden' : '';
+        }
+    },
+    iconName: {
+        get: function(value) {
+            return this.working ? 'glyphicon-hourglass' : value || '';
+        }
+    },
+    disabled: {
+        get: function(value) {
+            return (this.working || false) || (!this.permission
+                                                           ? value || false
+                                                           : !security.hasPermission(this.permission));
+        }
+    },
+    permission: {
+        type: 'string',
+        value: ''
+    },
+
     _clickHandler: function() {
         click.on(this);
     }
@@ -45,12 +45,13 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-submit-button',
-    template,
-    viewModel: function(attrs, scope) {
-        let viewModel = new ViewModel(attrs);
+    view,
+    viewModel: ViewModel
+    //viewModel: function(attrs, scope) {
+    //    let viewModel = new ViewModel(attrs);
 
-        viewModel.attr('_parent', scope._parent._context);
+    //    viewModel.attr('_parent', scope._parent._context);
 
-        return viewModel;
-    }
+    //    return viewModel;
+    //}
 });

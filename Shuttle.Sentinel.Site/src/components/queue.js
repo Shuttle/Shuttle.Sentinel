@@ -1,7 +1,7 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import List from 'can/list/';
-import template from './queue.stache!';
+import view from './queue.stache!';
 import api from '~/api';
 
 export const ViewModel = DefineMap.extend({
@@ -50,6 +50,6 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-queue',
-    template,
+    view,
     viewModel: ViewModel
 });

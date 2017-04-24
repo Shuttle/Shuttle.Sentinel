@@ -1,7 +1,7 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import stache from 'can/view/stache/';
-import template from './table.stache!';
+import view from './table.stache!';
 import localisation from '~/localisation';
 import click from '~/components/click';
 
@@ -9,7 +9,7 @@ export const ViewModel = DefineMap.extend({
     define: {
         emptyMessage: {
             get: function() {
-                return this.attr('emptyMessage') || 'table-empty-message';
+                return this.emptyMessage || 'table-empty-message';
             }
         },
 
@@ -35,14 +35,14 @@ export const ViewModel = DefineMap.extend({
 
         shouldShowEmptyMessage: {
             get: function() {
-                return this.attr('rows.length') === 0 && !!this.attr('emptyMessage');
+                return this.attr('rows.length') === 0 && !!this.emptyMessage;
             }
         }
     },
 
     _rowClick: function(row) {
-        if (this.attr('rowClick')) {
-            this.attr('rowClick')(row);
+        if (this.rowClick) {
+            this.rowClick(row);
         } else {
             click.on(row);
         }
@@ -51,7 +51,7 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-table',
-    template,
+    view,
     viewModel: ViewModel,
     helpers: {
         columnTitle(column) {
@@ -71,20 +71,20 @@ export default Component.extend({
 
             return typeof(row.attr) === 'function' ? row.attr(column.attributeName) : row[column.attributeName];
         },
-        template(row, column) {
-            let stacheTemplate = column.template;
+        view(row, column) {
+            let stacheTemplate = column.view;
 
             if (!stacheTemplate) {
-                throw new Error('Specify a template for the column.');
+                throw new Error('Specify a view for the column.');
             }
 
             return stache(stacheTemplate)(row);
         },
         rowClass(row) {
-            return typeof(row.attr) === 'function' ? row.attr('rowClass') : row['rowClass'];
+            return typeof(row.attr) === 'function' ? row.rowClass : row['rowClass'];
         },
         buttonContext(row, column) {
-            var context = column.attr('buttonContext');
+            var context = column.buttonContext;
 
             return !!context ? context : row;
         }

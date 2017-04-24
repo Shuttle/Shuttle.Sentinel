@@ -1,4 +1,4 @@
-﻿import template from '~/main.stache!';
+﻿import stache from '~/main.stache!';
 import $ from 'jquery';
 import localisation from '~/localisation';
 import security from '~/security';
@@ -35,7 +35,7 @@ localisation.start(function(error) {
             route.ready();
         })
         .always(function() {
-            $('#application-container').html(template(state));
+            $('#application-container').html(stache(state));
 
             if (window.location.hash === '#!' || !window.location.hash) {
                 window.location.hash = security.isUserRequired

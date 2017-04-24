@@ -1,6 +1,6 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import template from './fetching.stache!';
+import view from './fetching.stache!';
 import localisation from '~/localisation';
 
 export const ViewModel = DefineMap.extend({
@@ -15,6 +15,6 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-fetching',
-    template,
+    view,
     viewModel: ViewModel
 });

@@ -1,6 +1,6 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import template from './page-title.stache!';
+import view from './page-title.stache!';
 import localisation from '~/localisation';
 
 export const ViewModel = DefineMap.extend({
@@ -13,7 +13,7 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-page-title',
-    view: template,
+    view: view,
     viewModel: ViewModel
 });
 

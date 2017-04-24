@@ -24,8 +24,8 @@
               {{#case 'remove-button'}}
                 <sentinel-remove-button {context}="buttonContext ../. ." {click}="@buttonClick" {argument}="../." text="remove" element-class="btn-xs" />
             {{/case}}
-            {{#case 'template'}}
-            {{template ../. .}}
+            {{#case 'view'}}
+            {{view ../. .}}
             {{/case}}
             {{#default}}
             {{columnValue ../. .}}

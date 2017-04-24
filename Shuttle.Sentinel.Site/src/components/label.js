@@ -5,6 +5,7 @@ import localisation from '~/localisation';
 
 export const ViewModel = DefineMap.extend({
     label: {
+        type: 'string',
         get: function(value) {
             return localisation.value(value);
         }

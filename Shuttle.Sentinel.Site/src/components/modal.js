@@ -1,6 +1,6 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import template from './modal.stache!';
+import view from './modal.stache!';
 import localisation from '~/localisation';
 
 export const ViewModel = DefineMap.extend({
@@ -29,13 +29,13 @@ export const ViewModel = DefineMap.extend({
 
         hasMessage: {
             get: function() {
-                return !!this.attr('message');
+                return !!this.message;
             }
         }
     },
 
     _primaryClick: function() {
-        var modalElement = $('#' + this.attr('modalId'));
+        var modalElement = $('#' + this.modalId);
 
         if (!this.__bindEvents['primaryClick']) {
             alert('Assign a primary click handler by adding \'something\' to your modal component definition.');
@@ -52,6 +52,6 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-modal',
-    template,
+    view,
     viewModel: ViewModel
 });

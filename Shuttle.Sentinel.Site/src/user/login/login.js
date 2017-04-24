@@ -12,7 +12,7 @@ export const ViewModel = DefineMap.extend({
     password: 'string',
     submitIconName: {
         get: function() {
-            return this.attr('working') ? 'glyphicon-hourglass' : '';
+            return this.working ? 'glyphicon-hourglass' : '';
         }
     },
     working: {
@@ -30,7 +30,7 @@ export const ViewModel = DefineMap.extend({
     //    }
 
     //hasErrors: function() {
-    //    return this.attr('usernameConstraint');
+    //    return this.usernameConstraint;
     //},
 
     login: function() {
@@ -43,8 +43,8 @@ export const ViewModel = DefineMap.extend({
         this.attr('working', true);
 
         security.login({
-            username: this.attr('username'),
-            password: this.attr('password')
+            username: this.username,
+            password: this.password
         })
             .done(function() {
                 window.location.hash = '#!dashboard';

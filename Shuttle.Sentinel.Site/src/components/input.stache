@@ -3,6 +3,7 @@
 		<input type="{{type}}" {($checked)}="checked"/>
 	{{/case}}
 	{{#default}}
-		<input type="{{type}}" {($value)}="value" class="form-control {{elementClass}}" placeholder="{{placeholder}}"/>
+		<input type="{{type}}" {($value)}="aaa" class="form-control {{elementClass}}" placeholder="{{placeholder}}"/>
+		{{aaa}}
 	{{/case}}
 {{/switch}}

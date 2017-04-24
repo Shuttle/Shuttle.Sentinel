@@ -1,6 +1,6 @@
 import Component from 'can/component/';
 import List from 'can/list/';
-import template from './list.stache!';
+import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import state from '~/state';
@@ -18,7 +18,7 @@ export const ViewModel = Model.extend({
     },
 
     init: function() {
-        let columns = this.attr('columns');
+        let columns = this.columns;
 
         this.refresh();
 
@@ -80,5 +80,5 @@ export const ViewModel = Model.extend({
 export default Component.extend({
     tag: 'sentinel-user-list',
     viewModel: ViewModel,
-    template
+    view
 });

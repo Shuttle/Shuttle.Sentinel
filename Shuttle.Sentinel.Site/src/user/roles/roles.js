@@ -1,7 +1,7 @@
 import Component from 'can/component/';
 import List from 'can/list/';
 import DefineMap from 'can-define/map/';
-import template from './roles.stache!';
+import view from './roles.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import state from '~/state';
@@ -25,7 +25,7 @@ let RoleModel = DefineMap.extend({
 
         rowClass: {
             get: function() {
-                return this.attr('active') ? 'text-success success' : 'text-muted';
+                return this.active ? 'text-success success' : 'text-muted';
             }
         }
     },
@@ -33,18 +33,18 @@ let RoleModel = DefineMap.extend({
     toggle: function() {
         var self = this;
 
-        if (this.attr('working')) {
+        if (this.working) {
             alerts.show({ message: localisation.value('workingMessage'), name: 'working-message' });
             return;
         }
 
-        this.attr('active', !this.attr('active'));
+        this.attr('active', !this.active);
         this.attr('working', true);
 
         api.post('users/setrole', { data: {
             userId: state.attr('route.id'), 
-            roleName: this.attr('roleName'),
-            active: this.attr('active')
+            roleName: this.roleName,
+            active: this.active
         } })
         .done(function(response) {
             if (response.success) {
@@ -64,7 +64,7 @@ let RoleModel = DefineMap.extend({
             }
         });
 
-        this.attr('viewModel')._working();
+        this.viewModel._working();
     }
 });
 
@@ -75,8 +75,8 @@ export const ViewModel = Model.extend({
                 {
                     columnTitle: 'active',
                     columnClass: 'col-md-1',
-                    columnType: 'template',
-                    template: '<span ($click)="toggle()" class="glyphicon {{#if active}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" /><span class="glyphicon {{#if working}}glyphicon-hourglass{{/if}}" />'
+                    columnType: 'view',
+                    view: '<span ($click)="toggle()" class="glyphicon {{#if active}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" /><span class="glyphicon {{#if working}}glyphicon-hourglass{{/if}}" />'
                 },
                 {
                     columnTitle: 'user:roleName',
@@ -100,7 +100,7 @@ export const ViewModel = Model.extend({
     refresh: function() {
         var self = this;
 
-        self.attr('roles').replace(new List());
+        self.roles.replace(new List());
 
         this.get('roles')
             .done(function(availableRoles) {
@@ -110,7 +110,7 @@ export const ViewModel = Model.extend({
                 self.get('users/' + state.attr('route.id') + '/roles')
                     .done(function(userRoles) {
                         $.each(availableRoles, function(availableRoleIndex, availableRole) {
-                            self.attr('roles').push(new RoleModel({
+                            self.roles.push(new RoleModel({
                                 viewModel: self,
                                 roleName: availableRole.roleName,
                                 active: $.inArray(availableRole.roleName, userRoles) > -1
@@ -123,7 +123,7 @@ export const ViewModel = Model.extend({
     getRoleItem: function(roleName) {
         var result;
 
-        $.each(this.attr('roles'), function(index, item) {
+        $.each(this.roles, function(index, item) {
             if (result) {
                 return;
             }
@@ -138,8 +138,8 @@ export const ViewModel = Model.extend({
 
     _working: function() {
         var self = this;
-        var workingList = this.attr('roles').filter(function(item) {
-            return item.attr('working');
+        var workingList = this.roles.filter(function(item) {
+            return item.working;
         });
 
         if (!workingList.length) {
@@ -152,7 +152,7 @@ export const ViewModel = Model.extend({
         }
 
         $.each(workingList, function(index, item) {
-            data.roles.push(item.attr('roleName'));
+            data.roles.push(item.roleName);
         });
 
         api.post('users/rolestatus', { data: data})
@@ -176,5 +176,5 @@ export const ViewModel = Model.extend({
 export default Component.extend({
     tag: 'sentinel-user-roles',
     viewModel: ViewModel,
-    template
+    view
 });

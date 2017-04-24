@@ -1,14 +1,15 @@
 import DefineMap from 'can-define/map/';
+import DefineList from 'can-define/list/';
 import each from 'can-util/js/each/';
 
-var resources = new DefineMap({
-	_resources: [],
+var Resources = DefineMap.extend({
+	_resources: { Value: DefineList },
 
 	add: function (name, options) {
 		var o = options || {};
 
 		if (this.has(name, options)) {
-			throw new Error('Resource \'' + name + '\' has already been registered.');
+			throw new Error(`Resource '${name}' has already been registered.`);
 		}
 
 		this._resources.push({
@@ -42,4 +43,4 @@ var resources = new DefineMap({
 	}
 });
 
-export default resources;
+export default new Resources;

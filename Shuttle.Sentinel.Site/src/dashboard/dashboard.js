@@ -1,6 +1,6 @@
 import Component from 'can-component/';
 import DefineMap from 'can-define/map/';
-import template from './dashboard.stache!';
+import view from './dashboard.stache!';
 import resources from '~/resources';
 import localisation from '~/localisation';
 import Permissions from '~/permissions';
@@ -17,7 +17,7 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-dashboard',
-    view: template,
+    view: view,
     viewModel: ViewModel
 });
 

@@ -1,7 +1,7 @@
 import Component from 'can/component/';
 import DefineMap from 'can-define/map/';
 import 'can/map/define/';
-import template from './register.stache!';
+import view from './register.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import api from '~/api';
@@ -34,7 +34,7 @@ export const ViewModel = DefineMap.extend({
     
         usernameConstraint: {
             get: function() {
-                return validation.get('username', this.attr('username'), {
+                return validation.get('username', this.username, {
                     username: {
                         presence: true
                     }
@@ -44,7 +44,7 @@ export const ViewModel = DefineMap.extend({
     
         passwordConstraint: {
             get: function() {
-                return validation.get('password', this.attr('password'), {
+                return validation.get('password', this.password, {
                     password: {
                         presence: true
                     }
@@ -54,7 +54,7 @@ export const ViewModel = DefineMap.extend({
     },
 
     hasErrors: function() {
-        return this.attr('usernameConstraint') || this.attr('passwordConstraint');
+        return this.usernameConstraint || this.passwordConstraint;
     },
 
     register: function() {
@@ -67,8 +67,8 @@ export const ViewModel = DefineMap.extend({
         this.attr('working', true);
 
         const user = {
-            username: this.attr('username'),
-            password: this.attr('password')
+            username: this.username,
+            password: this.password
         };
 
         api.post('users', { data: user })
@@ -96,7 +96,7 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
     tag: 'sentinel-user-register',
     viewModel: ViewModel,
-    template,
+    view,
     events: {
         'inserted': function(el) {
             $('#email').focus();

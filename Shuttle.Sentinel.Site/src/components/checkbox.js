@@ -1,6 +1,6 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import template from './checkbox.stache!';
+import view from './checkbox.stache!';
 
 export const ViewModel = DefineMap.extend({
     define: {
@@ -16,7 +16,7 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-checkbox',
-    template,
+    view,
     viewModel: ViewModel
 });
 

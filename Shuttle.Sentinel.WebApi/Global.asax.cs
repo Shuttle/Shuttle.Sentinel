@@ -61,6 +61,8 @@ namespace Shuttle.Sentinel.WebApi
                 ConfigureJson(GlobalConfiguration.Configuration);
 
                 WebApiConfiguration.Register(GlobalConfiguration.Configuration);
+                
+                GlobalConfiguration.Configuration.EnsureInitialized();
 
                 _log.Information("[started]");
             }

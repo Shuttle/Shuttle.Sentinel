@@ -1,12 +1,12 @@
 ﻿import Component from 'can-component';
-import template from './remove-button.stache!';
+import view from './remove-button.stache!';
 import modals from '~/modals';
 import localisation from '~/localisation';
 import click from '~/components/click';
 
 export default Component.extend({
     tag: 'sentinel-remove-button',
-    template,
+    view,
     viewModel: can.Map.extend({
         define: {
             elementClass: {
@@ -17,7 +17,7 @@ export default Component.extend({
         },
         _click: function(ev) {
             var self = this;
-            var itemName = this.attr('itemName');
+            var itemName = this.itemName;
             var message = !itemName
                               ? localisation.value('removeItemConfirmation')
                               : localisation.value('removeItemNameConfirmation', { itemName: itemName });

@@ -1,6 +1,6 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import template from './validation.stache!';
+import view from './validation.stache!';
 
 export const ViewModel = DefineMap.extend({
     define: {
@@ -10,7 +10,7 @@ export const ViewModel = DefineMap.extend({
 
         classVisibility: {
             get: function() {
-                return !this.attr('message') ? 'hidden' : '';
+                return !this.message ? 'hidden' : '';
             }
         }
     }
@@ -19,7 +19,7 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
     tag: 'sentinel-validation',
     viewModel: ViewModel,
-    template
+    view
 });
 
 
