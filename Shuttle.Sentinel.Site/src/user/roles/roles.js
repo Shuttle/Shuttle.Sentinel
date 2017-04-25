@@ -175,6 +175,6 @@ export const ViewModel = Model.extend({
 
 export default Component.extend({
     tag: 'sentinel-user-roles',
-    viewModel: ViewModel,
+    ViewModel,
     view
 });

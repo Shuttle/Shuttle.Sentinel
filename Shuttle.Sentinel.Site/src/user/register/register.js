@@ -95,7 +95,7 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-user-register',
-    viewModel: ViewModel,
+    ViewModel,
     view,
     events: {
         'inserted': function(el) {

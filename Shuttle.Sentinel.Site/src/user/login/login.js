@@ -7,56 +7,58 @@ import security from '~/security';
 
 resources.add('user', { action: 'login' });
 
-export const ViewModel = DefineMap.extend({
-    username: 'string',
-    password: 'string',
-    submitIconName: {
-        get: function() {
-            return this.working ? 'glyphicon-hourglass' : '';
-        }
-    },
-    working: {
-        type: 'boolean',
-        value: false
-    },
+export const ViewModel = DefineMap.extend(
+    'Login',
+    {
+        username: 'string',
+        password: 'string',
+        submitIconName: {
+            get: function() {
+                return this.working ? 'glyphicon-hourglass' : '';
+            }
+        },
+        working: {
+            type: 'boolean',
+            value: false
+        },
 
-    //usernameConstraint: {
-    //    get: function() {
-    //        return validation.item(this, {
-    //            username: {
-    //                presence: true
-    //            }
-    //        });
-    //    }
+        //usernameConstraint: {
+        //    get: function() {
+        //        return validation.item(this, {
+        //            username: {
+        //                presence: true
+        //            }
+        //        });
+        //    }
 
-    //hasErrors: function() {
-    //    return this.usernameConstraint;
-    //},
+        //hasErrors: function() {
+        //    return this.usernameConstraint;
+        //},
 
-    login: function() {
-        var self = this;
+        login: function() {
+            var self = this;
 
-        //if (this.hasErrors()) {
-        //    return false;
-        //}
+            //if (this.hasErrors()) {
+            //    return false;
+            //}
 
-        this.attr('working', true);
+            this.working = true;
 
-        security.login({
-            username: this.username,
-            password: this.password
-        })
-            .done(function() {
-                window.location.hash = '#!dashboard';
+            security.login({
+                username: this.username,
+                password: this.password
             })
-            .always(function() {
-                self.attr('working', false);
-            });
-    }
-});
+                .done(function() {
+                    window.location.hash = '#!dashboard';
+                })
+                .always(function() {
+                    self.working = false;
+                });
+        }
+    });
 
 export default Component.extend({
     tag: 'sentinel-user-login',
-    viewModel: ViewModel,
+    ViewModel,
     view
 });

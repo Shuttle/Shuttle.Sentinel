@@ -2,24 +2,28 @@
 import DefineMap from 'can-define/map/';
 import view from './input.stache!';
 
-export const ViewModel = DefineMap.extend({
+export const ViewModel = DefineMap.extend(
+    'sentinel-input-model',
+    {
     type: {
         type: 'string',
         get: function(type) {
             return type || 'text';
         }
     },
-
+    
+    checked: 'boolean',
     placeholder: 'string',
     elementClass: 'string',
 
-    aaa: { type: 'string', value: '' }
+    inputValue: { type: 'string', value: 'xyz' },
+    value: { type: 'string', value: 'xyz' }
 });
 
 export default Component.extend({
     tag: 'sentinel-input',
     view,
-    viewModel: ViewModel,
+    ViewModel: ViewModel,
     events: {
         'inserted': function(el) {
             if (this.viewModel.focus) {

@@ -5,5 +5,7 @@ import alerts from '~/alerts';
 export default Component.extend({
     tag: 'sentinel-alerts',
     view,
-    viewModel: alerts
+    viewModel: function() {
+        return alerts;
+    }
 });

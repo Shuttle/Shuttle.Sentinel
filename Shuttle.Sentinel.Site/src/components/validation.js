@@ -18,7 +18,7 @@ export const ViewModel = DefineMap.extend({
 
 export default Component.extend({
     tag: 'sentinel-validation',
-    viewModel: ViewModel,
+    ViewModel,
     view
 });
 

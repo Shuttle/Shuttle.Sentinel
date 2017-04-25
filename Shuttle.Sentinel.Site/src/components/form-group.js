@@ -23,7 +23,7 @@ export default Component.extend({
 
     //    return map;
     //},
-    viewModel: ViewModel,
+    ViewModel,
     view
 });
 

@@ -79,6 +79,6 @@ export const ViewModel = Model.extend({
 
 export default Component.extend({
     tag: 'sentinel-user-list',
-    viewModel: ViewModel,
+    ViewModel,
     view
 });

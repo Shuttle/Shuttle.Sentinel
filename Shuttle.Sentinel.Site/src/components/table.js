@@ -52,7 +52,7 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
     tag: 'sentinel-table',
     view,
-    viewModel: ViewModel,
+    ViewModel,
     helpers: {
         columnTitle(column) {
             if (!!column.columnTitleTemplate) {
