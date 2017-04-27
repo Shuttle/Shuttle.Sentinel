@@ -5,7 +5,7 @@ import localisation from '~/localisation';
 import security from '~/security';
 import stache from 'can-stache';
 
-var Route = DefineMap.extend({
+var Data = DefineMap.extend({
     resource: 'string',
     action: 'string',
     id: 'any',
@@ -17,21 +17,21 @@ var Route = DefineMap.extend({
 });
 
 var Router = DefineMap.extend({
-    route: { Value: Route },
+    data: { Value: Data },
     previousHash: 'string',
 
     init: function () {
-        var self = this;
+        const self = this;
 
-        this.route.on('full', function () {
+        this.data.on('full', function () {
             self.process.call(self);
         });
     },
 
     process: function () {
         var resource;
-        var resourceName = this.route.resource;
-        var actionName = this.route.action;
+        var resourceName = this.data.resource;
+        var actionName = this.data.action;
         var isActionRoute = !!actionName;
         var previousHash = this.previousHash;
 

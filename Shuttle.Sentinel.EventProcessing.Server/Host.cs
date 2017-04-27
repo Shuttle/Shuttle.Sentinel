@@ -12,13 +12,25 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 {
     public class Host : IHost, IDisposable
     {
+        private IEventProcessor _eventProcessor;
         private IWindsorContainer _container;
+        private IEventStore _eventStore;
 
         public void Dispose()
         {
             if (_container != null)
             {
                 _container.Dispose();
+            }
+
+            if (_eventProcessor != null)
+            {
+                _eventProcessor.Dispose();
+            }
+
+            if (_eventStore != null)
+            {
+                _eventStore.AttemptDispose();
             }
         }
 
@@ -34,20 +46,19 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 
             var container = new WindsorComponentContainer(_container);
 
-            //container.Register<IDatabaseContextCache, ThreadStaticDatabaseContextCache>();
-
-            //container.Register<IScriptProviderConfiguration, ScriptProviderConfiguration>();
-            //container.Register<IScriptProvider, ScriptProvider>();
-
-            //container.Register<IProjectionRepository, ProjectionRepository>();
-            //container.Register<IProjectionQueryFactory, ProjectionQueryFactory>();
-
-            //container.Register<IProjectionConfiguration>(ProjectionSection.Configuration());
-
             EventStore.Register(container);
 
-            _container.Register(Component.For<object>().ImplementedBy<UserHandler>().Named("UserHandler"));
-            _container.Register(Component.For<object>().ImplementedBy<RoleHandler>().Named("RoleHandler"));
+            _eventStore = EventStore.Create(container);
+
+            container.Register<UserHandler>();
+            container.Register<RoleHandler>();
+
+            _eventProcessor = container.Resolve<IEventProcessor>();
+
+            _eventProcessor.AddProjection(new Projection("SystemUsers").AddEventHandler(container.Resolve<UserHandler>()));
+            _eventProcessor.AddProjection(new Projection("SystemRoles").AddEventHandler(container.Resolve<RoleHandler>()));
+
+            _eventProcessor.Start();
         }
     }
 }

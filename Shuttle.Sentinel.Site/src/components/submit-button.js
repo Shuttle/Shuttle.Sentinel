@@ -46,12 +46,5 @@ export const ViewModel = DefineMap.extend({
 export default Component.extend({
     tag: 'sentinel-submit-button',
     view,
-    viewModel: ViewModel
-    //viewModel: function(attrs, scope) {
-    //    let viewModel = new ViewModel(attrs);
-
-    //    viewModel.attr('_parent', scope._parent._context);
-
-    //    return viewModel;
-    //}
+    ViewModel
 });

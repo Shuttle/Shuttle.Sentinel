@@ -3,44 +3,43 @@ import DefineMap from 'can-define/map/';
 import view from './login.stache!';
 import resources from '~/resources';
 import security from '~/security';
-//import validation from '~/validation';
+import validator from 'can-define-validate-validatejs';
 
 resources.add('user', { action: 'login' });
 
 export const ViewModel = DefineMap.extend(
     'Login',
     {
-        username: 'string',
-        password: 'string',
-        submitIconName: {
-            get: function() {
-                return this.working ? 'glyphicon-hourglass' : '';
+        username: {
+            type: 'string',
+            validate: {
+                presence: true
+            }
+        },
+        password: {
+            type: 'string',
+            validate: {
+                presence: true
             }
         },
         working: {
             type: 'boolean',
             value: false
         },
-
-        //usernameConstraint: {
-        //    get: function() {
-        //        return validation.item(this, {
-        //            username: {
-        //                presence: true
-        //            }
-        //        });
-        //    }
-
-        //hasErrors: function() {
-        //    return this.usernameConstraint;
-        //},
-
+        submitIconName: {
+            get: function() {
+                return this.working ? 'glyphicon-hourglass' : '';
+            }
+        },
+        hasErrors: function() {
+            return !!this.errors();
+        },
         login: function() {
             var self = this;
 
-            //if (this.hasErrors()) {
-            //    return false;
-            //}
+            if (this.hasErrors()) {
+                return false;
+            }
 
             this.working = true;
 
@@ -54,8 +53,13 @@ export const ViewModel = DefineMap.extend(
                 .always(function() {
                     self.working = false;
                 });
+
+            return true;
         }
-    });
+    }
+);
+
+validator(ViewModel);
 
 export default Component.extend({
     tag: 'sentinel-user-login',

@@ -18,7 +18,7 @@ export const ViewModel = DefineMap.extend({
     searchQueues: function(el) {
         const uri = el.value;
 
-        this.attr('value', uri);
+        this.value = uri;
 
         this.fetchQueues(uri)
             .done(function() {
@@ -29,7 +29,7 @@ export const ViewModel = DefineMap.extend({
     fetchQueues: function(uri) {
         const queues = new List();
 
-        this.attr('queues', queues);
+        this.queues = queues;
 
         return api.post('queues/search', { data: { uri: uri } })
             .done(function(response) {
@@ -44,7 +44,7 @@ export const ViewModel = DefineMap.extend({
     },
 
     selectQueue: function(uri) {
-        this.attr('value', uri);
+        this.value = uri;
     }
 });
 

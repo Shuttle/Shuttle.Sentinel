@@ -13,10 +13,10 @@
       </button>
       <a class="navbar-brand" href="#">Shuttle.Sentinel</a>
     </div>
-    {{#if state.navigationItems}}
+    {{#if navigationItems}}
     <div class="navbar-header collapse navbar-collapse" id="sentinel-navigation">
       <ul class='nav navbar-nav'>
-        {{#each state.navigationItems}}
+        {{#each navigationItems}}
         {{#if href}}
         <li>
           <a href='{{href}}'>{{i18n text}}</a>

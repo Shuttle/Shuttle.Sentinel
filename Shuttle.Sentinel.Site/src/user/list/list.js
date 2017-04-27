@@ -1,4 +1,4 @@
-import Component from 'can/component/';
+import Component from 'can-component/';
 import List from 'can/list/';
 import view from './list.stache!';
 import resources from '~/resources';

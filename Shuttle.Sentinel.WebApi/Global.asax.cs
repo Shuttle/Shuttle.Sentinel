@@ -16,7 +16,7 @@ using Shuttle.Core.Data.Http;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
 using Shuttle.Esb;
-using Shuttle.Esb.Sql.Subscription;
+using Shuttle.Recall;
 using Shuttle.Sentinel.Queues;
 using ILog = Shuttle.Core.Infrastructure.ILog;
 
@@ -26,8 +26,9 @@ namespace Shuttle.Sentinel.WebApi
     {
         private static Exception _startupException;
         private static ILog _log;
-        private static IServiceBus _bus;
+        private static IServiceBus _serviceBus;
         private static IWindsorContainer _container;
+        private static IEventStore _eventStore;
 
         protected void Application_Start()
         {
@@ -46,8 +47,10 @@ namespace Shuttle.Sentinel.WebApi
                 var container = new WindsorComponentContainer(_container);
 
                 ServiceBus.Register(container);
+                EventStore.Register(container);
 
-                _bus = ServiceBus.Create(container).Start();
+                _serviceBus = ServiceBus.Create(container).Start();
+                _eventStore = EventStore.Create(container);
 
                 RequiresPermissionAttribute.Assign(_container);
                 RequiresSessionAttribute.Assign(_container);
@@ -61,7 +64,7 @@ namespace Shuttle.Sentinel.WebApi
                 ConfigureJson(GlobalConfiguration.Configuration);
 
                 WebApiConfiguration.Register(GlobalConfiguration.Configuration);
-                
+
                 GlobalConfiguration.Configuration.EnsureInitialized();
 
                 _log.Information("[started]");
@@ -137,8 +140,9 @@ namespace Shuttle.Sentinel.WebApi
         {
             _log.Information("[stopping]");
 
-            _bus?.Dispose();
+            _serviceBus?.Dispose();
             _container?.Dispose();
+            _eventStore?.AttemptDispose();
 
             _log.Information("[stopped]");
 

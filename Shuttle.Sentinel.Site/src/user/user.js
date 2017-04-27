@@ -1,6 +1,6 @@
-﻿import './login/';
+﻿import './register/';
+import './login/';
 //import './list/';
-//import './register/';
 //import './roles/';
 
 import localisation from '~/localisation'

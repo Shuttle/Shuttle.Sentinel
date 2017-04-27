@@ -1,60 +1,44 @@
-import Component from 'can/component/';
+import Component from 'can-component/';
 import DefineMap from 'can-define/map/';
-import 'can/map/define/';
 import view from './register.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import api from '~/api';
 import state from '~/state';
-import validation from '~/validation';
+import validator from 'can-define-validate-validatejs';
 
 resources.add('user', { action: 'register', permission: Permissions.Manage.Users });
 
 export const ViewModel = DefineMap.extend({
-    define: {
-        username: {
-            value: ''
-        },
-        password: {
-            value: ''
-        },
-        working: {
-            value: false
-        },
-        title: {
-            get: function() {
-                return state.isUserRequired ? 'user:register.user-required' : 'user:register.title';
-            }
-        },
-        showClose: {
-            get: function() {
-                return !state.isUserRequired;
-            }
-        },
-    
-        usernameConstraint: {
-            get: function() {
-                return validation.get('username', this.username, {
-                    username: {
-                        presence: true
-                    }
-                });
-            }
-        },
-    
-        passwordConstraint: {
-            get: function() {
-                return validation.get('password', this.password, {
-                    password: {
-                        presence: true
-                    }
-                });
-            }
+    username: {
+        type: 'string',
+        validate: {
+            presence: true
+        }
+    },
+    password: {
+        type: 'string',
+        validate: {
+            presence: true
+        }
+    },
+    working: {
+        type: 'boolean',
+        value: false
+    },
+    title: {
+        get: function() {
+            return state.isUserRequired ? 'user:register.user-required' : 'user:register.title';
+        }
+    },
+    showClose: {
+        get: function() {
+            return !state.isUserRequired;
         }
     },
 
     hasErrors: function() {
-        return this.usernameConstraint || this.passwordConstraint;
+        return !!this.errors();
     },
 
     register: function() {
@@ -64,7 +48,7 @@ export const ViewModel = DefineMap.extend({
             return false;
         }
 
-        this.attr('working', true);
+        this.working = true;
 
         const user = {
             username: this.username,
@@ -82,7 +66,7 @@ export const ViewModel = DefineMap.extend({
                 }
             })
             .always(function() {
-                self.attr('working', false);
+                self.working = false;
             });
 
         return true;
@@ -93,13 +77,15 @@ export const ViewModel = DefineMap.extend({
     }
 });
 
+validator(ViewModel);
+
 export default Component.extend({
     tag: 'sentinel-user-register',
     ViewModel,
     view,
     events: {
-        'inserted': function(el) {
-            $('#email').focus();
+        'inserted': function() {
+            $('#username').focus();
         }
     }
 });

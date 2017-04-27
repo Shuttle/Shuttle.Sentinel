@@ -1,4 +1,4 @@
-import Component from 'can/component/';
+import Component from 'can-component/';
 import List from 'can/list/';
 import DefineMap from 'can-define/map/';
 import view from './roles.stache!';
@@ -39,7 +39,7 @@ let RoleModel = DefineMap.extend({
         }
 
         this.attr('active', !this.active);
-        this.attr('working', true);
+        this.working = true;
 
         api.post('users/setrole', { data: {
             userId: state.attr('route.id'), 
@@ -54,8 +54,8 @@ let RoleModel = DefineMap.extend({
             switch (response.failureReason.toLowerCase()) {
                 case 'lastadministrator':
                     {
-                        self.attr('active', true);
-                        self.attr('working', false);
+                        self.active = true;
+                        self.working = false;
 
                         alerts.show({ message: localisation.value('user:exceptions.last-administrator'), name: 'last-administrator', type: 'danger' });
 

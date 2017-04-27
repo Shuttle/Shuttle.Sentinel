@@ -3,8 +3,8 @@ import $ from 'jquery';
 import localisation from '~/localisation';
 import security from '~/security';
 import state from '~/state';
-import route from 'can-route';
 import router from '~/router';
+import route from 'can-route';
 
 import '~/components/alerts';
 import '~/components/form';
@@ -15,6 +15,7 @@ import '~/components/navigation';
 import '~/components/page-title';
 import '~/components/submit-button';
 import '~/components/text';
+import '~/components/validation';
 
 import '~/dashboard/';
 import '~/user/';
@@ -30,7 +31,7 @@ localisation.start(function(error) {
             route('{resource}/{action}');
             route('{resource}/{id}/{action}');
 
-            route.data = router.route;
+            route.data = router.data;
 
             route.ready();
         })
@@ -46,7 +47,3 @@ localisation.start(function(error) {
             router.process();
         });
 });
-
-
-
-

@@ -47,9 +47,7 @@ namespace Shuttle.Sentinel.Server
 
 			var id = Guid.NewGuid();
 
-			Registered registered;
-
-			using (_databaseContextFactory.Create())
+		    using (_databaseContextFactory.Create())
 			{
 				var key = User.Key(message.Username);
 
@@ -65,7 +63,7 @@ namespace Shuttle.Sentinel.Server
 				var user = new User(id);
 				var stream = new EventStream(id);
 
-				registered = user.Register(message.Username, message.PasswordHash, message.RegisteredBy);
+				var registered = user.Register(message.Username, message.PasswordHash, message.RegisteredBy);
 
 				if (count == 0)
 				{

@@ -62,6 +62,11 @@ namespace Shuttle.Sentinel
                 {
                     session = _sessionRepository.Get(token);
 
+                    if (session == null)
+                    {
+                        return RegisterSessionResult.Failure();
+                    }
+
                     session.Renew();
 
                     _sessionRepository.Renewed(session);

@@ -7,6 +7,7 @@ using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
 using Shuttle.Esb;
+using Shuttle.Recall;
 
 namespace Shuttle.Sentinel.Server
 {
@@ -31,21 +32,7 @@ namespace Shuttle.Sentinel.Server
 
             var container = new WindsorComponentContainer(_container);
 
-            // TODO: load these dynamically somehow
-            //container.Register<IRabbitMQConfiguration, RabbitMQConfiguration>();
-            //container.Register<IMsmqConfiguration, MsmqConfiguration>();
-
-            //container.Register<IDatabaseContextCache, ThreadStaticDatabaseContextCache>();
-
-            //container.Register<Esb.Sql.IScriptProviderConfiguration, Esb.Sql.ScriptProviderConfiguration>();
-            //container.Register<Esb.Sql.IScriptProvider, Esb.Sql.ScriptProvider>();
-
-            //container.Register<Recall.Sql.IScriptProviderConfiguration, Recall.Sql.ScriptProviderConfiguration>();
-            //container.Register<Recall.Sql.IScriptProvider, Recall.Sql.ScriptProvider>();
-
-            //container.Register<ISqlConfiguration>(SqlSection.Configuration());
-            //container.Register<ISubscriptionManager, SubscriptionManager>();
-
+            EventStore.Register(container);
             ServiceBus.Register(container);
 
             container.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
