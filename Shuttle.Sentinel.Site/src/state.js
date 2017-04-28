@@ -2,10 +2,12 @@ import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
 import guard from '~/guard';
 import logger from '~/logger';
+import route from 'can-route';
 
 var State = DefineMap.extend({
     __previousKey: 'string',
     data: DefineList(),
+    route: route,
 
     modal: {
         value: new DefineMap({

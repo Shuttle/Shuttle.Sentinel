@@ -8,10 +8,10 @@ import stache from 'can-stache';
 var Data = DefineMap.extend({
     resource: 'string',
     action: 'string',
-    id: 'any',
+    id: 'string',
     full: {
         get: function() {
-            return this.resource + !!this.id ? `/${this.id}` : !!this.action ? `/${this.action}` : '';
+            return this.resource + (!!this.id ? `/${this.id}` : '') + (!!this.action ? `/${this.action}` : '');
         }
     }
 });

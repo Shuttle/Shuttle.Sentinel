@@ -6,5 +6,8 @@
 <!--
 <sentinel-modal modal-id='modal-confirmation' has-primary='true' primary-text='yes' dismiss-text='no' title='confirmation' {message}='modal.confirmation.message' (primary-click)='modal.confirmation.primaryClick()'/>
 -->
-
+resource: {{route.data.resource}}<br/>
+id: {{route.data.id}}<br/>
+action: {{route.data.action}}<br/>
+full: {{route.data.full}}<br/>
 <div id='application-content' class='container-fluid'></div>
