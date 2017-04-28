@@ -9,7 +9,9 @@ import validator from 'can-define-validate-validatejs';
 
 resources.add('user', { action: 'register', permission: Permissions.Manage.Users });
 
-export const ViewModel = DefineMap.extend({
+export const ViewModel = DefineMap.extend(
+    'UserRegister',
+    {
     username: {
         type: 'string',
         validate: {

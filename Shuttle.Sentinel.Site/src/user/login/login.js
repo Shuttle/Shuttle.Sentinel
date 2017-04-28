@@ -8,7 +8,7 @@ import validator from 'can-define-validate-validatejs';
 resources.add('user', { action: 'login' });
 
 export const ViewModel = DefineMap.extend(
-    'Login',
+    'UserLogin',
     {
         username: {
             type: 'string',

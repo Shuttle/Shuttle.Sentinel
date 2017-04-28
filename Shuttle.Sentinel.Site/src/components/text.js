@@ -11,7 +11,7 @@ var Error = DefineMap.extend({
 });
 
 export const ViewModel = DefineMap.extend(
-    'SentinelTextModel', 
+    'SentinelText', 
     {
         value: { type: 'string', value: '' },
         inputClass: { type: 'string', value: '' },
@@ -21,24 +21,28 @@ export const ViewModel = DefineMap.extend(
             Type: DefineList,
             '#': Error
         },
-        validationMessage: function() {
-            var self = this;
-            var message = '';
+        validationMessage: {
+            get: function() {
+                return 'test';
+                var self = this;
+                var message = '';
 
-            if (this.errors) {
-                this.errors.forEach(function(error) {
-                    if (error.related.indexOf(self.errorAttribute) > -1) {
-                        message = error.message;
-                        return false;
-                    }
+                if (this.errors) {
+                    this.errors.forEach(function(error) {
+                        if (error.related.indexOf(self.errorAttribute) > -1) {
+                            message = error.message;
+                            return false;
+                        }
 
-                    return true;
-                });
+                        return true;
+                    });
+                }
+
+                return message;
             }
-
-            return message;
         }
-    });
+    }
+);
 
 export default Component.extend({
     tag: 'sentinel-text',

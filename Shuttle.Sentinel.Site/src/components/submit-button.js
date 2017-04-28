@@ -5,11 +5,7 @@ import security from '~/security';
 import click from '~/components/click';
 
 export const ViewModel = DefineMap.extend({
-    working: {
-        get: function() {
-            return this.working;
-        }
-    },
+    working: { type: 'boolean' },
     elementClass: {
         get: function(type) {
             return type || 'btn-primary';
