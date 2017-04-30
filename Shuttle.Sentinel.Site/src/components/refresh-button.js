@@ -6,7 +6,7 @@ import click from '~/components/click';
 export default Component.extend({
     tag: 'sentinel-refresh-button',
     view,
-    viewModel: Map.extend({
+    ViewModel: DefineMap.extend({
         _clickHandler: function() {
             click.on(this);
         }

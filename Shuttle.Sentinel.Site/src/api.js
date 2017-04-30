@@ -1,5 +1,20 @@
 ﻿import $ from 'jquery';
 import configuration from '~/configuration';
+import alerts from '~/alerts';
+
+$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+    options.error = function(xhr) {
+        if (xhr.responseJSON) {
+            alerts.show({ message: xhr.responseJSON.message, type: 'danger', name: 'ajax-prefilter-error' });
+        } else {
+            alerts.show({ message: xhr.status + ' / ' + xhr.statusText, type: 'danger', name: 'ajax-prefilter-error' });
+        }
+
+        if (originalOptions.error) {
+            originalOptions.error(xhr);
+        }
+    }
+});
 
 let api = {
     post: function(endpoint, options) {

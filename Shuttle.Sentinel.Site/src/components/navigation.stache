@@ -42,7 +42,6 @@
       </ul>
     </div>
     {{/if}}
-
     <div class="navbar-header collapse navbar-collapse navbar-right" id="sentinel-navigation-user">
       <ul class="nav navbar-nav">
         {{#switch security.loginStatus}}
@@ -67,7 +66,7 @@
               <a href="/users/id" title="Profile">Profile</a>
             </li>
             <li>
-              <a href='#!user/login' ($click)='security.userLoggedOut()'>{{i18n "sign-out"}}</a>
+              <a href='#!user/login' ($click)='security.logout()'>{{i18n "sign-out"}}</a>
             </li>
           </ul>
         </li>

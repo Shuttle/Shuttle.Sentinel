@@ -1,42 +1,41 @@
 import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import stache from 'can/view/stache/';
+import DefineList from 'can-define/list/';
+import stache from 'can-stache/';
 import view from './table.stache!';
 import localisation from '~/localisation';
 import click from '~/components/click';
 
 export const ViewModel = DefineMap.extend({
-    define: {
-        emptyMessage: {
-            get: function() {
-                return this.emptyMessage || 'table-empty-message';
-            }
-        },
+    emptyMessage: {
+        get: function() {
+            return this.emptyMessage || 'table-empty-message';
+        }
+    },
 
-        containerClass: {
-          get: function(value) {
-              return value || '';
-          }
-        },
+    containerClass: {
+        get: function(value) {
+            return value || '';
+        }
+    },
 
-        buttonClass: {
-          get: function(value) {
-              return value || '';
-          }
-        },
+    buttonClass: {
+        get: function(value) {
+            return value || '';
+        }
+    },
 
-        columns: {
-            value: new can.List()
-        },
+    columns: {
+        Value: DefineList
+    },
 
-        rows: {
-            value: new can.List()
-        },
+    rows: {
+        Value: DefineList
+    },
 
-        shouldShowEmptyMessage: {
-            get: function() {
-                return this.attr('rows.length') === 0 && !!this.emptyMessage;
-            }
+    shouldShowEmptyMessage: {
+        get: function() {
+            return this.rows.length === 0 && !!this.emptyMessage;
         }
     },
 
@@ -54,24 +53,26 @@ export default Component.extend({
     view,
     ViewModel,
     helpers: {
-        columnTitle(column) {
+        getColumnTitle(column) {
             if (!!column.columnTitleTemplate) {
                 return stache(column.columnTitleTemplate)(column);
             } else {
                 return localisation.value(column.columnTitle || '');
             }
         },
-        columnClass(column) {
+        getColumnClass(column) {
             return column.columnClass || '';
         },
-        columnValue(row, column) {
+        getColumnValue(row, column) {
             if (!column.attributeName) {
                 throw new Error('The column requires an \'attributeName\'');
             }
 
-            return typeof(row.attr) === 'function' ? row.attr(column.attributeName) : row[column.attributeName];
+            const value = row[column.attributeName];
+
+            return typeof(value) === 'function' ? value(column.attributeName) : value;
         },
-        view(row, column) {
+        getView(row, column) {
             let stacheTemplate = column.view;
 
             if (!stacheTemplate) {
@@ -80,13 +81,21 @@ export default Component.extend({
 
             return stache(stacheTemplate)(row);
         },
-        rowClass(row) {
-            return typeof(row.attr) === 'function' ? row.rowClass : row['rowClass'];
+        getRowClass(row) {
+            return row['rowClass'];
         },
-        buttonContext(row, column) {
-            var context = column.buttonContext;
+        getButtonContext(row, column) {
+            const context = column.buttonContext;
 
             return !!context ? context : row;
         }
     }
+});
+
+export const ColumnMap = DefineMap.extend({
+    columnTitle: 'string'
+});
+
+export const ColumnList = DefineList.extend({
+    '#': ColumnMap
 });

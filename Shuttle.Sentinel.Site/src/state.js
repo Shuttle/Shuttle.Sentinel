@@ -3,11 +3,13 @@ import DefineList from 'can-define/list/';
 import guard from '~/guard';
 import logger from '~/logger';
 import route from 'can-route';
+import configuration from './configuration';
 
 var State = DefineMap.extend({
     __previousKey: 'string',
-    data: DefineList(),
+    configuration: { value: configuration },
     route: route,
+    data: { Type: DefineList },
 
     modal: {
         value: new DefineMap({

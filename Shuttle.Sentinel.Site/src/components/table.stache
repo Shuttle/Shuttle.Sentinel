@@ -6,29 +6,29 @@
     <thead>
       <tr>
         {{#columns}}
-          <th class="{{columnClass .}}">
-            {{columnTitle .}}
+          <th class="{{getColumnClass (.)}}">
+            {{getColumnTitle (.)}}
           </th>
         {{/columns}}
         </tr>
     </thead>
     <tbody>
       {{#each rows}}
-      <tr class="{{rowClass .}}" ($click)="_rowClick(.)">
+      <tr class="{{getRowClass (.)}}" ($click)="_rowClick(.)">
         {{#columns}}
           <td data-title="{{i18n columnTitle}}">
             {{#switch columnType}}
               {{#case 'button'}}
-                <sentinel-button {context}="buttonContext ../. ." {click}="@buttonClick" {argument}="../." text="{{buttonTitle}}" element-class="btn-default btn-xs {{buttonClass}}" />
+                <sentinel-button {context}="getButtonContext (../., .)" {click}="@buttonClick" {argument}="../." text="{{buttonTitle}}" element-class="btn-default btn-xs {{buttonClass}}" />
               {{/case}}
               {{#case 'remove-button'}}
-                <sentinel-remove-button {context}="buttonContext ../. ." {click}="@buttonClick" {argument}="../." text="remove" element-class="btn-xs" />
+                <sentinel-remove-button {context}="getButtonContext (../., .)" {click}="@buttonClick" {argument}="../." text="remove" element-class="btn-xs" />
             {{/case}}
             {{#case 'view'}}
-            {{view ../. .}}
+            {{getView (../., .}}
             {{/case}}
             {{#default}}
-            {{columnValue ../. .}}
+            {{getColumnValue (../., .)}}
             {{/default}}
             {{/switch}}
           </td>

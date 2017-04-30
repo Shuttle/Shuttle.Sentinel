@@ -1,15 +1,8 @@
 <sentinel-form {title}="title">
   <form>
     <fieldset class="form-group">
-<sentinel-form-group validation-message="validationMessage" >
-		<sentinel-label label="hello" required="true" />
-		<sentinel-input focus="true" {(value)}="username" />
-<sentinel-form-group>
-{{username}}<br/>
-<!--
       <sentinel-text focus="true" label="user:username" {(value)}="username" {errors}="errors" error-attribute="username" />
       <sentinel-text label="user:register.password" {(value)}="password" type="password" {errors}="errors" error-attribute="password" />
--->
       <sentinel-submit-button type="submit" {click}="@register" text="register" />
       <sentinel-button {click}="@close" text="close" {visible}="showClose" />
     </fieldset>

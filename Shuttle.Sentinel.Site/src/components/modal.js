@@ -4,33 +4,31 @@ import view from './modal.stache!';
 import localisation from '~/localisation';
 
 export const ViewModel = DefineMap.extend({
-    define: {
-        modalType: {
-            get: function(value) {
-                return value || 'fade';
-            }
-        },
+    modalType: {
+        get: function(value) {
+            return value || 'fade';
+        }
+    },
 
-        dismissText: {
-          get: function(value) {
-              return value || localisation.value(value);
-          }
-        },
+    dismissText: {
+        get: function(value) {
+            return value || localisation.value(value);
+        }
+    },
 
-        textType: {
-            get: function(value) {
-                return value || 'primary';
-            }
-        },
+    textType: {
+        get: function(value) {
+            return value || 'primary';
+        }
+    },
 
-        message: {
-            value: ''
-        },
+    message: {
+        value: ''
+    },
 
-        hasMessage: {
-            get: function() {
-                return !!this.message;
-            }
+    hasMessage: {
+        get: function() {
+            return !!this.message;
         }
     },
 

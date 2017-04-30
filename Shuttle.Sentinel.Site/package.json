@@ -11,7 +11,9 @@
     "plugins": [
       "steal-stache",
       "steal-css"
-    ]
+    ],
+    "serviceBaseURL": "http://localhost:4040/api/",
+    "debug":  true 
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

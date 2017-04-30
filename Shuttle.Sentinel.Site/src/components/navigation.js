@@ -6,7 +6,7 @@ import security from '~/security';
 import each from 'can-util/js/each/';
 import navigationMap from '~/navigation-map';
 
-var viewModel = DefineMap.extend({
+var ViewModel = DefineMap.extend({
     security: { value: security },
     navigationItems: {
         get: function() {
@@ -50,5 +50,5 @@ var viewModel = DefineMap.extend({
 export default Component.extend({
     tag: 'sentinel-navigation',
     view,
-    viewModel: viewModel
+    ViewModel
 });

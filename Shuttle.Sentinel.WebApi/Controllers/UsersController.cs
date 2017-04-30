@@ -144,10 +144,6 @@ namespace Shuttle.Sentinel.WebApi
         {
             Guard.AgainstNull(model, "model");
 
-#if DEBUG
-            Thread.Sleep(2000);
-#endif
-
             var registeredBy = "system";
             var result = GetSessionToken();
             var ok = false;

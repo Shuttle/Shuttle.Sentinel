@@ -3,9 +3,8 @@
   <sentinel-button {click}="@add" text="add" permission="sentinel://user/register" />
   <sentinel-refresh-button {click}="@refresh" />
 </sentinel-buttons>
-{{#if isPending}}
+{{#if usersPromise.isResolved}}
+<sentinel-table {columns}="columns" {rows}="usersPromise.value" />
+{{else}}
 <sentinel-fetching title="user:list.title" />
-{{/if}}
-{{#if isResolved}}
-<sentinel-table {columns}="columns" {rows}="list" />
 {{/if}}

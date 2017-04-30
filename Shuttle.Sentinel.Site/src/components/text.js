@@ -23,7 +23,6 @@ export const ViewModel = DefineMap.extend(
         },
         validationMessage: {
             get: function() {
-                return 'test';
                 var self = this;
                 var message = '';
 

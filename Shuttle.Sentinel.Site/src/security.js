@@ -7,7 +7,10 @@ import alerts from '~/alerts';
 import each from 'can-util/js/each/';
 
 var Security = DefineMap.extend({
+    username: { type: 'string', value: '' },
+    token: { type: 'string', value: '' },
     isUserRequired: 'boolean',
+
     permissions: {
         value: new DefineList() 
     },
@@ -98,6 +101,10 @@ var Security = DefineMap.extend({
                     localStorage.setItem('username', options.username);
                     localStorage.setItem('token', response.token);
 
+                    self.username = options.username;
+                    self.token = response.token;
+                    self.isUserRequired = false;
+
                     alerts.remove({ name: 'login-failure' });
 
                     self.removeUserPermissions();
@@ -107,6 +114,12 @@ var Security = DefineMap.extend({
                     });
                 } else {
                     if (usingToken) {
+                        self.username = undefined;
+                        self.token = undefined;
+
+                        localStorage.removeItem('username');
+                        localStorage.removeItem('token');
+
                         alerts.show({ message: localisation.value('exceptions.login', { username: options.username }), type: 'danger', name: 'login-failure' });
                     }
                 }
@@ -144,7 +157,7 @@ var security = new Security();
 $.ajaxPrefilter(function(options, originalOptions) {
     options.beforeSend = function(xhr) {
         if (security.token) {
-            xhr.setRequestHeader('sentinel-sessiontoken', statesecurity.token);
+            xhr.setRequestHeader('sentinel-sessiontoken', security.token);
         }
 
         if (originalOptions.beforeSend) {

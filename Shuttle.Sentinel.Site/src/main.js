@@ -1,19 +1,28 @@
-﻿import stache from '~/main.stache!';
-import $ from 'jquery';
+﻿import $ from 'jquery';
+import stache from '~/main.stache!';
 import localisation from '~/localisation';
 import security from '~/security';
 import state from '~/state';
 import router from '~/router';
 import route from 'can-route';
 
+import 'bootstrap/dist/js/bootstrap'
+
 import '~/components/alerts';
+import '~/components/button';
+import '~/components/buttons';
+import '~/components/fetching';
 import '~/components/form';
 import '~/components/form-group';
 import '~/components/input';
 import '~/components/label';
+import '~/components/modal';
 import '~/components/navigation';
 import '~/components/page-title';
+import '~/components/refresh-button';
+import '~/components/remove-button';
 import '~/components/submit-button';
+import '~/components/table';
 import '~/components/text';
 import '~/components/validation';
 
