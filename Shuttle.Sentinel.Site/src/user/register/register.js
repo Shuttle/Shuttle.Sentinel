@@ -4,7 +4,8 @@ import view from './register.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import api from '~/api';
-import state from '~/state';
+import router from '~/router';
+import security from '~/security';
 import validator from 'can-define-validate-validatejs';
 
 resources.add('user', { action: 'register', permission: Permissions.Manage.Users });
@@ -30,12 +31,12 @@ export const ViewModel = DefineMap.extend(
     },
     title: {
         get: function() {
-            return state.isUserRequired ? 'user:register.user-required' : 'user:register.title';
+            return security.isUserRequired ? 'user:register.user-required' : 'user:register.title';
         }
     },
     showClose: {
         get: function() {
-            return !state.isUserRequired;
+            return !security.isUserRequired;
         }
     },
 
@@ -59,12 +60,12 @@ export const ViewModel = DefineMap.extend(
 
         api.post('users', { data: user })
             .done(function() {
-                if (state.isUserRequired) {
-                    state.isUserRequired = false;
+                if (security.isUserRequired) {
+                    security.isUserRequired = false;
 
-                    state.goto('dashboard');
+                    router.goto('dashboard');
                 } else {
-                    state.goto('user/list');
+                    router.goto('user/list');
                 }
             })
             .always(function() {
@@ -75,7 +76,7 @@ export const ViewModel = DefineMap.extend(
     },
 
     close: function() {
-        state.goto('user/list');
+        router.goto('user/list');
     }
 });
 

@@ -6,6 +6,7 @@ import localisation from '~/localisation';
 import click from '~/components/click';
 
 export const ViewModel = DefineMap.extend({
+    context: 'observable',
     elementClass: {
         get: function(value) {
             return value || '';
@@ -21,11 +22,12 @@ export const ViewModel = DefineMap.extend({
 
         ev.stopPropagation();
 
-        modals.confirm(message, function() {
-            click.on(self);
-        });
+        modals.confirm(message,
+            function() {
+                click.on(self);
+            });
     }
-})
+});
 
 export default Component.extend({
     tag: 'sentinel-remove-button',

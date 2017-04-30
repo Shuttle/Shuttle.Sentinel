@@ -22,9 +22,7 @@ export const ViewModel = DefineMap.extend({
         }
     },
 
-    message: {
-        value: ''
-    },
+    message: { type: 'string', value: '' },
 
     hasMessage: {
         get: function() {
@@ -33,23 +31,18 @@ export const ViewModel = DefineMap.extend({
     },
 
     _primaryClick: function() {
-        var modalElement = $('#' + this.modalId);
-
-        if (!this.__bindEvents['primaryClick']) {
-            alert('Assign a primary click handler by adding \'something\' to your modal component definition.');
-            return;
-        }
+        const modalElement = $('#' + this.modalId);
 
         if (modalElement) {
             modalElement.modal('hide');
         }
 
-        can.trigger(this, 'primaryClick', arguments);
+        this.primaryClick(arguments);
     }
 });
 
 export default Component.extend({
     tag: 'sentinel-modal',
     view,
-    viewModel: ViewModel
+    ViewModel
 });

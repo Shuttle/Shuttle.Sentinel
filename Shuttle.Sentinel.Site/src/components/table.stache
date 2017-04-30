@@ -19,17 +19,17 @@
           <td data-title="{{i18n columnTitle}}">
             {{#switch columnType}}
               {{#case 'button'}}
-                <sentinel-button {context}="getButtonContext (../., .)" {click}="@buttonClick" {argument}="../." text="{{buttonTitle}}" element-class="btn-default btn-xs {{buttonClass}}" />
+                <sentinel-button {context}="getButtonContext(../., .)" {click}="buttonClick" {argument}="../." text="{{buttonTitle}}" element-class="btn-default btn-xs {{buttonClass}}" />
               {{/case}}
               {{#case 'remove-button'}}
-                <sentinel-remove-button {context}="getButtonContext (../., .)" {click}="@buttonClick" {argument}="../." text="remove" element-class="btn-xs" />
-            {{/case}}
-            {{#case 'view'}}
-            {{getView (../., .}}
-            {{/case}}
-            {{#default}}
-            {{getColumnValue (../., .)}}
-            {{/default}}
+                <sentinel-remove-button {context}="@getButtonContext(../., .)" {click}="buttonClick" {argument}="../." text="remove" element-class="btn-xs" />
+              {{/case}}
+              {{#case 'view'}}
+              {{getView (../., .}}
+              {{/case}}
+              {{#default}}
+              {{getColumnValue (../., .)}}
+              {{/default}}
             {{/switch}}
           </td>
         {{/columns}}

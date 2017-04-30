@@ -4,7 +4,7 @@ import DefineList from 'can-define/list/';
 import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import state from '~/state';
+import router from '~/router';
 import Model from '../user-model';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
@@ -63,7 +63,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         add: function() {
-            state.goto('user/register');
+            router.goto('user/register');
         },
 
         refresh: function() {
@@ -81,7 +81,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         roles: function(id) {
-            state.goto('user/' + id + '/roles');
+            router.goto('user/' + id + '/roles');
         }
     }
 );

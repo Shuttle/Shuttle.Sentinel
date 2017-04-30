@@ -12,10 +12,13 @@ var State = DefineMap.extend({
     data: { Type: DefineList },
 
     modal: {
-        value: new DefineMap({
-            confirmation: new DefineMap({
-                message: 'hello'
-            })
+        Value: DefineMap.extend({
+            confirmation: {
+                value: new DefineMap({
+                    primaryClick: function() { alert('hello'); },
+                    message: ''
+                })
+            }
         })
     },
 

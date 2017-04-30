@@ -93,7 +93,8 @@ export default Component.extend({
 });
 
 export const ColumnMap = DefineMap.extend({
-    columnTitle: 'string'
+    columnTitle: 'string',
+    buttonContext: 'any'
 });
 
 export const ColumnList = DefineList.extend({
