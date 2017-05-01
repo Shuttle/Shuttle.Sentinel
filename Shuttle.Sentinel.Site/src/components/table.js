@@ -84,10 +84,8 @@ export default Component.extend({
         getRowClass(row) {
             return row['rowClass'];
         },
-        getButtonContext(row, column) {
-            const context = column.buttonContext;
-
-            return !!context ? context : row;
+        setRemoveButtonContext(row, column) {
+            row.removeButtonContext = column.buttonContext || row;
         }
     }
 });

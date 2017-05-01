@@ -22,7 +22,8 @@
                 <sentinel-button {context}="getButtonContext(../., .)" {click}="buttonClick" {argument}="../." text="{{buttonTitle}}" element-class="btn-default btn-xs {{buttonClass}}" />
               {{/case}}
               {{#case 'remove-button'}}
-                <sentinel-remove-button {context}="@getButtonContext(../., .)" {click}="buttonClick" {argument}="../." text="remove" element-class="btn-xs" />
+                {{setRemoveButtonContext(../., .)}}
+                <sentinel-remove-button {context}="../removeButtonContext" {click}="buttonClick" {argument}="../." text="remove" element-class="btn-xs" />
               {{/case}}
               {{#case 'view'}}
               {{getView (../., .}}

@@ -82,6 +82,19 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
+        [RequiresPermission(SystemPermissions.Manage.Users)]
+        [Route("api/users/{id}")]
+        public IHttpActionResult Delete(Guid id)
+        {
+            using (_databaseContextFactory.Create())
+            {
+                return Ok(new
+                {
+                    Data = _systemUserQuery.Roles(id)
+                });
+            }
+        }
+
         [RequiresPermission(SystemPermissions.Manage.Roles)]
         [Route("api/users/setrole")]
         public IHttpActionResult SetRole([FromBody] SetUserRoleModel model)

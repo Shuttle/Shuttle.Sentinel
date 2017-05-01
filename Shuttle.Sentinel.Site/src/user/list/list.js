@@ -5,7 +5,7 @@ import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import Model from '../user-model';
+import User from '../user-model';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 import { ColumnMap } from '~/components/table';
@@ -17,7 +17,7 @@ export const ViewModel = DefineMap.extend(
     'UserList',
     {
         get usersPromise() {
-            return Model.getList({});
+            return User.getList({});
         },
 
         columns: {
@@ -70,9 +70,9 @@ export const ViewModel = DefineMap.extend(
             //this.get('users');
         },
 
-        remove: function(id) {
-            this.delete(`roles/${id}`)
-                .done(function() {
+        remove: function(user) {
+            user.destroy()
+                .then(function() {
                     alerts.show({
                         message: localisation.value('itemRemovalRequested',
                             { itemName: localisation.value('user:title') })

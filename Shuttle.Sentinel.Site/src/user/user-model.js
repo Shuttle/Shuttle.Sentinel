@@ -7,7 +7,7 @@ import loader from '@loader';
 const Model = DefineMap.extend({
     seal: false
 }, {
-    'id': 'string',
+    id: 'string',
     username: 'string',
     dateRegistered: 'date',
     registeredBy: 'string'
