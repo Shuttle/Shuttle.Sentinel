@@ -45,49 +45,53 @@ export const ViewModel = DefineMap.extend({
         } else {
             click.on(row);
         }
+    },
+
+    getButtonContext(row, column) {
+        return column.buttonContext || row;
+    },
+
+    getColumnTitle(column) {
+        if (!!column.columnTitleTemplate) {
+            return stache(column.columnTitleTemplate)(column);
+        } else {
+            return localisation.value(column.columnTitle || '');
+        }
+    },
+
+    getColumnClass(column) {
+        return column.columnClass || '';
+    },
+
+    getColumnValue(row, column) {
+        if (!column.attributeName) {
+            throw new Error('The column requires an \'attributeName\'');
+        }
+
+        const value = row[column.attributeName];
+
+        return typeof(value) === 'function' ? value(column.attributeName) : value;
+    },
+
+    getView(row, column) {
+        let stacheTemplate = column.view;
+
+        if (!stacheTemplate) {
+            throw new Error('Specify a view for the column.');
+        }
+
+        return stache(stacheTemplate)(row);
+    },
+
+    getRowClass(row) {
+        return row['rowClass'];
     }
 });
 
 export default Component.extend({
     tag: 'sentinel-table',
     view,
-    ViewModel,
-    helpers: {
-        getColumnTitle(column) {
-            if (!!column.columnTitleTemplate) {
-                return stache(column.columnTitleTemplate)(column);
-            } else {
-                return localisation.value(column.columnTitle || '');
-            }
-        },
-        getColumnClass(column) {
-            return column.columnClass || '';
-        },
-        getColumnValue(row, column) {
-            if (!column.attributeName) {
-                throw new Error('The column requires an \'attributeName\'');
-            }
-
-            const value = row[column.attributeName];
-
-            return typeof(value) === 'function' ? value(column.attributeName) : value;
-        },
-        getView(row, column) {
-            let stacheTemplate = column.view;
-
-            if (!stacheTemplate) {
-                throw new Error('Specify a view for the column.');
-            }
-
-            return stache(stacheTemplate)(row);
-        },
-        getRowClass(row) {
-            return row['rowClass'];
-        },
-        setRemoveButtonContext(row, column) {
-            row.removeButtonContext = column.buttonContext || row;
-        }
-    }
+    ViewModel
 });
 
 export const ColumnMap = DefineMap.extend({
