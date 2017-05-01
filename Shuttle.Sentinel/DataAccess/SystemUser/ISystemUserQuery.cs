@@ -17,5 +17,6 @@ namespace Shuttle.Sentinel
         void RoleAdded(PrimitiveEvent primitiveEvent, RoleAdded domainEvent);
         void RoleRemoved(PrimitiveEvent primitiveEvent, RoleRemoved domainEvent);
         int AdministratorCount();
+        void Removed(PrimitiveEvent primitiveEvent, Removed domainEvent);
     }
 }

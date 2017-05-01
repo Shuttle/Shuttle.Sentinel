@@ -10,7 +10,8 @@ namespace Shuttle.Sentinel.Server
 {
 	public class UserHandler :
 		IMessageHandler<RegisterUserCommand>,
-		IMessageHandler<SetUserRoleCommand>
+		IMessageHandler<SetUserRoleCommand>,
+        IMessageHandler<RemoveUserCommand>
 	{
 		private readonly IDatabaseContextFactory _databaseContextFactory;
 		private readonly IEventStore _eventStore;
@@ -105,5 +106,24 @@ namespace Shuttle.Sentinel.Server
 				_eventStore.Save(stream);
 			}
 		}
+
+	    public void ProcessMessage(IHandlerContext<RemoveUserCommand> context)
+	    {
+	        var message = context.Message;
+
+            using (_databaseContextFactory.Create())
+            {
+                var user = new User(message.Id);
+                var stream = _eventStore.Get(message.Id);
+
+                stream.Apply(user);
+
+                stream.AddEvent(user.Remove());
+
+                _eventStore.Save(stream);
+
+                _keyStore.Remove(message.Id);
+            }
+        }
 	}
 }

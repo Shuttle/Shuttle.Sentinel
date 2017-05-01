@@ -1,32 +1,26 @@
 import Component from 'can-component/';
-import List from 'can/list/';
+import DefineList from 'can-define/list/';
 import DefineMap from 'can-define/map/';
 import view from './roles.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import state from '~/state';
 import api from '~/api';
-import Model from '~/model';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 import $ from 'jquery';
+//import Roles from '../user-model';
 
 resources.add('user', { action: 'roles', permission: Permissions.Manage.Users });
 
-let RoleModel = DefineMap.extend({
-    define: {
-        roleName: {
-            value: ''
-        },
-
-        active: {
-            value: false
-        },
-
-        rowClass: {
-            get: function() {
-                return this.active ? 'text-success success' : 'text-muted';
-            }
+const UserRoles = DefineMap.extend({
+    seal: false
+}, {
+    roleName: 'string',
+    active: 'boolean',
+    rowClass: {
+        get: function() {
+            return this.active ? 'text-success success' : 'text-muted';
         }
     },
 
@@ -68,39 +62,54 @@ let RoleModel = DefineMap.extend({
     }
 });
 
-export const ViewModel = Model.extend({
-    define: {
-        columns: {
-            value: [
-                {
-                    columnTitle: 'active',
-                    columnClass: 'col-md-1',
-                    columnType: 'view',
-                    view: '<span ($click)="toggle()" class="glyphicon {{#if active}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" /><span class="glyphicon {{#if working}}glyphicon-hourglass{{/if}}" />'
-                },
-                {
-                    columnTitle: 'user:roleName',
-                    attributeName: 'roleName'
-                }
-            ]
-        },
+const algebra = new set.Algebra(
+  set.props.id('id')
+);
 
-        roles: {
-            value: new List()
-        }
+UserRoles.List = DefineList.extend({
+    '#': Model
+});
+
+UserRoles.connection = superMap({
+    url: loader.serviceBaseURL + 'users/{id}/roles',
+    Map: UserRoles,
+    List: UserRoles.List,
+    name: 'user',
+    algebra
+});
+
+export const ViewModel = DefineMap.extend({
+    get rolesPromise() {
+        return UserRoles.getList({});
+    },
+
+    columns: {
+        value: [
+            {
+                columnTitle: 'active',
+                columnClass: 'col-md-1',
+                columnType: 'view',
+                view: '<span ($click)="toggle()" class="glyphicon {{#if active}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" /><span class="glyphicon {{#if working}}glyphicon-hourglass{{/if}}" />'
+            },
+            {
+                columnTitle: 'user:roleName',
+                attributeName: 'roleName'
+            }
+        ]
+    },
+
+    roles: {
+        value: new DefineList()
     },
 
     init: function() {
         this.refresh();
     },
 
-    add: function() {
-    },
-
     refresh: function() {
         var self = this;
 
-        self.roles.replace(new List());
+        self.roles.replace(new DefineList());
 
         this.get('roles')
             .done(function(availableRoles) {
@@ -110,7 +119,7 @@ export const ViewModel = Model.extend({
                 self.get('users/' + state.attr('route.id') + '/roles')
                     .done(function(userRoles) {
                         $.each(availableRoles, function(availableRoleIndex, availableRole) {
-                            self.roles.push(new RoleModel({
+                            self.roles.push(new UserRoles({
                                 viewModel: self,
                                 roleName: availableRole.roleName,
                                 active: $.inArray(availableRole.roleName, userRoles) > -1

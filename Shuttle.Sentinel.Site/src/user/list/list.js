@@ -8,8 +8,6 @@ import router from '~/router';
 import User from '../user-model';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
-import { ColumnMap } from '~/components/table';
-import { ColumnList } from '~/components/table';
 
 resources.add('user', { action: 'list', permission: Permissions.View.Users });
 
@@ -21,7 +19,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         columns: {
-            Value: ColumnList
+            Value: DefineList
         },
 
         init: function() {
@@ -67,6 +65,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         refresh: function() {
+            alert('refreshing');
             //this.get('users');
         },
 
@@ -80,8 +79,8 @@ export const ViewModel = DefineMap.extend(
                 });
         },
 
-        roles: function(id) {
-            router.goto('user/' + id + '/roles');
+        roles: function(user) {
+            router.goto('user/' + user.id + '/roles');
         }
     }
 );

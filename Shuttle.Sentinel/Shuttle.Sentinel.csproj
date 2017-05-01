@@ -111,6 +111,7 @@
     <Compile Include="DomainEvents\Role.v1\PermissionAdded.cs" />
     <Compile Include="DomainEvents\User.v1\RoleRemoved.cs" />
     <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
+    <Compile Include="DomainEvents\User.v1\Removed.cs" />
     <Compile Include="Domain\SystemPermissions.cs" />
     <Compile Include="Domain\Role.cs" />
     <Compile Include="Queues\DefaultInspectionQueue.cs" />

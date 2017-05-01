@@ -86,13 +86,15 @@ namespace Shuttle.Sentinel.WebApi
         [Route("api/users/{id}")]
         public IHttpActionResult Delete(Guid id)
         {
-            using (_databaseContextFactory.Create())
+            _bus.Send(new RemoveUserCommand
             {
-                return Ok(new
-                {
-                    Data = _systemUserQuery.Roles(id)
-                });
-            }
+                Id = id
+            });
+
+            return Ok(new
+            {
+                Success = true
+            });
         }
 
         [RequiresPermission(SystemPermissions.Manage.Roles)]

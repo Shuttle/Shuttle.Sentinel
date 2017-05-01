@@ -45,6 +45,12 @@ namespace Shuttle.Sentinel
             return _databaseGateway.GetScalarUsing<int>(_queryFactory.AdministratorCount());
         }
 
+        public void Removed(PrimitiveEvent primitiveEvent, Removed domainEvent)
+        {
+            _databaseGateway.ExecuteUsing(_queryFactory.RemoveRoles(primitiveEvent.Id, domainEvent));
+            _databaseGateway.ExecuteUsing(_queryFactory.Remove(primitiveEvent.Id, domainEvent));
+        }
+
         public IEnumerable<DataRow> Search()
         {
             return _databaseGateway.GetRowsUsing(_queryFactory.Search());

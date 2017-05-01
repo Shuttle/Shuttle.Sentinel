@@ -101,5 +101,15 @@ and
         {
             return RawQuery.Create("select count(*) as count from dbo.SystemUserRole where RoleName = 'administrator'");
         }
+
+        public IQuery RemoveRoles(Guid id, Removed domainEvent)
+        {
+            return RawQuery.Create("delete from SystemUserRole where UserId = @UserId").AddParameterValue(SystemUserRoleColumns.UserId, id);
+        }
+
+        public IQuery Remove(Guid id, Removed domainEvent)
+        {
+            return RawQuery.Create("delete from SystemUser where Id = @Id").AddParameterValue(SystemUserColumns.Id, id);
+        }
     }
 }

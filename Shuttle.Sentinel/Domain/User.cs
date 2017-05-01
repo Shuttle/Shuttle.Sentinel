@@ -75,7 +75,7 @@ namespace Shuttle.Sentinel
             return _roles.Contains(role);
         }
 
-        public object RemoveRole(string role)
+        public RoleRemoved RemoveRole(string role)
         {
             Guard.AgainstNullOrEmptyString(role, "role");
 
@@ -94,6 +94,11 @@ namespace Shuttle.Sentinel
             _roles.Remove(roleRemoved.Role);
 
             return roleRemoved;
+        }
+
+        public Removed Remove()
+        {
+            return new Removed();
         }
     }
 }
