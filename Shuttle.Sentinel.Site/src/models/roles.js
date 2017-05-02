@@ -4,17 +4,19 @@ import set from 'can-set';
 import superMap from 'can-connect/can/super-map/';
 import loader from '@loader';
 
-const Model = DefineMap.extend({
-    seal: false
-}, {
-    id: 'string',
-    username: 'string',
-    dateRegistered: 'date',
-    registeredBy: 'string'
-});
+const Model = DefineMap.extend(
+    'role',
+    {
+        seal: false
+    },
+    {
+        id: 'string',
+        roleName: 'string'
+    }
+);
 
 const algebra = new set.Algebra(
-  set.props.id('id')
+    set.props.id('id')
 );
 
 Model.List = DefineList.extend({
@@ -22,10 +24,10 @@ Model.List = DefineList.extend({
 });
 
 Model.connection = superMap({
-    url: loader.serviceBaseURL + 'users',
+    url: loader.serviceBaseURL + 'roles',
     Map: Model,
     List: Model.List,
-    name: 'user',
+    name: 'role',
     algebra
 });
 

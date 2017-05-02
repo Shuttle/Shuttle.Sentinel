@@ -5,14 +5,14 @@ import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import User from '../user-model';
+import User from '~/models/user';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 
 resources.add('user', { action: 'list', permission: Permissions.View.Users });
 
 export const ViewModel = DefineMap.extend(
-    'UserList',
+    'user-list',
     {
         get usersPromise() {
             return User.getList({});
