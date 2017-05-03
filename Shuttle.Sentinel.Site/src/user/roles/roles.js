@@ -7,14 +7,14 @@ import Permissions from '~/permissions';
 import state from '~/state';
 import api from '~/api';
 import $ from 'jquery';
-import UserRoles from '~/models/user-roles';
-import Roles from '~/models/user-roles';
+import UserRole from '~/models/user-role';
+import Role from '~/models/role';
 import router from '~/router';
 
 resources.add('user', { action: 'roles', permission: Permissions.Manage.Users });
 
 export const ViewModel = DefineMap.extend(
-    'user-roles',
+    'user-role',
     {
         isResolved: { type: 'boolean', value: false },
 
@@ -23,26 +23,29 @@ export const ViewModel = DefineMap.extend(
 
             this.isResolved = false;
 
-            return Roles.getList({})
+            UserRole.getList({ id: router.data.id })
+                .then(function(userRoles) {
+                    //$.each(availableRoles,
+                    //    function(availableRoleIndex, availableRole) {
+                    //        self.roles.push({
+                    //            viewModel: self,
+                    //            roleName: availableRole.roleName,
+                    //            active: $.inArray(availableRole.roleName, userRoles) > -1
+                    //        });
+                    //    });
+                    self.isResolved = true;
+                });
+/*
+            Role.getList({})
                 .then(function(availableRoles) {
                     availableRoles = $.makeArray(availableRoles);
                     availableRoles.push({ id: '', roleName: 'administrator' });
 
-                    UserRoles.getList({ id: router.data.id })
-                        .then(function(userRoles) {
-                            $.each(availableRoles,
-                                function(availableRoleIndex, availableRole) {
-                                    self.roles.push(new UserRoles({
-                                        viewModel: self,
-                                        roleName: availableRole.roleName,
-                                        active: $.inArray(availableRole.roleName, userRoles) > -1
-                                    }));
-                                });
-                        })
-                        .then(function() {
-                            self.isResolved = true;
-                        });
+                })
+                .then(function() {
+                    self.isResolved = true;
                 });
+                */
         },
 
         columns: {

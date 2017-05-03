@@ -8,7 +8,7 @@ import alerts from '~/alerts';
 import localisation from '~/localisation';
 
 const Model = DefineMap.extend(
-    'user-roles',
+    'user-role',
     {
         seal: false
     },
@@ -78,7 +78,7 @@ Model.connection = superMap({
     url: loader.serviceBaseURL + 'users/{id}/roles',
     Map: Model,
     List: Model.List,
-    name: 'user',
+    name: 'user-role',
     algebra
 });
 

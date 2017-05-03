@@ -9,6 +9,7 @@ import route from 'can-route';
 import 'bootstrap/dist/js/bootstrap'
 
 import '~/components/alerts';
+import '~/components/back-button';
 import '~/components/button';
 import '~/components/buttons';
 import '~/components/fetching';
