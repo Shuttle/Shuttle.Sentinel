@@ -10,6 +10,8 @@ import $ from 'jquery';
 import UserRole from '~/models/user-role';
 import Role from '~/models/role';
 import router from '~/router';
+import alerts from '~/alerts';
+import localisation from '~/localisation';
 
 resources.add('user', { action: 'roles', permission: Permissions.Manage.Users });
 
@@ -18,34 +20,77 @@ export const ViewModel = DefineMap.extend(
     {
         isResolved: { type: 'boolean', value: false },
 
+        toggle: function() {
+            var self = this;
+
+            if (this.working) {
+                alerts.show({ message: localisation.value('workingMessage'), name: 'working-message' });
+                return;
+            }
+
+            this.attr('active', !this.active);
+            this.working = true;
+
+            api.post('users/setrole',
+                {
+                    data: {
+                        userId: state.attr('route.id'),
+                        roleName: this.roleName,
+                        active: this.active
+                    }
+                })
+                .done(function(response) {
+                    if (response.success) {
+                        return;
+                    }
+
+                    switch (response.failureReason.toLowerCase()) {
+                        case 'lastadministrator':
+                            {
+                                self.active = true;
+                                self.working = false;
+
+                                alerts.show({
+                                    message: localisation.value('user:exceptions.last-administrator'),
+                                    name: 'last-administrator',
+                                    type: 'danger'
+                                });
+
+                                break;
+                            }
+                    }
+                });
+
+            this.viewModel._working();
+        },
+
         refresh() {
             const self = this;
 
             this.isResolved = false;
 
-            UserRole.getList({ id: router.data.id })
-                .then(function(userRoles) {
-                    //$.each(availableRoles,
-                    //    function(availableRoleIndex, availableRole) {
-                    //        self.roles.push({
-                    //            viewModel: self,
-                    //            roleName: availableRole.roleName,
-                    //            active: $.inArray(availableRole.roleName, userRoles) > -1
-                    //        });
-                    //    });
-                    self.isResolved = true;
-                });
-/*
+            self.roles.replace(new DefineList());
+
             Role.getList({})
                 .then(function(availableRoles) {
                     availableRoles = $.makeArray(availableRoles);
                     availableRoles.push({ id: '', roleName: 'administrator' });
 
-                })
-                .then(function() {
-                    self.isResolved = true;
+                    UserRole.getList({ id: router.data.id })
+                        .then(function(userRoles) {
+                            $.each(availableRoles,
+                                function(availableRoleIndex, availableRole) {
+                                    self.roles.push({
+                                        viewModel: self,
+                                        roleName: availableRole.roleName,
+                                        active: $.inArray(availableRole.roleName, userRoles) > -1
+                                    });
+                                });
+                        })
+                        .then(function() {
+                            self.isResolved = true;
+                        });
                 });
-                */
         },
 
         columns: {

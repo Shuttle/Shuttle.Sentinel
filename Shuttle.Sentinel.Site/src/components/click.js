@@ -4,13 +4,14 @@ var click = {
     on: function(viewModel, ev) {
         guard.againstUndefined(viewModel, 'viewModel');
 
-        var click = viewModel.click;
-        var clickHandler;
-        var context = viewModel.context || viewModel;
+        const click = viewModel.click;
 
         if (!click) {
-            throw new Error('No method has been assigned to the \'click\' attribute.');
+            return;
         }
+
+        var clickHandler;
+        const context = viewModel.context || viewModel;
 
         if (typeof click === 'function') {
             clickHandler = click;

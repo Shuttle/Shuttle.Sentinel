@@ -77,7 +77,11 @@ namespace Shuttle.Sentinel.WebApi
             {
                 return Ok(new
                 {
-                    Data = _systemUserQuery.Roles(id)
+                    Data = (from role in _systemUserQuery.Roles(id)
+                           select new
+                           {
+                               roleName = role
+                           }).ToList()
                 });
             }
         }
