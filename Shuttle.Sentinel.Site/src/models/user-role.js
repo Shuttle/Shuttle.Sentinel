@@ -1,6 +1,9 @@
 ﻿import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
-import superMap from 'can-connect/can/super-map/';
+import connect from 'can-connect';
+import data from 'can-connect/data/url/';
+import constructor from 'can-connect/constructor/';
+import map from 'can-connect/can/map/';
 import loader from '@loader';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
@@ -72,7 +75,7 @@ Model.List = DefineList.extend({
     '#': Model
 });
 
-Model.connection = superMap({
+connect([constructor, data, map], {
     url: loader.serviceBaseURL + 'users/{id}/roles',
     Map: Model,
     List: Model.List,

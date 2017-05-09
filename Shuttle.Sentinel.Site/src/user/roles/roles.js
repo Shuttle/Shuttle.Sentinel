@@ -36,9 +36,12 @@ export const ViewModel = DefineMap.extend(
                                     self.roles.push(new UserRole({
                                         viewModel: self,
                                         roleName: availableRole.roleName,
-                                        active: $.inArray(availableRole.roleName, userRoles) > -1
+                                        active: userRoles.filter(function(item){ item.roleName === availableRole.roleName }) > -1
                                     }));
                                 });
+                        },
+                        function(error) {
+                            self.isResolved = true;
                         })
                         .then(function() {
                             self.isResolved = true;
