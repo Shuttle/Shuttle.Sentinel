@@ -3,12 +3,14 @@ import DefineList from 'can-define/list/';
 import connect from 'can-connect';
 import data from 'can-connect/data/url/';
 import constructor from 'can-connect/constructor/';
+import store from 'can-connect/constructor/store/';
 import map from 'can-connect/can/map/';
 import loader from '@loader';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 import api from '~/api';
 import router from '~/router';
+import $ from 'jquery';
 
 const Model = DefineMap.extend(
     'user-role',
@@ -18,6 +20,7 @@ const Model = DefineMap.extend(
     {
         roleName: 'string',
         active: 'boolean',
+        working: 'boolean',
 
         toggle: function() {
             var self = this;
@@ -60,7 +63,7 @@ const Model = DefineMap.extend(
                     }
                 });
 
-            this.viewModel._working();
+            this.working = true;
         },
 
         rowClass: {
@@ -75,11 +78,12 @@ Model.List = DefineList.extend({
     '#': Model
 });
 
-connect([constructor, data, map], {
+connect([constructor, data, map, store], {
     url: loader.serviceBaseURL + 'users/{id}/roles',
     Map: Model,
     List: Model.List,
-    name: 'user-role'
+    name: 'user-role',
+    ajax: $.ajax
 });
 
 export default Model;

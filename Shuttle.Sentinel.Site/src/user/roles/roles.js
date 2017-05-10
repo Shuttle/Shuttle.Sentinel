@@ -17,6 +17,16 @@ export const ViewModel = DefineMap.extend(
     {
         isResolved: { type: 'boolean', value: false },
 
+        init: function() {
+            var self = this;
+
+            this.refresh();
+
+            this.on('workingCount', function() {
+                self.getRoleStatus();
+            });
+        },
+
         refresh() {
             const self = this;
 
@@ -33,10 +43,14 @@ export const ViewModel = DefineMap.extend(
                         .then(function(userRoles) {
                             $.each(availableRoles,
                                 function(availableRoleIndex, availableRole) {
+                                    const active = userRoles.filter(function(item) {
+                                        return item.roleName === availableRole.roleName;
+                                    }).length > 0;
+                                    const roleName = availableRole.roleName;
+
                                     self.roles.push(new UserRole({
-                                        viewModel: self,
-                                        roleName: availableRole.roleName,
-                                        active: userRoles.filter(function(item){ item.roleName === availableRole.roleName }) > -1
+                                        roleName: roleName,
+                                        active: active
                                     }));
                                 });
                         },
@@ -69,10 +83,6 @@ export const ViewModel = DefineMap.extend(
             value: new DefineList()
         },
 
-        init: function() {
-            this.refresh();
-        },
-
         getRoleItem: function(roleName) {
             var result;
 
@@ -90,13 +100,25 @@ export const ViewModel = DefineMap.extend(
             return result;
         },
 
-        _working: function() {
-            var self = this;
-            const workingList = this.roles.filter(function(item) {
-                return item.working;
-            });
+        workingItems: {
+            get() {
+                return this.roles.filter(function(item) {
+                    return item.working;
+                });
+            }
+        },
 
-            if (!workingList.length) {
+        workingCount: {
+            type: 'number',
+            get() {
+                return this.workingItems.length;
+            }
+        },
+
+        getRoleStatus: function() {
+            var self = this;
+
+            if (this.workingCount === 0) {
                 return;
             }
 
@@ -104,7 +126,8 @@ export const ViewModel = DefineMap.extend(
                 userId: router.data.id,
                 roles: []
             };
-            $.each(workingList,
+
+            $.each(this.workingItems,
                 function(index, item) {
                     data.roles.push(item.roleName);
                 });
@@ -123,7 +146,7 @@ export const ViewModel = DefineMap.extend(
                         });
                 })
                 .always(function() {
-                    setTimeout(self._working(), 1000);
+                    setTimeout(self.getRoleStatus(), 1000);
                 });
         }
     });

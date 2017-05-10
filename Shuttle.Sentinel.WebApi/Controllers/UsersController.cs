@@ -107,9 +107,12 @@ namespace Shuttle.Sentinel.WebApi
         {
             Guard.AgainstNull(model, "model");
 
+
             using (_databaseContextFactory.Create())
             {
                 if (model.RoleName.Equals("Administrator", StringComparison.InvariantCultureIgnoreCase)
+                    &&
+                    !model.Active
                     &&
                     _systemUserQuery.AdministratorCount() == 1)
                 {
