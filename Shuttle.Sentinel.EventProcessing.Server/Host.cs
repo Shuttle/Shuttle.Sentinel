@@ -18,20 +18,9 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 
         public void Dispose()
         {
-            if (_container != null)
-            {
-                _container.Dispose();
-            }
-
-            if (_eventProcessor != null)
-            {
-                _eventProcessor.Dispose();
-            }
-
-            if (_eventStore != null)
-            {
-                _eventStore.AttemptDispose();
-            }
+            _container?.Dispose();
+            _eventProcessor?.Dispose();
+            _eventStore?.AttemptDispose();
         }
 
         public void Start()

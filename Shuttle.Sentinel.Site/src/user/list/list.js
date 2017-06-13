@@ -14,12 +14,17 @@ resources.add('user', { action: 'list', permission: Permissions.View.Users });
 export const ViewModel = DefineMap.extend(
     'user-list',
     {
-        get usersPromise() {
-            return User.getList({});
-        },
-
         columns: {
             Value: DefineList
+        },
+
+        refreshTimestamp: {
+            type: 'string'
+        },
+
+        get usersPromise() {
+            const refreshTimestamp = this.refreshTimestamp;
+            return User.getList({});
         },
 
         init: function() {
@@ -65,8 +70,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         refresh: function() {
-            alert('refreshing');
-            //this.get('users');
+            this.refreshTimestamp = Date.now();
         },
 
         remove: function(user) {

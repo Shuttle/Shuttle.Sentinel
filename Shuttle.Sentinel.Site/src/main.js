@@ -29,6 +29,7 @@ import '~/components/validation';
 
 import '~/dashboard/';
 import '~/user/';
+import '~/role/';
 
 localisation.start(function(error) {
     if (error) {

@@ -1,0 +1,9 @@
+<sentinel-form title="role:add.title">
+  <form>
+    <fieldset class="form-group">
+      <sentinel-text focus="true" label="name" {(value)}="name" required="true" {validation-message}="nameConstraint"/>
+      <sentinel-submit-button {click}="@add" text="add" />
+      <sentinel-button {click}="@close" text="close" />
+    </fieldset>
+  </form>
+</sentinel-form>

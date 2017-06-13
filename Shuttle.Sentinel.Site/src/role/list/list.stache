@@ -1,0 +1,10 @@
+<sentinel-page-title title="role:list.title" />
+<sentinel-buttons>
+  <sentinel-button {click}="@add" text="add" permission="sentinel://role/add" />
+  <sentinel-refresh-button {click}="@refresh" />
+</sentinel-buttons>
+{{#if rolesPromise.isResolved}}
+<sentinel-table {columns}="columns" {rows}="rolesPromise.value" />
+{{else}}
+<sentinel-fetching title="role:list.title" />
+{{/if}}

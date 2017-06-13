@@ -13,72 +13,73 @@ resources.add('user', { action: 'register', permission: Permissions.Manage.Users
 export const ViewModel = DefineMap.extend(
     'user-register',
     {
-    username: {
-        type: 'string',
-        validate: {
-            presence: true
+        username: {
+            type: 'string',
+            validate: {
+                presence: true
+            }
+        },
+        password: {
+            type: 'string',
+            validate: {
+                presence: true
+            }
+        },
+        working: {
+            type: 'boolean',
+            value: false
+        },
+        title: {
+            get: function() {
+                return security.isUserRequired ? 'user:register.user-required' : 'user:register.title';
+            }
+        },
+        showClose: {
+            get: function() {
+                return !security.isUserRequired;
+            }
+        },
+
+        hasErrors: function() {
+            return !!this.errors();
+        },
+
+        register: function() {
+            var self = this;
+
+            if (this.hasErrors()) {
+                return false;
+            }
+
+            this.working = true;
+
+            const user = {
+                username: this.username,
+                password: this.password
+            };
+
+            api.post('users', { data: user })
+                .done(function() {
+                    if (security.isUserRequired) {
+                        security.isUserRequired = false;
+
+                        router.goto('dashboard');
+                    } else {
+                        router.goto('user/list');
+                    }
+                })
+                .always(function() {
+                    self.working = false;
+                });
+
+            return true;
+        },
+
+        close: function() {
+            router.goto('user/list');
         }
-    },
-    password: {
-        type: 'string',
-        validate: {
-            presence: true
-        }
-    },
-    working: {
-        type: 'boolean',
-        value: false
-    },
-    title: {
-        get: function() {
-            return security.isUserRequired ? 'user:register.user-required' : 'user:register.title';
-        }
-    },
-    showClose: {
-        get: function() {
-            return !security.isUserRequired;
-        }
-    },
-
-    hasErrors: function() {
-        return !!this.errors();
-    },
-
-    register: function() {
-        var self = this;
-
-        if (this.hasErrors()) {
-            return false;
-        }
-
-        this.working = true;
-
-        const user = {
-            username: this.username,
-            password: this.password
-        };
-
-        api.post('users', { data: user })
-            .done(function() {
-                if (security.isUserRequired) {
-                    security.isUserRequired = false;
-
-                    router.goto('dashboard');
-                } else {
-                    router.goto('user/list');
-                }
-            })
-            .always(function() {
-                self.working = false;
-            });
-
-        return true;
-    },
-
-    close: function() {
-        router.goto('user/list');
     }
-});
+);
 
 validator(ViewModel);
 
