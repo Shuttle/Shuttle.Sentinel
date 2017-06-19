@@ -4,6 +4,7 @@ import view from './add.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
+import Role from '~/models/role';
 import validator from 'can-define-validate-validatejs';
 
 resources.add('role', { action: 'add', permission: Permissions.Manage.Roles});
@@ -11,6 +12,7 @@ resources.add('role', { action: 'add', permission: Permissions.Manage.Roles});
 export const ViewModel = DefineMap.extend(
     'role-add',
     {
+        working: 'boolean',
         name: {
             type: 'string',
             validate: {
@@ -31,10 +33,14 @@ export const ViewModel = DefineMap.extend(
 
             this.working = true;
 
-            this.post('roles',
-            {
-                name: this.attr('name')
+            var role = new Role({
+                name: this.name
             });
+
+            role.save()
+                .then(function() {
+                    self.working = false;
+                });
 
             this.close();
 
@@ -42,10 +48,12 @@ export const ViewModel = DefineMap.extend(
         },
 
         close: function() {
-            state.goto('role/list');
+            router.goto('role/list');
         }
     }
 );
+
+validator(ViewModel);
 
 export default Component.extend({
     tag: 'sentinel-role-add',

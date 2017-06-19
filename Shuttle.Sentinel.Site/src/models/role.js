@@ -1,7 +1,10 @@
 ﻿import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
-import set from 'can-set';
-import superMap from 'can-connect/can/super-map/';
+import connect from 'can-connect';
+import data from 'can-connect/data/url/';
+import constructor from 'can-connect/constructor/';
+import store from 'can-connect/constructor/store/';
+import map from 'can-connect/can/map/';
 import loader from '@loader';
 
 const Model = DefineMap.extend(
@@ -15,20 +18,16 @@ const Model = DefineMap.extend(
     }
 );
 
-const algebra = new set.Algebra(
-    set.props.id('id')
-);
-
 Model.List = DefineList.extend({
     '#': Model
 });
 
-Model.connection = superMap({
+connect([constructor, data, map, store], {
     url: loader.serviceBaseURL + 'roles',
     Map: Model,
     List: Model.List,
     name: 'role',
-    algebra
+    ajax: $.ajax
 });
 
 export default Model;
