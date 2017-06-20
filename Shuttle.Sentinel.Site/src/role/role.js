@@ -1,5 +1,5 @@
 ﻿import './list/';
-//import './permissions/';
+import './permissions/';
 import './add/';
 
 import localisation from '~/localisation'

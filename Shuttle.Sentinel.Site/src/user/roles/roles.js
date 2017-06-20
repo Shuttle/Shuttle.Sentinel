@@ -5,7 +5,8 @@ import view from './roles.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import api from '~/api';
-import $ from 'jquery';
+import each from 'can-util/js/each/';
+import makeArray from 'can-util/js/make-array/';
 import UserRole from '~/models/user-role';
 import Role from '~/models/role';
 import router from '~/router';
@@ -36,13 +37,13 @@ export const ViewModel = DefineMap.extend(
 
             Role.getList({})
                 .then(function(availableRoles) {
-                    availableRoles = $.makeArray(availableRoles);
+                    availableRoles = makeArray(availableRoles);
                     availableRoles.push({ id: '', roleName: 'administrator' });
 
                     UserRole.getList({ id: router.data.id })
                         .then(function(userRoles) {
-                            $.each(availableRoles,
-                                function(availableRoleIndex, availableRole) {
+                            each(availableRoles,
+                                function(availableRole) {
                                     const active = userRoles.filter(function(item) {
                                         return item.roleName === availableRole.roleName;
                                     }).length > 0;
@@ -86,8 +87,8 @@ export const ViewModel = DefineMap.extend(
         getRoleItem: function(roleName) {
             var result;
 
-            $.each(this.roles,
-                function(index, item) {
+            each(this.roles,
+                function(item) {
                     if (result) {
                         return;
                     }
@@ -127,15 +128,15 @@ export const ViewModel = DefineMap.extend(
                 roles: []
             };
 
-            $.each(this.workingItems,
-                function(index, item) {
+            each(this.workingItems,
+                function(item) {
                     data.roles.push(item.roleName);
                 });
 
             api.post('users/rolestatus', { data: data })
                 .done(function(response) {
-                    $.each(response.data,
-                        function(index, item) {
+                    each(response.data,
+                        function(item) {
                             const roleItem = self.getRoleItem(item.roleName);
 
                             if (!roleItem) {

@@ -64,14 +64,14 @@ export const ViewModel = DefineMap.extend(
         },
 
         remove: function(row) {
-            this.delete('roles/' + row.attr('id'))
+            this.delete('roles/' + row.id)
                 .done(function() {
                     alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('role:role') }) });
                 });
         },
 
         permissions: function(row) {
-            state.goto('role/' + row.attr('id') + '/permissions');
+            router.goto('role/' + row.id + '/permissions');
         }
     });
 
