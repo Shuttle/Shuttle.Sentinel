@@ -75,11 +75,6 @@ where
                 .AddParameterValue(SystemRoleColumns.Id, id);
         }
 
-        public IQuery AvailablePermissions()
-        {
-            return RawQuery.Create(@"select Permission from AvailablePermission");
-        }
-
         public IQuery PermissionAdded(Guid id, PermissionAdded domainEvent)
         {
             return RawQuery.Create(@"

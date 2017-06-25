@@ -54,9 +54,6 @@ export const ViewModel = DefineMap.extend(
                                         active: active
                                     }));
                                 });
-                        },
-                        function(error) {
-                            self.isResolved = true;
                         })
                         .then(function() {
                             self.isResolved = true;

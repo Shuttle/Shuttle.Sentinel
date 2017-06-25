@@ -6,60 +6,28 @@ import resources from '~/resources';
 import Permissions from '~/permissions';
 import api from '~/api';
 import each from 'can-util/js/each/';
+import makeArray from 'can-util/js/make-array/';
 import router from '~/router';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 import $ from 'jquery';
+import Permission from '~/models/permission';
+import RolePermission from '~/models/role-permission';
 
 resources.add('role', { action: 'permissions', permission: Permissions.Manage.RolePermissions });
-
-let PermissionModel = DefineMap.extend(
-    'permission',
-    {
-        permission: {
-            value: ''
-        },
-
-        active: {
-            value: false
-        },
-
-        rowClass: {
-            get: function() {
-                return this.active ? 'text-success success' : 'text-muted';
-            }
-        },
-
-        toggle: function() {
-            if (this.working) {
-                alerts.show({ message: localisation.value('workingMessage'), name: 'working-message' });
-                return;
-            }
-
-            this.active = !this.active;
-            this.working = true;
-
-            api.post('roles/setpermission', { data: {
-                roleId: router.data.id, 
-                permission: this.permission,
-                active: this.active
-            } });
-
-            this.viewModel._working();
-        }
-    }
-    );
 
 export const ViewModel = DefineMap.extend(
     'role-permission',
     {
+        isResolved: { type: 'boolean', value: false },
+
         columns: {
             value: [
                 {
                     columnTitle: 'active',
                     columnClass: 'col-md-1',
-                    columnType: 'template',
-                    template: '<span ($click)="toggle()" class="glyphicon {{#if active}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" /><span class="glyphicon {{#if working}}glyphicon-hourglass{{/if}}" />'
+                    columnType: 'view',
+                    view: '<span ($click)="toggle()" class="glyphicon {{#if active}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" /><span class="glyphicon {{#if working}}glyphicon-hourglass{{/if}}" />'
                 },
                 {
                     columnTitle: 'role:permission',
@@ -73,28 +41,46 @@ export const ViewModel = DefineMap.extend(
         },
 
         init: function() {
+            var self = this;
+
             this.refresh();
+
+            this.on('workingCount', function() {
+                self.getPermissionStatus();
+            });
         },
 
         add: function() {
         },
 
         refresh: function() {
+            'use strict';
             var self = this;
+
+            this.isResolved = false;
 
             self.permissions.replace(new DefineList());
 
-            this.get('permissions')
-                .done(function(availablePermissions) {
-                    self.get('permissions/' + router.data.id)
-                        .done(function(rolePermissions) {
+            Permission.getList({})
+                .then(function(availablePermissionsResponse) {
+                    var availablePermissions = makeArray(availablePermissionsResponse);
+
+                    RolePermission.getList({ id: router.data.id })
+                        .then(function(rolePermissions) {
                             each(availablePermissions, function(availablePermission) {
-                                self.permissions.push(new PermissionModel({
-                                    viewModel: self,
-                                    permission: availablePermission,
-                                    active: $.inArray(availablePermission, rolePermissions) > -1
+                                const permission = availablePermission.permission;
+                                const active = rolePermissions.filter(function(item) {
+                                    return item.permission = permission;
+                                }).length > 0;
+
+                                self.permissions.push(new RolePermission({
+                                    permission: permission,
+                                    active: active
                                 }));
                             });
+                        })
+                        .then(function() {
+                            self.isResolved = true;
                         });
                 });
         },
@@ -115,13 +101,25 @@ export const ViewModel = DefineMap.extend(
             return result;
         },
 
-        _working: function() {
-            var self = this;
-            var workingList = this.permissions.filter(function(item) {
-                return item.working;
-            });
+        workingItems: {
+            get() {
+                return this.permissions.filter(function(item) {
+                    return item.working;
+                });
+            }
+        },
 
-            if (!workingList.length) {
+        workingCount: {
+            type: 'number',
+            get() {
+                return this.workingItems.length;
+            }
+        },
+
+        getPermissionStatus: function() {
+            var self = this;
+
+            if (this.workingCount === 0) {
                 return;
             }
 
@@ -130,7 +128,7 @@ export const ViewModel = DefineMap.extend(
                 permissions: []
             }
 
-            each(workingList, function(item) {
+            each(this.workingItems, function(item) {
                 data.permissions.push(item.permission);
             });
 
@@ -147,11 +145,11 @@ export const ViewModel = DefineMap.extend(
                     });
                 })
                 .always(function() {
-                    setTimeout(self._working(), 1000);
+                    setTimeout(self.getPermissionStatus(), 1000);
                 });
         }
     }
-    );
+);
 
 export default Component.extend({
     tag: 'sentinel-role-permissions',

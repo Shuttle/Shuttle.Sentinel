@@ -65,7 +65,11 @@ export const ViewModel = DefineMap.extend({
 
     getColumnValue(row, column) {
         if (!column.attributeName) {
-            throw new Error('The column requires an \'attributeName\'');
+            if (!column.columnType) {
+                throw new Error('The column requires an \'attributeName\'');
+            } else {
+                throw new Error(`The column has an unhandled \'columnType\' of \'${column.columnType}\'.  The default behaviour when no \'columnType\' is specified is to display an attribute but no \'attributeName\' has been specified either.`);
+            }
         }
 
         const value = row[column.attributeName];

@@ -72,10 +72,5 @@ namespace Shuttle.Sentinel
 	    {
 	        return _queryMapper.MapValues<string>(_queryFactory.Permissions(id));
 	    }
-
-	    public IEnumerable<string> AvailablePermissions()
-	    {
-            return _queryMapper.MapValues<string>(_queryFactory.AvailablePermissions());
-        }
 	}
 }

@@ -1,27 +1,23 @@
 using System;
+using System.Linq;
 using System.Web.Http;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
-using Shuttle.Esb;
 
 namespace Shuttle.Sentinel.WebApi
 {
     public class PermissionsController : SentinelApiController
     {
-        private readonly IServiceBus _bus;
         private readonly IDatabaseContextFactory _databaseContextFactory;
-        private readonly ISystemRoleQuery _systemRoleQuery;
+        private readonly IPermissionQuery _permissionQuery;
 
-        public PermissionsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
-            ISystemRoleQuery systemRoleQuery)
+        public PermissionsController(IDatabaseContextFactory databaseContextFactory, IPermissionQuery permissionQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-            Guard.AgainstNull(bus, "bus");
-            Guard.AgainstNull(systemRoleQuery, "systemRoleQuery");
+            Guard.AgainstNull(permissionQuery, "permissionQuery");
 
             _databaseContextFactory = databaseContextFactory;
-            _bus = bus;
-            _systemRoleQuery = systemRoleQuery;
+            _permissionQuery = permissionQuery;
         }
 
         public IHttpActionResult Get()
@@ -30,19 +26,11 @@ namespace Shuttle.Sentinel.WebApi
             {
                 return Ok(new
                 {
-                    Data = _systemRoleQuery.AvailablePermissions()
-                });
-            }
-        }
-
-        [RequiresPermission(SystemPermissions.Manage.Roles)]
-        public IHttpActionResult Get(Guid id)
-        {
-            using (_databaseContextFactory.Create())
-            {
-                return Ok(new
-                {
-                    Data = _systemRoleQuery.Permissions(id)
+                    Data = _permissionQuery.Available()
+                        .Select(permission => new
+                        {
+                            Permission = permission
+                        }).ToList()
                 });
             }
         }

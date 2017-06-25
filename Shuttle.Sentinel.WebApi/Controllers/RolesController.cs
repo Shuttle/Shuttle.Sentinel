@@ -119,5 +119,22 @@ namespace Shuttle.Sentinel.WebApi
 
             return Ok();
         }
+
+        [RequiresPermission(SystemPermissions.Manage.Roles)]
+        [Route("api/roles/{id}/permissions")]
+        public IHttpActionResult GetRoles(Guid id)
+        {
+            using (_databaseContextFactory.Create())
+            {
+                return Ok(new
+                {
+                    Data = (from permission in _systemRoleQuery.Permissions(id)
+                            select new
+                            {
+                                permission
+                            }).ToList()
+                });
+            }
+        }
     }
 }

@@ -82,6 +82,10 @@
     <Compile Include="DataAccess\InspectionQueue\IInspectionQueueQueryFactory.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueColumns.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueQueryFactory.cs" />
+    <Compile Include="DataAccess\Permission\IPermissionQuery.cs" />
+    <Compile Include="DataAccess\Permission\IPermissionQueryFactory.cs" />
+    <Compile Include="DataAccess\Permission\PermissionQuery.cs" />
+    <Compile Include="DataAccess\Permission\PermissionQueryFactory.cs" />
     <Compile Include="DataAccess\Query\DataStore.cs" />
     <Compile Include="DataAccess\Query\Queue.cs" />
     <Compile Include="DataAccess\Query\Role.cs" />
