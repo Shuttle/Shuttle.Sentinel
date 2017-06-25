@@ -70,7 +70,7 @@ export const ViewModel = DefineMap.extend(
                             each(availablePermissions, function(availablePermission) {
                                 const permission = availablePermission.permission;
                                 const active = rolePermissions.filter(function(item) {
-                                    return item.permission = permission;
+                                    return item.permission === permission;
                                 }).length > 0;
 
                                 self.permissions.push(new RolePermission({
