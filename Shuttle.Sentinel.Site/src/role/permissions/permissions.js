@@ -8,9 +8,6 @@ import api from '~/api';
 import each from 'can-util/js/each/';
 import makeArray from 'can-util/js/make-array/';
 import router from '~/router';
-import alerts from '~/alerts';
-import localisation from '~/localisation';
-import $ from 'jquery';
 import Permission from '~/models/permission';
 import RolePermission from '~/models/role-permission';
 
