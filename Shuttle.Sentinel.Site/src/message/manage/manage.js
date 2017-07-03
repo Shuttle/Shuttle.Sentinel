@@ -15,6 +15,11 @@ import Message from '~/models/message';
 resources.add('message', { action: 'manage', permission: Permissions.Manage.Users });
 
 export const ViewModel = DefineMap.extend({
+    fetching: {
+        type: 'boolean',
+        value: false
+    },
+
     fetchCount: {
         type: 'number',
         value: 5

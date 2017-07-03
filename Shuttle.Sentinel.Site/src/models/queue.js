@@ -13,24 +13,8 @@ const Model = DefineMap.extend(
         seal: false
     },
     {
-        checked: {
-            type: 'boolean',
-            value: false
-        },
-
-        selected: {
-            type: 'boolean',
-            value: false
-        },
-
-        toggleCheck: function(ev) {
-            this.checked = !this.checked;
-
-            ev.stopPropagation();
-        },
-
-        messageSelected: function(message) {
-            this.viewModel.messageSelected(message);
+        uri: {
+            type: 'string'
         }
     }
 );
@@ -40,10 +24,10 @@ Model.List = DefineList.extend({
 });
 
 connect([constructor, data, map, store], {
-    url: loader.serviceBaseURL + 'messages',
+    url: loader.serviceBaseURL + 'queues/{search}',
     Map: Model,
     List: Model.List,
-    name: 'message',
+    name: 'queue',
     ajax: $.ajax
 });
 

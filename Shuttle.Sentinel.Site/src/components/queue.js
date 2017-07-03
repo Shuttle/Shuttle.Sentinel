@@ -1,55 +1,39 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import List from 'can/list/';
+import DefineList from 'can-define/list/';
 import view from './queue.stache!';
-import api from '~/api';
+import Queue from '~/models/queue';
 
 export const ViewModel = DefineMap.extend({
-    define: {
-        queues: {
-            Value: List
-        }
+    value: {type: 'string'},
+
+    uri: { type: 'string' },
+
+    get queuesPromise() {
+        return Queue.getList({ search: this.uri });
     },
 
     showQueues: function() {
-        this.fetchQueues('');
+        this.uri = '';
     },
 
     searchQueues: function(el) {
-        const uri = el.value;
+        this.uri = el.value;
 
-        this.value = uri;
-
-        this.fetchQueues(uri)
-            .done(function() {
-                $(el).parent().addClass('open');
-            });
-    },
-
-    fetchQueues: function(uri) {
-        const queues = new List();
-
-        this.queues = queues;
-
-        return api.post('queues/search', { data: { uri: uri } })
-            .done(function(response) {
-                can.each(response.data, function(item) {
-                    queues.push(item.uri);
-                });
-            });
+        $(el).parent().addClass('open');
     },
 
     _ignoreClick: function(ev) {
         ev.stopPropagation();
     },
 
-    selectQueue: function(uri) {
-        this.value = uri;
+    selectQueue: function(queue) {
+        this.value = queue.uri;
     }
 });
 
 export default Component.extend({
     tag: 'sentinel-queue',
-    view,
-    viewModel: ViewModel
+    ViewModel,
+    view
 });
