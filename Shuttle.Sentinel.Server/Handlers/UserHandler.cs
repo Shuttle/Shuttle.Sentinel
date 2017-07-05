@@ -62,7 +62,7 @@ namespace Shuttle.Sentinel.Server
 				_keyStore.Add(id, key);
 
 				var user = new User(id);
-				var stream = new EventStream(id);
+				var stream = _eventStore.CreateEventStream(id);
 
 				var registered = user.Register(message.Username, message.PasswordHash, message.RegisteredBy);
 

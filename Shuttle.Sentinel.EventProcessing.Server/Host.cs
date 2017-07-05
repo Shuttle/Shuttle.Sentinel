@@ -31,7 +31,6 @@ namespace Shuttle.Sentinel.EventProcessing.Server
 
             _container.RegisterDataAccessCore();
             _container.RegisterDataAccess("Shuttle.Sentinel");
-            _container.RegisterDataAccess("Shuttle.Recall.Sql");
 
             var container = new WindsorComponentContainer(_container);
 

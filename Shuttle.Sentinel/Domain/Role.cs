@@ -24,7 +24,7 @@ namespace Shuttle.Sentinel
             });
         }
 
-        public Added On(Added added)
+        private Added On(Added added)
         {
             Guard.AgainstNull(added, "added");
 
@@ -50,7 +50,7 @@ namespace Shuttle.Sentinel
             return On(new PermissionAdded {Permission = permission});
         }
 
-        public PermissionAdded On(PermissionAdded permissionAdded)
+        private PermissionAdded On(PermissionAdded permissionAdded)
         {
             Guard.AgainstNull(permissionAdded, "permissionAdded");
 
@@ -76,7 +76,7 @@ namespace Shuttle.Sentinel
             return On(new PermissionRemoved { Permission = permission });
         }
 
-        public PermissionRemoved On(PermissionRemoved permissionRemoved)
+        private PermissionRemoved On(PermissionRemoved permissionRemoved)
         {
             Guard.AgainstNull(permissionRemoved, "permissionRemoved");
 
@@ -93,7 +93,7 @@ namespace Shuttle.Sentinel
             });
         }
 
-        public Removed On(Removed removed)
+        private Removed On(Removed removed)
         {
             Guard.AgainstNull(removed, "removed");
 

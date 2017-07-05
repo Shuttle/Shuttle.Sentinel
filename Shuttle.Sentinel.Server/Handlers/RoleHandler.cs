@@ -50,7 +50,7 @@ namespace Shuttle.Sentinel.Server
                 _keyStore.Add(id, key);
 
                 var role = new Role(id);
-                var stream = new EventStream(id);
+                var stream = _eventStore.CreateEventStream(id);
 
                 stream.AddEvent(role.Add(message.Name));
 

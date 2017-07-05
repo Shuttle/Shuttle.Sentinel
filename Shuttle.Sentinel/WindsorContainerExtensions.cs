@@ -6,6 +6,7 @@ using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Recall;
 using Shuttle.Recall.Sql;
+using Shuttle.Recall.Sql.Storage;
 
 namespace Shuttle.Sentinel
 {

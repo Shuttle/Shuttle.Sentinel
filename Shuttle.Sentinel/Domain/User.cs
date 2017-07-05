@@ -32,7 +32,7 @@ namespace Shuttle.Sentinel
             });
         }
 
-        public Registered On(Registered registered)
+        private Registered On(Registered registered)
         {
             Guard.AgainstNull(registered, "registered");
 
@@ -61,7 +61,7 @@ namespace Shuttle.Sentinel
             return On(new RoleAdded {Role = role});
         }
 
-        public RoleAdded On(RoleAdded roleAdded)
+        private RoleAdded On(RoleAdded roleAdded)
         {
             Guard.AgainstNull(roleAdded, "roleAdded");
 
@@ -87,7 +87,7 @@ namespace Shuttle.Sentinel
             return On(new RoleRemoved { Role = role });
         }
 
-        public RoleRemoved On(RoleRemoved roleRemoved)
+        private RoleRemoved On(RoleRemoved roleRemoved)
         {
             Guard.AgainstNull(roleRemoved, "roleRemoved");
 
