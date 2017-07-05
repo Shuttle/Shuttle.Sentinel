@@ -7,9 +7,18 @@ var map = [
         permission: Permissions.View.Dashboard
     },
     {
-        href: '#!message/manage',
-        text: 'navigation:messages',
-        permission: Permissions.Manage.Messages
+        text: 'navigation:messages.title',
+        items: [
+            {
+                href: '#!message/manage',
+                text: 'navigation:messages.manage',
+                permission: Permissions.Manage.Messages
+            },            {
+                href: '#!message/send',
+                text: 'navigation:messages.send',
+                permission: Permissions.Manage.Messages
+            }
+        ]
     },
     {
         href: '#!subscription/list',

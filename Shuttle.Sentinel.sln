@@ -24,27 +24,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Tests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.EventProcessing.Server", "Shuttle.Sentinel.EventProcessing.Server\Shuttle.Sentinel.EventProcessing.Server.csproj", "{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Shuttle.Sentinel.donejs", "Shuttle.Sentinel.donejs\", "{248A78CE-E349-41F1-A714-2F76EF8C647A}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_50830"
-		Debug.AspNetCompiler.PhysicalPath = "Shuttle.Sentinel.donejs\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50830\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_50830"
-		Release.AspNetCompiler.PhysicalPath = "Shuttle.Sentinel.donejs\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50830\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "50830"
-		SlnRelativePath = "Shuttle.Sentinel.donejs\"
-	EndProjectSection
-EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Shuttle.Sentinel.Database", "Shuttle.Sentinel.Database\Shuttle.Sentinel.Database.sqlproj", "{74B3869C-0977-4516-A308-A4C0A5E61E46}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Shuttle.Sentinel.Site", "Shuttle.Sentinel.Site\", "{C787005C-F3B3-41F7-A660-F196FBC9F1CA}"
@@ -102,10 +81,6 @@ Global
 		{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{137D3645-E855-46B2-AF8C-4CA0D2BF6E92}.Release|Any CPU.Build.0 = Release|Any CPU
-		{248A78CE-E349-41F1-A714-2F76EF8C647A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{248A78CE-E349-41F1-A714-2F76EF8C647A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{248A78CE-E349-41F1-A714-2F76EF8C647A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{248A78CE-E349-41F1-A714-2F76EF8C647A}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74B3869C-0977-4516-A308-A4C0A5E61E46}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
