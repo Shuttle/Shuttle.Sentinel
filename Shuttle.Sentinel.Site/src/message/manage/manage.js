@@ -4,7 +4,6 @@ import DefineList from 'can-define/list/';
 import view from './manage.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import router from '~/router';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 import api from '~/api';
@@ -12,7 +11,7 @@ import each from 'can-util/js/each/';
 import $ from 'jquery';
 import Message from '~/models/message';
 
-resources.add('message', { action: 'manage', permission: Permissions.Manage.Users });
+resources.add('message', { action: 'manage', permission: Permissions.Manage.Messages });
 
 export const ViewModel = DefineMap.extend({
     fetching: {

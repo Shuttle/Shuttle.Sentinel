@@ -1,0 +1,13 @@
+﻿<sentinel-page-title title="message:title-send" />
+
+<form>
+  <div class="row form-group">
+    <div class="col-md-12">
+		<sentinel-queue {(value)}="destinationQueueUri">
+      </sentinel-queue>
+    </div>
+  </div>
+  <div class="form-group form-inline">
+    <sentinel-button {actions}="messageActions" text="message:messages" element-class="btn-default" />
+  </div>
+</form>

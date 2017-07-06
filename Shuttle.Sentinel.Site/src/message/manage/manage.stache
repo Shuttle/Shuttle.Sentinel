@@ -9,7 +9,7 @@
 </div>
 <sentinel-table {columns}="messageColumns" {rows}="messageRows" />
 {{else}}
-<sentinel-page-title title="message:title" />
+<sentinel-page-title title="message:title-manage" />
 <form>
   <div class="row form-group">
     <div class="col-md-6">
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 {{#unless hasMessages}}hidden{{/if}}">
+    <div class="col-md-6 {{#unless hasMessages}}hidden{{/unless}}">
       <sentinel-label label="message:destination-queue-uri" />
 		<sentinel-queue {(value)}="destinationQueueUri">
         <span class="input-group-btn">
@@ -44,7 +44,7 @@
       </sentinel-queue>
     </div>
   </div>
-  <div class="form-group form-inline {{#unless hasMessages}}hidden{{/if}}">
+  <div class="form-group form-inline {{#unless hasMessages}}hidden{{/unless}}">
 	<div class="btn-group" role="group" aria-label="...">
 		<button type="button" class="btn btn-default" ($click)="checkNone()"><span class="glyphicon glyphicon-unchecked"></span></button>
 		<button type="button" class="btn btn-default" ($click)="checkInvert()"><span class="glyphicon glyphicon-transfer"></span></button>
