@@ -1,1 +1,1 @@
-﻿<span class="{{classVisibility}} help-block">{{message}}</span>
+﻿<span class="help-block">{{message}}</span>

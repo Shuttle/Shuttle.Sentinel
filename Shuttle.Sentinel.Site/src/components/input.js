@@ -5,34 +5,23 @@ import view from './input.stache!';
 export const ViewModel = DefineMap.extend(
     'sentinel-input-model',
     {
-    type: {
-        type: 'string',
-        get: function(type) {
-            return type || 'text';
-        }
-    },
-    
-    checked: 'boolean',
-    placeholder: 'string',
-    elementClass: 'string',
+        type: {
+            type: 'string',
+            get: function(type) {
+                return type || 'text';
+            }
+        },
 
-    inputValue: { type: 'string', value: 'xyz' },
-    value: { type: 'string', value: 'xyz' }
-});
+        checked: 'boolean',
+        placeholder: { type: 'string', value: '' },
+        elementClass: { type: 'string', value: '' },
+        focus: { type: 'boolean', value: true },
+
+        value: { type: 'string', value: '' }
+    });
 
 export default Component.extend({
     tag: 'sentinel-input',
     view,
-    ViewModel: ViewModel,
-    events: {
-        'inserted': function(el) {
-            if (this.viewModel.focus) {
-                if (el[0] && el[0].childNodes[0] && el[0].childNodes[0].focus) {
-                    el[0].childNodes[0].focus();
-                }
-            }
-        }
-    }
+    ViewModel
 });
-
-

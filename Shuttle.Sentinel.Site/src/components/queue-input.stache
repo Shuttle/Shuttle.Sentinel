@@ -9,7 +9,7 @@
         <li>
           <a href="#" ($click)="selectQueue(.)">{{displayUri}}</a>
         </li>
-      {{/queues}}
+        {{/queuesPromise.value}}
       {{else}}
       <li>
         <a href="#">{{i18n "fetching-data"}}</a>
@@ -25,7 +25,7 @@
       <li>
         <a href="#" ($click)="selectQueue(.)">{{displayUri}}</a>
       </li>
-      {{/queues}}
+      {{/queuesPromise.value}}
       {{else}}
       <li>
         <a href="#">{{i18n "fetching-data"}}</a>

@@ -14,6 +14,7 @@ export default DefineMap.extend(
         seal: false
     },
     {
+        focus: { type: 'boolean', value: false },
         value: { type: 'string', value: '' },
         inputClass: { type: 'string', value: '' },
         formGroupClass: { type: 'string', value: '' },

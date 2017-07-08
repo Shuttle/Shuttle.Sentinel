@@ -3,8 +3,7 @@
 <form>
   <div class="row form-group">
     <div class="col-md-12">
-		<sentinel-queue {(value)}="destinationQueueUri">
-      </sentinel-queue>
+		<sentinel-queue {(value)}="destinationQueueUri" label="message:destination-queue-uri" />
     </div>
   </div>
   <div class="form-group form-inline">

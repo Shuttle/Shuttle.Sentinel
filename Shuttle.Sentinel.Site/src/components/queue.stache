@@ -1,0 +1,4 @@
+﻿<sentinel-form-group {validation-message}="validationMessage" {element-class}="formGroupClass">
+	<sentinel-label {label}="label" {required}="required" />
+    <sentinel-queue-input {focus}="focus" {(value)}="value" {type}="type" {element-class}="inputClass"/>
+</sentinel-form-group>

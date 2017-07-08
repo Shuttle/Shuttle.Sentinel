@@ -4,15 +4,7 @@ import view from './validation.stache!';
 
 export const ViewModel = DefineMap.extend({
     define: {
-        message: {
-            value: ''
-        },
-
-        classVisibility: {
-            get: function() {
-                return !this.message ? 'hidden' : '';
-            }
-        }
+        message: { type: 'string', value: '' }
     }
 });
 
