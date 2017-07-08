@@ -16,7 +16,7 @@
       <sentinel-label label="message:source-queue-uri" />
       <div class="row">
         <div class="col-md-8">
-		  <sentinel-queue {(value)}="sourceQueueUri" />
+		  <sentinel-queue-input {(uri)}="sourceQueueUri" />
         </div>
         <div class="col-md-4">
           <div class="input-group">
@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-6 {{#unless hasMessages}}hidden{{/unless}}">
       <sentinel-label label="message:destination-queue-uri" />
-		<sentinel-queue {(value)}="destinationQueueUri">
+		<sentinel-queue-input {(value)}="destinationQueueUri">
         <span class="input-group-btn">
           <button type="button" ($click)="move()" class="btn btn-default" >
             {{i18n "move"}}
@@ -41,7 +41,7 @@
             {{i18n "copy"}}
           </button>
         </span>
-      </sentinel-queue>
+      </sentinel-queue-input>
     </div>
   </div>
   <div class="form-group form-inline {{#unless hasMessages}}hidden{{/unless}}">

@@ -1,24 +1,23 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
-import view from './queue.stache!';
+import view from './queue-input.stache!';
 import Queue from '~/models/queue';
 
 export const ViewModel = DefineMap.extend({
-    value: {type: 'string'},
-
+    search: { type: 'string' },
+    value: { type: 'string' },
     uri: { type: 'string' },
 
     get queuesPromise() {
-        return Queue.getList({ search: this.uri });
+        return Queue.getList({ search: encodeURIComponent(this.search) });
     },
 
     showQueues: function() {
-        this.uri = '';
+        this.search = '';
     },
 
     searchQueues: function(el) {
-        this.uri = el.value;
+        this.search = el.value;
 
         $(el).parent().addClass('open');
     },
@@ -28,12 +27,13 @@ export const ViewModel = DefineMap.extend({
     },
 
     selectQueue: function(queue) {
-        this.value = queue.uri;
+        this.value = queue.displayUri;
+        this.uri = queue.uri;
     }
 });
 
 export default Component.extend({
-    tag: 'sentinel-queue',
+    tag: 'sentinel-queue-input',
     ViewModel,
     view
 });

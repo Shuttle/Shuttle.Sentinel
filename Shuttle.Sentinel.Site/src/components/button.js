@@ -2,7 +2,6 @@
 import DefineMap from 'can-define/map/';
 import view from './button.stache!';
 import security from '~/security';
-import click from '~/components/click';
 
 export const ViewModel = DefineMap.extend({
     context: {
@@ -50,10 +49,6 @@ export const ViewModel = DefineMap.extend({
     },
     permission: {
         value: ''
-    },
-
-    _clickHandler: function(ev) {
-        click.on(this, ev);
     }
 });
 

@@ -22,9 +22,9 @@ namespace Shuttle.Sentinel
             _queryMapper = queryMapper;
         }
 
-        public void Add(string uri)
+        public void Add(string uri, string displayUri)
         {
-            _databaseGateway.ExecuteUsing(_queueQueryFactory.Add(uri));
+            _databaseGateway.ExecuteUsing(_queueQueryFactory.Add(uri, displayUri));
         }
 
         public void Remove(string uri)

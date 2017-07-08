@@ -5,7 +5,7 @@ namespace Shuttle.Sentinel
 {
     public interface IQueueQuery
     {
-        void Add(string uri);
+        void Add(string uri, string displayUri);
         void Remove(string uri);
         IEnumerable<Queue> All();
         IEnumerable<Queue> Search(string match);

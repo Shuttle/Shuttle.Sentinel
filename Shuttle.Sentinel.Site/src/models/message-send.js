@@ -8,17 +8,13 @@ import map from 'can-connect/can/map/';
 import loader from '@loader';
 
 const Model = DefineMap.extend(
-    'queue',
+    'message-send',
     {
         seal: false
     },
     {
-        uri: {
-            type: 'string'
-        },
-        displayUri: {
-            type: 'string'
-        }
+        destinationQueueUri: { type: 'string' },
+        serializedMessage: { type: 'string' },
     }
 );
 
@@ -27,10 +23,10 @@ Model.List = DefineList.extend({
 });
 
 connect([constructor, data, map, store], {
-    url: loader.serviceBaseURL + 'queues/?search={search}',
+    url: loader.serviceBaseURL + 'messages',
     Map: Model,
     List: Model.List,
-    name: 'queue',
+    name: 'message-send',
     ajax: $.ajax
 });
 

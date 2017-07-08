@@ -39,7 +39,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
-        [Route("api/queues/{search}")]
+        //[Route("api/queues/{search}")]
         public IHttpActionResult GetSearch(string search)
         {
             using (_databaseContextFactory.Create())
@@ -55,6 +55,15 @@ namespace Shuttle.Sentinel.WebApi
         public IHttpActionResult Post([FromBody] QueueModel model)
         {
             Guard.AgainstNull(model, "model");
+
+            try
+            {
+                var uri = new Uri(model.Uri);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(string.Format(SentinelResources.InvalidUri, model.Uri));
+            }
 
             _bus.Send(new AddQueueCommand
             {

@@ -4,7 +4,16 @@ namespace Shuttle.Sentinel
 {
     public class QueueQueryFactory : IQueueQueryFactory
     {
-        public IQuery Add(string uri)
+        private const string SelectFrom = @"
+select 
+    Id, 
+    Uri, 
+    DisplayUri 
+from 
+    Queue 
+";
+
+        public IQuery Add(string uri, string displayUri)
         {
             return RawQuery.Create(
                 @"if not exists(select null from Queue where Uri = @Uri) insert into Queue (Uri) values (@Uri)")
@@ -20,12 +29,16 @@ namespace Shuttle.Sentinel
 
         public IQuery All()
         {
-            return RawQuery.Create(@"select Id, Uri from Queue order by Uri");
+            return RawQuery.Create(string.Concat(SelectFrom, @"order by Uri"));
         }
 
         public IQuery Search(string match)
         {
-            return RawQuery.Create(@"select Id, Uri from Queue where Uri like @Uri order by Uri")
+            return RawQuery.Create(string.Concat(SelectFrom, @"
+where 
+    Uri like @Uri 
+order by Uri
+"))
                 .AddParameterValue(QueueColumns.Uri, string.Concat("%", match, "%"));
         }
     }

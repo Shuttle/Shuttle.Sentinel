@@ -20,7 +20,7 @@ import '~/components/label';
 import '~/components/modal';
 import '~/components/navigation';
 import '~/components/page-title';
-import '~/components/queue';
+import '~/components/queue-input';
 import '~/components/refresh-button';
 import '~/components/remove-button';
 import '~/components/submit-button';

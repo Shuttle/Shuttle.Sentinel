@@ -79,6 +79,15 @@ namespace Shuttle.Sentinel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The provided value of &apos;{0}&apos; is not a valid URI..
+        /// </summary>
+        public static string InvalidUri {
+            get {
+                return ResourceManager.GetString("InvalidUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission &apos;{0}&apos; does not exist on role &apos;{1}&apos;..
         /// </summary>
         public static string PermissionNotFoundException {

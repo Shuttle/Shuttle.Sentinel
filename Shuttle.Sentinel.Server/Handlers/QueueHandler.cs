@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Data;
+﻿using System;
+using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
 using Shuttle.Sentinel.Messages.v1;
@@ -23,9 +24,20 @@ namespace Shuttle.Sentinel.Server
 
         public void ProcessMessage(IHandlerContext<AddQueueCommand> context)
         {
+            Uri uri;
+
+            try
+            {
+                uri = new Uri(context.Message.QueueUri);
+            }
+            catch
+            {
+                return;
+            }
+
             using (_databaseContextFactory.Create())
             {
-                _queueQuery.Add(context.Message.QueueUri);
+                _queueQuery.Add(context.Message.QueueUri, uri.Secured().ToString());
             }
         }
 

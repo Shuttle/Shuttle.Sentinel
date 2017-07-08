@@ -56,7 +56,6 @@ namespace Shuttle.Sentinel.WebApi
                 RequiresSessionAttribute.Assign(_container);
 
                 GlobalConfiguration.Configuration.DependencyResolver = new ApiResolver(_container);
-                GlobalConfiguration.Configuration.MessageHandlers.Add(new CorsMessageHandler());
 
                 _container.Register(
                     Component.For<IHttpControllerActivator>().Instance(new ApiControllerActivator(_container)));
