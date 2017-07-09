@@ -27,6 +27,7 @@ import '~/components/remove-button';
 import '~/components/submit-button';
 import '~/components/table';
 import '~/components/text';
+import '~/components/textarea';
 import '~/components/validation';
 
 import '~/dashboard/';

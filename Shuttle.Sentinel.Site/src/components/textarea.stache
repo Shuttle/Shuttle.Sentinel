@@ -1,4 +1,4 @@
 ﻿<sentinel-form-group {validation-message}="validationMessage" {element-class}="formGroupClass">
 	<sentinel-label {label}="label" {required}="required" />
-    <sentinel-queue-input {focus}="focus" {(value)}="value" {(uri)}="uri" {type}="type" {element-class}="inputClass"/>
+	<textarea {($value)}="value" class="form-control {{elementClass}}" placeholder="{{placeholder}}" {$focused}="focus" rows="{{rows}}" cols="{[columns}}"/>
 </sentinel-form-group>

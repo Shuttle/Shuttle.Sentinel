@@ -16,14 +16,31 @@ resources.add('message', { action: 'send', permission: Permissions.Manage.Messag
 
 export const ViewModel = DefineMap.extend({
     destinationQueueUri: {
-        type:'string',
+        type: 'string',
+        value: '',
+        validate: {
+            presence: true
+        }
+    },
+
+    message: {
+        type: 'string',
+        value: '',
+        validate: {
+            presence: true
+        }
+    },
+
+    messageType: {
+        type: 'string',
+        value: '',
         validate: {
             presence: true
         }
     },
 
     send () {
-        var self = this;
+        const self = this;
 
         if (!!this.errors()) {
             return false;

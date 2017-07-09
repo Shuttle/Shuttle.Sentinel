@@ -2,9 +2,13 @@
 import InputViewModel from './input-view-model';
 import view from './queue.stache!';
 
+export const ViewModel = InputViewModel.extend({
+    uri: { type: 'string' }
+});
+
 export default Component.extend({
     tag: 'sentinel-queue',
-    ViewModel: InputViewModel,
+    ViewModel: ViewModel,
     view
 });
 
