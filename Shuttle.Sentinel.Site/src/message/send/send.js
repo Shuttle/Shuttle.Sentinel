@@ -46,7 +46,13 @@ export const ViewModel = DefineMap.extend({
             return false;
         }
 
-        alert('send');
+        const message = new Message({
+            destinationQueueUri: this.destinationQueueUri,
+            messageType: this.messageType,
+            message: this.message
+        });
+
+        message.save();
 
         return false;
     }

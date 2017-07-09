@@ -14,7 +14,8 @@ const Model = DefineMap.extend(
     },
     {
         destinationQueueUri: { type: 'string' },
-        serializedMessage: { type: 'string' },
+        messageType: { type: 'string' },
+        message: { type: 'string' }
     }
 );
 

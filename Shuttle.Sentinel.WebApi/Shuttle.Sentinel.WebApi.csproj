@@ -160,6 +160,7 @@
     <Compile Include="Models\QueueModel.cs" />
     <Compile Include="Models\FetchMessageModel.cs" />
     <Compile Include="Models\MessageMoveModel.cs" />
+    <Compile Include="Models\SendMessageModel.cs" />
     <Compile Include="Models\UserRoleStatusModel.cs" />
     <Compile Include="Models\RolePermissionStatusModel.cs" />
     <Compile Include="Models\SetUserRoleModel.cs" />

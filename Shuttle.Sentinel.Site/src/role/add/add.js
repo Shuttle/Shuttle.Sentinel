@@ -26,14 +26,13 @@ export const ViewModel = DefineMap.extend(
 
         add: function() {
             var self = this;
-
             if (this.hasErrors()) {
                 return false;
             }
 
             this.working = true;
 
-            var role = new Role({
+            const role = new Role({
                 name: this.name
             });
 
