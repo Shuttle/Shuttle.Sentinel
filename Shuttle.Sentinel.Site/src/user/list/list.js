@@ -24,7 +24,7 @@ export const ViewModel = DefineMap.extend(
 
         get usersPromise() {
             const refreshTimestamp = this.refreshTimestamp;
-            return User.getList({});
+            return User.get();
         },
 
         init: function() {

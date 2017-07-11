@@ -235,7 +235,6 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Roles)]
         public IHttpActionResult Post([FromBody] SendMessageModel model)
         {
             Guard.AgainstNull(model, "model");

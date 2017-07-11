@@ -3,20 +3,20 @@ import DefineList from 'can-define/list/';
 import guard from '~/guard';
 import logger from '~/logger';
 import route from 'can-route';
-import configuration from './configuration';
+import loader from '@loader';
 
 var State = DefineMap.extend({
     __previousKey: 'string',
-    configuration: { value: configuration },
     route: route,
+    debug: { type: 'boolean', value: loader.debug },
     data: { Type: DefineList },
 
     modal: {
         Value: DefineMap.extend({
             confirmation: {
-                value: new DefineMap({
-                    primaryClick: function() { alert('hello'); },
-                    message: ''
+                Value: DefineMap.extend({
+                    primaryClick: 'observable',
+                    message: 'string'
                 })
             }
         })

@@ -8,11 +8,11 @@ import each from 'can-util/js/each/';
 
 var Security = DefineMap.extend({
     username: { type: 'string', value: '' },
-    token: { type: 'string', value: '' },
+    token: { type: 'string', value: undefined },
     isUserRequired: 'boolean',
 
     permissions: {
-        value: new DefineList() 
+        value: new DefineList()
     },
 
     hasSession: function() {
@@ -42,38 +42,35 @@ var Security = DefineMap.extend({
 
     start: function() {
         var self = this;
-        var deferred = $.Deferred();
 
-        api.get('anonymouspermissions')
-            .done(function(data) {
+        return new Promise((resolve, reject) => api.get('anonymouspermissions')
+            .then(function(data) {
                 const username = localStorage.getItem('username');
                 const token = localStorage.getItem('token');
-                
+
                 self.isUserRequired = data.isUserRequired;
 
-                each(data.permissions, function(item) {
-                    self._addPermission('anonymous', item.permission);
-                });
+                each(data.permissions,
+                    function(item) {
+                        self._addPermission('anonymous', item.permission);
+                    });
 
                 if (!!username && !!token) {
                     self.login({ username: username, token: token })
-                        .done(function() {
-                            deferred.resolve();
+                        .then(function() {
+                            resolve();
                         })
-                        .fail(function() {
-                            deferred.reject();
+                        .catch(function() {
+                            reject();
                         });
                 } else {
-                    deferred.resolve();
+                    resolve();
                 }
             })
-            .fail(function() {
+            .catch(function() {
                 alerts.show({ message: localisation.value('exceptions.anonymous-permissions'), type: 'danger' });
-
-                deferred.reject();
-            });
-
-        return deferred;
+            })
+        );
     },
 
     _addPermission: function(type, permission) {
@@ -89,14 +86,15 @@ var Security = DefineMap.extend({
 
         var usingToken = !!options.token;
 
-        return api.post('sessions', {
-            data: {
-                username: options.username,
-                password: options.password,
-                token: options.token
-            }
-        })
-            .done(function(response) {
+        return api.post('sessions',
+            {
+                data: {
+                    username: options.username,
+                    password: options.password,
+                    token: options.token
+                }
+            })
+            .then(function(response) {
                 if (response.registered) {
                     localStorage.setItem('username', options.username);
                     localStorage.setItem('token', response.token);
@@ -109,9 +107,10 @@ var Security = DefineMap.extend({
 
                     self.removeUserPermissions();
 
-                    each(response.permissions, function(permission) {
-                        self._addPermission('user', permission);
-                    });
+                    each(response.permissions,
+                        function(permission) {
+                            self._addPermission('user', permission);
+                        });
                 } else {
                     if (usingToken) {
                         self.username = undefined;
@@ -120,11 +119,15 @@ var Security = DefineMap.extend({
                         localStorage.removeItem('username');
                         localStorage.removeItem('token');
 
-                        alerts.show({ message: localisation.value('exceptions.login', { username: options.username }), type: 'danger', name: 'login-failure' });
+                        alerts.show({
+                            message: localisation.value('exceptions.login', { username: options.username }),
+                            type: 'danger',
+                            name: 'login-failure'
+                        });
                     }
                 }
             })
-            .fail(function(error) {
+            .catch(function(error) {
                 alerts.show(error, 'danger');
             });
     },

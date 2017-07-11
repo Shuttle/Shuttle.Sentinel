@@ -1,7 +1,6 @@
 ﻿import stache from 'can-stache';
 import i18next from 'i18next';
 import backend from 'i18next-xhr-backend';
-import configuration from '~/configuration';
 
 let localisation = {
     _initialised: false,

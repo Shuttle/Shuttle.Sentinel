@@ -41,7 +41,7 @@ localisation.start(function(error) {
     }
 
     security.start()
-        .done(function() {
+        .then(function() {
             route('{resource}');
             route('{resource}/{action}');
             route('{resource}/{id}/{action}');
@@ -50,7 +50,7 @@ localisation.start(function(error) {
 
             route.ready();
         })
-        .always(function() {
+        .then(function() {
             $('#application-container').html(stache(state));
 
             if (window.location.hash === '#!' || !window.location.hash) {

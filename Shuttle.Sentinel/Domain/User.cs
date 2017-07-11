@@ -96,9 +96,16 @@ namespace Shuttle.Sentinel
             return roleRemoved;
         }
 
+        private Removed On(Removed removed)
+        {
+            Guard.AgainstNull(removed, "removed");
+
+            return removed;
+        }
+
         public Removed Remove()
         {
-            return new Removed();
+            return On(new Removed());
         }
     }
 }

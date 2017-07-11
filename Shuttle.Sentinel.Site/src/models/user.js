@@ -1,10 +1,9 @@
 ﻿import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
-import set from 'can-set';
-import superMap from 'can-connect/can/super-map/';
-import loader from '@loader';
+import api from '~/api';
+import each from 'can-util/js/each/';
 
-const Model = DefineMap.extend(
+const Map = DefineMap.extend(
     'user',
     {
         seal: false
@@ -16,20 +15,22 @@ const Model = DefineMap.extend(
         registeredBy: 'string'
     });
 
-const algebra = new set.Algebra(
-    set.props.id('id')
-);
+const Model = DefineMap.extend(
+    'user-model',
+    {
+        get () {
+            return new Promise((resolve, reject) => {
+                api.get('users')
+                    .then(function(response) {
+                        const result = new DefineList();
 
-Model.List = DefineList.extend({
-    '#': Model
-});
+                        each(response.data, (item) => { result.push(new Map(item)) });
+                        
+                        resolve(result);
+                    })
+                    .catch(reject);
+            });
+        }
+    });
 
-Model.connection = superMap({
-    url: loader.serviceBaseURL + 'users',
-    Map: Model,
-    List: Model.List,
-    name: 'user',
-    algebra
-});
-
-export default Model;
+export default new Model();

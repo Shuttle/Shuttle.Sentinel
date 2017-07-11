@@ -6,6 +6,8 @@ import constructor from 'can-connect/constructor/';
 import store from 'can-connect/constructor/store/';
 import map from 'can-connect/can/map/';
 import loader from '@loader';
+import superMap from 'can-connect/can/super-map/';
+import set from 'can-set';
 
 const Model = DefineMap.extend(
     'message-send',
@@ -13,22 +15,27 @@ const Model = DefineMap.extend(
         seal: false
     },
     {
-        destinationQueueUri: { type: 'string' },
-        messageType: { type: 'string' },
-        message: { type: 'string' }
+        id: 'string',
+        destinationQueueUri: 'string',
+        messageType: 'string',
+        message: 'string'
     }
+);
+
+const algebra = new set.Algebra(
+    set.props.id('id')
 );
 
 Model.List = DefineList.extend({
     '#': Model
 });
 
-connect([constructor, data, map, store], {
+//connect([constructor, data, map, store], {
+Model.connection = superMap({
     url: loader.serviceBaseURL + 'messages',
     Map: Model,
     List: Model.List,
-    name: 'message-send',
-    ajax: $.ajax
+    name: 'message-send'
 });
 
 export default Model;

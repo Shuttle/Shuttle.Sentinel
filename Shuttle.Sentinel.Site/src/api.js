@@ -1,6 +1,7 @@
 ﻿import $ from 'jquery';
-import configuration from '~/configuration';
+import loader from '@loader';
 import alerts from '~/alerts';
+import promise from 'can-util/js/make-promise/make-promise';
 
 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
     options.error = function(xhr) {
@@ -17,16 +18,16 @@ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 });
 
 let api = {
-    post: function(endpoint, options) {
+    post (endpoint, options) {
         const o = options || {};
 
         if (o.async == undefined) {
             o.async = true;
         }
 
-        var data = o.data || {};
+        const data = o.data || {};
 
-        return $.ajax({
+        return promise($.ajax({
             url: this.url(endpoint),
             type: 'POST',
             async: o.async,
@@ -34,19 +35,19 @@ let api = {
             data: JSON.stringify(data),
             beforeSend: o.beforeSend,
             timeout: o.timeout || 60000
-        });
+        }));
     },
 
-    put: function(endpoint, options) {
+    put (endpoint, options) {
         const o = options || {};
 
         if (o.async == undefined) {
             o.async = true;
         }
 
-        var data = o.data || {};
+        const data = o.data || {};
 
-        return $.ajax({
+        return promise($.ajax({
             url: this.url(endpoint),
             type: 'PUT',
             async: o.async,
@@ -54,11 +55,11 @@ let api = {
             data: JSON.stringify(data),
             beforeSend: o.beforeSend,
             timeout: o.timeout || 60000
-        });
+        }));
     },
 
-    get: function (endpoint, options) {
-        var o = options || {};
+    get (endpoint, options) {
+        const o = options || {};
 
         if (o.async == undefined) {
             o.async = true;
@@ -68,33 +69,33 @@ let api = {
             o.cache = false;
         }
 
-        return $.ajax({
+        return promise($.ajax({
             url: this.url(endpoint),
             dataType: 'json',
             type: 'GET',
             async: o.async,
             cache: o.cache,
             timeout: o.timeout || 60000
-        });
+        }));
     },
 
-    'delete': function (endpoint, options) {
-        var o = options || {};
+    'delete' (endpoint, options) {
+        const o = options || {};
 
         if (o.async == undefined) {
             o.async = true;
         }
 
-        return $.ajax({
+        return promise($.ajax({
             url: this.url(endpoint),
             type: 'DELETE',
             async: o.async,
             timeout: o.timeout || 60000
-        });
+        }));
     },
 
     url: function(endpoint) {
-        return endpoint.indexOf('http') < 0 ? configuration.controllerUrl(endpoint) : endpoint;
+        return endpoint.indexOf('http') < 0 ? loader.serviceBaseURL + endpoint : endpoint;
     }
 };
 

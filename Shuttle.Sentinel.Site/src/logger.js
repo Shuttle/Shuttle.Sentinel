@@ -1,11 +1,11 @@
 import DefineMap from 'can-define/map/';
-import configuration from '~/configuration';
+import loader from '@loader';
 
 var Logger = DefineMap.extend({
     _displayMessage: function (message, options) {
         options = options ? options : {};
 
-        if ((options.type === 'error' || options.type === 'warn') || configuration.settings().debug) {
+        if ((options.type === 'error' || options.type === 'warn') || loader.debug) {
             var logMessage = `[${new Date().toTimeString()}] : ${message}`;
 
             switch (options.type) {

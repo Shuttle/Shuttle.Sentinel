@@ -2,8 +2,13 @@ import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './modal.stache!';
 import localisation from '~/localisation';
+import alerts from '~/alerts';
 
 export const ViewModel = DefineMap.extend({
+    primaryClick: {
+        type: 'observable'
+    },
+
     modalType: {
         get: function(value) {
             return value || 'fade';
@@ -37,7 +42,11 @@ export const ViewModel = DefineMap.extend({
             modalElement.modal('hide');
         }
 
-        this.primaryClick(arguments);
+        if (!!this.primaryClick) {
+            this.primaryClick(arguments);
+        } else {
+            alerts.show({ message: localisation.value('modals.no-primary-click'), type: 'danger' });
+        }
     }
 });
 
