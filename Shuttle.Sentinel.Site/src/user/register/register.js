@@ -10,6 +10,8 @@ import validator from 'can-define-validate-validatejs';
 
 resources.add('user', { action: 'register', permission: Permissions.Manage.Users });
 
+var users = api('users');
+
 export const ViewModel = DefineMap.extend(
     'user-register',
     {
@@ -53,13 +55,11 @@ export const ViewModel = DefineMap.extend(
 
             this.working = true;
 
-            const user = {
+            users.post({
                 username: this.username,
                 password: this.password
-            };
-
-            api.post('users', { data: user })
-                .done(function() {
+            })
+                .then(function() {
                     if (security.isUserRequired) {
                         security.isUserRequired = false;
 
@@ -68,7 +68,7 @@ export const ViewModel = DefineMap.extend(
                         router.goto('user/list');
                     }
                 })
-                .always(function() {
+                .then(function() {
                     self.working = false;
                 });
 

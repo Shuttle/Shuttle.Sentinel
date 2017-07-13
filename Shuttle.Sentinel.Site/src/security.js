@@ -6,6 +6,9 @@ import localisation from '~/localisation';
 import alerts from '~/alerts';
 import each from 'can-util/js/each/';
 
+var anonymous = api('anonymouspermissions');
+var sessions = api('sessions');
+
 var Security = DefineMap.extend({
     username: { type: 'string', value: '' },
     token: { type: 'string', value: undefined },
@@ -43,7 +46,7 @@ var Security = DefineMap.extend({
     start: function() {
         var self = this;
 
-        return new Promise((resolve, reject) => api.get('anonymouspermissions')
+        return anonymous.list()
             .then(function(data) {
                 const username = localStorage.getItem('username');
                 const token = localStorage.getItem('token');
@@ -56,21 +59,17 @@ var Security = DefineMap.extend({
                     });
 
                 if (!!username && !!token) {
-                    self.login({ username: username, token: token })
+                    return self.login({ username: username, token: token })
                         .then(function() {
                             resolve();
-                        })
-                        .catch(function() {
-                            reject();
                         });
-                } else {
-                    resolve();
                 }
+
+                return undefined;
             })
             .catch(function() {
                 alerts.show({ message: localisation.value('exceptions.anonymous-permissions'), type: 'danger' });
-            })
-        );
+            });
     },
 
     _addPermission: function(type, permission) {
@@ -86,14 +85,11 @@ var Security = DefineMap.extend({
 
         var usingToken = !!options.token;
 
-        return api.post('sessions',
-            {
-                data: {
-                    username: options.username,
-                    password: options.password,
-                    token: options.token
-                }
-            })
+        return sessions.post({
+            username: options.username,
+            password: options.password,
+            token: options.token
+        })
             .then(function(response) {
                 if (response.registered) {
                     localStorage.setItem('username', options.username);

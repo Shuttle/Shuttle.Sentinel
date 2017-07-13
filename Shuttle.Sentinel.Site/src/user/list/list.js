@@ -5,11 +5,28 @@ import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import User from '~/models/user';
+import api from '~/api';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 
 resources.add('user', { action: 'list', permission: Permissions.View.Users });
+
+const Map = DefineMap.extend(
+    'user',
+    {
+        seal: false
+    },
+    {
+        id: 'string',
+        username: 'string',
+        dateRegistered: 'date',
+        registeredBy: 'string'
+    });
+
+var users = api({
+    endpoint: 'users',
+    Map: Map
+});
 
 export const ViewModel = DefineMap.extend(
     'user-list',
@@ -24,7 +41,7 @@ export const ViewModel = DefineMap.extend(
 
         get usersPromise() {
             const refreshTimestamp = this.refreshTimestamp;
-            return User.get();
+            return users.list();
         },
 
         init: function() {
@@ -84,7 +101,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         roles: function(user) {
-            router.goto('user/' + user.id + '/roles');
+            router.goto(`user/${user.id}/roles`);
         }
     }
 );

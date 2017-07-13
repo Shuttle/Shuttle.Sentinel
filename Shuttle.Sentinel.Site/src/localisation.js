@@ -1,6 +1,7 @@
 ﻿import stache from 'can-stache';
 import i18next from 'i18next';
 import backend from 'i18next-xhr-backend';
+import loader from '@loader';
 
 let localisation = {
     _initialised: false,
@@ -17,7 +18,7 @@ let localisation = {
                 backend: {
                     loadPath: 'locales/{{lng}}/{{ns}}.json?_${configuration.localeVersion}'
                 },
-                debug: (settings && settings.debug) || false,
+                debug: loader.debug || false,
                 lng: 'en',
                 fallbackLng: 'en',
                 ns: this._namespaces,
