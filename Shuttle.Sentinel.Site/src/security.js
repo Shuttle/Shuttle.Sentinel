@@ -1,13 +1,13 @@
 import $ from 'jquery';
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
-import api from '~/api';
+import Api from '~/api';
 import localisation from '~/localisation';
 import alerts from '~/alerts';
 import each from 'can-util/js/each/';
 
-var anonymous = api('anonymouspermissions');
-var sessions = api('sessions');
+var anonymous = new Api('anonymouspermissions');
+var sessions = new Api('sessions');
 
 var Security = DefineMap.extend({
     username: { type: 'string', value: '' },
@@ -60,12 +60,12 @@ var Security = DefineMap.extend({
 
                 if (!!username && !!token) {
                     return self.login({ username: username, token: token })
-                        .then(function() {
-                            resolve();
+                        .then(function(response) {
+                            return response;
                         });
                 }
 
-                return undefined;
+                return data;
             })
             .catch(function() {
                 alerts.show({ message: localisation.value('exceptions.anonymous-permissions'), type: 'danger' });

@@ -13,7 +13,8 @@
       "steal-css"
     ],
     "serviceBaseURL": "http://localhost:4040/api/",
-    "debug":  true 
+    "debug": true,
+    "localeVersion": "1" 
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

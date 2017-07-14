@@ -22,37 +22,43 @@ $.ajaxPrefilter(function(options, originalOptions) {
 
 let parameterExpression = /\{.*?\}/g;
 
-let api = function(options) {
-    guard.againstUndefined(options, 'options');
+let Api = DefineMap.extend(
+    'Api',
+    {
+        options: { value: {} },
+        working: { type: 'boolean', value: false },
 
-    var apiOptions = (typeof options === 'string' || options instanceof String)
-        ? { endpoint: options}
-        : options;
+        init (options) {
+            guard.againstUndefined(options, 'options');
 
-    guard.againstUndefined(apiOptions.endpoint, 'options.endpoint');
+            this.options = (typeof options === 'string' || options instanceof String)
+                ? { endpoint: options }
+                : options;
 
-    if (!apiOptions.cache) {
-        apiOptions.cache = false;
-    }
+            guard.againstUndefined(this.options.endpoint, 'options.endpoint');
 
-    const call = {
-        execute (options) {
+            if (!this.options.cache) {
+                this.options.cache = false;
+            }
+        },
+
+        _call (options) {
             return new Promise((resolve, reject) => {
                 try {
                     const o = options || {};
-                    const parsedEndpoint = this.parseEndpoint(apiOptions.endpoint, o.parameters);
+                    const parsedEndpoint = this.parseEndpoint(this.options.endpoint, o.parameters);
 
                     $.ajax({
-                        url: parsedEndpoint.url,
-                        type: o.method,
-                        async: true,
-                        cache: apiOptions.cache,
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        data: JSON.stringify(o.data || {}),
-                        beforeSend: o.beforeSend,
-                        timeout: o.timeout || 60000
-                    })
+                            url: parsedEndpoint.url,
+                            type: o.method,
+                            async: true,
+                            cache: this.options.cache,
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(o.data || {}),
+                            beforeSend: o.beforeSend,
+                            timeout: o.timeout || 60000
+                        })
                         .done(function(response) {
                             resolve(response);
                         })
@@ -94,81 +100,139 @@ let api = function(options) {
 
             each(params,
                 function(param) {
-                    if (!p[param]) {
-                        throw new Error(`No parameter value specified for parameter '{${param}}'.`);
-                    }
-
-                    url = s.replace(`{${param}}`, p[param]);
+                    url = url.replace(`{${param.name}}`, !!p[param.name] ? p[param.name] : '');
                 });
 
             return {
                 url: url,
                 parameters: params
             };
-        }
-    };
+        },
 
-    return {
         post (data) {
             guard.againstUndefined(data, 'data');
 
-            return call.execute({
-                data: data,
-                method: 'POST'
-            });
+            const self = this;
+            this.working = true;
+
+            return this._call({
+                    data: data,
+                    method: 'POST'
+                })
+                .then(function(response) {
+                    self.working = false;
+
+                    return response;
+                })
+                .catch(function(error) {
+                    self.working = false;
+
+                    return error;
+                });
         },
 
         put (data) {
             guard.againstUndefined(data, 'data');
 
-            return call.execute({
-                data: data,
-                method: 'POST'
-            });
+            const self = this;
+            this.working = true;
+
+            return this._call({
+                    data: data,
+                    method: 'POST'
+                })
+                .then(function(response) {
+                    self.working = false;
+
+                    return response;
+                })
+                .catch(function(error) {
+                    self.working = false;
+
+                    return error;
+                });
         },
 
         item (parameters) {
-            return call.execute({
-                method: 'GET',
-                parameters: parameters
-            })
+            const self = this;
+            this.working = true;
+
+            return this._call({
+                    method: 'GET',
+                    parameters: parameters
+                })
                 .then(function(response) {
-                    return !!apiOptions.Map
-                        ? new apiOptions.Map(response)
+                    self.working = false;
+
+                    return !!self.options.Map
+                        ? new self.options.Map(response)
                         : new DefineMap(response);
+                })
+                .catch(function(error) {
+                    self.working = false;
+
+                    return error;
                 });
         },
 
         list (parameters) {
-            return call.execute({
-                method: 'GET',
-                parameters: parameters
-            })
+            const self = this;
+            this.working = true;
+
+            return this._call({
+                    method: 'GET',
+                    parameters: parameters
+                })
                 .then(function(response) {
-                    const result = !!apiOptions.List
-                        ? new apiOptions.List()
+                    self.working = false;
+
+                    if (!response.data) {
+                        return response;
+                    }
+
+                    const result = !!self.options.List
+                        ? new self.options.List()
                         : new DefineList();
 
-                    each(response.data, (item) => {
-                        result.push(!!apiOptions.Map
-                            ? new apiOptions.Map(item)
-                            : new DefineMap(item));
-                    });
+                    each(response.data,
+                        (item) => {
+                            result.push(!!self.options.Map
+                                ? new self.options.Map(item)
+                                : new DefineMap(item));
+                        });
 
                     return result;
+                })
+                .catch(function(error) {
+                    self.working = false;
+
+                    return error;
                 });
         },
 
         'delete' (parameters) {
             guard.againstUndefined(parameters, 'parameters');
 
-            return call.execute({
-                data: data,
-                method: 'DELETE',
-                parameters: parameters
-            });
-        }
-    };
-};
+            const self = this;
+            this.working = true;
 
-export default api;
+            return this._call({
+                    method: 'DELETE',
+                    parameters: parameters
+                })
+                .then(function(response) {
+                    self.working = false;
+
+                    return response;
+                })
+                .catch(function(error) {
+                    self.working = false;
+
+                    return error;
+                });
+        }
+
+    }
+);
+
+export default Api;

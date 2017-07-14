@@ -3,14 +3,14 @@ import DefineMap from 'can-define/map/';
 import view from './register.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import api from '~/api';
+import Api from '~/api';
 import router from '~/router';
 import security from '~/security';
 import validator from 'can-define-validate-validatejs';
 
 resources.add('user', { action: 'register', permission: Permissions.Manage.Users });
 
-var users = api('users');
+var users = new Api('users');
 
 export const ViewModel = DefineMap.extend(
     'user-register',

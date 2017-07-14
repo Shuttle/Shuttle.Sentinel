@@ -4,14 +4,84 @@ import DefineMap from 'can-define/map/';
 import view from './roles.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import api from '~/api';
+import Api from '~/api';
 import each from 'can-util/js/each/';
 import makeArray from 'can-util/js/make-array/';
-import UserRole from '~/models/user-role';
-import Role from '~/models/role';
 import router from '~/router';
+import localisation from '~/localisation';
+import alerts from '~/alerts';
 
 resources.add('user', { action: 'roles', permission: Permissions.Manage.Users });
+
+const UserRole = DefineMap.extend(
+    'user-role',
+    {
+        seal: false
+    },
+    {
+        roleName: 'string',
+        active: 'boolean',
+
+        toggle: function() {
+            var self = this;
+
+            if (this.working) {
+                alerts.show({ message: localisation.value('workingMessage'), name: 'working-message' });
+                return;
+            }
+
+            this.active = !this.active;
+            this.working = true;
+
+            setRole.post({
+                    userId: router.data.id,
+                    roleName: this.roleName,
+                    active: this.active
+                })
+                .then(function(response) {
+                    self.working = false;
+
+                    if (response.success) {
+                        return;
+                    }
+
+                    switch (response.failureReason.toLowerCase()) {
+                    case 'lastadministrator':
+                    {
+                        self.active = true;
+                        self.working = false;
+
+                        alerts.show({
+                            message: localisation.value('user:exceptions.last-administrator'),
+                            name: 'last-administrator',
+                            type: 'danger'
+                        });
+
+                        break;
+                    }
+                    }
+                })
+                .catch(function() {
+                    self.working = false;
+                });
+
+        },
+
+        rowClass: {
+            get: function() {
+                return this.active ? 'text-success success' : 'text-muted';
+            }
+        }
+    }
+);
+
+var roles = new Api({
+    endpoint: 'roles',
+    Map: UserRole
+});
+
+var userRoles = new Api('users/{id}/roles');
+var setRole = new Api('users/setrole');
 
 export const ViewModel = DefineMap.extend(
     'user-role',
@@ -23,9 +93,10 @@ export const ViewModel = DefineMap.extend(
 
             this.refresh();
 
-            this.on('workingCount', function() {
-                self.getRoleStatus();
-            });
+            this.on('workingCount',
+                function() {
+                    self.getRoleStatus();
+                });
         },
 
         refresh() {
@@ -35,18 +106,19 @@ export const ViewModel = DefineMap.extend(
 
             self.roles.replace(new DefineList());
 
-            Role.getList({})
+            roles.list()
                 .then(function(availableRoles) {
                     availableRoles = makeArray(availableRoles);
                     availableRoles.push({ id: '', roleName: 'administrator' });
 
-                    UserRole.getList({ id: router.data.id })
+                    userRoles.list({ id: router.data.id })
                         .then(function(userRoles) {
                             each(availableRoles,
                                 function(availableRole) {
                                     const active = userRoles.filter(function(item) {
-                                        return item.roleName === availableRole.roleName;
-                                    }).length > 0;
+                                            return item.roleName === availableRole.roleName;
+                                        }).length >
+                                        0;
                                     const roleName = availableRole.roleName;
 
                                     self.roles.push(new UserRole({

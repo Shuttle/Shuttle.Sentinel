@@ -47,10 +47,13 @@ export const ViewModel = DefineMap.extend(
                 username: this.username,
                 password: this.password
             })
-                .done(function() {
+                .then(function() {
                     window.location.hash = '#!dashboard';
                 })
-                .always(function() {
+                .then(function() {
+                    self.working = false;
+                })
+                .catch(function() {
                     self.working = false;
                 });
 

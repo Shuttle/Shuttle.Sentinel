@@ -16,7 +16,7 @@ let localisation = {
             .use(backend)
             .init({
                 backend: {
-                    loadPath: 'locales/{{lng}}/{{ns}}.json?_${configuration.localeVersion}'
+                    loadPath: 'locales/{{lng}}/{{ns}}.json?_${loader.localeVersion}'
                 },
                 debug: loader.debug || false,
                 lng: 'en',

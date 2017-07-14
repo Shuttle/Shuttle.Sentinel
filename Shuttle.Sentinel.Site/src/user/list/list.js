@@ -5,7 +5,7 @@ import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import api from '~/api';
+import Api from '~/api';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 
@@ -23,8 +23,8 @@ const Map = DefineMap.extend(
         registeredBy: 'string'
     });
 
-var users = api({
-    endpoint: 'users',
+var users = new Api({
+    endpoint: 'users/{id}',
     Map: Map
 });
 
@@ -91,7 +91,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         remove: function(user) {
-            user.destroy()
+            users.delete({ id: user.id })
                 .then(function() {
                     alerts.show({
                         message: localisation.value('itemRemovalRequested',

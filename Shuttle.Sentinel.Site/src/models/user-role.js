@@ -6,73 +6,12 @@ import constructor from 'can-connect/constructor/';
 import store from 'can-connect/constructor/store/';
 import map from 'can-connect/can/map/';
 import loader from '@loader';
-import alerts from '~/alerts';
-import localisation from '~/localisation';
+
+
 import api from '~/api';
 import router from '~/router';
 import $ from 'jquery';
 
-const Model = DefineMap.extend(
-    'user-role',
-    {
-        seal: false
-    },
-    {
-        roleName: 'string',
-        active: 'boolean',
-        working: 'boolean',
-
-        toggle: function() {
-            var self = this;
-
-            if (this.working) {
-                alerts.show({ message: localisation.value('workingMessage'), name: 'working-message' });
-                return;
-            }
-
-            this.active = !this.active;
-            this.working = true;
-
-            api.post('users/setrole',
-                {
-                    data: {
-                        userId: router.data.id,
-                        roleName: this.roleName,
-                        active: this.active
-                    }
-                })
-                .done(function(response) {
-                    if (response.success) {
-                        return;
-                    }
-
-                    switch (response.failureReason.toLowerCase()) {
-                        case 'lastadministrator':
-                            {
-                                self.active = true;
-                                self.working = false;
-
-                                alerts.show({
-                                    message: localisation.value('user:exceptions.last-administrator'),
-                                    name: 'last-administrator',
-                                    type: 'danger'
-                                });
-
-                                break;
-                            }
-                    }
-                });
-
-            this.working = true;
-        },
-
-        rowClass: {
-            get: function() {
-                return this.active ? 'text-success success' : 'text-muted';
-            }
-        }
-   }
-);
 
 Model.List = DefineList.extend({
     '#': Model
