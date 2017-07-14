@@ -4,14 +4,65 @@ import DefineMap from 'can-define/map/';
 import view from './permissions.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import api from '~/api';
+import Api from '~/api';
 import each from 'can-util/js/each/';
 import makeArray from 'can-util/js/make-array/';
 import router from '~/router';
-import Permission from '~/models/permission';
-import RolePermission from '~/models/role-permission';
+import alerts from '~/alerts';
+import localisation from '~/localisation';
+
+var setPermission = new Api('roles/setpermission');
+var permissions = new Api('permissions');
+var permissionStatus = new Api('roles/permissionstatus');
 
 resources.add('role', { action: 'permissions', permission: Permissions.Manage.RolePermissions });
+
+const RolePermission = DefineMap.extend(
+    'role-permission',
+    {
+        seal: false
+    },
+    {
+        permission: 'string',
+        active: 'boolean',
+        working: 'boolean',
+
+        toggle: function() {
+            var self = this;
+
+            if (this.working) {
+                alerts.show({ message: localisation.value('workingMessage'), name: 'working-message' });
+                return;
+            }
+
+            this.active = !this.active;
+            this.working = true;
+
+            setPermission.post({
+                    roleId: router.data.id,
+                    permission: this.permission,
+                    active: this.active
+                })
+                .then(function() {
+                    self.working = false;
+                })
+                .catch(function() {
+                    self.working = false;
+                });
+        },
+
+        rowClass: {
+            get: function() {
+                return this.active ? 'text-success success' : 'text-muted';
+            }
+        }
+    }
+);
+
+var rolePermissions = new Api({
+    endpoint: 'roles/{id}/permissions',
+    Map: RolePermission
+});
 
 export const ViewModel = DefineMap.extend(
     'role-permission',
@@ -24,7 +75,8 @@ export const ViewModel = DefineMap.extend(
                     columnTitle: 'active',
                     columnClass: 'col-md-1',
                     columnType: 'view',
-                    view: '<span ($click)="toggle()" class="glyphicon {{#if active}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" /><span class="glyphicon {{#if working}}glyphicon-hourglass{{/if}}" />'
+                    view:
+                        '<span ($click)="toggle()" class="glyphicon {{#if active}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" /><span class="glyphicon {{#if working}}glyphicon-hourglass{{/if}}" />'
                 },
                 {
                     columnTitle: 'role:permission',
@@ -42,9 +94,10 @@ export const ViewModel = DefineMap.extend(
 
             this.refresh();
 
-            this.on('workingCount', function() {
-                self.getPermissionStatus();
-            });
+            this.on('workingCount',
+                function() {
+                    self.getPermissionStatus();
+                });
         },
 
         add: function() {
@@ -58,23 +111,25 @@ export const ViewModel = DefineMap.extend(
 
             self.permissions.replace(new DefineList());
 
-            Permission.getList({})
+            permissions.list()
                 .then(function(availablePermissionsResponse) {
                     var availablePermissions = makeArray(availablePermissionsResponse);
 
-                    RolePermission.getList({ id: router.data.id })
+                    rolePermissions.list({ id: router.data.id })
                         .then(function(rolePermissions) {
-                            each(availablePermissions, function(availablePermission) {
-                                const permission = availablePermission.permission;
-                                const active = rolePermissions.filter(function(item) {
-                                    return item.permission === permission;
-                                }).length > 0;
+                            each(availablePermissions,
+                                function(availablePermission) {
+                                    const permission = availablePermission.permission;
+                                    const active = rolePermissions.filter(function(item) {
+                                            return item.permission === permission;
+                                        }).length >
+                                        0;
 
-                                self.permissions.push(new RolePermission({
-                                    permission: permission,
-                                    active: active
-                                }));
-                            });
+                                    self.permissions.push(new RolePermission({
+                                        permission: permission,
+                                        active: active
+                                    }));
+                                });
                         })
                         .then(function() {
                             self.isResolved = true;
@@ -85,15 +140,16 @@ export const ViewModel = DefineMap.extend(
         getPermissionItem: function(permission) {
             var result;
 
-            each(this.permissions, function(item) {
-                if (result) {
-                    return;
-                }
+            each(this.permissions,
+                function(item) {
+                    if (result) {
+                        return;
+                    }
 
-                if (item.permission === permission) {
-                    result = item;
-                }
-            });
+                    if (item.permission === permission) {
+                        result = item;
+                    }
+                });
 
             return result;
         },
@@ -123,25 +179,27 @@ export const ViewModel = DefineMap.extend(
             var data = {
                 roleId: router.data.id,
                 permissions: []
-            }
+            };
 
-            each(this.workingItems, function(item) {
-                data.permissions.push(item.permission);
-            });
+            each(this.workingItems,
+                function(item) {
+                    data.permissions.push(item.permission);
+                });
 
-            api.post('roles/permissionstatus', { data: data})
-                .done(function(response) {
-                    each(response.data, function(item) {
-                        var permissionItem = self.getPermissionItem(item.permission);
+            permissionStatus.post(data)
+                .then(function(response) {
+                    each(response.data,
+                        function(item) {
+                            const permissionItem = self.getPermissionItem(item.permission);
 
-                        if (!permissionItem) {
-                            return;
-                        }
+                            if (!permissionItem) {
+                                return;
+                            }
 
-                        permissionItem.working = !(permissionItem.active === item.active);
-                    });
+                            permissionItem.working = !(permissionItem.active === item.active);
+                        });
                 })
-                .always(function() {
+                .then(function() {
                     setTimeout(self.getPermissionStatus(), 1000);
                 });
         }
