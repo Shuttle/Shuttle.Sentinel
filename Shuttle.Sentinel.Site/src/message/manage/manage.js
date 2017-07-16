@@ -73,8 +73,6 @@ export const ViewModel = DefineMap.extend({
         const self = this;
         const refreshTimestamp = this.refreshTimestamp;
 
-
-
         return messages.list()
             .then(function(list) {
                 self.messages = list;
