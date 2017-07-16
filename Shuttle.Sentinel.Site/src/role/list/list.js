@@ -5,11 +5,13 @@ import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import Role from '~/models/role';
+import Api from '~/api';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 
 resources.add('role', { action: 'list', permission: Permissions.Manage.Roles });
+
+var roles = new Api('roles/{id}');
 
 export const ViewModel = DefineMap.extend(
     'role-list',
@@ -20,7 +22,7 @@ export const ViewModel = DefineMap.extend(
 
         get rolesPromise() {
             const refreshTimestamp = this.refreshTimestamp;
-            return Role.getList({});
+            return roles.list();
         },
 
         columns: {
@@ -64,8 +66,8 @@ export const ViewModel = DefineMap.extend(
         },
 
         remove: function(row) {
-            this.delete('roles/' + row.id)
-                .done(function() {
+            roles.delete({ id: row.id })
+                .then(function() {
                     alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('role:role') }) });
                 });
         },

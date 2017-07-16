@@ -3,21 +3,19 @@ import DefineMap from 'can-define/map/';
 import view from './checkbox.stache!';
 
 export const ViewModel = DefineMap.extend({
-    define: {
-        elementClass: {
-            value: ''
-        },
+    elementClass: {
+        value: ''
+    },
 
-        checked: {
-            value: false
-        }
+    checked: {
+        value: false
     }
 });
 
 export default Component.extend({
     tag: 'sentinel-checkbox',
-    view,
-    viewModel: ViewModel
+    ViewModel,
+    view
 });
 
 

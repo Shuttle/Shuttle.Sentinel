@@ -1,6 +1,7 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
 import stache from 'can-stache';
+import each from 'can-util/js/each/';
 
 var Alerts = DefineMap.extend({
     messages: { Value: DefineList },
@@ -78,15 +79,18 @@ var Alerts = DefineMap.extend({
     },
 
     _removeExpiredAlerts: function() {
+        var self = this;
         var date = new Date();
 
-        $.each(this.messages, function(index, item) {
+        each(this.messages, function(item) {
             if (item.expiryDate && item.expiryDate < date) {
                 item.destroy();
             }
         });
 
-        setTimeout(this._removeExpiredAlerts, 500);
+        setTimeout(() => {
+            self._removeExpiredAlerts();
+        }, 500);
     }
 });
 

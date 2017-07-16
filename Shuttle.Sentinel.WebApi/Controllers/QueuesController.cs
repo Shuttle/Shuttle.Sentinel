@@ -39,7 +39,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
-        //[Route("api/queues/{search}")]
+        [Route("api/queues/{search}")]
         public IHttpActionResult GetSearch(string search)
         {
             using (_databaseContextFactory.Create())

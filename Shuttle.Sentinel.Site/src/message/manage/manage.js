@@ -6,14 +6,55 @@ import resources from '~/resources';
 import Permissions from '~/permissions';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
-import api from '~/api';
+import Api from '~/api';
 import each from 'can-util/js/each/';
 import $ from 'jquery';
-import Message from '~/models/message';
 
 resources.add('message', { action: 'manage', permission: Permissions.Manage.Messages });
 
+const Message = DefineMap.extend(
+    'message',
+    {
+        seal: false
+    },
+    {
+        checked: {
+            type: 'boolean',
+            value: false
+        },
+
+        selected: {
+            type: 'boolean',
+            value: false
+        },
+
+        toggleCheck: function(ev) {
+            this.checked = !this.checked;
+
+            ev.stopPropagation();
+        },
+
+        messageSelected: function(message) {
+            this.viewModel.messageSelected(message);
+        }
+    }
+);
+
+var messages = new Api({
+    endpoint: 'messages',
+    Map: Message
+});
+
+var fetchMessages = new Api('messages/fetch');
+var moveMessages = new Api('messages/move');
+
 export const ViewModel = DefineMap.extend({
+    message: {},
+    messageRows: {},
+    messages: { Value: DefineList },
+    hasMessages: { type: 'boolean', value: false },
+    showMessages: { type: 'boolean', value: true },
+
     fetching: {
         type: 'boolean',
         value: false
@@ -29,8 +70,18 @@ export const ViewModel = DefineMap.extend({
     },
 
     get messagesPromise() {
+        const self = this;
         const refreshTimestamp = this.refreshTimestamp;
-        return Message.getList({});
+
+
+
+        return messages.list()
+            .then(function(list) {
+                self.messages = list;
+                self.hasMessages = list.length > 0;
+
+                return list;
+            });
     },
 
     columns: {
@@ -57,16 +108,6 @@ export const ViewModel = DefineMap.extend({
 
     sourceQueueUri: {
         value: ''
-    },
-
-    hasMessages: {
-        get: function() {
-            return this.messages.length > 0;
-        }
-    },
-
-    get messages() {
-        return this.messagesPromise.isResolved ? this.messagesPromise.value : new DefineList();
     },
 
     hasSourceQueueUri: {
@@ -107,8 +148,8 @@ export const ViewModel = DefineMap.extend({
                 checked: false,
                 columnClass: 'col-md-1',
                 columnTitle: 'check',
-                columnType: 'template',
-                template: '<span ($click)="toggleCheck(%event)" class="glyphicon {{#if checked}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" />'
+                columnType: 'view',
+                view: '<span ($click)="toggleCheck(%event)" class="glyphicon {{#if checked}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" />'
             });
 
             columns.push(
@@ -121,8 +162,8 @@ export const ViewModel = DefineMap.extend({
             columns.push(
             {
                 columnTitle: 'message:message',
-                columnType: 'template',
-                template: '<pre>{{message}}</pre>'
+                columnType: 'view',
+                view: '<pre>{{message}}</pre>'
             });
         }
 
@@ -159,10 +200,6 @@ export const ViewModel = DefineMap.extend({
         this.refresh();
     },
 
-    showMessages: function() {
-        this.message = undefined;
-    },
-
     refresh: function() {
         this.refreshTimestamp = Date.now();
     },
@@ -178,18 +215,18 @@ export const ViewModel = DefineMap.extend({
 
         this.fetching = true;
 
-        api.post('messages/fetch', {
-            data: {
-                queueUri: this.sourceQueueUri,
-                count: this.fetchCount || 1
-            }
+        fetchMessages.post({
+            queueUri: this.sourceQueueUri,
+            count: this.fetchCount || 1
         })
-            .done(function(response) {
+            .then(function(response) {
                 alerts.show({ message: localisation.value('message:count-retrieved', { count: response.data.countRetrieved }), name: 'message:count-retrieved'});
 
                 self.refresh();
+
+                self.fetching = false;
             })
-            .always(function() {
+            .catch(function() {
                 self.fetching = false;
             });
 
@@ -223,21 +260,24 @@ export const ViewModel = DefineMap.extend({
 
         this.moving = true;
 
-        api.post('messages/move', {
-            data: {
-                messageIds: this.checkedMessageIds(),
-                destinationQueueUri: this.destinationQueueUri,
-                action: action
-            }
+        moveMessages.post({
+            messageIds: this.checkedMessageIds(),
+            destinationQueueUri: this.destinationQueueUri,
+            action: action
         })
-            .done(function() {
+            .then(function() {
                 self.refresh();
+                self.moving = false;
             })
-            .always(function() {
+            .catch(function() {
                 self.moving = false;
             });
 
         return true;
+    },
+
+    closeMessageView () {
+        this.showMessages = true;
     },
 
     messageSelected: function(message) {
@@ -277,6 +317,8 @@ export const ViewModel = DefineMap.extend({
         this.addMessageRow('RecipientInboxWorkQueueUri', message.recipientInboxWorkQueueUri);
         this.addMessageRow('SendDate', message.sendDate);
         this.addMessageRow('SenderInboxWorkQueueUri', message.senderInboxWorkQueueUri);
+
+        this.showMessages = false;
     },
 
     addMessageRow: function(name, value) {

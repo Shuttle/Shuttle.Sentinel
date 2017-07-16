@@ -6,13 +6,14 @@ import resources from '~/resources';
 import Permissions from '~/permissions';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
-import api from '~/api';
+import Api from '~/api';
 import each from 'can-util/js/each/';
 import $ from 'jquery';
-import Message from '~/models/message-send';
 import validator from 'can-define-validate-validatejs';
 
 resources.add('message', { action: 'send', permission: Permissions.Manage.Messages });
+
+var messages = new Api('messages');
 
 export const ViewModel = DefineMap.extend({
     destinationQueueUri: {
@@ -46,13 +47,11 @@ export const ViewModel = DefineMap.extend({
             return false;
         }
 
-        const message = new Message({
+        messages.post({
             destinationQueueUri: this.destinationQueueUri,
             messageType: this.messageType,
             message: this.message
         });
-
-        message.save();
 
         return false;
     }

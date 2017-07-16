@@ -1,7 +1,27 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './queue-input.stache!';
-import Queue from '~/models/queue';
+import Api from '~/api';
+
+const Queue = DefineMap.extend(
+    'queue',
+    {
+        seal: false
+    },
+    {
+        uri: {
+            type: 'string'
+        },
+        displayUri: {
+            type: 'string'
+        }
+    }
+);
+
+var queues = new Api({
+    endpoint: 'queues/{search}' ,
+    Map: Queue
+});
 
 export const ViewModel = DefineMap.extend({
     search: { type: 'string' },
@@ -9,7 +29,7 @@ export const ViewModel = DefineMap.extend({
     uri: { type: 'string' },
 
     get queuesPromise() {
-        return Queue.getList({ search: encodeURIComponent(this.search) });
+        return queues.list({ search: encodeURIComponent(this.search) });
     },
 
     showQueues: function() {

@@ -12,6 +12,7 @@ import '~/components/alerts';
 import '~/components/back-button';
 import '~/components/button';
 import '~/components/buttons';
+import '~/components/checkbox';
 import '~/components/fetching';
 import '~/components/form';
 import '~/components/form-group';

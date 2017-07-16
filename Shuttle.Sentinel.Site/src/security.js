@@ -114,7 +114,7 @@ var Security = DefineMap.extend({
 
                         localStorage.removeItem('username');
                         localStorage.removeItem('token');
-
+                    } else {
                         alerts.show({
                             message: localisation.value('exceptions.login', { username: options.username }),
                             type: 'danger',

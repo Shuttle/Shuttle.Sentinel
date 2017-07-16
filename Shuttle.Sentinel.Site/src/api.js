@@ -47,18 +47,31 @@ let Api = DefineMap.extend(
                 try {
                     const o = options || {};
                     const parsedEndpoint = this.parseEndpoint(this.options.endpoint, o.parameters);
+                    const ajax = {
+                        url: parsedEndpoint.url,
+                        type: o.method,
+                        async: true,
+                        beforeSend: o.beforeSend,
+                        timeout: o.timeout || 60000
+                    };
 
-                    $.ajax({
-                            url: parsedEndpoint.url,
-                            type: o.method,
-                            async: true,
-                            cache: this.options.cache,
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify(o.data || {}),
-                            beforeSend: o.beforeSend,
-                            timeout: o.timeout || 60000
-                        })
+                    switch (o.method.toLowerCase()) {
+                        case 'get':
+                        {
+                            ajax.cache = this.options.cache;
+                            ajax.dataType = 'json';
+                            break;
+                        }
+                        case 'post':
+                        case 'put':
+                        {
+                            ajax.data = JSON.stringify(o.data || {});
+                            ajax.contentType = 'application/json';
+                            break;
+                        }
+                    }
+
+                    $.ajax(ajax)
                         .done(function(response) {
                             resolve(response);
                         })

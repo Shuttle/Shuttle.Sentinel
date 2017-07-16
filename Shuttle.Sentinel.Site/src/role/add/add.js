@@ -4,10 +4,12 @@ import view from './add.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import Role from '~/models/role';
+import Api from '~/api';
 import validator from 'can-define-validate-validatejs';
 
-resources.add('role', { action: 'add', permission: Permissions.Manage.Roles});
+resources.add('role', { action: 'add', permission: Permissions.Manage.Roles });
+
+var roles = new Api('roles');
 
 export const ViewModel = DefineMap.extend(
     'role-add',
@@ -32,12 +34,13 @@ export const ViewModel = DefineMap.extend(
 
             this.working = true;
 
-            const role = new Role({
-                name: this.name
-            });
-
-            role.save()
+            roles.post({
+                    name: this.name
+                })
                 .then(function() {
+                    self.working = false;
+                })
+                .catch(function() {
                     self.working = false;
                 });
 
