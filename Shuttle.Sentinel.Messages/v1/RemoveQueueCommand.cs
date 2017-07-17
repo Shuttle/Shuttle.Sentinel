@@ -1,7 +1,9 @@
-﻿namespace Shuttle.Sentinel.Messages.v1
+﻿using System;
+
+namespace Shuttle.Sentinel.Messages.v1
 {
     public class RemoveQueueCommand
     {
-        public string QueueUri { get; set; }
+        public Guid Id { get; set; }
     }
 }

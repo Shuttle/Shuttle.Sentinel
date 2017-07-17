@@ -9,7 +9,7 @@ var State = DefineMap.extend({
     __previousKey: 'string',
     route: route,
     debug: { type: 'boolean', value: loader.debug },
-    data: { Type: DefineList },
+    data: { Value: DefineList },
 
     modal: {
         Value: DefineMap.extend({
@@ -47,7 +47,7 @@ var State = DefineMap.extend({
 
         if (!result) {
             if (key === previousKey) {
-                logger.info(`There is no data item available for key '${key}'.  However, your last access was to this key.  Keep in mind that when you call 'get' the data item is destroyed.  To re-use it you wil need to place it in a local variable.`);
+                logger.info(`There is no data item available for key '${key}'.  However, your last access was to this key.  Keep in mind that when you call 'pop' the data item is destroyed.  To re-use it you wil need to place it in a local variable.`);
             }
         }
 

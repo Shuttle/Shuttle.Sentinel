@@ -45,7 +45,7 @@ namespace Shuttle.Sentinel.Server
         {
             using (_databaseContextFactory.Create())
             {
-                _queueQuery.Remove(context.Message.QueueUri);
+                _queueQuery.Remove(context.Message.Id);
             }
         }
     }

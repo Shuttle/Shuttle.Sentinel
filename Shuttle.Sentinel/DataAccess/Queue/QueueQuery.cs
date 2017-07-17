@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
@@ -27,9 +28,9 @@ namespace Shuttle.Sentinel
             _databaseGateway.ExecuteUsing(_queueQueryFactory.Add(uri, displayUri));
         }
 
-        public void Remove(string uri)
+        public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_queueQueryFactory.Remove(uri));
+            _databaseGateway.ExecuteUsing(_queueQueryFactory.Remove(id));
         }
 
         public IEnumerable<Queue> All()

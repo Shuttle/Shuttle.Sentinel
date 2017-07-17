@@ -6,12 +6,13 @@ import Permissions from '~/permissions';
 import router from '~/router';
 import Api from '~/api';
 import validator from 'can-define-validate-validatejs';
+import state from '~/state';
 
 resources.add('queue', { action: 'add', permission: Permissions.Manage.Queues });
 
 var queues = new Api('queues/{id}');
 
-export const ViewModel = Model.extend(
+export const ViewModel = DefineMap.extend(
     'queues',
     {
         uri: {
@@ -20,14 +21,17 @@ export const ViewModel = Model.extend(
                 var result = value;
 
                 if (!value) {
-                    result = state.get('queue');
+                    result = state.pop('queue');
 
                     if (result) {
-                        result = result.attr('uri');
+                        result = result.uri;
                     }
                 }
 
                 return result || value;
+            },
+            validate: {
+                presence: true
             }
         },
 
@@ -37,7 +41,7 @@ export const ViewModel = Model.extend(
             }
 
             queues.post({
-                uri: this.attr('uri')
+                uri: this.uri
             });
 
             this.close();
@@ -46,7 +50,7 @@ export const ViewModel = Model.extend(
         },
 
         close: function() {
-            state.goto('queue/list');
+            router.goto('queue/list');
         }
     }
 );
@@ -55,6 +59,6 @@ validator(ViewModel);
 
 export default Component.extend({
     tag: 'sentinel-queue-add',
-    viewModel: ViewModel,
-    template
+    ViewModel,
+    view
 });

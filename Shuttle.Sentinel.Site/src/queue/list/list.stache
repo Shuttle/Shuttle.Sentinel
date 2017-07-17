@@ -3,9 +3,8 @@
   <sentinel-button {click}="@add" text="add" permission="sentinel://queue/add" />
   <sentinel-refresh-button {click}="@refresh" />
 </sentinel-buttons>
-{{#if isPending}}
-<sentinel-fetching title="queue:list.title" />
-{{/if}}
-{{#if isResolved}}
+{{#if queuesPromise.isResolved}}
 <sentinel-table {columns}="columns" {rows}="queuesPromise.value" />
+{{else}}
+<sentinel-fetching title="queue:list.title" />
 {{/if}}

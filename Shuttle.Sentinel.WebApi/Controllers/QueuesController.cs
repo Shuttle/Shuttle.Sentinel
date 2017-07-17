@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
@@ -60,7 +58,7 @@ namespace Shuttle.Sentinel.WebApi
             {
                 var uri = new Uri(model.Uri);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return BadRequest(string.Format(SentinelResources.InvalidUri, model.Uri));
             }
@@ -74,14 +72,12 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
-        [Route("api/queues/remove")]
-        public IHttpActionResult RemoveQueue([FromBody] QueueModel model)
+        [Route("api/queues/{id}")]
+        public IHttpActionResult Delete(Guid id)
         {
-            Guard.AgainstNull(model, "model");
-
             _bus.Send(new RemoveQueueCommand
             {
-                QueueUri = model.Uri
+                Id = id
             });
 
             return Ok();

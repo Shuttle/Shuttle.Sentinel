@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Data;
+﻿using System;
+using Shuttle.Core.Data;
 
 namespace Shuttle.Sentinel
 {
@@ -15,16 +16,28 @@ from
 
         public IQuery Add(string uri, string displayUri)
         {
-            return RawQuery.Create(
-                @"if not exists(select null from Queue where Uri = @Uri) insert into Queue (Uri) values (@Uri)")
-                .AddParameterValue(QueueColumns.Uri, uri);
+            return RawQuery.Create(@"
+if not exists(select null from Queue where Uri = @Uri) 
+    insert into Queue 
+    (
+        Uri, 
+        DisplayUri
+    ) 
+    values 
+    (
+        @Uri, 
+        @DisplayUri
+    )
+")
+                .AddParameterValue(QueueColumns.Uri, uri)
+                .AddParameterValue(QueueColumns.DisplayUri, displayUri);
         }
 
-        public IQuery Remove(string uri)
+        public IQuery Remove(Guid id)
         {
             return RawQuery.Create(
-                @"delete from Queue where Uri = @Uri")
-                .AddParameterValue(QueueColumns.Uri, uri);
+                    @"delete from Queue where Id = @Id")
+                .AddParameterValue(Columns.Id, id);
         }
 
         public IQuery All()

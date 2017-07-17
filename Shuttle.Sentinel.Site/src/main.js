@@ -33,6 +33,7 @@ import '~/components/validation';
 
 import '~/dashboard/';
 import '~/message/';
+import '~/queue/';
 import '~/role/';
 import '~/user/';
 

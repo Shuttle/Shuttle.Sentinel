@@ -8,12 +8,13 @@ import router from '~/router';
 import Api from '~/api';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
+import state from '~/state';
 
 resources.add('queue', { action: 'list', permission: Permissions.Manage.Queues });
 
 var queues = new Api('queues/{id}');
 
-export const ViewModel = Model.extend({
+export const ViewModel = DefineMap.extend({
     columns: { Value: DefineList },
     refreshTimestamp: { type: 'string' },
 
@@ -23,7 +24,7 @@ export const ViewModel = Model.extend({
     },
 
     init: function() {
-        const columns = this.attr('columns');
+        const columns = this.columns;
 
         if (!columns.length) {
             columns.push({
@@ -60,13 +61,13 @@ export const ViewModel = Model.extend({
 
     remove: function(row) {
         queues.delete({ id: row.id })
-            .done(function() {
+            .then(function() {
                 alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('queue:title') }), name: 'item-removal' });
             });
     },
 
     clone: function(row) {
-        state.set('queue', row);
+        state.push('queue', row);
 
         this.add();
     }
