@@ -22,12 +22,12 @@
 		</div>
 		<div class="col-md-6 {{#unless hasMessages}}hidden{{/unless}}">
 		  <sentinel-label label="message:destination-queue-uri" />
-			<sentinel-queue-input {(value)}="destinationQueueUri">
+			<sentinel-queue-input {(uri)}="destinationQueueUri">
 			<span class="input-group-btn">
-			  <button type="button" ($click)="move()" class="btn btn-default" >
+			  <button type="button" ($click)="@move" class="btn btn-default" >
 				{{i18n "move"}}
 			  </button>
-			  <button type="button" ($click)="copy()" class="btn btn-default  ">
+			  <button type="button" ($click)="@copy" class="btn btn-default  ">
 				{{i18n "copy"}}
 			  </button>
 			</span>

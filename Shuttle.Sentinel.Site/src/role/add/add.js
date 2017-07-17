@@ -22,13 +22,10 @@ export const ViewModel = DefineMap.extend(
             }
         },
 
-        hasErrors: function() {
-            return !!this.errors();
-        },
-
         add: function() {
             var self = this;
-            if (this.hasErrors()) {
+            
+            if (!!this.errors()) {
                 return false;
             }
 

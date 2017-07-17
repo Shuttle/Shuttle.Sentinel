@@ -1,14 +1,11 @@
 ﻿import Component from 'can-component/';
 import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
 import view from './send.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
 import Api from '~/api';
-import each from 'can-util/js/each/';
-import $ from 'jquery';
 import validator from 'can-define-validate-validatejs';
 
 resources.add('message', { action: 'send', permission: Permissions.Manage.Messages });
@@ -51,7 +48,10 @@ export const ViewModel = DefineMap.extend({
             destinationQueueUri: this.destinationQueueUri,
             messageType: this.messageType,
             message: this.message
-        });
+        })
+        .then(function() {
+                alerts.show({ message: localisation.value('message:sent') });
+            });
 
         return false;
     }

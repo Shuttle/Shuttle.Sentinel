@@ -16,17 +16,12 @@ var roles = new Api('roles/{id}');
 export const ViewModel = DefineMap.extend(
     'role-list',
     {
-        refreshTimestamp: {
-            type: 'string'
-        },
+        columns: { Value: DefineList },
+        refreshTimestamp: { type: 'string' },
 
         get rolesPromise() {
             const refreshTimestamp = this.refreshTimestamp;
             return roles.list();
-        },
-
-        columns: {
-            Value: DefineList
         },
 
         init: function() {

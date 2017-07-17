@@ -132,7 +132,7 @@ namespace Shuttle.Sentinel.WebApi
 
         }
 
-        [Route("api/messages/move")]
+        [Route("api/messages/transfer")]
         public IHttpActionResult Transfer([FromBody] MessageMoveModel model)
         {
             try

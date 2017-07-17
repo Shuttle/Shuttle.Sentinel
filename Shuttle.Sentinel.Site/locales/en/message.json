@@ -11,6 +11,7 @@
   "return-to-source": "Return to source",
   "send": "Send",
   "send-to-recipient": "Send to recipient",
+  "sent": "The message has been sent.",
   "stop-ignoring": "Stop ignoring",
   "source-queue-uri": "Source queue uri",
   "exceptions": {

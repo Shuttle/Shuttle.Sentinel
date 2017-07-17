@@ -46,7 +46,7 @@ var messages = new Api({
 });
 
 var fetchMessages = new Api('messages/fetch');
-var moveMessages = new Api('messages/move');
+var transferMessages = new Api('messages/transfer');
 
 export const ViewModel = DefineMap.extend({
     message: {},
@@ -54,6 +54,8 @@ export const ViewModel = DefineMap.extend({
     messages: { Value: DefineList },
     hasMessages: { type: 'boolean', value: false },
     showMessages: { type: 'boolean', value: true },
+    sourceQueueUri: { type: 'string', value: '' },
+    destinationQueueUri: { type: 'string', value: '' },
 
     fetching: {
         type: 'boolean',
@@ -102,10 +104,6 @@ export const ViewModel = DefineMap.extend({
 
     messageActions: {
         value: new DefineList()
-    },
-
-    sourceQueueUri: {
-        value: ''
     },
 
     hasSourceQueueUri: {
@@ -169,28 +167,28 @@ export const ViewModel = DefineMap.extend({
             messageActions.push({
                 text: "message:return-to-source",
                 click: function() {
-                    self._move('ReturnToSourceQueue');
+                    self._transfer('ReturnToSourceQueue');
                 }
             });
 
             messageActions.push({
                 text: "message:send-to-recipient",
                 click: function() {
-                    self._move('SendToRecipientQueue');
+                    self._transfer('SendToRecipientQueue');
                 }
             });
 
             messageActions.push({
                 text: "message:stop-ignoring",
                 click: function() {
-                    self._move('StopIgnoring');
+                    self._transfer('StopIgnoring');
                 }
             });
 
             messageActions.push({
                 text: "remove",
                 click: function() {
-                    self._move('Remove');
+                    self._transfer('Remove');
                 }
             });
         }
@@ -236,40 +234,29 @@ export const ViewModel = DefineMap.extend({
     },
 
     move: function() {
-        return this._move('Move');
+        return this._transfer('Move');
     },
 
     copy: function() {
-        return this._move('Copy');
+        return this._transfer('Copy');
     },
 
     returnToSourceQueue: function() {
-        return this._move('Copy');
+        return this._transfer('Copy');
     },
 
-    _move: function(action) {
-        var self = this;
-
+    _transfer: function(action) {
         if (!this.destinationQueueUri && (action === 'Move' || action === 'Copy')) {
             alerts.show({ message: localisation.value('message:exceptions.destination-queue-uri'), name: 'message:exceptions.destination-queue-uri', type: 'danger' });
 
             return false;
         }
 
-        this.moving = true;
-
-        moveMessages.post({
+        transferMessages.post({
             messageIds: this.checkedMessageIds(),
             destinationQueueUri: this.destinationQueueUri,
             action: action
-        })
-            .then(function() {
-                self.refresh();
-                self.moving = false;
-            })
-            .catch(function() {
-                self.moving = false;
-            });
+        });
 
         return true;
     },
