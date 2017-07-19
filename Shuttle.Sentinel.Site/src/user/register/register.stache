@@ -1,5 +1,5 @@
 <sentinel-form {title}="title">
-  <form>
+  <form onsubmit="return false;">
     <fieldset class="form-group">
       <sentinel-text focus="true" label="user:username" {(value)}="username" {errors}="errors" error-attribute="username" />
       <sentinel-text label="user:register.password" {(value)}="password" type="password" {errors}="errors" error-attribute="password" />

@@ -72,7 +72,7 @@ export const ViewModel = DefineMap.extend(
                     self.working = false;
                 });
 
-            return true;
+            return false;
         },
 
         close: function() {

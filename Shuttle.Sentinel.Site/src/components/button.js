@@ -52,9 +52,9 @@ export const ViewModel = DefineMap.extend({
         value: ''
     },
     _click: function(ev) {
-        click.on(this);
-
         ev.stopPropagation();
+
+        return click.on(this);
     }
 });
 

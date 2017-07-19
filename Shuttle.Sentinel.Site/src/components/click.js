@@ -28,6 +28,8 @@ var click = {
         if (!!ev) {
             ev.stopPropagation();
         }
+
+        return false;
     }
 };
 
