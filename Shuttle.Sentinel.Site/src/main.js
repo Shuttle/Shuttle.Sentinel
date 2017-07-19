@@ -32,6 +32,7 @@ import '~/components/textarea';
 import '~/components/validation';
 
 import '~/dashboard/';
+import '~/datastore/';
 import '~/message/';
 import '~/queue/';
 import '~/role/';

@@ -1,6 +1,5 @@
 ﻿import './list/';
-import './add/';
 
 import localisation from '~/localisation';
 
-localisation.addNamespace('queue');
+localisation.addNamespace('datastore');
