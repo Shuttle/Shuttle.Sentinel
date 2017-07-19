@@ -6,3 +6,4 @@
     <sentinel-button {click}="@send" text="message:send" />
   </fieldset>
 </form>
+{{destinationQueueUri}}

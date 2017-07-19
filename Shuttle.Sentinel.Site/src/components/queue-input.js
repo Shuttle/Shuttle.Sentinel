@@ -38,6 +38,8 @@ export const ViewModel = DefineMap.extend({
 
     searchQueues: function(el) {
         this.search = el.value;
+        this.uri = el.value;
+        this.value = el.value;
 
         $(el).parent().addClass('open');
     },
