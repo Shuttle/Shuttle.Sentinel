@@ -48,286 +48,288 @@ var messages = new Api({
 var fetchMessages = new Api('messages/fetch');
 var transferMessages = new Api('messages/transfer');
 
-export const ViewModel = DefineMap.extend({
-    message: {},
-    messageRows: {},
-    messages: { Value: DefineList },
-    hasMessages: { type: 'boolean', value: false },
-    showMessages: { type: 'boolean', value: true },
-    sourceQueueUri: { type: 'string', value: '' },
-    destinationQueueUri: { type: 'string', value: '' },
+export const ViewModel = DefineMap.extend(
+    'manage',
+    {
+        message: {},
+        messageRows: {},
+        messages: { Value: DefineList },
+        hasMessages: { type: 'boolean', value: false },
+        showMessages: { type: 'boolean', value: true },
+        sourceQueueUri: { type: 'string', value: '' },
+        destinationQueueUri: { type: 'string', value: '' },
 
-    fetching: {
-        type: 'boolean',
-        value: false
-    },
+        fetching: {
+            type: 'boolean',
+            value: false
+        },
 
-    fetchCount: {
-        type: 'number',
-        value: 5
-    },
+        fetchCount: {
+            type: 'number',
+            value: 5
+        },
 
-    refreshTimestamp: {
-        type: 'string'
-    },
+        refreshTimestamp: {
+            type: 'string'
+        },
 
-    get messagesPromise() {
-        const self = this;
-        const refreshTimestamp = this.refreshTimestamp;
+        get messagesPromise() {
+            const self = this;
+            const refreshTimestamp = this.refreshTimestamp;
 
-        return messages.list()
-            .then(function(list) {
-                self.messages = list;
-                self.hasMessages = list.length > 0;
+            return messages.list()
+                .then(function(list) {
+                    self.messages = list;
+                    self.hasMessages = list.length > 0;
 
-                return list;
-            });
-    },
+                    return list;
+                });
+        },
 
-    columns: {
-        value: new DefineList()
-    },
+        columns: {
+            value: new DefineList()
+        },
 
-    messageColumns: {
-        value: [
-            {
-                columnClass: 'col-md-2',
-                columnTitle: 'name',
-                attributeName: 'name'
-            },
-            {
-                columnTitle: 'value',
-                attributeName: 'value'
+        messageColumns: {
+            value: [
+                {
+                    columnClass: 'col-md-2',
+                    columnTitle: 'name',
+                    attributeName: 'name'
+                },
+                {
+                    columnTitle: 'value',
+                    attributeName: 'value'
+                }
+            ]
+        },
+
+        messageActions: {
+            value: new DefineList()
+        },
+
+        hasSourceQueueUri: {
+            get: function() {
+                return !!this.sourceQueueUri;
             }
-        ]
-    },
+        },
 
-    messageActions: {
-        value: new DefineList()
-    },
+        hasDestinationQueueUri: {
+            get: function() {
+                return !!this.destinationQueueUri;
+            }
+        },
 
-    hasSourceQueueUri: {
-        get: function() {
-            return !!this.sourceQueueUri;
-        }
-    },
+        noCheckedMessages: {
+            get: function() {
+                var checked = false;
 
-    hasDestinationQueueUri: {
-        get: function() {
-            return !!this.destinationQueueUri;
-        }
-    },
+                each(this.messages, function(item) {
+                    if (checked) {
+                        return;
+                    }
 
-    noCheckedMessages: {
-        get: function() {
-            var checked = false;
+                    checked = checked || item.checked;
+                });
 
-            each(this.messages, function(item) {
-                if (checked) {
-                    return;
-                }
+                return !checked;
+            }
+        },
 
-                checked = checked || item.checked;
-            });
+        init: function() {
+            var self = this;
+            let columns = this.columns;
+            let messageActions = this.messageActions;
 
-            return !checked;
-        }
-    },
+            if (!columns.length) {
+                columns.push({
+                    checked: false,
+                    columnClass: 'col-md-1',
+                    columnTitle: 'check',
+                    columnType: 'view',
+                    view: '<span ($click)="toggleCheck(%event)" class="glyphicon {{#if checked}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" />'
+                });
 
-    init: function() {
-        var self = this;
-        let columns = this.columns;
-        let messageActions = this.messageActions;
+                columns.push(
+                {
+                    columnClass: 'col-md-2',
+                    columnTitle: 'message:message-id',
+                    attributeName: 'messageId'
+                });
 
-        if (!columns.length) {
-            columns.push({
-                checked: false,
-                columnClass: 'col-md-1',
-                columnTitle: 'check',
-                columnType: 'view',
-                view: '<span ($click)="toggleCheck(%event)" class="glyphicon {{#if checked}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" />'
-            });
+                columns.push(
+                {
+                    columnTitle: 'message:message',
+                    columnType: 'view',
+                    view: '<pre>{{message}}</pre>'
+                });
+            }
 
-            columns.push(
-            {
-                columnClass: 'col-md-2',
-                columnTitle: 'message:message-id',
-                attributeName: 'messageId'
-            });
+            if (!messageActions.length) {
+                messageActions.push({
+                    text: "message:return-to-source",
+                    click: function() {
+                        self._transfer('ReturnToSourceQueue');
+                    }
+                });
 
-            columns.push(
-            {
-                columnTitle: 'message:message',
-                columnType: 'view',
-                view: '<pre>{{message}}</pre>'
-            });
-        }
+                messageActions.push({
+                    text: "message:send-to-recipient",
+                    click: function() {
+                        self._transfer('SendToRecipientQueue');
+                    }
+                });
 
-        if (!messageActions.length) {
-            messageActions.push({
-                text: "message:return-to-source",
-                click: function() {
-                    self._transfer('ReturnToSourceQueue');
-                }
-            });
+                messageActions.push({
+                    text: "message:stop-ignoring",
+                    click: function() {
+                        self._transfer('StopIgnoring');
+                    }
+                });
 
-            messageActions.push({
-                text: "message:send-to-recipient",
-                click: function() {
-                    self._transfer('SendToRecipientQueue');
-                }
-            });
+                messageActions.push({
+                    text: "remove",
+                    click: function() {
+                        self._transfer('Remove');
+                    }
+                });
+            }
 
-            messageActions.push({
-                text: "message:stop-ignoring",
-                click: function() {
-                    self._transfer('StopIgnoring');
-                }
-            });
+            this.refresh();
+        },
 
-            messageActions.push({
-                text: "remove",
-                click: function() {
-                    self._transfer('Remove');
-                }
-            });
-        }
+        refresh: function() {
+            this.refreshTimestamp = Date.now();
+        },
 
-        this.refresh();
-    },
+        fetch: function() {
+            var self = this;
 
-    refresh: function() {
-        this.refreshTimestamp = Date.now();
-    },
+            if (!this.hasSourceQueueUri) {
+                alerts.show({ message: localisation.value('message:exceptions.source-queue-uri'), name: 'message:exceptions.source-queue-uri', type: 'danger' });
 
-    fetch: function() {
-        var self = this;
+                return false;
+            }
 
-        if (!this.hasSourceQueueUri) {
-            alerts.show({ message: localisation.value('message:exceptions.source-queue-uri'), name: 'message:exceptions.source-queue-uri', type: 'danger' });
+            this.fetching = true;
 
-            return false;
-        }
-
-        this.fetching = true;
-
-        fetchMessages.post({
-            queueUri: this.sourceQueueUri,
-            count: this.fetchCount || 1
-        })
-            .then(function(response) {
-                alerts.show({ message: localisation.value('message:count-retrieved', { count: response.data.countRetrieved }), name: 'message:count-retrieved'});
-
-                self.refresh();
-
-                self.fetching = false;
+            fetchMessages.post({
+                queueUri: this.sourceQueueUri,
+                count: this.fetchCount || 1
             })
-            .catch(function() {
-                self.fetching = false;
+                .then(function(response) {
+                    alerts.show({ message: localisation.value('message:count-retrieved', { count: response.data.countRetrieved }), name: 'message:count-retrieved'});
+
+                    self.refresh();
+
+                    self.fetching = false;
+                })
+                .catch(function() {
+                    self.fetching = false;
+                });
+
+            return true;
+        },
+
+        checkedMessageIds: function() {
+            return $.map(this.messages, function(message) { return message.checked ? message.messageId : undefined; });
+        },
+
+        move: function() {
+            return this._transfer('Move');
+        },
+
+        copy: function() {
+            return this._transfer('Copy');
+        },
+
+        returnToSourceQueue: function() {
+            return this._transfer('Copy');
+        },
+
+        _transfer: function(action) {
+            if (!this.destinationQueueUri && (action === 'Move' || action === 'Copy')) {
+                alerts.show({ message: localisation.value('message:exceptions.destination-queue-uri'), name: 'message:exceptions.destination-queue-uri', type: 'danger' });
+
+                return false;
+            }
+
+            transferMessages.post({
+                messageIds: this.checkedMessageIds(),
+                destinationQueueUri: this.destinationQueueUri,
+                action: action
             });
 
-        return true;
-    },
+            return true;
+        },
 
-    checkedMessageIds: function() {
-        return $.map(this.messages, function(message) { return message.checked ? message.messageId : undefined; });
-    },
+        closeMessageView () {
+            this.showMessages = true;
+        },
 
-    move: function() {
-        return this._transfer('Move');
-    },
+        messageSelected: function(message) {
+            var self = this;
 
-    copy: function() {
-        return this._transfer('Copy');
-    },
+            this.message = message;
+            this.messageRows = new DefineList();
 
-    returnToSourceQueue: function() {
-        return this._transfer('Copy');
-    },
+            this.addMessageRow('MessageId', message.messageId);
+            this.addMessageRow('SourceQueueUri', message.sourceQueueUri);
+            this.addMessageRow('AssemblyQualifiedName', message.assemblyQualifiedName);
+            this.addMessageRow('CompressionAlgorithm', message.compressionAlgorithm);
+            this.addMessageRow('CorrelationId', message.correlationId);
+            this.addMessageRow('EncryptionAlgorithm', message.encryptionAlgorithm);
+            this.addMessageRow('ExpiryDate', message.expiryDate);
 
-    _transfer: function(action) {
-        if (!this.destinationQueueUri && (action === 'Move' || action === 'Copy')) {
-            alerts.show({ message: localisation.value('message:exceptions.destination-queue-uri'), name: 'message:exceptions.destination-queue-uri', type: 'danger' });
+            if (message.failureMessages && message.failureMessages.length) {
+                each(message.failureMessages, function(item, index) {
+                    self.addMessageRow('FailureMessages.' + index, item);
+                });
+            } else {
+                this.addMessageRow('FailureMessages', "(none)");
+            }
 
-            return false;
-        }
+            if (message.headers && message.headers.length) {
+                each(message.headers, function(item, index) {
+                    self.addMessageRow('Headers.' + index, item);
+                });
+            } else {
+                this.addMessageRow('Headers', "(none)");
+            }
 
-        transferMessages.post({
-            messageIds: this.checkedMessageIds(),
-            destinationQueueUri: this.destinationQueueUri,
-            action: action
-        });
+            this.addMessageRow('IgnoreTillDate', message.ignoreTillDate);
+            this.addMessageRow('MessageReceivedId', message.messageReceivedId);
+            this.addMessageRow('MessageType', message.messageType);
+            this.addMessageRow('PrincipalIdentityName', message.principalIdentityName);
+            this.addMessageRow('RecipientInboxWorkQueueUri', message.recipientInboxWorkQueueUri);
+            this.addMessageRow('SendDate', message.sendDate);
+            this.addMessageRow('SenderInboxWorkQueueUri', message.senderInboxWorkQueueUri);
 
-        return true;
-    },
+            this.showMessages = false;
+        },
 
-    closeMessageView () {
-        this.showMessages = true;
-    },
+        addMessageRow: function(name, value) {
+            this.messageRows.push({ name: name, value: value });
+        },
 
-    messageSelected: function(message) {
-        var self = this;
+        checkAll: function() {
+            this._setCheckMarks(true);
+        },
 
-        this.message = message;
-        this.messageRows = new DefineList();
+        checkNone: function() {
+            this._setCheckMarks(false);
+        },
 
-        this.addMessageRow('MessageId', message.messageId);
-        this.addMessageRow('SourceQueueUri', message.sourceQueueUri);
-        this.addMessageRow('AssemblyQualifiedName', message.assemblyQualifiedName);
-        this.addMessageRow('CompressionAlgorithm', message.compressionAlgorithm);
-        this.addMessageRow('CorrelationId', message.correlationId);
-        this.addMessageRow('EncryptionAlgorithm', message.encryptionAlgorithm);
-        this.addMessageRow('ExpiryDate', message.expiryDate);
+        checkInvert: function() {
+            this._setCheckMarks();
+        },
 
-        if (message.failureMessages && message.failureMessages.length) {
-            each(message.failureMessages, function(item, index) {
-                self.addMessageRow('FailureMessages.' + index, item);
+        _setCheckMarks: function(value) {
+            each(this.messages, function(item) {
+                item.checked = (value == undefined? !item.checked: value);
             });
-        } else {
-            this.addMessageRow('FailureMessages', "(none)");
         }
-
-        if (message.headers && message.headers.length) {
-            each(message.headers, function(item, index) {
-                self.addMessageRow('Headers.' + index, item);
-            });
-        } else {
-            this.addMessageRow('Headers', "(none)");
-        }
-
-        this.addMessageRow('IgnoreTillDate', message.ignoreTillDate);
-        this.addMessageRow('MessageReceivedId', message.messageReceivedId);
-        this.addMessageRow('MessageType', message.messageType);
-        this.addMessageRow('PrincipalIdentityName', message.principalIdentityName);
-        this.addMessageRow('RecipientInboxWorkQueueUri', message.recipientInboxWorkQueueUri);
-        this.addMessageRow('SendDate', message.sendDate);
-        this.addMessageRow('SenderInboxWorkQueueUri', message.senderInboxWorkQueueUri);
-
-        this.showMessages = false;
-    },
-
-    addMessageRow: function(name, value) {
-        this.messageRows.push({ name: name, value: value });
-    },
-
-    checkAll: function() {
-        this._setCheckMarks(true);
-    },
-
-    checkNone: function() {
-        this._setCheckMarks(false);
-    },
-
-    checkInvert: function() {
-        this._setCheckMarks();
-    },
-
-    _setCheckMarks: function(value) {
-        each(this.messages, function(item) {
-            item.checked = (value == undefined? !item.checked: value);
-        });
-    }
-});
+    });
 
 export default Component.extend({
     tag: 'sentinel-message-manage',
