@@ -117,3 +117,4 @@ UpgradeLog*.XML
 *.jfm
 .vs/config/applicationhost.config
 .vs/config/applicationhost.config
+.vs/config/applicationhost.config
