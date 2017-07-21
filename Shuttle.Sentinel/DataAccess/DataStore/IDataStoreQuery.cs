@@ -7,7 +7,7 @@ namespace Shuttle.Sentinel
     public interface IDataStoreQuery
     {
         void Add(DataStore dataStore);
-        void Remove(string name);
+        void Remove(Guid id);
         IEnumerable<DataStore> All();
         void Edit(DataStore dataStore);
     }

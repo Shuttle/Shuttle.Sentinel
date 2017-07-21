@@ -42,7 +42,7 @@ namespace Shuttle.Sentinel.Server
         {
             using (_databaseContextFactory.Create())
             {
-                _dataStoreQuery.Remove(context.Message.Name);
+                _dataStoreQuery.Remove(context.Message.Id);
             }
         }
 

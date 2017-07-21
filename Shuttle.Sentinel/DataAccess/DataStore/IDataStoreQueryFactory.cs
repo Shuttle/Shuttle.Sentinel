@@ -7,7 +7,7 @@ namespace Shuttle.Sentinel
     public interface IDataStoreQueryFactory
     {
         IQuery Add(DataStore dataStore);
-        IQuery Remove(string name);
+        IQuery Remove(Guid id);
         IQuery All();
         IQuery Edit(DataStore dataStore);
     }

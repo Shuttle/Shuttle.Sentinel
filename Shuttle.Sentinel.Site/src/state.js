@@ -1,12 +1,10 @@
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
 import guard from '~/guard';
-import logger from '~/logger';
 import route from 'can-route';
 import loader from '@loader';
 
 var State = DefineMap.extend({
-    __previousKey: 'string',
     route: route,
     debug: { type: 'boolean', value: loader.debug },
     data: { Value: DefineList },
@@ -31,13 +29,13 @@ var State = DefineMap.extend({
     pop: function(name) {
         guard.againstUndefined(name, 'name');
         
-        let key = 'data.' + name;
-        let previousKey = this.__previousKey;
         let result;
+        let removeIndex = -1;
 
-        this.data.forEach(function(item) {
+        this.data.forEach(function(item, index) {
             if (item.name === name) {
                 result = item.value;
+                removeIndex = index;
 
                 return false;
             } else {
@@ -45,13 +43,9 @@ var State = DefineMap.extend({
             }
         });
 
-        if (!result) {
-            if (key === previousKey) {
-                logger.info(`There is no data item available for key '${key}'.  However, your last access was to this key.  Keep in mind that when you call 'pop' the data item is destroyed.  To re-use it you wil need to place it in a local variable.`);
-            }
+        if (removeIndex > -1) {
+            this.data.splice(removeIndex, 1);
         }
-
-        this.__previousKey = key;
 
         return result;
     }

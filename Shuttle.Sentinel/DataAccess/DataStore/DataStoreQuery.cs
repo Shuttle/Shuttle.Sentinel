@@ -28,9 +28,9 @@ namespace Shuttle.Sentinel
             _databaseGateway.ExecuteUsing(_dataStoreQueryFactory.Add(dataStore));
         }
 
-        public void Remove(string name)
+        public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_dataStoreQueryFactory.Remove(name));
+            _databaseGateway.ExecuteUsing(_dataStoreQueryFactory.Remove(id));
         }
 
         public IEnumerable<DataStore> All()

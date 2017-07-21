@@ -155,7 +155,6 @@
     <Compile Include="Controllers\DataStoresController.cs" />
     <Compile Include="Controllers\QueuesController.cs" />
     <Compile Include="Models\EditDataStoreModel.cs" />
-    <Compile Include="Models\RemoveDataStoreModel.cs" />
     <Compile Include="Models\AddDataStoreModel.cs" />
     <Compile Include="Models\QueueModel.cs" />
     <Compile Include="Models\FetchMessageModel.cs" />

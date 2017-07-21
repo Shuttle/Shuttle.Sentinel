@@ -1,3 +1,4 @@
+using System;
 using System.Web.Http;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
@@ -68,14 +69,12 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
-        [Route("api/dataStores/remove")]
-        public IHttpActionResult RemoveDataStore([FromBody] RemoveDataStoreModel model)
+        [Route("api/datastores/{id}")]
+        public IHttpActionResult Delete(Guid id)
         {
-            Guard.AgainstNull(model, "model");
-
             _bus.Send(new RemoveDataStoreCommand
             {
-                Name = model.Name
+                Id = id
             });
 
             return Ok();

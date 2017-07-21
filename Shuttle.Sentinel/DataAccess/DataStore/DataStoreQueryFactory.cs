@@ -28,11 +28,16 @@ if not exists (select null from DataStore where Name = @Name)
                 .AddParameterValue(DataStoreColumns.ProviderName, dataStore.ProviderName);
         }
 
-        public IQuery Remove(string name)
+        public IQuery Remove(Guid id)
         {
-            return RawQuery.Create(
-                @"delete from DataStore where Name = @Name")
-                .AddParameterValue(DataStoreColumns.Name, name);
+            return RawQuery.Create(@"
+delete 
+from 
+    DataStore 
+where 
+    Id = @Id
+")
+                .AddParameterValue(Columns.Id, id);
         }
 
         public IQuery All()

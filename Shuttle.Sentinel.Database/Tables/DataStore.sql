@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[DataStore]
 (
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [Name] VARCHAR(130) NOT NULL, 
-    [ConnectionString] VARCHAR(260) NOT NULL, 
-    [ProviderName] VARCHAR(130) NOT NULL
+    [Name] VARCHAR(64) NOT NULL, 
+    [ConnectionString] VARCHAR(1024) NOT NULL, 
+    [ProviderName] VARCHAR(128) NOT NULL
 )
 
 GO
