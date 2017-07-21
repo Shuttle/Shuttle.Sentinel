@@ -9,6 +9,6 @@ namespace Shuttle.Sentinel
         void Add(DataStore dataStore);
         void Remove(Guid id);
         IEnumerable<DataStore> All();
-        void Edit(DataStore dataStore);
+        DataStore Get(Guid id);
     }
 }

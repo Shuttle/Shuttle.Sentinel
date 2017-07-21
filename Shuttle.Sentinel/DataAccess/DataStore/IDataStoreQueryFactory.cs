@@ -9,6 +9,6 @@ namespace Shuttle.Sentinel
         IQuery Add(DataStore dataStore);
         IQuery Remove(Guid id);
         IQuery All();
-        IQuery Edit(DataStore dataStore);
+        IQuery Get(Guid id);
     }
 }

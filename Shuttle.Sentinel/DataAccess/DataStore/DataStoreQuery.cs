@@ -38,9 +38,16 @@ namespace Shuttle.Sentinel
             return _queryMapper.MapObjects<DataStore>(_dataStoreQueryFactory.All());
         }
 
-        public void Edit(DataStore dataStore)
+        public DataStore Get(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_dataStoreQueryFactory.Edit(dataStore));
+            var result = _queryMapper.MapObject<DataStore>(_dataStoreQueryFactory.Get(id));
+
+            if (result == null)
+            {
+                throw new SentinelException($"Could not find a data store with id '{id}'.");
+            }
+
+            return result;
         }
     }
 }

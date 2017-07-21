@@ -1,0 +1,10 @@
+<sentinel-page-title title="datastore:list.title" />
+<sentinel-buttons>
+  <sentinel-button {click}="@add" text="add" permission="sentinel://datastore/add" />
+  <sentinel-refresh-button {click}="@refresh" />
+</sentinel-buttons>
+{{#if list.isResolved}}
+<sentinel-table {columns}="columns" {rows}="list.value" />
+{{else}}
+<sentinel-fetching title="datastore:list.title" />
+{{/if}}

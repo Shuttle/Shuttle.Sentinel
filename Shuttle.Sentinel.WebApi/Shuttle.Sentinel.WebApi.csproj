@@ -149,12 +149,13 @@
   <ItemGroup>
     <Compile Include="ApplicationStart\WebApiConfiguration.cs" />
     <Compile Include="Controllers\AnonymousPermissionsController.cs" />
+    <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Controllers\EnvironmentsController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\DataStoresController.cs" />
     <Compile Include="Controllers\QueuesController.cs" />
-    <Compile Include="Models\EditDataStoreModel.cs" />
+    <Compile Include="Models\SubscriptionModel.cs" />
     <Compile Include="Models\AddDataStoreModel.cs" />
     <Compile Include="Models\QueueModel.cs" />
     <Compile Include="Models\FetchMessageModel.cs" />

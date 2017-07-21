@@ -8,7 +8,6 @@ namespace Shuttle.Sentinel.Server
 {
     public class DataStoreHandler : 
         IMessageHandler<AddDataStoreCommand>,
-        IMessageHandler<EditDataStoreCommand>,
         IMessageHandler<RemoveDataStoreCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
@@ -43,22 +42,6 @@ namespace Shuttle.Sentinel.Server
             using (_databaseContextFactory.Create())
             {
                 _dataStoreQuery.Remove(context.Message.Id);
-            }
-        }
-
-        public void ProcessMessage(IHandlerContext<EditDataStoreCommand> context)
-        {
-            var message = context.Message;
-
-            using (_databaseContextFactory.Create())
-            {
-                _dataStoreQuery.Edit(new DataStore
-                {
-                    Id = message.Id,
-                    Name = message.Name,
-                    ConnectionString = message.ConnectionString,
-                    ProviderName = message.ProviderName
-                });
             }
         }
     }

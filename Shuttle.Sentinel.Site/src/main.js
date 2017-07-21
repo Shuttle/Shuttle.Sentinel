@@ -36,6 +36,7 @@ import '~/datastore/';
 import '~/message/';
 import '~/queue/';
 import '~/role/';
+import '~/subscription/';
 import '~/user/';
 
 localisation.start(function(error) {

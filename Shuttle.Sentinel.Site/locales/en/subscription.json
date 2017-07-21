@@ -1,14 +1,11 @@
 ﻿{
-  "title": "Data Store",
+  "title": "Subscription",
   "add": {
-    "title": "Add a data store"
-  },
-  "edit": {
-    "title": "Edit data store"
+    "title": "Add a subscription"
   },
   "list": {
-    "title": "Data Stores"
+    "title": "Subscriptions"
   },
-  "connection-string": "Connection string",
-  "provider-name": "Provider name"
+  "message-type": "Message type",
+  "inbox-work-queue-uri": "Inbox work queue uri"
 }

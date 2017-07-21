@@ -45,20 +45,20 @@ where
             return RawQuery.Create(@"select Id, Name, ConnectionString, ProviderName from DataStore order by Name");
         }
 
-        public IQuery Edit(DataStore dataStore)
+        public IQuery Get(Guid id)
         {
             return RawQuery.Create(@"
-update DataStore set
-    Name = @Name,
-    ConnectionString = @ConnectionString,
-    ProviderName = @ProviderName
+select 
+    Id, 
+    Name, 
+    ConnectionString, 
+    ProviderName 
+from 
+    DataStore 
 where
     Id = @Id
 ")
-                .AddParameterValue(Columns.Id, dataStore.Id)
-                .AddParameterValue(DataStoreColumns.Name, dataStore.Name)
-                .AddParameterValue(DataStoreColumns.ConnectionString, dataStore.ConnectionString)
-                .AddParameterValue(DataStoreColumns.ProviderName, dataStore.ProviderName);
+                .AddParameterValue(Columns.Id, id);
         }
     }
 }
