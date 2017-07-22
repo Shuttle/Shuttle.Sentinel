@@ -1,5 +1,6 @@
 import Component from 'can-component/';
 import DefineMap from 'can-define/map/';
+import DefineList from 'can-define/list/';
 import view from './add.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
@@ -7,27 +8,44 @@ import router from '~/router';
 import Api from '~/api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
+import each from 'can-util/js/each/';
 
-resources.add('datastore', { action: 'add', permission: Permissions.Manage.DataStores });
+resources.add('subscription', { action: 'add', permission: Permissions.Manage.Subscriptions });
 
-var datastores = new Api('datastores/{id}');
+var dataStores = new Api('datastores');
+var subscriptions = new Api('subscriptions/{id}');
 
 export const ViewModel = DefineMap.extend(
     'queues',
     {
+        dataStores: { Value: DefineList },
+
         init: function() {
-            const result = state.pop('datastore');
+            const self = this;
+
+            self.dataStores.push({ value: undefined, label: 'select' });
+
+            dataStores.list().then((response) => {
+                each(response, (store) => {
+                    self.dataStores.push({
+                        value: store.id,
+                        label: store.name
+                    });
+                });
+            });
+
+            const result = state.pop('subscription');
 
             if (!result) {
                 return;
             }
 
-            this.name = result.name;
-            this.connectionString = result.connectionString;
-            this.providerName = result.providerName;
+            this.dataStoreId = result.dataStoreId;
+            this.messageType = result.messageType;
+            this.inboxWorkQueueUri = result.inboxWorkQueueUri;
         },
 
-        name: { 
+        dataStoreId: { 
             type: 'string',
             value: '',
             validate: {
@@ -35,7 +53,7 @@ export const ViewModel = DefineMap.extend(
             }
         },
 
-        connectionString: { 
+        messageType: { 
             type: 'string',
             value: '',
             validate: {
@@ -43,7 +61,7 @@ export const ViewModel = DefineMap.extend(
             }
         },
 
-        providerName: { 
+        inboxWorkQueueUri: { 
             type: 'string',
             value: '',
             validate: {
@@ -56,10 +74,10 @@ export const ViewModel = DefineMap.extend(
                 return false;
             }
 
-            datastores.post({
-                name: this.name,
-                connectionString: this.connectionString,
-                providerName: this.providerName
+            subscriptions.post({
+                dataStoreId: this.dataStoreId,
+                messageType: this.messageType,
+                inboxWorkQueueUri: this.inboxWorkQueueUri
             });
 
             this.close();
@@ -68,7 +86,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         close: function() {
-            router.goto('datastore/list');
+            router.goto('subscription/list');
         }
     }
 );
@@ -76,7 +94,7 @@ export const ViewModel = DefineMap.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-datastore-add',
+    tag: 'sentinel-subscription-add',
     ViewModel,
     view
 });

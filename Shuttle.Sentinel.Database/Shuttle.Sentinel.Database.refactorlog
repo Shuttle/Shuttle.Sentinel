@@ -14,4 +14,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="NextNotification" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="6d8e00f6-7b19-4d20-a0e3-1c03647ab2b4" ChangeDateTime="07/22/2017 19:16:10">
+    <Property Name="ElementName" Value="[dbo].[Queue].[DisplayUri]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Queue]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SecuredUri" />
+  </Operation>
 </Operations>

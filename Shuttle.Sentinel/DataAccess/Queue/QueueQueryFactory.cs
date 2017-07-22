@@ -8,8 +8,7 @@ namespace Shuttle.Sentinel
         private const string SelectFrom = @"
 select 
     Id, 
-    Uri, 
-    DisplayUri 
+    Uri
 from 
     Queue 
 ";
@@ -20,17 +19,14 @@ from
 if not exists(select null from Queue where Uri = @Uri) 
     insert into Queue 
     (
-        Uri, 
-        DisplayUri
+        Uri
     ) 
     values 
     (
-        @Uri, 
-        @DisplayUri
+        @Uri
     )
 ")
-                .AddParameterValue(QueueColumns.Uri, uri)
-                .AddParameterValue(QueueColumns.DisplayUri, displayUri);
+                .AddParameterValue(QueueColumns.Uri, uri);
         }
 
         public IQuery Remove(Guid id)

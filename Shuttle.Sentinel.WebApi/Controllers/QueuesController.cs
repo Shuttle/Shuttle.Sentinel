@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
 using Shuttle.Sentinel.Messages.v1;
+using Shuttle.Sentinel.Query;
 
 namespace Shuttle.Sentinel.WebApi
 {
@@ -31,7 +33,7 @@ namespace Shuttle.Sentinel.WebApi
             {
                 return Ok(new
                 {
-                    Data = _queueQuery.All()
+                    Data = Data(_queueQuery.All())
                 });
             }
         }
@@ -44,9 +46,37 @@ namespace Shuttle.Sentinel.WebApi
             {
                 return Ok(new
                 {
-                    Data = _queueQuery.Search(search)
+                    Data = Data(_queueQuery.Search(search))
                 });
             }
+        }
+
+        private IEnumerable<dynamic> Data(IEnumerable<Queue> queues)
+        {
+            var result = new List<dynamic>();
+
+            foreach (var queue in queues)
+            {
+                string securedUri;
+
+                try
+                {
+                    securedUri = new Uri(queue.Uri).Secured().ToString();
+                }
+                catch
+                {
+                    securedUri = "(invalid uri)";
+                }
+
+                result.Add(new
+                {
+                    queue.Id,
+                    queue.Uri,
+                    SecuredUri = securedUri
+                });
+            }
+
+            return result;
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]

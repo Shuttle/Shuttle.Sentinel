@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Web.Http;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
@@ -33,6 +34,26 @@ namespace Shuttle.Sentinel.WebApi
                 return Ok(new
                 {
                     Data = _subscriptionQuery.All()
+                    .Select(subscription=>
+                        {
+                            string securedUri;
+
+                            try
+                            {
+                                securedUri = new Uri(subscription.InboxWorkQueueUri).Secured().ToString();
+                            }
+                            catch
+                            {
+                                securedUri = "(invalid uri)";
+                            }
+                            
+                            return new
+                            {
+                                subscription.MessageType,
+                                subscription.InboxWorkQueueUri,
+                                SecuredUri = securedUri
+                            };
+                        })
                 });
             }
         }

@@ -6,6 +6,7 @@
   "list": {
     "title": "Subscriptions"
   },
+  "data-store": "Data store",
   "message-type": "Message type",
   "inbox-work-queue-uri": "Inbox work queue uri"
 }

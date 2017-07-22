@@ -6,6 +6,5 @@ namespace Shuttle.Sentinel.Query
     {
         public Guid Id { get; set; }
         public string Uri { get; set; }
-        public string DisplayUri { get; set; }
     }
 }

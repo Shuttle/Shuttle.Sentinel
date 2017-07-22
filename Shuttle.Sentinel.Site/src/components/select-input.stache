@@ -1,4 +1,4 @@
-﻿<select ($change)="change(%element)">
+﻿<select ($change)="change(%element)" class="form-control">
 	{{#each options}}
         <option {{getSelected(.)}} value='{{value}}'>{{label}}</option>
   {{/each}}

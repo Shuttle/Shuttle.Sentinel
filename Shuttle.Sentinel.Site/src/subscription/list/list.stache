@@ -3,7 +3,7 @@
   <sentinel-button {click}="@add" text="add" permission="sentinel://subscription/add" />
   <sentinel-refresh-button {click}="@refresh" />
 </sentinel-buttons>
-<sentinel-select {options}="storeOptions" {(value)}="storeId" />
+<sentinel-select label="subscription:data-store" {options}="dataStores" {(value)}="dataStoreId" />
 {{storeId}}
 <div class="{{#unless storeId}}hidden{{/if}}">
   {{#if subscriptions.isResolved}}

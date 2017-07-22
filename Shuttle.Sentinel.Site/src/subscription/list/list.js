@@ -23,21 +23,21 @@ var subscriptions = new Api({
     Map: Subscription
 });
 
-var datastores = new Api('datastores');
+var dataStores = new Api('datastores');
 
 export const ViewModel = DefineMap.extend(
     'subscriptions',
     {
         columns: { Value: DefineList },
         refreshTimestamp: { type: 'string' },
-        storeId: { type: 'string', value: '' },
-        storeOptions: { Value: DefineList },
+        dataStoreId: { type: 'string', value: '' },
+        dataStores: { Value: DefineList },
 
         get subscriptions () {
             const refreshTimestamp = this.refreshTimestamp;
-            const storeId = this.storeId;
+            const dataStoreId = this.dataStoreId;
 
-            return !storeId ? undefined : subscriptions.list({ id: storeId });
+            return !dataStoreId ? undefined : subscriptions.list({ id: dataStoreId });
         },
 
         init: function() {
@@ -61,7 +61,7 @@ export const ViewModel = DefineMap.extend(
 
                 columns.push({
                     columnTitle: 'subscription:inbox-work-queue-uri',
-                    attributeName: 'inboxWorkQueueUri'
+                    attributeName: 'securedUri'
                 });
 
                 columns.push({
@@ -73,11 +73,11 @@ export const ViewModel = DefineMap.extend(
                 });
             }
 
-            self.storeOptions.push({ value: undefined, label: 'select' });
+            self.dataStores.push({ value: undefined, label: 'select' });
 
-            datastores.list().then((response) => {
+            dataStores.list().then((response) => {
                 each(response, (store) => {
-                    self.storeOptions.push({
+                    self.dataStores.push({
                         value: store.id,
                         label: store.name
                     });
