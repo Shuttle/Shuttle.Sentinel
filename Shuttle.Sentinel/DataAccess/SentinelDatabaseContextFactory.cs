@@ -28,7 +28,7 @@ namespace Shuttle.Sentinel
                 store = _dataStoreQuery.Get(dataStoreId);
             }
 
-            return Create(store.ConnectionString, store.ConnectionString);
+            return Create(store.ProviderName, store.ConnectionString);
         }
     }
 }

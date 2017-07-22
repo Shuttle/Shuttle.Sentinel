@@ -2,7 +2,6 @@
 using Castle.Windsor;
 using log4net;
 using Shuttle.Core.Castle;
-using Shuttle.Core.Data;
 using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
@@ -35,7 +34,7 @@ namespace Shuttle.Sentinel.Server
             EventStore.Register(container);
             ServiceBus.Register(container);
 
-            container.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
+            container.Resolve<ISentinelDatabaseContextFactory>().ConfigureWith("Sentinel");
 
             _bus = ServiceBus.Create(container).Start();
         }

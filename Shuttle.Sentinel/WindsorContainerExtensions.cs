@@ -5,7 +5,6 @@ using Castle.Windsor;
 using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Recall;
-using Shuttle.Recall.Sql;
 using Shuttle.Recall.Sql.Storage;
 
 namespace Shuttle.Sentinel
@@ -21,7 +20,7 @@ namespace Shuttle.Sentinel
 			container.Register(Component.For<IAuthenticationService>().ImplementedBy(configuration.AuthenticationServiceType));
 			container.Register(Component.For<IAuthorizationService>().ImplementedBy(configuration.AuthorizationServiceType));
 
-			container.Resolve<IDatabaseContextFactory>().ConfigureWith(configuration.ProviderName, configuration.ConnectionString);
+			container.Resolve<ISentinelDatabaseContextFactory>().ConfigureWith(configuration.ProviderName, configuration.ConnectionString);
 		}
 
 		public static void RegisterDataAccess(this IWindsorContainer container, string assemblyName)
@@ -49,7 +48,7 @@ namespace Shuttle.Sentinel
 			container.Register(Component.For<IDbCommandFactory>().ImplementedBy<DbCommandFactory>());
 			container.Register(Component.For<IDatabaseGateway>().ImplementedBy<DatabaseGateway>());
 			container.Register(Component.For<IDbConnectionFactory>().ImplementedBy<DbConnectionFactory>());
-			container.Register(Component.For<IDatabaseContextFactory, IDatabaseContextFactory>().ImplementedBy<DatabaseContextFactory>());
+			container.Register(Component.For<IDatabaseContextFactory, ISentinelDatabaseContextFactory>().ImplementedBy<SentinelDatabaseContextFactory>());
 			container.Register(Component.For(typeof(IDataRepository<>)).ImplementedBy(typeof(DataRepository<>)));
 			container.Register(Component.For<IEventStore>().ImplementedBy<EventStore>());
 			container.Register(Component.For<IPrimitiveEventRepository>().ImplementedBy<PrimitiveEventRepository>());
