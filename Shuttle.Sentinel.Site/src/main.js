@@ -25,6 +25,8 @@ import '~/components/queue-input';
 import '~/components/queue';
 import '~/components/refresh-button';
 import '~/components/remove-button';
+import '~/components/select-input';
+import '~/components/select';
 import '~/components/submit-button';
 import '~/components/table';
 import '~/components/text';

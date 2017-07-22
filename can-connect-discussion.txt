@@ -1,0 +1,37 @@
+I noticed this epic issue on gitter and thought I'd give my ZAR0.02.
+
+The `can-connect` implementation seems to loosely follow the [active record pattern](https://en.wikipedia.org/wiki/Active_record_pattern).  I do not particularly like this but it isn't a train smash.  Since I tend to place particular focus on my domain modeling I prefer the [repository pattern](https://martinfowler.com/eaaCatalog/repository.html).  We can substitute all the "data access" bits with a rest endpoint.  The behaviours appear to be along the lines of [pipes and filters](http://www.enterpriseintegrationpatterns.com/patterns/messaging/PipesAndFilters.html).
+
+You may be thinking "this guy is pattern crazy!" but actually I'm not really.  It is more a case of these things being around for a while and folks have come up with names for them.
+
+In my [service bus](https://github.com/Shuttle/Shuttle.Esb) and [event sourcing mechanism](https://github.com/Shuttle/Shuttle.Recall) I make use of an [observable pipeline](https://github.com/Shuttle/Shuttle.Core.Infrastructure/blob/master/Shuttle.Core.Infrastructure/Pipeline/Pipeline.cs) that loosely follows the "pipes and filters" pattern.  For "significant" processing I make use of a pipeline.  For instance, when retrieving a message from a queue I use the `InboxMessagePipeline` that derives from a [ReceiveMessagePipeline](https://github.com/Shuttle/Shuttle.Esb/blob/master/Shuttle.Esb/Pipeline/Pipelines/ReceiveMessagePipeline.cs).
+
+The issue I had was that a true pipes and filters mechanism isn't easily extendible.  In the Asp.Net world the application has a number of [events](http://www.dotnetcurry.com/aspnet/747/http-request-lifecycle-events-iis-pipeline-aspnet) in its pipeline.  The idea is that you can register other objects such as handlers and modules that then hook into the pipeline.  Even in this mechanism there is no way to add to the events since it is a rather fixed business.  This means that when *event-x* is raised all the objects that listen out for that event are called in the order that they are registered.  Now if I need to have finer control over this ordering then things get a bit tricky.
+
+In my pipeline implementation the first thing that is required is to register all the events in the order that they occur.  This is the "fixed" portion that is *always* required.  After that I register the observers that listen out for the relevant events.  Granted, this is in a typed world where things are related to each other in a way somewhat different from what happens in JavaScript.  What this ***does*** buy one, however, is that anyone making use of this software can hook into the [PipelineFactory](https://github.com/Shuttle/Shuttle.Core.Infrastructure/blob/master/Shuttle.Core.Infrastructure/Pipeline/DefaultPipelineFactory.cs) to make changes to any newly created pipeline.  New events can be added into the pipeline or observers registered.
+
+When the pipeline executes all it does is run through the list of events and calls each observer that listens to that event.
+
+Currently `can-connect` seems to have a strict [ordering](https://github.com/canjs/can-connect/blob/master/connect.js#L53) of the behaviours (filters).  Adding my own behaviour inbetween is going to be tricky.  Following an event-based approach one could place then in order also:
+
+```
+connect.events = ["cache","url","parse","cache-requests","combine-requests","constructor","store","map","ref","fall-through-cache",...];
+```
+
+However, one could go a step further and go for a per-pipeline approach since there is somewhat of a difference between POST, GET, and DELETE for instance.
+
+In this way it would be possible to add an event say using something like `connect.post.events.add('serialize').before('post');` or some such.
+
+Calling the events on any observers is where it is somewhat more tricky.  In C# (or most typed OO languages) we have [interfaces](http://www.ebenroux.co.za/design/2016/07/09/js-modules-for-cs-developers/) so it is a matter of casting an observer to check whether it is listening out for an event.  In JavaScript this doesn't exist.  Instead there will have to be some other way to do so:
+
+```
+observer.call(this, 'on', event);	// would require switch internally
+
+if (observer['on' + eventName]) {
+	observer['on' + eventName].call(this, event); // more of a convention-based approach
+}
+```
+
+Perhaps there are other ways also that I cannot think of straight away.
+
+Anyway, I thought I'd put this down and see if it resonantes with anyone :)
