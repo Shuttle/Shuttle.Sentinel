@@ -1,8 +1,0 @@
-﻿{{#switch type}}
-	{{#case "checkbox"}}
-		<input type="{{type}}" {($checked)}="checked"/>
-	{{/case}}
-	{{#default}}
-		<input type="{{type}}" {($value)}="value" class="form-control {{elementClass}}" placeholder="{{placeholder}}"/>
-	{{/case}}
-{{/switch}}

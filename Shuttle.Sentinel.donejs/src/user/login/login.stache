@@ -1,9 +1,0 @@
-<sentinel-form title="user:login.title">
-  <form>
-    <fieldset class="form-group">
-      <sentinel-text focus="true" label="user:username" {(value)}="username" {validation-message}="usernameConstraint" />
-      <sentinel-text label="user:register.password" {(value)}="password" type="password" />
-      <sentinel-submit-button {click}="@login" text="sign-in" />
-    </fieldset>
-  </form>
-</sentinel-form>

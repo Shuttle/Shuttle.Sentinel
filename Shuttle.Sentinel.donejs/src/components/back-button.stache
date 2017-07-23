@@ -1,3 +1,0 @@
-﻿<button type="button" class="btn" ($click)="back()">
-	<span class="glyphicon glyphicon-chevron-left" /> {{i18n "back"}}
-</button>
