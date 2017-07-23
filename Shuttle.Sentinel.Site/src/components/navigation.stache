@@ -1,86 +1,106 @@
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
+<nav class="navbar" role="navigation">
+  <div class="navbar-inner navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        {{#if navigationItems}}
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sentinel-navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </button>
+        {{/if}}
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sentinel-navigation-user">
+          <span class="sr-only">Toggle user</span>
+          <span class="glyphicon glyphicon-user"></span>
+        </button>
+        <a class="navbar-brand" href="#">Shuttle.Sentinel</a>
+      </div>
       {{#if navigationItems}}
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sentinel-navigation">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="glyphicon glyphicon-menu-hamburger"></span>
-      </button>
-      {{/if}}
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#sentinel-navigation-user">
-        <span class="sr-only">Toggle user</span>
-        <span class="glyphicon glyphicon-user"></span>
-      </button>
-      <a class="navbar-brand" href="#">Shuttle.Sentinel</a>
-    </div>
-    {{#if navigationItems}}
-    <div class="navbar-header collapse navbar-collapse" id="sentinel-navigation">
-      <ul class='nav navbar-nav'>
-        {{#each navigationItems}}
-        {{#if href}}
-        <li>
-          <a href='{{href}}'>{{i18n text}}</a>
-        </li>
-        {{else}}
-        {{#if items}}
-        <li class='dropdown'>
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-            {{i18n text}}
-            <b class='caret'></b>
-          </a>
-          <ul class='dropdown-menu'>
-            {{#each items}}
-            <li>
-              <a href='{{href}}'>{{i18n text}}</a>
-            </li>
+      <div class="navbar-header collapse navbar-collapse" id="sentinel-navigation">
+        <ul class='nav navbar-nav'>
+          {{#each navigationItems}}
+          {{#if href}}
+          <li>
+            <a href='{{href}}'>{{i18n text}}</a>
+          </li>
+          {{else}}
+          {{#if items}}
+          <li class='dropdown'>
+            <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+              {{i18n text}}
+              <b class='caret'></b>
+            </a>
+            <ul class='dropdown-menu'>
+              {{#each items}}
+              <li>
+                <a href='{{href}}'>{{i18n text}}</a>
+              </li>
+              {{/each}}
+            </ul>
+          </li>
+          {{/if}}
+          {{/if}}
           {{/each}}
-          </ul>
-        </li>
-        {{/if}}
-        {{/if}}
-        {{/each}}
-      </ul>
+        </ul>
+      </div>
+      {{/if}}
+      <div class="navbar-header collapse navbar-collapse navbar-right" id="sentinel-navigation-user">
+        <ul class="nav navbar-nav">
+          {{#switch security.loginStatus}}
+          {{#case "user-required"}}
+          <li>
+            <a href='#!user/register'>{{i18n "register"}}</a>
+          </li>
+          {{/case}}
+          {{#case "not-logged-in"}}
+          <li>
+            <a href='#!user/login'>{{i18n "sign-in"}}</a>
+          </li>
+          {{/case}}
+          {{#case "logged-in"}}
+          <li class="dropdown">
+            <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+              {{security.username}}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="/users/id" title="Profile">Profile</a>
+              </li>
+              <li>
+                <a href='#!user/login' ($click)='security.logout()'>{{i18n "sign-out"}}</a>
+              </li>
+            </ul>
+          </li>
+          {{/case}}
+          {{/switch}}
+        </ul>
+      </div>
+
+      <div class="collapse navbar-collapse navbar-right">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="https://github.com/Shuttle/Shuttle.Sentinel" class="hidden-xs hidden-sm" target="_blank">GitHub</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    {{/if}}
-    <div class="navbar-header collapse navbar-collapse navbar-right" id="sentinel-navigation-user">
-      <ul class="nav navbar-nav">
-        {{#switch security.loginStatus}}
-        {{#case "user-required"}}
-        <li>
-          <a href='#!user/register'>{{i18n "register"}}</a>
-        </li>
+  </div>
+  <div class="navbar-inner navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-left">
+        {{#each controls}}
+        {{#switch type}}
+        {{#case 'button'}}
+        <sentinel-button {context}="getButtonContext(../., .)" {click}="click" text="{{title}}" element-class="btn-default {{buttonClass}}" />
         {{/case}}
-        {{#case "not-logged-in"}}
-        <li>
-          <a href='#!user/login'>{{i18n "sign-in"}}</a>
-        </li>
-        {{/case}}
-        {{#case "logged-in"}}
-        <li class="dropdown">
-          <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-            {{security.username}}
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="/users/id" title="Profile">Profile</a>
-            </li>
-            <li>
-              <a href='#!user/login' ($click)='security.logout()'>{{i18n "sign-out"}}</a>
-            </li>
-          </ul>
-        </li>
+        {{#case 'refresh-button'}}
+        <sentinel-refresh-button {click}="click" />
         {{/case}}
         {{/switch}}
-      </ul>
-    </div>
-
-    <div class="collapse navbar-collapse navbar-right">
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="https://github.com/Shuttle/Shuttle.Sentinel" class="hidden-xs hidden-sm" target="_blank">GitHub</a>
-        </li>
-      </ul>
+        {{/each}}
+        <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+      </div>
+      <div class="navbar-brand navbar-right">TITLE{{pageTitle}}</div>
     </div>
   </div>
 </nav>

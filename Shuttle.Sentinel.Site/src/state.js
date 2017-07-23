@@ -8,6 +8,7 @@ var State = DefineMap.extend({
     route: route,
     debug: { type: 'boolean', value: loader.debug },
     data: { Value: DefineList },
+    pageTitle: { type: 'string', value: 'Page Title' },
 
     modal: {
         Value: DefineMap.extend({
