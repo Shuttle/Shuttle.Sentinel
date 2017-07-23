@@ -9,38 +9,38 @@ namespace Shuttle.Sentinel
     public class DataStoreQuery : IDataStoreQuery
     {
         private readonly IDatabaseGateway _databaseGateway;
-        private readonly IDataStoreQueryFactory _dataStoreQueryFactory;
+        private readonly IDataStoreQueryFactory _queryFactory;
         private readonly IQueryMapper _queryMapper;
 
-        public DataStoreQuery(IDatabaseGateway databaseGateway, IDataStoreQueryFactory dataStoreQueryFactory, IQueryMapper queryMapper)
+        public DataStoreQuery(IDatabaseGateway databaseGateway, IDataStoreQueryFactory queryFactory, IQueryMapper queryMapper)
         {
             Guard.AgainstNull(databaseGateway, "databaseGateway");
-            Guard.AgainstNull(dataStoreQueryFactory, "dataStoreQueryFactory");
+            Guard.AgainstNull(queryFactory, "queryFactory");
             Guard.AgainstNull(queryMapper, "queryMapper");
 
             _databaseGateway = databaseGateway;
-            _dataStoreQueryFactory = dataStoreQueryFactory;
+            _queryFactory = queryFactory;
             _queryMapper = queryMapper;
         }
 
         public void Add(DataStore dataStore)
         {
-            _databaseGateway.ExecuteUsing(_dataStoreQueryFactory.Add(dataStore));
+            _databaseGateway.ExecuteUsing(_queryFactory.Add(dataStore));
         }
 
         public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_dataStoreQueryFactory.Remove(id));
+            _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
         }
 
         public IEnumerable<DataStore> All()
         {
-            return _queryMapper.MapObjects<DataStore>(_dataStoreQueryFactory.All());
+            return _queryMapper.MapObjects<DataStore>(_queryFactory.All());
         }
 
         public DataStore Get(Guid id)
         {
-            var result = _queryMapper.MapObject<DataStore>(_dataStoreQueryFactory.Get(id));
+            var result = _queryMapper.MapObject<DataStore>(_queryFactory.Get(id));
 
             if (result == null)
             {

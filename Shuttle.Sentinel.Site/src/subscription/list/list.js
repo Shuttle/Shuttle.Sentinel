@@ -23,6 +23,8 @@ var subscriptions = new Api({
     Map: Subscription
 });
 
+var remove = new Api('subscriptions/remove');
+
 var dataStores = new Api('datastores');
 
 export const ViewModel = DefineMap.extend(
@@ -73,8 +75,6 @@ export const ViewModel = DefineMap.extend(
                 });
             }
 
-            self.dataStores.push({ value: undefined, label: 'select' });
-
             dataStores.list().then((response) => {
                 each(response, (store) => {
                     self.dataStores.push({
@@ -94,14 +94,22 @@ export const ViewModel = DefineMap.extend(
         },
 
         remove: function(row) {
-            subscriptions.delete({ id: row.id })
+            const serialized = row.serialize();
+
+            serialized.dataStoreId = this.dataStoreId;
+
+            remove.post(serialized)
                 .then(function() {
                     alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('subscription:title') }), name: 'item-removal' });
                 });
         },
 
         clone: function(row) {
-            state.push('subscription', row);
+            const serialized = row.serialize();
+
+            serialized.dataStoreId = this.dataStoreId;
+
+            state.push('subscription', serialized);
 
             this.add();
         }

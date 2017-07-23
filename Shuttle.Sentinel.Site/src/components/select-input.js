@@ -15,16 +15,6 @@ const Options = DefineList.extend({
 export const ViewModel = DefineMap.extend({
     options: { Value: Options },
 
-    change (element) {
-        this.value = element.value;
-    },
-
-    getSelected (viewModel) {
-        return viewModel.value === this.value
-            ? 'selected'
-            : '';
-    },
-
     elementClass: {
         value: ''
     },

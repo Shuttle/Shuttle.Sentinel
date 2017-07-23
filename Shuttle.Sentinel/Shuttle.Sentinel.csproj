@@ -82,7 +82,7 @@
     <Compile Include="DataAccess\InspectionQueue\IInspectionQueueQueryFactory.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueColumns.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueQueryFactory.cs" />
-    <Compile Include="DataAccess\ISentinelDatabaseContextFactory.cs" />
+    <Compile Include="DataAccess\IDataStoreDatabaseContextFactory.cs" />
     <Compile Include="DataAccess\Permission\IPermissionQuery.cs" />
     <Compile Include="DataAccess\Permission\IPermissionQueryFactory.cs" />
     <Compile Include="DataAccess\Permission\PermissionQuery.cs" />
@@ -102,11 +102,12 @@
     <Compile Include="DataAccess\Queue\QueueQuery.cs" />
     <Compile Include="DataAccess\Queue\QueueQueryFactory.cs" />
     <Compile Include="DataAccess\Queue\QueueColumns.cs" />
-    <Compile Include="DataAccess\SentinelDatabaseContextFactory.cs" />
+    <Compile Include="DataAccess\DataStoreDatabaseContextFactory.cs" />
     <Compile Include="DataAccess\Session\ISessionQuery.cs" />
     <Compile Include="DataAccess\Session\SessionQuery.cs" />
     <Compile Include="DataAccess\Subscription\ISubscriptionQuery.cs" />
     <Compile Include="DataAccess\Subscription\ISubscriptionQueryFactory.cs" />
+    <Compile Include="DataAccess\Subscription\SubscriptionColumns.cs" />
     <Compile Include="DataAccess\Subscription\SubscriptionQuery.cs" />
     <Compile Include="DataAccess\Subscription\SubscriptionQueryFactory.cs" />
     <Compile Include="DataAccess\SystemRole\ISystemRoleQuery.cs" />

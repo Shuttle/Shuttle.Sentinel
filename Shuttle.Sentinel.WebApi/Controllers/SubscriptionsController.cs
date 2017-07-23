@@ -10,10 +10,10 @@ namespace Shuttle.Sentinel.WebApi
     public class SubscriptionsController : SentinelApiController
     {
         private readonly IServiceBus _bus;
-        private readonly ISentinelDatabaseContextFactory _databaseContextFactory;
+        private readonly IDataStoreDatabaseContextFactory _databaseContextFactory;
         private readonly ISubscriptionQuery _subscriptionQuery;
 
-        public SubscriptionsController(IServiceBus bus, ISentinelDatabaseContextFactory databaseContextFactory,
+        public SubscriptionsController(IServiceBus bus, IDataStoreDatabaseContextFactory databaseContextFactory,
             ISubscriptionQuery subscriptionQuery)
         {
             Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
@@ -74,6 +74,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
+        [Route("api/subscriptions/remove")]
         public IHttpActionResult RemoveSubscription([FromBody] SubscriptionModel model)
         {
             _bus.Send(new RemoveSubscriptionCommand

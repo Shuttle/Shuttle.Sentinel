@@ -1,5 +1,5 @@
-﻿<select ($change)="change(%element)" class="form-control">
+﻿<select {($value)}="value" class="form-control">
 	{{#each options}}
-        <option {{getSelected(.)}} value='{{value}}'>{{label}}</option>
-  {{/each}}
-<select>
+        <option value='{{value}}'>{{label}}</option>
+	{{/each}}
+</select>

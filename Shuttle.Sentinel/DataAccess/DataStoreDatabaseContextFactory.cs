@@ -5,11 +5,11 @@ using Shuttle.Sentinel.Query;
 
 namespace Shuttle.Sentinel
 {
-    public class SentinelDatabaseContextFactory : DatabaseContextFactory, ISentinelDatabaseContextFactory
+    public class DataStoreDatabaseContextFactory : DatabaseContextFactory, IDataStoreDatabaseContextFactory
     {
         private readonly IDataStoreQuery _dataStoreQuery;
 
-        public SentinelDatabaseContextFactory(IDbConnectionFactory dbConnectionFactory,
+        public DataStoreDatabaseContextFactory(IDbConnectionFactory dbConnectionFactory,
             IDbCommandFactory dbCommandFactory, IDatabaseContextCache databaseContextCache,
             IDataStoreQuery dataStoreQuery)
             : base(dbConnectionFactory, dbCommandFactory, databaseContextCache)
@@ -21,14 +21,19 @@ namespace Shuttle.Sentinel
 
         public IDatabaseContext Create(Guid dataStoreId)
         {
-            DataStore store;
+            DataStore dataStore;
 
             using (Create())
             {
-                store = _dataStoreQuery.Get(dataStoreId);
+                dataStore = _dataStoreQuery.Get(dataStoreId);
             }
 
-            return Create(store.ProviderName, store.ConnectionString);
+            if (dataStore == null)
+            {
+                throw new InvalidOperationException($"No data store could be retrieved that has an id of '{dataStoreId}'.");
+            }
+
+            return Create(dataStore.ProviderName, dataStore.ConnectionString);
         }
     }
 }
