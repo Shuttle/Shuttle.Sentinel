@@ -88,19 +88,37 @@
   <div class="navbar-inner navbar-default">
     <div class="container-fluid">
       <div class="navbar-left">
-        {{#each controls}}
-        {{#switch type}}
-        {{#case 'button'}}
-        <sentinel-button {context}="getButtonContext(../., .)" {click}="click" text="{{title}}" element-class="btn-default {{buttonClass}}" />
-        {{/case}}
-        {{#case 'refresh-button'}}
-        <sentinel-refresh-button {click}="click" />
-        {{/case}}
-        {{/switch}}
-        {{/each}}
-        <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+        <form class="form-inline align-middle">
+          {{#each controls}}
+          {{#switch type}}
+          {{#case 'button'}}
+          <sentinel-button {context}="context" {click}="click" text="{{title}}" element-class="{{elementClass}}" permission="{{permission}}" />
+          {{/case}}
+          {{#case 'refresh-button'}}
+          <sentinel-refresh-button {context}="context" {click}="click" />
+          {{/case}}
+          {{/switch}}
+          {{/each}}
+        </form>
       </div>
-      <div class="navbar-brand navbar-right">TITLE{{pageTitle}}</div>
+      <div class="navbar-brand navbar-right">{{title}}</div>
     </div>
   </div>
+  <nav class="navbar navbar-default">
+      <div class="navbar-left">
+        <form class="form-inline">
+          {{#each controls}}
+          {{#switch type}}
+          {{#case 'button'}}
+          <sentinel-button {context}="context" {click}="click" text="{{title}}" element-class="{{elementClass}}" permission="{{permission}}" />
+          {{/case}}
+          {{#case 'refresh-button'}}
+          <sentinel-refresh-button {context}="context" {click}="click" />
+          {{/case}}
+          {{/switch}}
+          {{/each}}
+        </form>
+      </div>
+      <div class="navbar-brand navbar-right">{{title}}</div>
+  </nav>
 </nav>

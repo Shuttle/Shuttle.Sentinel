@@ -4,6 +4,7 @@ import alerts from '~/alerts';
 import localisation from '~/localisation';
 import security from '~/security';
 import stache from 'can-stache';
+import state from '~/state';
 
 var Data = DefineMap.extend({
     resource: 'string',
@@ -72,6 +73,8 @@ var Router = DefineMap.extend({
         }
 
         alerts.clear();
+        state.controls.splice(0, state.controls.length);
+        state.title = '';
 
         var componentName = resource.componentName || 'sentinel-' + resource.name + (isActionRoute ? `-${actionName}` : '');
 

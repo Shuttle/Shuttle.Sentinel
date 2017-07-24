@@ -1,3 +1,3 @@
-﻿<button class="btn" ($click)="@click">
+﻿<button class="btn" ($click)="_click(%event)">
 	<span class="glyphicon glyphicon-refresh" /> {{i18n "refresh"}}
 </button>
