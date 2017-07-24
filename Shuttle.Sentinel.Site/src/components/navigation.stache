@@ -92,7 +92,7 @@
           {{#each controls}}
           {{#switch type}}
           {{#case 'button'}}
-          <sentinel-button {context}="context" {click}="click" text="{{title}}" element-class="{{elementClass}}" permission="{{permission}}" />
+          <sentinel-button {context}="context" {click}="click" text="{{title}}" element-class="navbar-btn {{elementClass}}" permission="{{permission}}" />
           {{/case}}
           {{#case 'refresh-button'}}
           <sentinel-refresh-button {context}="context" {click}="click" />
@@ -104,21 +104,4 @@
       <div class="navbar-brand navbar-right">{{title}}</div>
     </div>
   </div>
-  <nav class="navbar navbar-default">
-      <div class="navbar-left">
-        <form class="form-inline">
-          {{#each controls}}
-          {{#switch type}}
-          {{#case 'button'}}
-          <sentinel-button {context}="context" {click}="click" text="{{title}}" element-class="{{elementClass}}" permission="{{permission}}" />
-          {{/case}}
-          {{#case 'refresh-button'}}
-          <sentinel-refresh-button {context}="context" {click}="click" />
-          {{/case}}
-          {{/switch}}
-          {{/each}}
-        </form>
-      </div>
-      <div class="navbar-brand navbar-right">{{title}}</div>
-  </nav>
 </nav>
