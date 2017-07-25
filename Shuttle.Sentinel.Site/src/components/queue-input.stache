@@ -7,7 +7,7 @@
       {{#if queuesPromise.isResolved}}
         {{#queuesPromise.value}}
         <li>
-          <a href="#" ($click)="selectQueue(.)">{{displayUri}}</a>
+          <a href="#" ($click)="selectQueue(.)">{{securedUri}}</a>
         </li>
         {{/queuesPromise.value}}
       {{else}}
@@ -23,7 +23,7 @@
       {{#if queuesPromise.isResolved}}
       {{#queuesPromise.value}}
       <li>
-        <a href="#" ($click)="selectQueue(.)">{{displayUri}}</a>
+        <a href="#" ($click)="selectQueue(.)">{{securedUri}}</a>
       </li>
       {{/queuesPromise.value}}
       {{else}}

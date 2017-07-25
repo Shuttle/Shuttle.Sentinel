@@ -9,6 +9,7 @@ import Api from '~/api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
 import each from 'can-util/js/each/';
+import localisation from '~/localisation';
 
 resources.add('subscription', { action: 'add', permission: Permissions.Manage.Subscriptions });
 
@@ -16,12 +17,14 @@ var dataStores = new Api('datastores');
 var subscriptions = new Api('subscriptions/{id}');
 
 export const ViewModel = DefineMap.extend(
-    'queues',
+    'subscription',
     {
         dataStores: { Value: DefineList },
 
-        init: function() {
+        init () {
             const self = this;
+
+            state.title = localisation.value('subscription:list.title');
 
             self.dataStores.push({ value: undefined, label: 'select' });
 

@@ -9,6 +9,7 @@ import localisation from '~/localisation';
 import Api from '~/api';
 import each from 'can-util/js/each/';
 import $ from 'jquery';
+import state from '~/state';
 
 resources.add('message', { action: 'manage', permission: Permissions.Manage.Messages });
 
@@ -47,7 +48,6 @@ var messages = new Api({
 
 var fetchMessages = new Api('messages/fetch');
 var transferMessages = new Api('messages/transfer');
-
 export const ViewModel = DefineMap.extend(
     'manage',
     {
@@ -58,19 +58,13 @@ export const ViewModel = DefineMap.extend(
         showMessages: { type: 'boolean', value: true },
         sourceQueueUri: { type: 'string', value: '' },
         destinationQueueUri: { type: 'string', value: '' },
+        fetching: { type: 'boolean', value: false },
+        fetchCount: { type: 'number', value: 5 },
+        refreshTimestamp: { type: 'string' },
+        messageActions: { value: new DefineList() },
 
-        fetching: {
-            type: 'boolean',
-            value: false
-        },
-
-        fetchCount: {
-            type: 'number',
-            value: 5
-        },
-
-        refreshTimestamp: {
-            type: 'string'
+        showTitle () {
+            state.title = localisation.value('message:' + (this.showMessages ? 'title-manage' : 'message'));
         },
 
         get messagesPromise() {
@@ -102,10 +96,6 @@ export const ViewModel = DefineMap.extend(
                     attributeName: 'value'
                 }
             ]
-        },
-
-        messageActions: {
-            value: new DefineList()
         },
 
         hasSourceQueueUri: {
@@ -195,6 +185,7 @@ export const ViewModel = DefineMap.extend(
                 });
             }
 
+            this.showTitle();
             this.refresh();
         },
 
@@ -214,9 +205,9 @@ export const ViewModel = DefineMap.extend(
             this.fetching = true;
 
             fetchMessages.post({
-                queueUri: this.sourceQueueUri,
-                count: this.fetchCount || 1
-            })
+                    queueUri: this.sourceQueueUri,
+                    count: this.fetchCount || 1
+                })
                 .then(function(response) {
                     alerts.show({ message: localisation.value('message:count-retrieved', { count: response.data.countRetrieved }), name: 'message:count-retrieved'});
 
@@ -265,6 +256,7 @@ export const ViewModel = DefineMap.extend(
 
         closeMessageView () {
             this.showMessages = true;
+            this.showTitle();
         },
 
         messageSelected: function(message) {
@@ -306,6 +298,7 @@ export const ViewModel = DefineMap.extend(
             this.addMessageRow('SenderInboxWorkQueueUri', message.senderInboxWorkQueueUri);
 
             this.showMessages = false;
+            this.showTitle();
         },
 
         addMessageRow: function(name, value) {
@@ -330,6 +323,7 @@ export const ViewModel = DefineMap.extend(
             });
         }
     });
+
 
 export default Component.extend({
     tag: 'sentinel-message-manage',

@@ -42,7 +42,7 @@ export const ViewModel = DefineMap.extend(
             return !dataStoreId ? undefined : subscriptions.list({ id: dataStoreId });
         },
 
-        init: function() {
+        init () {
             const self = this;
             const columns = this.columns;
 
@@ -82,6 +82,24 @@ export const ViewModel = DefineMap.extend(
                         label: store.name
                     });
                 });
+            });
+
+            
+            state.title = localisation.value('subscription:list.title');
+
+            state.controls.push({
+                type: 'button',
+                title: 'add',
+                click: 'add',
+                elementClass: 'btn-primary',
+                context: this,
+                permission: 'sentinel://subscription/add'
+            });
+
+            state.controls.push({
+                type: 'refresh-button',
+                click: 'refresh',
+                context: this
             });
         },
 

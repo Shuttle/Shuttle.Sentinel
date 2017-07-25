@@ -50,7 +50,7 @@ export const ViewModel = DefineMap.extend({
             });
         }
 
-        state.title = localisation.value('queue:list.title');
+        state.title = localisation.value('subscription:list.title');
 
         state.controls.push({
             type: 'button',

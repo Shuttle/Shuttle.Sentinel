@@ -12,7 +12,7 @@ const Queue = DefineMap.extend(
         uri: {
             type: 'string'
         },
-        displayUri: {
+        securedUri: {
             type: 'string'
         }
     }
@@ -49,7 +49,7 @@ export const ViewModel = DefineMap.extend({
     },
 
     selectQueue: function(queue) {
-        this.value = queue.displayUri;
+        this.value = queue.securedUri;
         this.uri = queue.uri;
     }
 });

@@ -88,7 +88,7 @@
   <div class="navbar-inner navbar-default">
     <div class="container-fluid">
       <div class="navbar-left">
-        <form class="form-inline align-middle">
+        <div class="form-inline align-middle">
           {{#each controls}}
           {{#switch type}}
           {{#case 'button'}}
@@ -99,7 +99,7 @@
           {{/case}}
           {{/switch}}
           {{/each}}
-        </form>
+        </div>
       </div>
       <div class="navbar-brand navbar-right">{{title}}</div>
     </div>
