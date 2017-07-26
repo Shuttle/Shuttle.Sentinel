@@ -59,6 +59,23 @@ export const ViewModel = DefineMap.extend({
                 buttonClick: 'remove'
             });
         }
+
+        state.title = localisation.value('datastore:list.title');
+
+        state.controls.push({
+            type: 'button',
+            title: 'add',
+            click: 'add',
+            elementClass: 'btn-primary',
+            context: this,
+            permission: 'sentinel://datastore/add'
+        });
+
+        state.controls.push({
+            type: 'refresh-button',
+            click: 'refresh',
+            context: this
+        });
     },
 
     add: function() {

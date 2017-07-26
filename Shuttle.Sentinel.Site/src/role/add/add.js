@@ -6,6 +6,8 @@ import Permissions from '~/permissions';
 import router from '~/router';
 import Api from '~/api';
 import validator from 'can-define-validate-validatejs';
+import localisation from '~/localisation';
+import state from '~/state';
 
 resources.add('role', { action: 'add', permission: Permissions.Manage.Roles });
 
@@ -20,6 +22,10 @@ export const ViewModel = DefineMap.extend(
             validate: {
                 presence: true
             }
+        },
+
+        init() {
+            state.title = localisation.value('role:list.title');
         },
 
         add: function() {

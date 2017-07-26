@@ -1,8 +1,3 @@
-<sentinel-page-title title="role:permissions.title" />
-<sentinel-buttons>
-  <sentinel-back-button />
-  <sentinel-refresh-button {click}="@refresh" />
-</sentinel-buttons>
 {{#if isResolved}}
 <sentinel-table {columns}="columns" {rows}="permissions" />
 {{else}}

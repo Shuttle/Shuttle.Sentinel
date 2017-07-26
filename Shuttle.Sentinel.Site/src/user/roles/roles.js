@@ -10,6 +10,7 @@ import makeArray from 'can-util/js/make-array/';
 import router from '~/router';
 import localisation from '~/localisation';
 import alerts from '~/alerts';
+import state from '~/state';
 
 resources.add('user', { action: 'roles', permission: Permissions.Manage.Users });
 
@@ -97,6 +98,18 @@ export const ViewModel = DefineMap.extend(
                 function() {
                     self.getRoleStatus();
                 });
+
+            state.title = localisation.value('user:list.roles');
+
+            state.controls.push({
+                type: 'back-button'
+            });
+
+            state.controls.push({
+                type: 'refresh-button',
+                click: 'refresh',
+                context: this
+            });
         },
 
         refresh() {

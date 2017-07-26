@@ -7,6 +7,7 @@ import router from '~/router';
 import Api from '~/api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
+import localisation from '~/localisation';
 
 resources.add('datastore', { action: 'add', permission: Permissions.Manage.DataStores });
 
@@ -17,6 +18,8 @@ export const ViewModel = DefineMap.extend(
     {
         init: function() {
             const result = state.pop('datastore');
+
+            state.title = localisation.value('datastore:list.title');
 
             if (!result) {
                 return;

@@ -95,7 +95,10 @@
           <sentinel-button {context}="context" {click}="click" text="{{title}}" element-class="navbar-btn {{elementClass}}" permission="{{permission}}" />
           {{/case}}
           {{#case 'refresh-button'}}
-          <sentinel-refresh-button {context}="context" {click}="click" />
+          <sentinel-refresh-button {context}="context" {click}="click" element-class="navbar-btn {{elementClass}}" />
+          {{/case}}
+          {{#case 'back-button'}}
+          <sentinel-back-button element-class="navbar-btn {{elementClass}}" />
           {{/case}}
           {{/switch}}
           {{/each}}

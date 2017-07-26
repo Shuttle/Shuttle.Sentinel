@@ -19,6 +19,7 @@ export const ViewModel = DefineMap.extend(
         init() {
             state.title = localisation.value('queue:list.title');
         },
+
         uri: {
             value: '',
             get: function(value) {

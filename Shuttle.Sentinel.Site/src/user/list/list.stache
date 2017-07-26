@@ -1,8 +1,3 @@
-<sentinel-page-title title="user:list.title" />
-<sentinel-buttons>
-  <sentinel-button {click}="@add" text="add" permission="sentinel://user/register" />
-  <sentinel-refresh-button {click}="@refresh" />
-</sentinel-buttons>
 {{#if usersPromise.isResolved}}
 <sentinel-table {columns}="columns" {rows}="usersPromise.value" />
 {{else}}

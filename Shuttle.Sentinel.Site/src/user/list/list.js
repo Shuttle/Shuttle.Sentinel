@@ -8,6 +8,7 @@ import router from '~/router';
 import Api from '~/api';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
+import state from '~/state';
 
 resources.add('user', { action: 'list', permission: Permissions.View.Users });
 
@@ -80,6 +81,23 @@ export const ViewModel = DefineMap.extend(
                     buttonClick: 'remove'
                 });
             }
+
+            state.title = localisation.value('user:list.title');
+
+            state.controls.push({
+                type: 'button',
+                title: 'add',
+                click: 'add',
+                elementClass: 'btn-primary',
+                context: this,
+                permission: 'sentinel://user/register'
+            });
+
+            state.controls.push({
+                type: 'refresh-button',
+                click: 'refresh',
+                context: this
+            });
         },
 
         add: function() {

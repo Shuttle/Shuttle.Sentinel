@@ -10,6 +10,7 @@ import makeArray from 'can-util/js/make-array/';
 import router from '~/router';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
+import state from '~/state';
 
 var setPermission = new Api('roles/setpermission');
 var permissions = new Api('permissions');
@@ -98,6 +99,18 @@ export const ViewModel = DefineMap.extend(
                 function() {
                     self.getPermissionStatus();
                 });
+
+            state.title = localisation.value('role:permissions.title');
+
+            state.controls.push({
+                type: 'back-button'
+            });
+
+            state.controls.push({
+                type: 'refresh-button',
+                click: 'refresh',
+                context: this
+            });
         },
 
         add: function() {

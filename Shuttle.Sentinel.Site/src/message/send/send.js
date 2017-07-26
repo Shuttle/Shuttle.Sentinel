@@ -7,6 +7,7 @@ import alerts from '~/alerts';
 import localisation from '~/localisation';
 import Api from '~/api';
 import validator from 'can-define-validate-validatejs';
+import state from '~/state';
 
 resources.add('message', { action: 'send', permission: Permissions.Manage.Messages });
 
@@ -35,6 +36,10 @@ export const ViewModel = DefineMap.extend({
         validate: {
             presence: true
         }
+    },
+
+    init() {
+        state.title = localisation.value('message:title-send');
     },
 
     send () {

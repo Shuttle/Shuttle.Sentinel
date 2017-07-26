@@ -8,6 +8,7 @@ import router from '~/router';
 import Api from '~/api';
 import alerts from '~/alerts';
 import localisation from '~/localisation';
+import state from '~/state';
 
 resources.add('role', { action: 'list', permission: Permissions.Manage.Roles });
 
@@ -50,6 +51,23 @@ export const ViewModel = DefineMap.extend(
                     buttonClick: 'remove'
                 });
             }
+
+            state.title = localisation.value('role:list.title');
+
+            state.controls.push({
+                type: 'button',
+                title: 'add',
+                click: 'add',
+                elementClass: 'btn-primary',
+                context: this,
+                permission: 'sentinel://role/add'
+            });
+
+            state.controls.push({
+                type: 'refresh-button',
+                click: 'refresh',
+                context: this
+            });
         },
 
         add: function() {
