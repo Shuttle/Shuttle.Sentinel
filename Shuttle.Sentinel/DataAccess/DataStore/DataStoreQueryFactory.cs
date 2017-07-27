@@ -12,17 +12,20 @@ namespace Shuttle.Sentinel
 if not exists (select null from DataStore where Name = @Name)
     insert into DataStore 
     (
+        Id,
         Name,
         ConnectionString,
         ProviderName
     ) 
     values 
     (
+        @Id,
         @Name,
         @ConnectionString,
         @ProviderName
     )
 ")
+                .AddParameterValue(Columns.Id, dataStore.Id)
                 .AddParameterValue(DataStoreColumns.Name, dataStore.Name)
                 .AddParameterValue(DataStoreColumns.ConnectionString, dataStore.ConnectionString)
                 .AddParameterValue(DataStoreColumns.ProviderName, dataStore.ProviderName);
