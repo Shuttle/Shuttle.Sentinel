@@ -1,24 +1,18 @@
-﻿using System;
-using Castle.Windsor;
+﻿using Castle.Windsor;
 using log4net;
 using Shuttle.Core.Castle;
-using Shuttle.Core.Host;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Core.Log4Net;
+using Shuttle.Core.ServiceHost;
 using Shuttle.Esb;
 using Shuttle.Recall;
 
 namespace Shuttle.Sentinel.Server
 {
-    public class Host : IHost, IDisposable
+    public class Host : IServiceHost
     {
         private IServiceBus _bus;
         private WindsorContainer _container;
-
-        public void Dispose()
-        {
-            _bus.Dispose();
-        }
 
         public void Start()
         {
@@ -37,6 +31,11 @@ namespace Shuttle.Sentinel.Server
             container.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
 
             _bus = ServiceBus.Create(container).Start();
+        }
+
+        public void Stop()
+        {
+            _bus?.Dispose();
         }
     }
 }
