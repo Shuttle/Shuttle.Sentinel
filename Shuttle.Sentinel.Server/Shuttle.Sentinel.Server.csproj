@@ -98,6 +98,10 @@
       <HintPath>..\packages\Shuttle.Recall.Sql.Storage.8.0.9\lib\net451-full\Shuttle.Recall.Sql.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Shuttle.Sentinel.Messages, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Sentinel.Messages.1.0.0\lib\net451-full\Shuttle.Sentinel.Messages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -125,10 +129,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shuttle.Sentinel.Messages\Shuttle.Sentinel.Messages.csproj">
-      <Project>{821a6281-43b0-41ac-b2c9-92991172ea80}</Project>
-      <Name>Shuttle.Sentinel.Messages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Shuttle.Sentinel\Shuttle.Sentinel.csproj">
       <Project>{f4014337-8ec2-4e94-bead-7bfed6041f6f}</Project>
       <Name>Shuttle.Sentinel</Name>
