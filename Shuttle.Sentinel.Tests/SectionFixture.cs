@@ -10,7 +10,7 @@ namespace Shuttle.Sentinel.Tests
 		protected T GetSection<T>(string name, string file) where T : ConfigurationSection
 		{
 			return ConfigurationSectionProvider.OpenFile<T>("shuttle", name,
-				Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@".\Configuration\files\{file}"));
+				Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $@".\configuration-files\{file}"));
 		}
 	}
 }

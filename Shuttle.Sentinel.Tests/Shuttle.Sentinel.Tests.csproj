@@ -64,36 +64,16 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Configuration\files\Sentinel-Full.config">
+    <Content Include="configuration-files\Sentinel-Full.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Configuration\files\Web.Debug.config">
-      <DependentUpon>Sentinel-Full.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configuration\files\Web.Release.config">
-      <DependentUpon>Sentinel-Full.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configuration\files\Sentinel-Full-Grouped.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configuration\files\Web.Debug - Copy.config">
-      <DependentUpon>Sentinel-Full-Grouped.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Configuration\files\Web.Release - Copy.config">
-      <DependentUpon>Sentinel-Full-Grouped.config</DependentUpon>
+    <Content Include="configuration-files\Sentinel-Full-Grouped.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shuttle.Sentinel.Agent\Shuttle.Sentinel.Agent.csproj">
-      <Project>{d294c778-e5b9-42bc-b5c1-4e1fc22581f0}</Project>
-      <Name>Shuttle.Sentinel.Agent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Shuttle.Sentinel.Messages\Shuttle.Sentinel.Messages.csproj">
       <Project>{821a6281-43b0-41ac-b2c9-92991172ea80}</Project>
       <Name>Shuttle.Sentinel.Messages</Name>
