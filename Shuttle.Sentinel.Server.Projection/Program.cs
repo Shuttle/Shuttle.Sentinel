@@ -1,6 +1,6 @@
 ﻿using Shuttle.Core.ServiceHost;
 
-namespace Shuttle.Sentinel.EventProcessing.Server
+namespace Shuttle.Sentinel.Server.Projection
 {
     public class Program
     {

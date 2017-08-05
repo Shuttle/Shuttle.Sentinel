@@ -4,7 +4,7 @@ using Shuttle.Recall;
 using Shuttle.Recall.SqlServer;
 using Shuttle.Sentinel.DomainEvents.User.v1;
 
-namespace Shuttle.Sentinel.EventProcessing.Server
+namespace Shuttle.Sentinel.Server.Projection
 {
 	public class UserProjection :
 		IEventHandler<Registered>

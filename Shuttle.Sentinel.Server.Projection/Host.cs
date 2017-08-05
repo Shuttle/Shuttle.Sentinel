@@ -6,7 +6,7 @@ using Shuttle.Core.Log4Net;
 using Shuttle.Core.ServiceHost;
 using Shuttle.Recall;
 
-namespace Shuttle.Sentinel.EventProcessing.Server
+namespace Shuttle.Sentinel.Server.Projection
 {
     public class Host : IServiceHost
     {
@@ -35,9 +35,9 @@ namespace Shuttle.Sentinel.EventProcessing.Server
             _eventProcessor = container.Resolve<IEventProcessor>();
 
             _eventProcessor.AddProjection(
-                new Projection("SystemUsers").AddEventHandler(container.Resolve<UserHandler>()));
+                new Recall.Projection("SystemUsers").AddEventHandler(container.Resolve<UserHandler>()));
             _eventProcessor.AddProjection(
-                new Projection("SystemRoles").AddEventHandler(container.Resolve<RoleHandler>()));
+                new Recall.Projection("SystemRoles").AddEventHandler(container.Resolve<RoleHandler>()));
 
             _eventProcessor.Start();
         }
