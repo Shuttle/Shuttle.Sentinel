@@ -239,6 +239,8 @@ export const ViewModel = DefineMap.extend(
         },
 
         _transfer: function(action) {
+            const self = this;
+
             if (!this.destinationQueueUri && (action === 'Move' || action === 'Copy')) {
                 alerts.show({ message: localisation.value('message:exceptions.destination-queue-uri'), name: 'message:exceptions.destination-queue-uri', type: 'danger' });
 
@@ -246,10 +248,15 @@ export const ViewModel = DefineMap.extend(
             }
 
             transferMessages.post({
-                messageIds: this.checkedMessageIds(),
-                destinationQueueUri: this.destinationQueueUri,
-                action: action
-            });
+                    messageIds: this.checkedMessageIds(),
+                    destinationQueueUri: this.destinationQueueUri,
+                    action: action
+                })
+                .then(function(response) {
+                    self.refresh();
+
+                    return response;
+                });
 
             return true;
         },

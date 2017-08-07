@@ -3,7 +3,6 @@ using Shuttle.Core.Data;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
 using Shuttle.Recall;
-using Shuttle.Sentinel.DomainEvents.User.v1;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server

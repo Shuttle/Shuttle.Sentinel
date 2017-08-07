@@ -22,7 +22,7 @@ namespace Shuttle.Sentinel.Module
 
             if (section == null)
             {
-                throw new InvalidOperationException("Could not get the Sentinel configuration section.  CIf you have added the section the type and/or namespace may be incorrect.");
+                return null;
             }
 
             var result = new SentinelConfiguration
