@@ -8,13 +8,13 @@ namespace Shuttle.Sentinel.Module
     public class SentinelSection : ConfigurationSection
     {
         [ConfigurationProperty("inboxWorkQueueUri", IsRequired = true)]
-        public string InboxWorkQueueUri => (string)this["inboxWorkQueueUri"];
+        public string InboxWorkQueueUri => (string) this["inboxWorkQueueUri"];
 
         [ConfigurationProperty("endpointName", IsRequired = false)]
-        public string EndpointName => (string)this["endpointName"];
+        public string EndpointName => (string) this["endpointName"];
 
         [ConfigurationProperty("heartbeatIntervalSeconds", IsRequired = false, DefaultValue = 15)]
-        public int HeartbeatIntervalSeconds => (int)this["heartbeatIntervalSeconds"];
+        public int HeartbeatIntervalSeconds => (int) this["heartbeatIntervalSeconds"];
 
         public static ISentinelConfiguration Configuration()
         {

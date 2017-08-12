@@ -34,8 +34,8 @@
       <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Core.Infrastructure, Version=8.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Core.Infrastructure.8.0.2\lib\net452-full\Shuttle.Core.Infrastructure.dll</HintPath>
+    <Reference Include="Shuttle.Core.Infrastructure, Version=8.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Core.Infrastructure.8.0.3\lib\net452-full\Shuttle.Core.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -65,13 +65,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Shuttle.Sentinel.Module\Shuttle.Sentinel.Module.csproj">
       <Project>{6CB41529-71CD-4B15-91C6-6847A74B8353}</Project>
       <Name>Shuttle.Sentinel.Module</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
