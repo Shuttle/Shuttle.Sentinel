@@ -10,28 +10,31 @@ namespace Shuttle.Sentinel.Module
         private readonly ISentinelConfiguration _configuration;
         private readonly string _inboxMessagePipelineName = typeof(InboxMessagePipeline).FullName;
         private readonly IMetricCollector _metricCollector;
-        private readonly SentinelObserver _observer;
+        private readonly InboxPipelineObserver _inboxPipelineObserver;
+        private readonly DispatchPipelineObserver _dispatchPipelineObserver;
         private readonly Thread _thread;
         private volatile bool _active = true;
 
         private DateTime _nextHeartbeat;
 
         public SentinelModule(IPipelineFactory pipelineFactory, IServiceBusEvents serviceBusEvents,
-            ISentinelConfiguration configuration, IMetricCollector metricCollector, SentinelObserver observer)
+            ISentinelConfiguration configuration, IMetricCollector metricCollector, InboxPipelineObserver inboxPipelineObserver, DispatchPipelineObserver dispatchPipelineObserver)
         {
             Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
             Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
             Guard.AgainstNull(serviceBusEvents, nameof(serviceBusEvents));
             Guard.AgainstNull(configuration, nameof(configuration));
             Guard.AgainstNull(metricCollector, nameof(metricCollector));
-            Guard.AgainstNull(observer, nameof(observer));
+            Guard.AgainstNull(inboxPipelineObserver, nameof(inboxPipelineObserver));
+            Guard.AgainstNull(dispatchPipelineObserver, nameof(dispatchPipelineObserver));
 
             pipelineFactory.PipelineCreated += PipelineCreated;
             serviceBusEvents.Stopping += (sender, args) => { _active = false; };
 
             _configuration = configuration;
             _metricCollector = metricCollector;
-            _observer = observer;
+            _inboxPipelineObserver = inboxPipelineObserver;
+            _dispatchPipelineObserver = dispatchPipelineObserver;
 
             SetNextHeartbeat();
 
@@ -67,12 +70,12 @@ namespace Shuttle.Sentinel.Module
         {
             var pipelineName = e.Pipeline.GetType().FullName;
 
-            if (!pipelineName.Equals(_inboxMessagePipelineName, StringComparison.InvariantCultureIgnoreCase))
+            if (pipelineName.Equals(_inboxMessagePipelineName, StringComparison.InvariantCultureIgnoreCase))
             {
                 return;
             }
 
-            e.Pipeline.RegisterObserver(_observer);
+            e.Pipeline.RegisterObserver(_inboxPipelineObserver);
         }
     }
 }

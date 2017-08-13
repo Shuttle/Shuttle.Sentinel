@@ -102,8 +102,8 @@
       <HintPath>..\packages\Shuttle.Recall.Sql.Storage.8.0.10\lib\net451-full\Shuttle.Recall.Sql.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Sentinel.Messages, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Sentinel.Messages.1.0.2\lib\net451-full\Shuttle.Sentinel.Messages.dll</HintPath>
+    <Reference Include="Shuttle.Sentinel.Messages, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Sentinel.Messages.1.0.5\lib\net451-full\Shuttle.Sentinel.Messages.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

@@ -68,8 +68,8 @@
       <HintPath>..\packages\Shuttle.Esb.9.0.2\lib\net45-full\Shuttle.Esb.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Sentinel.Messages, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Sentinel.Messages.1.0.2\lib\net45-full\Shuttle.Sentinel.Messages.dll</HintPath>
+    <Reference Include="Shuttle.Sentinel.Messages, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Sentinel.Messages.1.0.5\lib\net45-full\Shuttle.Sentinel.Messages.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -85,12 +85,13 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="IMetricCollector.cs" />
+    <Compile Include="DispatchPipelineObserver.cs" />
     <Compile Include="ISentinelConfiguration.cs" />
     <Compile Include="MetricCollector.cs" />
     <Compile Include="PerformanceCounterValue.cs" />
     <Compile Include="SentinelConfiguration.cs" />
     <Compile Include="SentinelModule.cs" />
-    <Compile Include="SentinelObserver.cs" />
+    <Compile Include="InboxPipelineObserver.cs" />
     <Compile Include="SentinelSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
