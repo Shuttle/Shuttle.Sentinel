@@ -7,8 +7,10 @@ namespace Shuttle.Sentinel.Module
 {
     public class SentinelModule : IThreadState
     {
-        private readonly ISentinelConfiguration _configuration;
         private readonly string _inboxMessagePipelineName = typeof(InboxMessagePipeline).FullName;
+        private readonly string _dispatchTransportMessagePipelineName = typeof(DispatchTransportMessagePipeline).FullName;
+
+        private readonly ISentinelConfiguration _configuration;
         private readonly IMetricCollector _metricCollector;
         private readonly InboxPipelineObserver _inboxPipelineObserver;
         private readonly DispatchPipelineObserver _dispatchPipelineObserver;
@@ -72,10 +74,13 @@ namespace Shuttle.Sentinel.Module
 
             if (pipelineName.Equals(_inboxMessagePipelineName, StringComparison.InvariantCultureIgnoreCase))
             {
-                return;
+                e.Pipeline.RegisterObserver(_inboxPipelineObserver);
             }
 
-            e.Pipeline.RegisterObserver(_inboxPipelineObserver);
+            if (pipelineName.Equals(_dispatchTransportMessagePipelineName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                e.Pipeline.RegisterObserver(_dispatchPipelineObserver);
+            }
         }
     }
 }

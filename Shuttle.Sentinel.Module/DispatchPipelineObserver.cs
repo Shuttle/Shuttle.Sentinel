@@ -11,6 +11,17 @@ namespace Shuttle.Sentinel.Module
 
         private static readonly HashSet<string> _messageTypeAssociation = new HashSet<string>();
         private static readonly HashSet<string> _messageTypeDispatched = new HashSet<string>();
+        private readonly IServiceBus _bus;
+        private readonly ISentinelConfiguration _configuration;
+
+        public DispatchPipelineObserver(IServiceBus bus, ISentinelConfiguration configuration)
+        {
+            Guard.AgainstNull(bus, nameof(bus));
+            Guard.AgainstNull(configuration, nameof(configuration));
+
+            _bus = bus;
+            _configuration = configuration;
+        }
 
         public void Execute(OnAfterDispatchTransportMessage pipelineEvent)
         {
@@ -20,11 +31,20 @@ namespace Shuttle.Sentinel.Module
 
             var transportMessage = state.GetTransportMessage();
             var transportMessageReceived = state.GetTransportMessageReceived();
-            var messageSender = state.GetHandlerContext() as IMessageSender;
 
-            if (messageSender == null)
+            if (transportMessageReceived != null)
             {
-                return;
+                if (_messageTypeAssociation.Contains($"{transportMessage.MessageType}/{transportMessageReceived.MessageType}"))
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if (_messageTypeDispatched.Contains(transportMessage.MessageType))
+                {
+                    return;
+                }
             }
 
             lock (_lock)
@@ -40,12 +60,12 @@ namespace Shuttle.Sentinel.Module
 
                     _messageTypeAssociation.Add(key);
 
-                    messageSender.Send(
+                    _bus.Send(
                         new RegisterMessageTypeAssociationCommand
                         {
                             MessageTypeHandled = transportMessageReceived.MessageType,
                             MessageTypeDispatched = transportMessage.MessageType
-                        });
+                        }, c => c.WithRecipient(_configuration.InboxWorkQueueUri));
                 }
                 else
                 {
@@ -56,8 +76,11 @@ namespace Shuttle.Sentinel.Module
 
                     _messageTypeDispatched.Add(transportMessage.MessageType);
 
-                    messageSender.Send(
-                        new RegisterMessageTypeDispatchedCommand {MessageType = transportMessage.MessageType});
+                    _bus.Send(
+                        new RegisterMessageTypeDispatchedCommand
+                        {
+                            MessageType = transportMessage.MessageType
+                        }, c => c.WithRecipient(_configuration.InboxWorkQueueUri));
                 }
             }
         }

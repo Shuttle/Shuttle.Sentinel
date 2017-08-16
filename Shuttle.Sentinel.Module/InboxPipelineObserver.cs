@@ -14,14 +14,17 @@ namespace Shuttle.Sentinel.Module
         private static readonly HashSet<string> _messageTypeHandled = new HashSet<string>();
 
         private readonly IMetricCollector _metricCollector;
+        private readonly ISentinelConfiguration _configuration;
 
         private const string Key = "[InboxPipelineObserver/StartDate]";
 
-        public InboxPipelineObserver(IMetricCollector metricCollector)
+        public InboxPipelineObserver(IMetricCollector metricCollector, ISentinelConfiguration configuration)
         {
             Guard.AgainstNull(metricCollector, nameof(metricCollector));
+            Guard.AgainstNull(configuration, nameof(configuration));
 
             _metricCollector = metricCollector;
+            _configuration = configuration;
         }
 
         public void Execute(OnAfterHandleMessage pipelineEvent)
@@ -64,7 +67,10 @@ namespace Shuttle.Sentinel.Module
                 _messageTypeHandled.Add(transportMessage.MessageType);
 
                 messageSender.Send(
-                    new RegisterMessageTypeHandledCommand { MessageType = transportMessage.MessageType });
+                    new RegisterMessageTypeHandledCommand
+                    {
+                        MessageType = transportMessage.MessageType
+                    }, c => c.WithRecipient(_configuration.InboxWorkQueueUri));
             }
         }
 
@@ -74,7 +80,7 @@ namespace Shuttle.Sentinel.Module
 
             var state = pipelineEvent.Pipeline.State;
 
-            state.Add(Key, DateTime.Now);
+            state.Replace(Key, DateTime.Now);
         }
     }
 }
