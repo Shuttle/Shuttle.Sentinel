@@ -139,12 +139,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="v1\MessageMetric.cs" />
+    <Compile Include="v1\MessageTypeMetric.cs" />
     <Compile Include="v1\RegisterEndpointCommand.cs" />
-    <Compile Include="v1\RegisterHeartbeatCommand.cs" />
-    <Compile Include="v1\RegisterMessageTypeAssociationCommand.cs" />
-    <Compile Include="v1\RegisterMessageTypeDispatchedCommand.cs" />
-    <Compile Include="v1\RegisterMessageTypeHandledCommand.cs" />
+    <Compile Include="v1\RegisterMetricsCommand.cs" />
     <Compile Include="v1\RemoveSubscriptionCommand.cs" />
     <Compile Include="v1\AddSubscriptionCommand.cs" />
     <Compile Include="v1\AddDataStoreCommand.cs" />

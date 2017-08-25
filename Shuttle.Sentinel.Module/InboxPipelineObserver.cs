@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
-using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Module
 {
@@ -10,21 +8,15 @@ namespace Shuttle.Sentinel.Module
         IPipelineObserver<OnHandleMessage>,
         IPipelineObserver<OnAfterHandleMessage>
     {
-        private static readonly object _lock = new object();
-        private static readonly HashSet<string> _messageTypeHandled = new HashSet<string>();
-
-        private readonly IMetricCollector _metricCollector;
-        private readonly ISentinelConfiguration _configuration;
-
         private const string Key = "[InboxPipelineObserver/StartDate]";
 
-        public InboxPipelineObserver(IMetricCollector metricCollector, ISentinelConfiguration configuration)
+        private readonly IMetricCollector _metricCollector;
+
+        public InboxPipelineObserver(IMetricCollector metricCollector)
         {
             Guard.AgainstNull(metricCollector, nameof(metricCollector));
-            Guard.AgainstNull(configuration, nameof(configuration));
 
             _metricCollector = metricCollector;
-            _configuration = configuration;
         }
 
         public void Execute(OnAfterHandleMessage pipelineEvent)
@@ -48,29 +40,6 @@ namespace Shuttle.Sentinel.Module
             // ReSharper disable once EmptyGeneralCatchClause
             catch
             {
-            }
-
-            var messageSender = state.GetHandlerContext() as IMessageSender;
-
-            if (messageSender == null)
-            {
-                return;
-            }
-
-            lock (_lock)
-            {
-                if (_messageTypeHandled.Contains(transportMessage.MessageType))
-                {
-                    return;
-                }
-
-                _messageTypeHandled.Add(transportMessage.MessageType);
-
-                messageSender.Send(
-                    new RegisterMessageTypeHandledCommand
-                    {
-                        MessageType = transportMessage.MessageType
-                    }, c => c.WithRecipient(_configuration.InboxWorkQueueUri));
             }
         }
 

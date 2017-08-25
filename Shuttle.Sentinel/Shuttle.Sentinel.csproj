@@ -79,6 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\Columns.cs" />
+    <Compile Include="DataAccess\Endpoint\EndpointColumns.cs" />
+    <Compile Include="DataAccess\Endpoint\EndpointQuery.cs" />
+    <Compile Include="DataAccess\Endpoint\EndpointQueryFactory.cs" />
+    <Compile Include="DataAccess\Endpoint\IEndpointQuery.cs" />
+    <Compile Include="DataAccess\Endpoint\IEndpointQueryFactory.cs" />
     <Compile Include="DataAccess\InspectionQueue\IInspectionQueueQueryFactory.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueColumns.cs" />
     <Compile Include="DataAccess\InspectionQueue\InspectionQueueQueryFactory.cs" />

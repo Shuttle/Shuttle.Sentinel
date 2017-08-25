@@ -1,6 +1,6 @@
 ﻿namespace Shuttle.Sentinel.Messages.v1
 {
-    public class MessageMetric
+    public class MessageTypeMetric
     {
         public string MessageType { get; set; }
         public int Count { get; set; }
