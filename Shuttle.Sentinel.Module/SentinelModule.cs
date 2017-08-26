@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading;
 using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
+using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Module
 {
@@ -10,7 +12,7 @@ namespace Shuttle.Sentinel.Module
         private readonly string _inboxMessagePipelineName = typeof(InboxMessagePipeline).FullName;
         private readonly string _dispatchTransportMessagePipelineName = typeof(DispatchTransportMessagePipeline).FullName;
 
-        private readonly ISentinelConfiguration _configuration;
+        private readonly ISentinelConfiguration _sentinelConfiguration;
         private readonly IMetricCollector _metricCollector;
         private readonly InboxPipelineObserver _inboxPipelineObserver;
         private readonly DispatchPipelineObserver _dispatchPipelineObserver;
@@ -19,26 +21,43 @@ namespace Shuttle.Sentinel.Module
 
         private DateTime _nextHeartbeat;
 
-        public SentinelModule(IPipelineFactory pipelineFactory, IServiceBusEvents serviceBusEvents,
-            ISentinelConfiguration configuration, IMetricCollector metricCollector, InboxPipelineObserver inboxPipelineObserver, DispatchPipelineObserver dispatchPipelineObserver)
+        public SentinelModule(IServiceBus serviceBus, IServiceBusConfiguration serviceBusConfiguration, IServiceBusEvents serviceBusEvents, ISentinelConfiguration sentinelConfiguration, IPipelineFactory pipelineFactory, IMetricCollector metricCollector, InboxPipelineObserver inboxPipelineObserver, DispatchPipelineObserver dispatchPipelineObserver)
         {
-            Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
+            Guard.AgainstNull(serviceBus, nameof(serviceBus));
             Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
             Guard.AgainstNull(serviceBusEvents, nameof(serviceBusEvents));
-            Guard.AgainstNull(configuration, nameof(configuration));
+            Guard.AgainstNull(sentinelConfiguration, nameof(sentinelConfiguration));
             Guard.AgainstNull(metricCollector, nameof(metricCollector));
             Guard.AgainstNull(inboxPipelineObserver, nameof(inboxPipelineObserver));
             Guard.AgainstNull(dispatchPipelineObserver, nameof(dispatchPipelineObserver));
 
-            pipelineFactory.PipelineCreated += PipelineCreated;
-            serviceBusEvents.Stopping += (sender, args) => { _active = false; };
+            var entryAssembly = Assembly.GetEntryAssembly();
 
-            _configuration = configuration;
+            pipelineFactory.PipelineCreated += PipelineCreated;
+
+            serviceBusEvents.Stopping += (sender, args) => { _active = false; };
+            serviceBusEvents.Started += (sender, args) =>
+            {
+                serviceBus.Send(new RegisterEndpointCommand
+                {
+                    EndpointName = _sentinelConfiguration.EndpointName,
+                    MachineName = _sentinelConfiguration.MachineName,
+                    BaseDirectory = _sentinelConfiguration.BaseDirectory,
+                    EntryAssemblyQualifiedName = entryAssembly != null ? entryAssembly.ToString() : "(null)",
+                    IPv4Address = _sentinelConfiguration.IPv4Address,
+                    InboxWorkQueueUri = serviceBusConfiguration.HasInbox
+                        ? serviceBusConfiguration.Inbox.WorkQueueUri
+                        : string.Empty,
+                    ControlInboxWorkQueueUri = serviceBusConfiguration.HasControlInbox
+                        ? serviceBusConfiguration.ControlInbox.WorkQueueUri
+                        : string.Empty
+                }, c => c.WithRecipient(sentinelConfiguration.InboxWorkQueueUri));
+            };
+
+            _sentinelConfiguration = sentinelConfiguration;
             _metricCollector = metricCollector;
             _inboxPipelineObserver = inboxPipelineObserver;
             _dispatchPipelineObserver = dispatchPipelineObserver;
-
-            SetNextHeartbeat();
 
             _thread = new Thread(HeartbeatProcessing);
             _thread.Start();
@@ -48,11 +67,13 @@ namespace Shuttle.Sentinel.Module
 
         private void SetNextHeartbeat()
         {
-            _nextHeartbeat = DateTime.Now.AddSeconds(_configuration.HeartbeatIntervalSeconds);
+            _nextHeartbeat = DateTime.Now.AddSeconds(_sentinelConfiguration.HeartbeatIntervalSeconds);
         }
 
         private void HeartbeatProcessing()
         {
+            SetNextHeartbeat();
+
             while (_active)
             {
                 if (DateTime.Now >= _nextHeartbeat)

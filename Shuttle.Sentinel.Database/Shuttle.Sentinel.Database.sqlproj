@@ -60,6 +60,7 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables\" />
+    <Folder Include="Snapshots" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\AvailablePermission.sql" />
@@ -79,6 +80,7 @@
     <Build Include="Tables\MessageTypeDispatched.sql" />
     <Build Include="Tables\MessageTypeAssociation.sql" />
     <Build Include="Tables\Endpoint.sql" />
+    <Build Include="Tables\SystemMetric.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Shuttle.Sentinel.Database.refactorlog" />

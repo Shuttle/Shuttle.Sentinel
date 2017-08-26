@@ -21,4 +21,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="SecuredUri" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="36e1233b-afce-466d-9982-c92661cfa821" ChangeDateTime="08/26/2017 07:11:50">
+    <Property Name="ElementName" Value="[dbo].[SystemMetric].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SystemMetric]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EndpointId" />
+  </Operation>
 </Operations>

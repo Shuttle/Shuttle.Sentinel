@@ -29,7 +29,7 @@ namespace Shuttle.Sentinel.Server
                 
             }
 
-            foreach (var systemMetric in message.Metrics)
+            foreach (var systemMetric in message.SystemMetrics)
             {
                 
             }

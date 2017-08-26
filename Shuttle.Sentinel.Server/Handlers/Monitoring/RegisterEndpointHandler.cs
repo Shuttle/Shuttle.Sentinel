@@ -27,13 +27,7 @@ namespace Shuttle.Sentinel.Server
                 ||
                 string.IsNullOrEmpty(message.MachineName)
                 ||
-                string.IsNullOrEmpty(message.BaseDirectory)
-                ||
-                string.IsNullOrEmpty(message.EntryAssemblyQualifiedName)
-                ||
-                string.IsNullOrEmpty(message.IPv4Address)
-                ||
-                string.IsNullOrEmpty(message.InboxWorkQueueUri))
+                string.IsNullOrEmpty(message.BaseDirectory))
             {
                 return;
             }
@@ -48,6 +42,14 @@ namespace Shuttle.Sentinel.Server
                     message.IPv4Address,
                     message.InboxWorkQueueUri,
                     message.ControlInboxWorkQueueUri);
+            }
+
+            if (!string.IsNullOrEmpty(message.InboxWorkQueueUri))
+            {
+                context.Send(new AddQueueCommand
+                {
+                    QueueUri = message.InboxWorkQueueUri
+                }, c => c.Local());
             }
         }
     }
