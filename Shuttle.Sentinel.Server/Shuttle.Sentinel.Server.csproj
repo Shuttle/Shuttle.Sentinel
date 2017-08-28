@@ -74,8 +74,8 @@
       <HintPath>..\packages\Shuttle.Core.ServiceHost.1.0.14\lib\net451-full\Shuttle.Core.ServiceHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Esb, Version=9.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Esb.9.0.2\lib\net451-full\Shuttle.Esb.dll</HintPath>
+    <Reference Include="Shuttle.Esb, Version=9.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.9.0.3\lib\net451-full\Shuttle.Esb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Shuttle.Esb.EMail, Version=2.1.5.0, Culture=neutral, processorArchitecture=MSIL">
@@ -102,8 +102,8 @@
       <HintPath>..\packages\Shuttle.Recall.Sql.Storage.8.0.10\lib\net451-full\Shuttle.Recall.Sql.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Sentinel.Messages, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Sentinel.Messages.1.0.12\lib\net451-full\Shuttle.Sentinel.Messages.dll</HintPath>
+    <Reference Include="Shuttle.Sentinel.Messages, Version=1.0.17.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Sentinel.Messages.1.0.17\lib\net451-full\Shuttle.Sentinel.Messages.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -118,7 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handlers\Monitoring\RegisterEndpointHandler.cs" />
+    <Compile Include="Handlers\Monitoring\RegisterMessageTypeAssociationHandler.cs" />
+    <Compile Include="Handlers\Monitoring\RegisterMessageTypeMetricHandler.cs" />
+    <Compile Include="Handlers\Monitoring\RegisterMessageTypesDispatchedHandler.cs" />
     <Compile Include="Handlers\Monitoring\RegisterMetricsHandler.cs" />
+    <Compile Include="Handlers\Monitoring\RegisterServerHandler.cs" />
+    <Compile Include="Handlers\Monitoring\RegisterSystemMetricsHandler.cs" />
     <Compile Include="Handlers\SubscriptionHandler.cs" />
     <Compile Include="Handlers\DataStoreHandler.cs" />
     <Compile Include="Handlers\QueueHandler.cs" />

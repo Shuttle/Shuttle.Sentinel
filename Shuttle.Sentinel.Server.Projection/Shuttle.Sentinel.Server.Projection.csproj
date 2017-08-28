@@ -74,8 +74,8 @@
       <HintPath>..\packages\Shuttle.Core.ServiceHost.1.0.14\lib\net451-full\Shuttle.Core.ServiceHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Esb, Version=9.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Esb.9.0.2\lib\net451-full\Shuttle.Esb.dll</HintPath>
+    <Reference Include="Shuttle.Esb, Version=9.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.9.0.3\lib\net451-full\Shuttle.Esb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Shuttle.Esb.Msmq, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">

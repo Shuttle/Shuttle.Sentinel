@@ -21,10 +21,7 @@ namespace Shuttle.Sentinel
         public void Register(string endpointName, string machineName, string baseDirectory, string entryAssemblyQualifiedName,
             string ipv4Address, string inboxWorkQueueUri, string controlInboxWorkQueueUri)
         {
-            var id = _databaseGateway.GetScalarUsing<Guid?>(_queryFactory.FindId(
-                endpointName,
-                machineName,
-                baseDirectory));
+            var id = FindId(endpointName, machineName, baseDirectory);
 
             if (id.HasValue)
             {
@@ -46,6 +43,14 @@ namespace Shuttle.Sentinel
                     inboxWorkQueueUri,
                     controlInboxWorkQueueUri));
             }
+        }
+
+        public Guid? FindId(string endpointName, string machineName, string baseDirectory)
+        {
+            return _databaseGateway.GetScalarUsing<Guid?>(_queryFactory.FindId(
+                endpointName,
+                machineName,
+                baseDirectory));
         }
     }
 }

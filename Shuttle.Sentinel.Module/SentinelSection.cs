@@ -13,8 +13,8 @@ namespace Shuttle.Sentinel.Module
         [ConfigurationProperty("endpointName", IsRequired = false)]
         public string EndpointName => (string) this["endpointName"];
 
-        [ConfigurationProperty("heartbeatIntervalSeconds", IsRequired = false, DefaultValue = 15)]
-        public int HeartbeatIntervalSeconds => (int) this["heartbeatIntervalSeconds"];
+        [ConfigurationProperty("notificationIntervalSeconds", IsRequired = false, DefaultValue = 15)]
+        public int NotificationIntervalSeconds => (int) this["notificationIntervalSeconds"];
 
         public static ISentinelConfiguration Configuration()
         {
@@ -28,7 +28,7 @@ namespace Shuttle.Sentinel.Module
             var result = new SentinelConfiguration
             {
                 EndpointName = string.IsNullOrEmpty(section.EndpointName) ? GetEndpointName() : section.EndpointName,
-                HeartbeatIntervalSeconds = section.HeartbeatIntervalSeconds,
+                NotificationIntervalSeconds = section.NotificationIntervalSeconds,
                 InboxWorkQueueUri = section.InboxWorkQueueUri
             };
 

@@ -1,9 +1,7 @@
 ﻿namespace Shuttle.Sentinel.Messages.v1
 {
-    public class RegisterEndpointCommand
+    public class RegisterServerCommand
     {
-        public string EndpointName { get; set; }
-        public string EntryAssemblyQualifiedName { get; set; }
         public string MachineName { get; set; }
         public string BaseDirectory { get; set; }
         public string IPv4Address { get; set; }

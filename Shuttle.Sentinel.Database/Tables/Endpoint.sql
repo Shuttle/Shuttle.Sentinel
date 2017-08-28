@@ -10,9 +10,6 @@
     CONSTRAINT [PK_Endpoint] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 );
 
-
-
-
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Endpoint]
     ON [dbo].[Endpoint]([EndpointName] ASC, [MachineName] ASC, [BaseDirectory] ASC);

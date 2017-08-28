@@ -19,7 +19,7 @@ namespace Shuttle.Sentinel.Module
         private readonly Thread _thread;
         private volatile bool _active = true;
 
-        private DateTime _nextHeartbeat;
+        private DateTime _nextNotification;
 
         public SentinelModule(IServiceBus serviceBus, IServiceBusConfiguration serviceBusConfiguration, IServiceBusEvents serviceBusEvents, ISentinelConfiguration sentinelConfiguration, IPipelineFactory pipelineFactory, IMetricCollector metricCollector, InboxPipelineObserver inboxPipelineObserver, DispatchPipelineObserver dispatchPipelineObserver)
         {
@@ -44,7 +44,6 @@ namespace Shuttle.Sentinel.Module
                     MachineName = _sentinelConfiguration.MachineName,
                     BaseDirectory = _sentinelConfiguration.BaseDirectory,
                     EntryAssemblyQualifiedName = entryAssembly != null ? entryAssembly.ToString() : "(null)",
-                    IPv4Address = _sentinelConfiguration.IPv4Address,
                     InboxWorkQueueUri = serviceBusConfiguration.HasInbox
                         ? serviceBusConfiguration.Inbox.WorkQueueUri
                         : string.Empty,
@@ -65,22 +64,22 @@ namespace Shuttle.Sentinel.Module
 
         public bool Active => _active;
 
-        private void SetNextHeartbeat()
+        private void SetNextNotification()
         {
-            _nextHeartbeat = DateTime.Now.AddSeconds(_sentinelConfiguration.HeartbeatIntervalSeconds);
+            _nextNotification = DateTime.Now.AddSeconds(5);
         }
 
         private void HeartbeatProcessing()
         {
-            SetNextHeartbeat();
+            SetNextNotification();
 
             while (_active)
             {
-                if (DateTime.Now >= _nextHeartbeat)
+                if (DateTime.Now >= _nextNotification)
                 {
                     _metricCollector.SendMetrics();
 
-                    SetNextHeartbeat();
+                    SetNextNotification();
                 }
 
                 ThreadSleep.While(250, this);

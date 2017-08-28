@@ -86,8 +86,8 @@
       <HintPath>..\packages\Shuttle.Core.Log4Net.8.0.1\lib\net451-full\Shuttle.Core.Log4Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Esb, Version=9.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Esb.9.0.2\lib\net451-full\Shuttle.Esb.dll</HintPath>
+    <Reference Include="Shuttle.Esb, Version=9.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.9.0.3\lib\net451-full\Shuttle.Esb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Shuttle.Esb.FileMQ, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">

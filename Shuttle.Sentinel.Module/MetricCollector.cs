@@ -38,7 +38,7 @@ namespace Shuttle.Sentinel.Module
                 CategoryName = "Processor",
                 CounterName = "% Processor Time",
                 InstanceName = "_Total"
-            }, configuration.HeartbeatIntervalSeconds);
+            }, 1000);
 
             _startDate = DateTime.Now;
             _metricId = Guid.NewGuid();
@@ -55,13 +55,12 @@ namespace Shuttle.Sentinel.Module
                     EndDate = DateTime.Now,
                     EndpointName = _configuration.EndpointName,
                     MachineName = _configuration.MachineName,
-                    BaseDirectory = _configuration.BaseDirectory,
-                    SystemMetrics = GetHeartbeatMetrics()
+                    BaseDirectory = _configuration.BaseDirectory
                 };
 
                 foreach (var metric in _messageMetrics.Values)
                 {
-                    command.MessageMetrics.Add(metric);
+                    command.MessageTypeMetrics.Add(metric);
                 }
 
                 foreach (var messageType in _messageTypesHandledRegistered)
@@ -169,7 +168,7 @@ namespace Shuttle.Sentinel.Module
             }
         }
 
-        private List<SystemMetric> GetHeartbeatMetrics()
+        private List<SystemMetric> GetSystemMetrics()
         {
             var result = new List<SystemMetric>
             {

@@ -1,4 +1,7 @@
-﻿using Castle.Windsor;
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using Castle.Windsor;
 using log4net;
 using Shuttle.Core.Castle;
 using Shuttle.Core.Infrastructure;
@@ -31,6 +34,27 @@ namespace Shuttle.Sentinel.Server
             container.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
 
             _bus = ServiceBus.Create(container).Start();
+
+            var ipv4Address = "0.0.0.0";
+
+            foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+            {
+                if (ip.AddressFamily != AddressFamily.InterNetwork)
+                {
+                    continue;
+                }
+
+                ipv4Address = ip.ToString();
+            }
+
+            _bus.Send(new RegisterServerCommand
+            {
+                MachineName = Environment.MachineName,
+                IPv4Address = ipv4Address,
+                BaseDirectory = AppDomain.CurrentDomain.BaseDirectory
+            });
+
+            _bus.Send(new RegisterSystemMetricsCommand(), c => c.Local().Defer(DateTime.Now.AddSeconds(5)));
         }
 
         public void Stop()

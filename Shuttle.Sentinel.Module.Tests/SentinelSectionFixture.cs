@@ -16,7 +16,7 @@ namespace Shuttle.Sentinel.Tests
 			Assert.IsNotNull(section);
 			Assert.AreEqual("endpoint-name", section.EndpointName);
 			Assert.AreEqual("some://endpoint/queue", section.InboxWorkQueueUri);
-			Assert.AreEqual(25, section.HeartbeatIntervalSeconds);
+			Assert.AreEqual(25, section.NotificationIntervalSeconds);
 		}
 	}
 }

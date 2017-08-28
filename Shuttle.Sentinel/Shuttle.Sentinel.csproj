@@ -55,8 +55,8 @@
       <HintPath>..\packages\Shuttle.Core.Log4Net.8.0.1\lib\net451-full\Shuttle.Core.Log4Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shuttle.Esb, Version=9.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Esb.9.0.2\lib\net451-full\Shuttle.Esb.dll</HintPath>
+    <Reference Include="Shuttle.Esb, Version=9.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Shuttle.Esb.9.0.3\lib\net451-full\Shuttle.Esb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Shuttle.Recall, Version=8.2.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -108,6 +108,11 @@
     <Compile Include="DataAccess\Queue\QueueQueryFactory.cs" />
     <Compile Include="DataAccess\Queue\QueueColumns.cs" />
     <Compile Include="DataAccess\DataStoreDatabaseContextFactory.cs" />
+    <Compile Include="DataAccess\Server\EndpointColumns.cs" />
+    <Compile Include="DataAccess\Server\IServerQuery.cs" />
+    <Compile Include="DataAccess\Server\IServerQueryFactory.cs" />
+    <Compile Include="DataAccess\Server\ServerQuery.cs" />
+    <Compile Include="DataAccess\Server\ServerQueryFactory.cs" />
     <Compile Include="DataAccess\Session\ISessionQuery.cs" />
     <Compile Include="DataAccess\Session\SessionQuery.cs" />
     <Compile Include="DataAccess\Subscription\ISubscriptionQuery.cs" />

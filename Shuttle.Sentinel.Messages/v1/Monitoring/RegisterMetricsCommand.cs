@@ -7,8 +7,7 @@ namespace Shuttle.Sentinel.Messages.v1
     {
         public RegisterMetricsCommand()
         {
-            SystemMetrics = new List<SystemMetric>();
-            MessageMetrics = new List<MessageTypeMetric>();
+            MessageTypeMetrics = new List<MessageTypeMetric>();
             MessageTypesHandled = new List<string>();
             MessageTypesDispatched = new List<Dispatched>();
             MessageTypeAssociations = new List<Association>();
@@ -24,8 +23,7 @@ namespace Shuttle.Sentinel.Messages.v1
         public string BaseDirectory { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public List<SystemMetric> SystemMetrics { get; set; }
-        public List<MessageTypeMetric> MessageMetrics { get; set; }
+        public List<MessageTypeMetric> MessageTypeMetrics { get; set; }
 
         public class Association
         {

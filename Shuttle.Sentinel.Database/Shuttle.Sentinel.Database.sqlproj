@@ -81,6 +81,7 @@
     <Build Include="Tables\MessageTypeAssociation.sql" />
     <Build Include="Tables\Endpoint.sql" />
     <Build Include="Tables\SystemMetric.sql" />
+    <Build Include="Tables\Server.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Shuttle.Sentinel.Database.refactorlog" />

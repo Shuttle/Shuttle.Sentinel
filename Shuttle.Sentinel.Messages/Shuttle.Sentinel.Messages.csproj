@@ -139,9 +139,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="v1\MessageTypeMetric.cs" />
-    <Compile Include="v1\RegisterEndpointCommand.cs" />
-    <Compile Include="v1\RegisterMetricsCommand.cs" />
+    <Compile Include="v1\Monitoring\MessageTypeMetric.cs" />
+    <Compile Include="v1\Monitoring\RegisterEndpointCommand.cs" />
+    <Compile Include="v1\Monitoring\RegisterMetricsCommand.cs" />
+    <Compile Include="v1\Monitoring\RegisterServerCommand.cs" />
+    <Compile Include="v1\Monitoring\RegisterSystemMetricsCommand.cs" />
     <Compile Include="v1\RemoveSubscriptionCommand.cs" />
     <Compile Include="v1\AddSubscriptionCommand.cs" />
     <Compile Include="v1\AddDataStoreCommand.cs" />
@@ -155,7 +157,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="v1\SetUserRoleCommand.cs" />
     <Compile Include="v1\SetRolePermissionCommand.cs" />
-    <Compile Include="v1\SystemMetric.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".build\package.msbuild" />
