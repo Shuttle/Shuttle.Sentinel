@@ -63,16 +63,11 @@
     <Folder Include="Snapshots" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\AvailablePermission.sql" />
     <Build Include="Tables\SessionPermission.sql" />
     <Build Include="Tables\SystemParameter.sql" />
-    <Build Include="Tables\SystemRole.sql" />
     <Build Include="Tables\InspectionQueue.sql" />
-    <Build Include="Tables\SystemRolePermission.sql" />
-    <Build Include="Tables\SystemUser.sql" />
     <Build Include="Tables\Queue.sql" />
     <Build Include="Tables\Session.sql" />
-    <Build Include="Tables\SystemUserRole.sql" />
     <Build Include="Tables\Schedule.sql" />
     <Build Include="Tables\DataStore.sql" />
     <Build Include="Tables\MessageTypeMetric.sql" />

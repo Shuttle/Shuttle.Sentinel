@@ -14,7 +14,7 @@
     ],
     "serviceBaseURL": "http://localhost:4040/api/",
     "debug": true,
-    "localeVersion": "1" 
+    "localeVersion": "1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,22 +30,23 @@
   "homepage": "https://github.com/Shuttle/Shuttle.Sentinel#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "can-component": "^3.0.7",
-    "can-compute": "^3.0.8",
-    "can-connect": "^1.3.10",
-    "can-define": "^1.0.17",
+    "can-component": "^3.3.6",
+    "can-compute": "^3.3.9",
+    "can-connect": "^1.5.10",
+    "can-define": "^1.5.4",
     "can-define-validate-validatejs": "0.0.5",
-    "can-route": "^3.0.8",
-    "can-route-pushstate": "^3.0.3",
-    "can-set": "^1.2.0",
-    "can-stache": "^3.0.22",
-    "can-stache-bindings": "^3.0.14",
-    "can-util": "^3.3.6",
+    "can-route": "^3.2.4",
+    "can-route-pushstate": "^3.2.0",
+    "can-set": "^1.3.3",
+    "can-stache": "^3.13.1",
+    "can-stache-bindings": "^3.11.0",
+    "can-util": "^3.10.13",
     "can-validate-validatejs": "0.0.6",
     "i18next": "^7.2.3",
-    "i18next-xhr-backend": "^1.4.1",
-    "steal": "^1.4.2",
-    "steal-css": "^1.2.3",
-    "steal-stache": "^3.0.5"
+    "i18next-xhr-backend": "^1.4.3",
+    "jquery": "^3.2.1",
+    "steal": "^1.5.15",
+    "steal-css": "^1.3.1",
+    "steal-stache": "^3.1.2"
   }
 }
