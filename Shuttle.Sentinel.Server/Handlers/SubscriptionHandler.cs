@@ -1,8 +1,9 @@
-﻿using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
+﻿using Shuttle.Core.Contract;
+using Shuttle.Core.Data;
 using Shuttle.Esb;
+using Shuttle.Sentinel.DataAccess;
+using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
-using Shuttle.Sentinel.Query;
 
 namespace Shuttle.Sentinel.Server
 {
@@ -15,8 +16,8 @@ namespace Shuttle.Sentinel.Server
 
         public SubscriptionHandler(IDataStoreDatabaseContextFactory databaseContextFactory, ISubscriptionQuery subscriptionQuery)
         {
-            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-            Guard.AgainstNull(subscriptionQuery, "subscriptionQuery");
+            Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
+            Guard.AgainstNull(subscriptionQuery, nameof(subscriptionQuery));
 
             _databaseContextFactory = databaseContextFactory;
             _subscriptionQuery = subscriptionQuery;
@@ -40,7 +41,7 @@ namespace Shuttle.Sentinel.Server
 
         public void ProcessMessage(IHandlerContext<RemoveSubscriptionCommand> context)
         {
-            Guard.AgainstNull(context, "context");
+            Guard.AgainstNull(context, nameof(context));
 
             var message = context.Message;
 

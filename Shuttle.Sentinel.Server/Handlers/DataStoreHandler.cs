@@ -1,8 +1,9 @@
-﻿using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
+﻿using Shuttle.Core.Contract;
+using Shuttle.Core.Data;
 using Shuttle.Esb;
+using Shuttle.Sentinel.DataAccess;
+using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
-using Shuttle.Sentinel.Query;
 
 namespace Shuttle.Sentinel.Server
 {
@@ -15,8 +16,8 @@ namespace Shuttle.Sentinel.Server
 
         public DataStoreHandler(IDatabaseContextFactory databaseContextFactory, IDataStoreQuery dataStoreQuery)
         {
-            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-            Guard.AgainstNull(dataStoreQuery, "dataStoreQuery");
+            Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
+            Guard.AgainstNull(dataStoreQuery, nameof(dataStoreQuery));
 
             _databaseContextFactory = databaseContextFactory;
             _dataStoreQuery = dataStoreQuery;

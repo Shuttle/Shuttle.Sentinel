@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
-using Shuttle.Sentinel.Query;
+using Shuttle.Sentinel.DataAccess.Query;
 
-namespace Shuttle.Sentinel
+namespace Shuttle.Sentinel.DataAccess
 {
     public class DataStoreQuery : IDataStoreQuery
     {
@@ -14,9 +14,9 @@ namespace Shuttle.Sentinel
 
         public DataStoreQuery(IDatabaseGateway databaseGateway, IDataStoreQueryFactory queryFactory, IQueryMapper queryMapper)
         {
-            Guard.AgainstNull(databaseGateway, "databaseGateway");
-            Guard.AgainstNull(queryFactory, "queryFactory");
-            Guard.AgainstNull(queryMapper, "queryMapper");
+            Guard.AgainstNull(databaseGateway, nameof(databaseGateway));
+            Guard.AgainstNull(queryFactory, nameof(queryFactory));
+            Guard.AgainstNull(queryMapper, nameof(queryMapper));
 
             _databaseGateway = databaseGateway;
             _queryFactory = queryFactory;

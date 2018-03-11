@@ -1,8 +1,8 @@
 ﻿using System;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
 
-namespace Shuttle.Sentinel
+namespace Shuttle.Sentinel.DataAccess
 {
     public class EndpointQuery : IEndpointQuery
     {
@@ -18,8 +18,9 @@ namespace Shuttle.Sentinel
             _queryFactory = queryFactory;
         }
 
-        public void Register(string endpointName, string machineName, string baseDirectory, string entryAssemblyQualifiedName,
-            string ipv4Address, string inboxWorkQueueUri, string controlInboxWorkQueueUri)
+        public void Register(string endpointName, string machineName, string baseDirectory,
+            string entryAssemblyQualifiedName,
+            string inboxWorkQueueUri, string controlInboxWorkQueueUri)
         {
             var id = FindId(endpointName, machineName, baseDirectory);
 
@@ -28,7 +29,6 @@ namespace Shuttle.Sentinel
                 _databaseGateway.ExecuteUsing(_queryFactory.Save(
                     id.Value,
                     entryAssemblyQualifiedName,
-                    ipv4Address,
                     inboxWorkQueueUri,
                     controlInboxWorkQueueUri));
             }
@@ -39,7 +39,6 @@ namespace Shuttle.Sentinel
                     machineName,
                     baseDirectory,
                     entryAssemblyQualifiedName,
-                    ipv4Address,
                     inboxWorkQueueUri,
                     controlInboxWorkQueueUri));
             }
@@ -51,6 +50,27 @@ namespace Shuttle.Sentinel
                 endpointName,
                 machineName,
                 baseDirectory));
+        }
+
+        public void AddMessageTypeMetric(Guid endpointId, string messageType, int count, double fastestExecutionDuration,
+            double slowestExecutionDuration, double totalExecutionDuration)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled, string messageTypeDispatched)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType, string recipientInboxWorkQueueUri)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddMessageTypeHandled(Guid endpointId, string messageType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

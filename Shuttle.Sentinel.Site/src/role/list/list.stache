@@ -1,5 +1,0 @@
-{{#if rolesPromise.isResolved}}
-<sentinel-table {columns}="columns" {rows}="rolesPromise.value" />
-{{else}}
-<sentinel-fetching title="role:list.title" />
-{{/if}}

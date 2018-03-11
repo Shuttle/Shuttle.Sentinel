@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Shuttle.Sentinel.Query;
+using Shuttle.Sentinel.DataAccess.Query;
 
-namespace Shuttle.Sentinel
+namespace Shuttle.Sentinel.DataAccess
 {
     public interface ISubscriptionQuery
     {

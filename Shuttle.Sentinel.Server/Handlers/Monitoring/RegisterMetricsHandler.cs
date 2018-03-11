@@ -1,7 +1,8 @@
 ﻿using System;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
+using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
@@ -24,11 +25,9 @@ namespace Shuttle.Sentinel.Server
         {
             var message = context.Message;
 
-            Guid? id;
-
             using (_databaseContextFactory.Create())
             {
-                id = _endpointQuery.FindId(message.EndpointName, message.MachineName, message.BaseDirectory);
+                var id = _endpointQuery.FindId(message.EndpointName, message.MachineName, message.BaseDirectory);
 
                 if (!id.HasValue)
                 {
@@ -71,11 +70,10 @@ namespace Shuttle.Sentinel.Server
                         messageType);
                 }
 
-                foreach (var systemMetric in message.SystemMetrics)
-                {
-                    _endpointQuery.AddSystemMetric(
-                        )
-                }
+                //foreach (var systemMetric in message.SystemMetrics)
+                //{
+                //    _endpointQuery.AddSystemMetric()
+                //}
             }
         }
     }

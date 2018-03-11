@@ -1,22 +1,22 @@
 using System.Collections.Generic;
-using System.Web.Http;
-using Shuttle.Core.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Shuttle.Core.Contract;
 using Shuttle.Esb;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    public class EnvironmentsController : ApiController
+    public class EnvironmentsController : Controller
     {
         private readonly IServiceBus _bus;
 
         public EnvironmentsController(IServiceBus bus)
         {
-            Guard.AgainstNull(bus, "bus");
+            Guard.AgainstNull(bus, nameof(bus));
 
             _bus = bus;
         }
 
-        public IHttpActionResult Get()
+        public IActionResult Get()
         {
             return Ok(new
             {

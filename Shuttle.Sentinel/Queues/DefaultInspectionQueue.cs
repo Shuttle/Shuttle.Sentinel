@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
+using Shuttle.Core.Logging;
 using Shuttle.Esb;
-using Shuttle.Sentinel.InspectionQueue;
+using Shuttle.Sentinel.DataAccess;
 
 namespace Shuttle.Sentinel.Queues
 {
@@ -20,9 +21,9 @@ namespace Shuttle.Sentinel.Queues
         public DefaultInspectionQueue(IDatabaseContextFactory databaseContextFactory, IDatabaseGateway databaseGateway,
             IInspectionQueueQueryFactory inspectionQueueQueryFactory)
         {
-            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-            Guard.AgainstNull(databaseGateway, "databaseGateway");
-            Guard.AgainstNull(inspectionQueueQueryFactory, "inspectionQueueQueryFactory");
+            Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
+            Guard.AgainstNull(databaseGateway, nameof(databaseGateway));
+            Guard.AgainstNull(inspectionQueueQueryFactory, nameof(inspectionQueueQueryFactory));
 
             _databaseContextFactory = databaseContextFactory;
             _databaseGateway = databaseGateway;
@@ -44,7 +45,7 @@ namespace Shuttle.Sentinel.Queues
             catch (Exception ex)
             {
                 _log.Error(
-                    string.Format(SentinelResources.EnqueueException, transportMessage.MessageId, ex.Message));
+                    string.Format(Resources.EnqueueException, transportMessage.MessageId, ex.Message));
 
                 throw;
             }

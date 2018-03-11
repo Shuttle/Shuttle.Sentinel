@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
+using Shuttle.Core.Streams;
 using Shuttle.Esb;
 
-namespace Shuttle.Sentinel.InspectionQueue
+namespace Shuttle.Sentinel.DataAccess
 {
     public class InspectionQueueQueryFactory : IInspectionQueueQueryFactory
     {

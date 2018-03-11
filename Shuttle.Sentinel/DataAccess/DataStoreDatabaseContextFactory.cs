@@ -1,20 +1,27 @@
 ﻿using System;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
-using Shuttle.Sentinel.Query;
+using Shuttle.Sentinel.DataAccess.Query;
 
-namespace Shuttle.Sentinel
+namespace Shuttle.Sentinel.DataAccess
 {
     public class DataStoreDatabaseContextFactory : DatabaseContextFactory, IDataStoreDatabaseContextFactory
     {
         private readonly IDataStoreQuery _dataStoreQuery;
 
-        public DataStoreDatabaseContextFactory(IDbConnectionFactory dbConnectionFactory,
-            IDbCommandFactory dbCommandFactory, IDatabaseContextCache databaseContextCache,
+        public DataStoreDatabaseContextFactory(
+            IConnectionConfigurationProvider connectionConfigurationProvider,
+            IDbConnectionFactory dbConnectionFactory,
+            IDbCommandFactory dbCommandFactory, 
+            IDatabaseContextCache databaseContextCache,
             IDataStoreQuery dataStoreQuery)
-            : base(dbConnectionFactory, dbCommandFactory, databaseContextCache)
+            : base(
+                connectionConfigurationProvider,
+                dbConnectionFactory, 
+                dbCommandFactory, 
+                databaseContextCache)
         {
-            Guard.AgainstNull(dataStoreQuery, "dataStoreQuery");
+            Guard.AgainstNull(dataStoreQuery, nameof(dataStoreQuery));
 
             _dataStoreQuery = dataStoreQuery;
         }

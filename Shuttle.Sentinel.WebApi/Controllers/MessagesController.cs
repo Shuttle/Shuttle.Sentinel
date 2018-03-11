@@ -1,17 +1,22 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+using Shuttle.Access.Mvc;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
+using Shuttle.Core.Logging;
+using Shuttle.Core.Reflection;
+using Shuttle.Core.Serialization;
 using Shuttle.Esb;
 using Shuttle.Sentinel.Queues;
 
 namespace Shuttle.Sentinel.WebApi
 {
     [RequiresPermission(SystemPermissions.Manage.Messages)]
-    public class MessagesController : SentinelApiController
+    public class MessagesController : Controller
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IInspectionQueue _inspectionQueue;
@@ -19,24 +24,27 @@ namespace Shuttle.Sentinel.WebApi
         private readonly ISerializer _serializer;
         private readonly ITransportMessageFactory _transportMessageFactory;
         private readonly Type _transportMessageType = typeof(TransportMessage);
+        private readonly ILog _log;
 
         public MessagesController(IDatabaseContextFactory databaseContextFactory, IInspectionQueue inspectionQueue,
             ISerializer serializer, IQueueManager queueManager, ITransportMessageFactory transportMessageFactory)
         {
-            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-            Guard.AgainstNull(inspectionQueue, "inspectionQueue");
-            Guard.AgainstNull(serializer, "serializer");
-            Guard.AgainstNull(queueManager, "queueManager");
-            Guard.AgainstNull(transportMessageFactory, "transportMessageFactory");
+            Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
+            Guard.AgainstNull(inspectionQueue, nameof(inspectionQueue));
+            Guard.AgainstNull(serializer, nameof(serializer));
+            Guard.AgainstNull(queueManager, nameof(queueManager));
+            Guard.AgainstNull(transportMessageFactory, nameof(transportMessageFactory));
 
             _databaseContextFactory = databaseContextFactory;
             _inspectionQueue = inspectionQueue;
             _serializer = serializer;
             _queueManager = queueManager;
             _transportMessageFactory = transportMessageFactory;
+
+            _log = Log.For(this);
         }
 
-        public IHttpActionResult Get()
+        public IActionResult Get()
         {
             using (_databaseContextFactory.Create())
             {
@@ -75,7 +83,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [Route("api/messages/fetch")]
-        public IHttpActionResult Fetch([FromBody] FetchMessageModel model)
+        public IActionResult Fetch([FromBody] FetchMessageModel model)
         {
             try
             {
@@ -100,7 +108,9 @@ namespace Shuttle.Sentinel.WebApi
                             }
                             catch (Exception ex)
                             {
-                                return InternalServerError(ex);
+                                _log.Error(ex.AllMessages());
+
+                                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
                             }
 
                             _inspectionQueue.Enqueue(model.QueueUri, transportMessage, receivedMessage.Stream);
@@ -133,7 +143,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [Route("api/messages/transfer")]
-        public IHttpActionResult Transfer([FromBody] MessageMoveModel model)
+        public IActionResult Transfer([FromBody] MessageMoveModel model)
         {
             try
             {
@@ -164,7 +174,9 @@ namespace Shuttle.Sentinel.WebApi
                     }
                     catch (Exception ex)
                     {
-                        return InternalServerError(ex);
+                        _log.Error(ex.AllMessages());
+
+                        return StatusCode((int)HttpStatusCode.InternalServerError, ex);
                     }
 
                     var queueUri = string.Empty;
@@ -232,9 +244,9 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        public IHttpActionResult Post([FromBody] SendMessageModel model)
+        public IActionResult Post([FromBody] SendMessageModel model)
         {
-            Guard.AgainstNull(model, "model");
+            Guard.AgainstNull(model, nameof(model));
 
             IQueue queue = null;
 

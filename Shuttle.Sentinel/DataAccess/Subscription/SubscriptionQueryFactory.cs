@@ -1,8 +1,8 @@
-﻿using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
-using Shuttle.Sentinel.Query;
+﻿using Shuttle.Core.Contract;
+using Shuttle.Core.Data;
+using Shuttle.Sentinel.DataAccess.Query;
 
-namespace Shuttle.Sentinel
+namespace Shuttle.Sentinel.DataAccess
 {
     public class SubscriptionQueryFactory : ISubscriptionQueryFactory
     {
@@ -21,7 +21,7 @@ order by
 
         public IQuery Add(Subscription subscription)
         {
-            Guard.AgainstNull(subscription, "subscription");
+            Guard.AgainstNull(subscription, nameof(subscription));
 
             return RawQuery.Create(@"
 if not exists (select null from SubscriberMessageType where MessageType = @MessageType and InboxWorkQueueUri = @InboxWorkQueueUri)
@@ -42,7 +42,7 @@ if not exists (select null from SubscriberMessageType where MessageType = @Messa
 
         public IQuery Remove(Subscription subscription)
         {
-            Guard.AgainstNull(subscription, "subscription");
+            Guard.AgainstNull(subscription, nameof(subscription));
 
             return RawQuery.Create(@"
 delete 

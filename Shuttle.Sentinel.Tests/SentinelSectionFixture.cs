@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Shuttle.Sentinel.Configuration;
 
 namespace Shuttle.Sentinel.Tests
 {

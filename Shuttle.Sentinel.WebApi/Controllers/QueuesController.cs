@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+using Shuttle.Access.Mvc;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
+using Shuttle.Sentinel.DataAccess;
+using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
-using Shuttle.Sentinel.Query;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    public class QueuesController : SentinelApiController
+    public class QueuesController : Controller
     {
         private readonly IServiceBus _bus;
         private readonly IDatabaseContextFactory _databaseContextFactory;
@@ -17,9 +19,9 @@ namespace Shuttle.Sentinel.WebApi
 
         public QueuesController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory, IQueueQuery queueQuery)
         {
-            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-            Guard.AgainstNull(queueQuery, "queueQuery");
-            Guard.AgainstNull(bus, "bus");
+            Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
+            Guard.AgainstNull(queueQuery, nameof(queueQuery));
+            Guard.AgainstNull(bus, nameof(bus));
 
             _databaseContextFactory = databaseContextFactory;
             _queueQuery = queueQuery;
@@ -27,7 +29,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
-        public IHttpActionResult Get()
+        public IActionResult Get()
         {
             using (_databaseContextFactory.Create())
             {
@@ -40,7 +42,7 @@ namespace Shuttle.Sentinel.WebApi
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
         [Route("api/queues/{search}")]
-        public IHttpActionResult GetSearch(string search)
+        public IActionResult GetSearch(string search)
         {
             using (_databaseContextFactory.Create())
             {
@@ -80,9 +82,9 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
-        public IHttpActionResult Post([FromBody] QueueModel model)
+        public IActionResult Post([FromBody] QueueModel model)
         {
-            Guard.AgainstNull(model, "model");
+            Guard.AgainstNull(model, nameof(model));
 
             try
             {
@@ -90,7 +92,7 @@ namespace Shuttle.Sentinel.WebApi
             }
             catch (Exception)
             {
-                return BadRequest(string.Format(SentinelResources.InvalidUri, model.Uri));
+                return BadRequest(string.Format(Resources.InvalidUri, model.Uri));
             }
 
             _bus.Send(new AddQueueCommand
@@ -103,7 +105,7 @@ namespace Shuttle.Sentinel.WebApi
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
         [Route("api/queues/{id}")]
-        public IHttpActionResult Delete(Guid id)
+        public IActionResult Delete(Guid id)
         {
             _bus.Send(new RemoveQueueCommand
             {

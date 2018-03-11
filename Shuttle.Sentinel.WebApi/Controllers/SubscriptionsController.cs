@@ -1,13 +1,15 @@
 using System;
 using System.Linq;
-using System.Web.Http;
-using Shuttle.Core.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Shuttle.Access.Mvc;
+using Shuttle.Core.Contract;
 using Shuttle.Esb;
+using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    public class SubscriptionsController : SentinelApiController
+    public class SubscriptionsController : Controller
     {
         private readonly IServiceBus _bus;
         private readonly IDataStoreDatabaseContextFactory _databaseContextFactory;
@@ -16,9 +18,9 @@ namespace Shuttle.Sentinel.WebApi
         public SubscriptionsController(IServiceBus bus, IDataStoreDatabaseContextFactory databaseContextFactory,
             ISubscriptionQuery subscriptionQuery)
         {
-            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-            Guard.AgainstNull(subscriptionQuery, "subscriptionQuery");
-            Guard.AgainstNull(bus, "bus");
+            Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
+            Guard.AgainstNull(subscriptionQuery, nameof(subscriptionQuery));
+            Guard.AgainstNull(bus, nameof(bus));
 
             _databaseContextFactory = databaseContextFactory;
             _subscriptionQuery = subscriptionQuery;
@@ -27,7 +29,7 @@ namespace Shuttle.Sentinel.WebApi
 
         [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
         [Route("api/subscriptions/{dataStoreId}")]
-        public IHttpActionResult Get(Guid dataStoreId)
+        public IActionResult Get(Guid dataStoreId)
         {
             using (_databaseContextFactory.Create(dataStoreId))
             {
@@ -59,9 +61,9 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
-        public IHttpActionResult Post([FromBody] SubscriptionModel model)
+        public IActionResult Post([FromBody] SubscriptionModel model)
         {
-            Guard.AgainstNull(model, "model");
+            Guard.AgainstNull(model, nameof(model));
 
             _bus.Send(new AddSubscriptionCommand
             {
@@ -75,7 +77,7 @@ namespace Shuttle.Sentinel.WebApi
 
         [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
         [Route("api/subscriptions/remove")]
-        public IHttpActionResult RemoveSubscription([FromBody] SubscriptionModel model)
+        public IActionResult RemoveSubscription([FromBody] SubscriptionModel model)
         {
             _bus.Send(new RemoveSubscriptionCommand
             {

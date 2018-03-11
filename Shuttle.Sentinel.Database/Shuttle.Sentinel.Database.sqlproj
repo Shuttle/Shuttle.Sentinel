@@ -7,7 +7,7 @@
     <Name>Shuttle.Sentinel.Database</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{74b3869c-0977-4516-a308-a4c0a5e61e46}</ProjectGuid>
+    <ProjectGuid>{6531079e-4dcd-4775-a835-3b8ff637e054}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
@@ -17,7 +17,7 @@
     <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <TargetLanguage>CS</TargetLanguage>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
@@ -60,25 +60,23 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables\" />
-    <Folder Include="Snapshots" />
+    <Folder Include=".script" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\SessionPermission.sql" />
-    <Build Include="Tables\SystemParameter.sql" />
     <Build Include="Tables\InspectionQueue.sql" />
     <Build Include="Tables\Queue.sql" />
-    <Build Include="Tables\Session.sql" />
-    <Build Include="Tables\Schedule.sql" />
+    <Build Include="Tables\SystemParameter.sql" />
+    <Build Include="Tables\SubscriberMessageType.sql" />
+    <Build Include="Tables\ProjectionPosition.sql" />
+    <Build Include="Tables\EventStore.sql" />
+    <Build Include="Tables\KeyStore.sql" />
+    <Build Include="Tables\SnapshotStore.sql" />
     <Build Include="Tables\DataStore.sql" />
-    <Build Include="Tables\MessageTypeMetric.sql" />
-    <Build Include="Tables\MessageTypeHandled.sql" />
-    <Build Include="Tables\MessageTypeDispatched.sql" />
     <Build Include="Tables\MessageTypeAssociation.sql" />
-    <Build Include="Tables\Endpoint.sql" />
-    <Build Include="Tables\SystemMetric.sql" />
+    <Build Include="Tables\MessageTypeDispatched.sql" />
+    <Build Include="Tables\MessageTypeHandled.sql" />
+    <Build Include="Tables\MessageTypeMetric.sql" />
     <Build Include="Tables\Server.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="Shuttle.Sentinel.Database.refactorlog" />
+    <Build Include="Tables\Endpoint.sql" />
   </ItemGroup>
 </Project>

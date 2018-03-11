@@ -1,24 +1,23 @@
 using System;
 using System.Configuration;
-using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
+using Shuttle.Core.Configuration;
 
-namespace Shuttle.Sentinel
+namespace Shuttle.Sentinel.Configuration
 {
 	public class SentinelSection : ConfigurationSection
 	{
 		[ConfigurationProperty("authenticationServiceType", IsRequired = false,
-			DefaultValue = "Shuttle.Sentinel.DefaultAuthenticationService, Shuttle.Sentinel")]
+			DefaultValue = "Shuttle.Access.Sql.AuthenticationService, Shuttle.Access.Sql")]
 		public string AuthenticationServiceType => (string)this["authenticationServiceType"];
 
 		[ConfigurationProperty("authorizationServiceType", IsRequired = false,
-			DefaultValue = "Shuttle.Sentinel.DefaultAuthorizationService, Shuttle.Sentinel")]
+			DefaultValue = "Shuttle.Access.Sql.AuthorizationService, Shuttle.Access.Sql")]
 		public string AuthorizationServiceType => (string)this["authorizationServiceType"];
 
 		[ConfigurationProperty("connectionStringName", IsRequired = false, DefaultValue = "Sentinel")]
 		public string ConnectionStringName => (string)this["connectionStringName"];
 
-		[ConfigurationProperty("serializerType", IsRequired = false, DefaultValue = "Shuttle.Core.Infrastructure.DefaultSerializer, Shuttle.Core.Infrastructure")]
+		[ConfigurationProperty("serializerType", IsRequired = false, DefaultValue = "Shuttle.Core.Serialization.DefaultSerializer, Shuttle.Core.Serialization")]
 		public string SerializerType => (string)this["serializerType"];
 
 		public static ISentinelConfiguration Configuration()
@@ -33,7 +32,7 @@ namespace Shuttle.Sentinel
 			}
 			catch (Exception ex)
 			{
-				throw new ConfigurationErrorsException(string.Format(SentinelResources.TypeNotFoundException, "AuthenticationServiceType",
+				throw new ConfigurationErrorsException(string.Format(Resources.TypeNotFoundException, "AuthenticationServiceType",
 					section.AuthenticationServiceType, ex.Message));
 			}
 
@@ -43,7 +42,7 @@ namespace Shuttle.Sentinel
 			}
 			catch (Exception ex)
 			{
-				throw new ConfigurationErrorsException(string.Format(SentinelResources.TypeNotFoundException, "AuthorizationServiceType",
+				throw new ConfigurationErrorsException(string.Format(Resources.TypeNotFoundException, "AuthorizationServiceType",
 					section.AuthorizationServiceType, ex.Message));
 			}
 
@@ -53,7 +52,7 @@ namespace Shuttle.Sentinel
 			}
 			catch (Exception ex)
 			{
-				throw new ConfigurationErrorsException(string.Format(SentinelResources.TypeNotFoundException, "SerializerType",
+				throw new ConfigurationErrorsException(string.Format(Resources.TypeNotFoundException, "SerializerType",
 					section.SerializerType, ex.Message));
 			}
 
@@ -61,7 +60,7 @@ namespace Shuttle.Sentinel
 
 			if (connectionString == null)
 			{
-				throw new ConfigurationErrorsException(string.Format(DataResources.ConnectionStringMissing, section.ConnectionStringName));
+				throw new ConfigurationErrorsException(string.Format(Core.Data.Resources.ConnectionStringMissing, section.ConnectionStringName));
 			}
 
 			result.ProviderName = connectionString.ProviderName;

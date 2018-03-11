@@ -1,4 +1,4 @@
-﻿namespace Shuttle.Sentinel.Query
+﻿namespace Shuttle.Sentinel.DataAccess.Query
 {
     public class Subscription
     {

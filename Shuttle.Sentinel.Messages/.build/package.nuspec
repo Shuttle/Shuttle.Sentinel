@@ -5,11 +5,11 @@
 		<version>{semver}</version>
 		<authors>Eben Roux</authors>
 		<owners>Eben Roux</owners>
-		<licenseUrl>https://github.com/shuttle/Shuttle.Sentinel/raw/master/LICENSE</licenseUrl>
-		<projectUrl>https://github.com/shuttle/Shuttle.Sentinel</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Sentinel/master/.media/logo.png</iconUrl>
+		<licenseUrl>https://github.com/shuttle/Shuttle.Sentinel.Messages/raw/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/shuttle/Shuttle.Sentinel.Messages</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Sentinel.Messages/master/.media/logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Shuttle.Esb messages that may be sent to a Shuttle.Sentinel.Server endpoint.</description>
+		<description>Message for use with Shuttle.Sentinel solutions.</description>
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
 		<tags>shuttle</tags>

@@ -1,13 +1,15 @@
 using System;
-using System.Web.Http;
+using Microsoft.AspNetCore.Mvc;
+using Shuttle.Access.Mvc;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
 using Shuttle.Esb;
+using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    public class DataStoresController : SentinelApiController
+    public class DataStoresController : Controller
     {
         private readonly IServiceBus _bus;
         private readonly IDatabaseContextFactory _databaseContextFactory;
@@ -16,9 +18,9 @@ namespace Shuttle.Sentinel.WebApi
         public DataStoresController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
             IDataStoreQuery dataStoreQuery)
         {
-            Guard.AgainstNull(databaseContextFactory, "databaseContextFactory");
-            Guard.AgainstNull(dataStoreQuery, "dataStoreQuery");
-            Guard.AgainstNull(bus, "bus");
+            Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
+            Guard.AgainstNull(dataStoreQuery, nameof(dataStoreQuery));
+            Guard.AgainstNull(bus, nameof(bus));
 
             _databaseContextFactory = databaseContextFactory;
             _dataStoreQuery = dataStoreQuery;
@@ -26,7 +28,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
-        public IHttpActionResult Get()
+        public IActionResult Get()
         {
             using (_databaseContextFactory.Create())
             {
@@ -38,9 +40,9 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
-        public IHttpActionResult Post([FromBody] AddDataStoreModel model)
+        public IActionResult Post([FromBody] AddDataStoreModel model)
         {
-            Guard.AgainstNull(model, "model");
+            Guard.AgainstNull(model, nameof(model));
 
             _bus.Send(new AddDataStoreCommand
             {
@@ -54,7 +56,7 @@ namespace Shuttle.Sentinel.WebApi
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
         [Route("api/datastores/{id}")]
-        public IHttpActionResult Delete(Guid id)
+        public IActionResult Delete(Guid id)
         {
             _bus.Send(new RemoveDataStoreCommand
             {

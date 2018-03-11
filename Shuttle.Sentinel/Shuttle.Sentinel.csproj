@@ -1,205 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F4014337-8EC2-4E94-BEAD-7BFED6041F6F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Shuttle.Sentinel</RootNamespace>
-    <AssemblyName>Shuttle.Sentinel</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.1.1\lib\net45\Castle.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Windsor.4.0.0\lib\net45\Castle.Windsor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Shuttle.Core.Data, Version=8.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Core.Data.8.0.1\lib\net451-full\Shuttle.Core.Data.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Shuttle.Core.Infrastructure, Version=8.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Core.Infrastructure.8.0.3\lib\net451-full\Shuttle.Core.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Shuttle.Core.Log4Net, Version=8.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Core.Log4Net.8.0.1\lib\net451-full\Shuttle.Core.Log4Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Shuttle.Esb, Version=9.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Esb.9.0.3\lib\net451-full\Shuttle.Esb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Shuttle.Recall, Version=8.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Recall.8.2.2\lib\net451-full\Shuttle.Recall.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Shuttle.Recall.Sql.Storage, Version=8.0.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Shuttle.Recall.Sql.Storage.8.0.10\lib\net451-full\Shuttle.Recall.Sql.Storage.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="DataAccess\Columns.cs" />
-    <Compile Include="DataAccess\Endpoint\EndpointColumns.cs" />
-    <Compile Include="DataAccess\Endpoint\EndpointQuery.cs" />
-    <Compile Include="DataAccess\Endpoint\EndpointQueryFactory.cs" />
-    <Compile Include="DataAccess\Endpoint\IEndpointQuery.cs" />
-    <Compile Include="DataAccess\Endpoint\IEndpointQueryFactory.cs" />
-    <Compile Include="DataAccess\InspectionQueue\IInspectionQueueQueryFactory.cs" />
-    <Compile Include="DataAccess\InspectionQueue\InspectionQueueColumns.cs" />
-    <Compile Include="DataAccess\InspectionQueue\InspectionQueueQueryFactory.cs" />
-    <Compile Include="DataAccess\IDataStoreDatabaseContextFactory.cs" />
-    <Compile Include="DataAccess\Permission\IPermissionQuery.cs" />
-    <Compile Include="DataAccess\Permission\IPermissionQueryFactory.cs" />
-    <Compile Include="DataAccess\Permission\PermissionQuery.cs" />
-    <Compile Include="DataAccess\Permission\PermissionQueryFactory.cs" />
-    <Compile Include="DataAccess\Query\DataStore.cs" />
-    <Compile Include="DataAccess\Query\Queue.cs" />
-    <Compile Include="DataAccess\Query\Role.cs" />
-    <Compile Include="DataAccess\Query\Subscription.cs" />
-    <Compile Include="DataAccess\Query\User.cs" />
-    <Compile Include="DataAccess\DataStore\IDataStoreQuery.cs" />
-    <Compile Include="DataAccess\DataStore\IDataStoreQueryFactory.cs" />
-    <Compile Include="DataAccess\DataStore\DataStoreColumns.cs" />
-    <Compile Include="DataAccess\DataStore\DataStoreQuery.cs" />
-    <Compile Include="DataAccess\DataStore\DataStoreQueryFactory.cs" />
-    <Compile Include="DataAccess\Queue\IQueueQuery.cs" />
-    <Compile Include="DataAccess\Queue\IQueueQueryFactory.cs" />
-    <Compile Include="DataAccess\Queue\QueueQuery.cs" />
-    <Compile Include="DataAccess\Queue\QueueQueryFactory.cs" />
-    <Compile Include="DataAccess\Queue\QueueColumns.cs" />
-    <Compile Include="DataAccess\DataStoreDatabaseContextFactory.cs" />
-    <Compile Include="DataAccess\Server\EndpointColumns.cs" />
-    <Compile Include="DataAccess\Server\IServerQuery.cs" />
-    <Compile Include="DataAccess\Server\IServerQueryFactory.cs" />
-    <Compile Include="DataAccess\Server\ServerQuery.cs" />
-    <Compile Include="DataAccess\Server\ServerQueryFactory.cs" />
-    <Compile Include="DataAccess\Session\ISessionQuery.cs" />
-    <Compile Include="DataAccess\Session\SessionQuery.cs" />
-    <Compile Include="DataAccess\Subscription\ISubscriptionQuery.cs" />
-    <Compile Include="DataAccess\Subscription\ISubscriptionQueryFactory.cs" />
-    <Compile Include="DataAccess\Subscription\SubscriptionColumns.cs" />
-    <Compile Include="DataAccess\Subscription\SubscriptionQuery.cs" />
-    <Compile Include="DataAccess\Subscription\SubscriptionQueryFactory.cs" />
-    <Compile Include="DataAccess\SystemRole\ISystemRoleQuery.cs" />
-    <Compile Include="DataAccess\SystemRole\ISystemRoleQueryFactory.cs" />
-    <Compile Include="DataAccess\SystemRole\SystemRolePermissionColumns.cs" />
-    <Compile Include="DataAccess\SystemRole\SystemRoleQuery.cs" />
-    <Compile Include="DataAccess\SystemRole\SystemRoleQueryFactory.cs" />
-    <Compile Include="DataAccess\SystemRole\SystemRoleColumns.cs" />
-    <Compile Include="DataAccess\SystemUser\SystemUserRoleColumns.cs" />
-    <Compile Include="DomainEvents\Role.v1\Removed.cs" />
-    <Compile Include="DomainEvents\Role.v1\Added.cs" />
-    <Compile Include="DomainEvents\Role.v1\PermissionRemoved.cs" />
-    <Compile Include="DomainEvents\Role.v1\PermissionAdded.cs" />
-    <Compile Include="DomainEvents\User.v1\RoleRemoved.cs" />
-    <Compile Include="DomainEvents\User.v1\RoleAdded.cs" />
-    <Compile Include="DomainEvents\User.v1\Removed.cs" />
-    <Compile Include="Domain\SystemPermissions.cs" />
-    <Compile Include="Domain\Role.cs" />
-    <Compile Include="Queues\DefaultInspectionQueue.cs" />
-    <Compile Include="Queues\IInspectionQueue.cs" />
-    <Compile Include="Queues\InspectionMessage.cs" />
-    <Compile Include="SentinelException.cs" />
-    <Compile Include="Services\IAnonymousPermissions.cs" />
-    <Compile Include="SentinelResources.Designer.cs">
-      <DependentUpon>SentinelResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Configuration\ISentinelConfiguration.cs" />
-    <Compile Include="Configuration\SentinelConfiguration.cs" />
-    <Compile Include="Configuration\SentinelSection.cs" />
-    <Compile Include="DataAccess\Session\SessionPermissionColumns.cs" />
-    <Compile Include="DataAccess\Session\SessionMapper.cs" />
-    <Compile Include="DataAccess\Session\ISessionQueryFactory.cs" />
-    <Compile Include="DataAccess\Session\SessionQueryFactory.cs" />
-    <Compile Include="DataAccess\SystemUser\ISystemUserQuery.cs" />
-    <Compile Include="DataAccess\SystemUser\ISystemUserQueryFactory.cs" />
-    <Compile Include="DataAccess\SystemUser\SessionColumns.cs" />
-    <Compile Include="DataAccess\SystemUser\SystemUserQuery.cs" />
-    <Compile Include="DataAccess\SystemUser\SystemUserQueryFactory.cs" />
-    <Compile Include="DomainEvents\User.v1\Registered.cs" />
-    <Compile Include="Domain\Session.cs" />
-    <Compile Include="DataAccess\Session\SessionColumns.cs" />
-    <Compile Include="Domain\ISessionRepository.cs" />
-    <Compile Include="DataAccess\Session\SessionRepository.cs" />
-    <Compile Include="Domain\User.cs" />
-    <Compile Include="Services\AuthenticationResult.cs" />
-    <Compile Include="Services\DefaultAuthenticationService.cs" />
-    <Compile Include="Services\DefaultAuthorizationService.cs" />
-    <Compile Include="Services\HashingService.cs" />
-    <Compile Include="Services\IAuthenticationService.cs" />
-    <Compile Include="Services\IAuthorizationService.cs" />
-    <Compile Include="Services\IHashingService.cs" />
-    <Compile Include="Services\ISessionService.cs" />
-    <Compile Include="Services\RegisterSessionResult.cs" />
-    <Compile Include="Services\SessionService.cs" />
-    <Compile Include="WindsorContainerExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include=".script\0-clear-projections.sql" />
-    <Content Include=".script\0-data.sql" />
-    <Content Include=".script\0-schema.sql" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <EmbeddedResource Include="SentinelResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SentinelResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net46;net461;net462;net47;net471;netstandard2.0;netcoreapp2.0</TargetFrameworks>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Shuttle.Core.Configuration" Version="10.0.0" />
+        <PackageReference Include="Shuttle.Core.Data" Version="10.0.4" />
+        <PackageReference Include="Shuttle.Esb" Version="10.0.3" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netcoreapp2.0'" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Configuration" Condition="'$(TargetFramework)' != 'netstandard2.0' and '$(TargetFramework)' != 'netcoreapp2.0'" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="DomainEvents\" />
+        <Folder Include="Domain\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include=".build\package.msbuild" />
+        <None Include=".build\package.nuspec" />
+        <None Include=".build\Shuttle.MSBuild.dll" />
+        <None Include=".build\Shuttle.MSBuild.targets" />
+    </ItemGroup>
+
 </Project>

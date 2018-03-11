@@ -4,11 +4,14 @@ using System.Net.Sockets;
 using Castle.Windsor;
 using log4net;
 using Shuttle.Core.Castle;
-using Shuttle.Core.Infrastructure;
+using Shuttle.Core.Container;
 using Shuttle.Core.Log4Net;
+using Shuttle.Core.Logging;
 using Shuttle.Core.ServiceHost;
 using Shuttle.Esb;
 using Shuttle.Recall;
+using Shuttle.Sentinel.DataAccess;
+using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
 {
@@ -23,10 +26,9 @@ namespace Shuttle.Sentinel.Server
 
             _container = new WindsorContainer();
 
-            _container.RegisterDataAccessCore();
-            _container.RegisterDataAccess("Shuttle.Sentinel");
-
             var container = new WindsorComponentContainer(_container);
+
+            container.RegisterSuffixed("Shuttle.Sentinel");
 
             EventStore.Register(container);
             ServiceBus.Register(container);

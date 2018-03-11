@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Infrastructure;
-using Shuttle.Sentinel.Query;
+using Shuttle.Sentinel.DataAccess.Query;
 
-namespace Shuttle.Sentinel
+namespace Shuttle.Sentinel.DataAccess
 {
     public class SubscriptionQuery : ISubscriptionQuery
     {
@@ -13,9 +13,9 @@ namespace Shuttle.Sentinel
 
         public SubscriptionQuery(IDatabaseGateway databaseGateway, IQueryMapper queryMapper, ISubscriptionQueryFactory queryFactory)
         {
-            Guard.AgainstNull(databaseGateway, "databaseGateway");
-            Guard.AgainstNull(queryMapper, "queryMapper");
-            Guard.AgainstNull(queryFactory, "queryFactory");
+            Guard.AgainstNull(databaseGateway, nameof(databaseGateway));
+            Guard.AgainstNull(queryMapper, nameof(queryMapper));
+            Guard.AgainstNull(queryFactory, nameof(queryFactory));
 
             _databaseGateway = databaseGateway;
             _queryMapper = queryMapper;

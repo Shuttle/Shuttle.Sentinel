@@ -3,7 +3,7 @@ using System.IO;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
 
-namespace Shuttle.Sentinel.InspectionQueue
+namespace Shuttle.Sentinel.DataAccess
 {
     public interface IInspectionQueueQueryFactory
     {

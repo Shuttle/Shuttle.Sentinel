@@ -2,7 +2,7 @@
 using System.Data;
 using Shuttle.Core.Data;
 
-namespace Shuttle.Sentinel
+namespace Shuttle.Sentinel.DataAccess
 {
     public class Columns
     {
