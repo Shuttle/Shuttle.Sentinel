@@ -1,9 +1,9 @@
 ﻿<can-import from='bootstrap/dist/css/bootstrap.css!' />
 <can-import from='./styles.css!' />
 
-<sentinel-navigation {title}='title' {controls}='controls' />
-<sentinel-alerts />
-<sentinel-modal modal-id='modal-confirmation' has-primary='true' primary-text='yes' dismiss-text='no' title='confirmation' {message}='modal.confirmation.message' {primary-click}='modal@confirmation@primaryClick'/>
+<cs-navigation {title}='title' {controls}='controls' />
+<cs-alerts />
+<cs-modal modal-id='modal-confirmation' has-primary='true' primary-text='yes' dismiss-text='no' title='confirmation' {message}='modal.confirmation.message' {primary-click}='modal@confirmation@primaryClick'/>
 
 <div id='application-content' class='container-fluid'></div>
 {{#if debug}}

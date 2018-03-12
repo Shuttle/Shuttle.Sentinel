@@ -13,6 +13,7 @@
       "steal-css"
     ],
     "serviceBaseURL": "http://localhost:4040/api/",
+    "serviceBaseURL": "http://localhost:4040/api/",
     "debug": true,
     "localeVersion": "1"
   },

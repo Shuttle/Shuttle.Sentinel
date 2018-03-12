@@ -101,7 +101,7 @@ export const ViewModel = DefineMap.extend({
 });
 
 export default Component.extend({
-    tag: 'sentinel-datastore-list',
+    tag: 'cs-datastore-list',
     ViewModel,
     view
 });

@@ -63,7 +63,7 @@ export const ViewModel = DefineMap.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-queue-add',
+    tag: 'cs-queue-add',
     ViewModel,
     view
 });

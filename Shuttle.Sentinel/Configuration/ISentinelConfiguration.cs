@@ -1,6 +1,6 @@
 using System;
 
-namespace Shuttle.Sentinel.Configuration
+namespace Shuttle.Sentinel
 {
 	public interface ISentinelConfiguration
 	{

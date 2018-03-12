@@ -2,13 +2,14 @@
 import i18next from 'i18next';
 import backend from 'i18next-xhr-backend';
 import loader from '@loader';
+import i18n from 'shuttle-canstrap/infrastructure/i18n';
 
 let localisation = {
     _initialised: false,
-    _namespaces: ['sentinel', 'navigation'],
+    _namespaces: ['access', 'navigation'],
 
     start: function(callback) {
-        stache.registerSimpleHelper('i18n', function (key) {
+        stache.addHelper('i18n', function (key) {
             return i18next.t(key);
         });
 
@@ -22,14 +23,16 @@ let localisation = {
                 lng: 'en',
                 fallbackLng: 'en',
                 ns: this._namespaces,
-                defaultNS: 'sentinel'
+                defaultNS: 'access'
             }, (error) => {
-                if (!error) {
-                    this._initialised = true;
-                }
+            if (!error) {
+            this._initialised = true;
+        }
 
-                callback(error);
-            });
+        callback(error);
+    });
+
+        i18n.wire(this);
     },
 
     addNamespace: function(ns, callback) {

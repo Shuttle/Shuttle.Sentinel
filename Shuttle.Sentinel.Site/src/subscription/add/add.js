@@ -97,7 +97,7 @@ export const ViewModel = DefineMap.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-subscription-add',
+    tag: 'cs-subscription-add',
     ViewModel,
     view
 });

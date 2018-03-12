@@ -134,7 +134,7 @@ export const ViewModel = DefineMap.extend(
     });
 
 export default Component.extend({
-    tag: 'sentinel-subscription-list',
+    tag: 'cs-subscription-list',
     ViewModel,
     view
 });

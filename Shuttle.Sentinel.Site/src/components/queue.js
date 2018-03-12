@@ -7,7 +7,7 @@ export const ViewModel = InputViewModel.extend({
 });
 
 export default Component.extend({
-    tag: 'sentinel-queue',
+    tag: 'cs-queue',
     ViewModel: ViewModel,
     view
 });

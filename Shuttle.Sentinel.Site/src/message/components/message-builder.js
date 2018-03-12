@@ -29,7 +29,7 @@ export const ViewModel = InputViewModel.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-message-builder',
+    tag: 'cs-message-builder',
     ViewModel,
     view
 });

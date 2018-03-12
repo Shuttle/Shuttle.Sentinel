@@ -79,7 +79,7 @@ export const ViewModel = DefineMap.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-datastore-add',
+    tag: 'cs-datastore-add',
     ViewModel,
     view
 });

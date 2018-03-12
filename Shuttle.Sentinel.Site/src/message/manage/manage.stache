@@ -1,14 +1,14 @@
 <div class="{{#unless showMessages}}hidden{{/unless}}">
 	<div class="row form-group">
 	<div class="col-md-6">
-		<sentinel-label label="message:source-queue-uri" />
+		<cs-label label="message:source-queue-uri" />
 		<div class="row">
 		<div class="col-md-8">
-			<sentinel-queue-input {(uri)}="sourceQueueUri" />
+			<cs-queue-input {(uri)}="sourceQueueUri" />
 		</div>
 		<div class="col-md-4">
 			<div class="input-group">
-			<sentinel-input {(value)}="fetchCount" placeholder="count"/>
+			<cs-input {(value)}="fetchCount" placeholder="count"/>
 			<span class="input-group-btn">
 				<button type="button" ($click)="fetch()" class="btn btn-primary">
 				<span class="glyphicon glyphicon-envelope"></span>
@@ -19,8 +19,8 @@
 		</div>
 	</div>
 	<div class="col-md-6 {{#unless hasMessages}}hidden{{/unless}}">
-		<sentinel-label label="message:destination-queue-uri" />
-		<sentinel-queue-input {(uri)}="destinationQueueUri">
+		<cs-label label="message:destination-queue-uri" />
+		<cs-queue-input {(uri)}="destinationQueueUri">
 		<span class="input-group-btn">
 			<button type="button" ($click)="@move" class="btn btn-default" >
 			{{i18n "move"}}
@@ -29,7 +29,7 @@
 			{{i18n "copy"}}
 			</button>
 		</span>
-		</sentinel-queue-input>
+		</cs-queue-input>
 	</div>
 	</div>
 	<div class="form-group form-inline {{#unless hasMessages}}hidden{{/unless}}">
@@ -38,21 +38,21 @@
 		<button type="button" class="btn btn-default" ($click)="checkInvert()"><span class="glyphicon glyphicon-transfer"></span></button>
 		<button type="button" class="btn btn-default" ($click)="checkAll"><span class="glyphicon glyphicon-check"></span></button>
 	</div>
-	<sentinel-button {actions}="messageActions" text="message:messages" element-class="btn-default" />
+	<cs-button {actions}="messageActions" text="message:messages" element-class="btn-default" />
 	</div>
 	{{#if messagesPromise.isResolved}}
-	<sentinel-table {columns}="columns" {rows}="messagesPromise.value" {row-click}="@messageSelected" empty-message="message:no-messages" />
+	<cs-table {columns}="columns" {rows}="messagesPromise.value" {row-click}="@messageSelected" empty-message="message:no-messages" />
 	{{else}}
-	<sentinel-fetching title="message:title" />
+	<cs-fetching title="message:title" />
 	{{/if}}
 </div>
 <div class="{{#if showMessages}}hidden{{/if}}">
 	<div class="form-group">
-	  <sentinel-button text="close" element-class="btn-primary" {click}="@closeMessageView"/>
-	  <sentinel-checkbox ($click)="message.toggleCheck(%event)" {checked}="message.checked" />
+	  <cs-button text="close" element-class="btn-primary" {click}="@closeMessageView"/>
+	  <cs-checkbox ($click)="message.toggleCheck(%event)" {checked}="message.checked" />
 	</div>
 	<div>
 	  <pre>{{message.message}}</pre>
 	</div>
-	<sentinel-table {columns}="messageColumns" {rows}="messageRows" />
+	<cs-table {columns}="messageColumns" {rows}="messageRows" />
 </div>

@@ -2,7 +2,7 @@ using System;
 using System.Configuration;
 using Shuttle.Core.Configuration;
 
-namespace Shuttle.Sentinel.Configuration
+namespace Shuttle.Sentinel
 {
 	public class SentinelSection : ConfigurationSection
 	{

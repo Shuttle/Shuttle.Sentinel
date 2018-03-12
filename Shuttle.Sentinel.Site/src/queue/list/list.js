@@ -92,7 +92,7 @@ export const ViewModel = DefineMap.extend({
 
 
 export default Component.extend({
-    tag: 'sentinel-queue-list',
+    tag: 'cs-queue-list',
     ViewModel,
     view
 });

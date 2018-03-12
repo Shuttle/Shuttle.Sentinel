@@ -1,1 +1,0 @@
-﻿<span {($click)}="click(%event)" class="glyphicon {{#if checked}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" />

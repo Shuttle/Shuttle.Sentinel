@@ -65,7 +65,7 @@ export const ViewModel = DefineMap.extend({
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-message-send',
+    tag: 'cs-message-send',
     ViewModel,
     view
 });

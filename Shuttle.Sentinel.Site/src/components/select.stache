@@ -1,4 +1,0 @@
-﻿<sentinel-form-group {validation-message}="validationMessage" {element-class}="formGroupClass">
-  <sentinel-label {label}="label" {required}="required" />
-  <sentinel-select-input {focus}="focus" {(value)}="value" {options}="options" {element-class}="inputClass"/>
-</sentinel-form-group>

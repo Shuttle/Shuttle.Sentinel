@@ -1,7 +1,7 @@
-<sentinel-form title="queue:add.title">
+<cs-form title="queue:add.title">
   <fieldset class="form-group">
-    <sentinel-text focus="true" label="uri" {(value)}="uri" required="true" {errors}="errors" error-attribute="uri"/>
-    <sentinel-submit-button {click}="@add" text="add" />
-    <sentinel-button {click}="@close" text="close" />
+    <cs-text focus="true" label="uri" {(value)}="uri" required="true" {errors}="errors" error-attribute="uri"/>
+    <cs-button-submit {click}="@add" text="add" />
+    <cs-button {click}="@close" text="close" />
   </fieldset>
-</sentinel-form>
+</cs-form>

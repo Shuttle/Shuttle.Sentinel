@@ -13,4 +13,13 @@
         <PackageReference Include="Shuttle.Sentinel" Version="1.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="configuration-files\Sentinel-Full-Grouped.config">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="configuration-files\Sentinel-Full.config">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

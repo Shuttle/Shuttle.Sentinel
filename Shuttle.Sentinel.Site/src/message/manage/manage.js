@@ -333,7 +333,7 @@ export const ViewModel = DefineMap.extend(
 
 
 export default Component.extend({
-    tag: 'sentinel-message-manage',
+    tag: 'cs-message-manage',
     ViewModel,
     view
 });

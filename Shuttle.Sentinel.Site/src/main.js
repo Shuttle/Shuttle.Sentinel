@@ -1,37 +1,25 @@
 ﻿import $ from 'jquery';
+import 'popper.js';
+import 'bootstrap';
+import 'can-stache-route-helpers';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
+
+import {options as apiOptions} from 'shuttle-can-api';
+import loader from '@loader';
+
+apiOptions.url = loader.accessBaseURL;
+
 import stache from '~/main.stache!';
 import localisation from '~/localisation';
-import security from '~/security';
 import state from '~/state';
 import router from '~/router';
-import route from 'can-route';
 
-import 'bootstrap/dist/js/bootstrap'
+import canstrap from 'shuttle-canstrap';
+import access from 'shuttle-access';
 
-import '~/components/alerts';
-import '~/components/back-button';
-import '~/components/button';
-import '~/components/buttons';
-import '~/components/checkbox';
-import '~/components/fetching';
-import '~/components/form';
-import '~/components/form-group';
-import '~/components/input';
-import '~/components/label';
-import '~/components/modal';
-import '~/components/navigation';
-import '~/components/page-title';
-import '~/components/queue-input';
-import '~/components/queue';
-import '~/components/refresh-button';
-import '~/components/remove-button';
-import '~/components/select-input';
-import '~/components/select';
-import '~/components/submit-button';
-import '~/components/table';
-import '~/components/text';
-import '~/components/textarea';
-import '~/components/validation';
+access.url = loader.serviceBaseURL;
 
 import '~/dashboard/';
 import '~/datastore/';
