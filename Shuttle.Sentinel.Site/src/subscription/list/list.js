@@ -5,8 +5,7 @@ import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import Api from '~/api';
-import alerts from '~/alerts';
+import Api from 'shuttle-can-api';
 import localisation from '~/localisation';
 import state from '~/state';
 import each from 'can-util/js/each/';
@@ -118,7 +117,7 @@ export const ViewModel = DefineMap.extend(
 
             remove.post(serialized)
                 .then(function() {
-                    alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('subscription:title') }), name: 'item-removal' });
+                    state.alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('subscription:title') }), name: 'item-removal' });
                 });
         },
 
@@ -134,7 +133,7 @@ export const ViewModel = DefineMap.extend(
     });
 
 export default Component.extend({
-    tag: 'cs-subscription-list',
+    tag: 'sentinel-subscription-list',
     ViewModel,
     view
 });

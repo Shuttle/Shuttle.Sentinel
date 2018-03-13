@@ -3,9 +3,8 @@ import DefineMap from 'can-define/map/';
 import view from './send.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import alerts from '~/alerts';
 import localisation from '~/localisation';
-import Api from '~/api';
+import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
 
@@ -55,7 +54,7 @@ export const ViewModel = DefineMap.extend({
             message: this.message
         })
         .then(function() {
-                alerts.show({ message: localisation.value('message:sent') });
+                state.alerts.show({ message: localisation.value('message:sent') });
             });
 
         return false;
@@ -65,7 +64,7 @@ export const ViewModel = DefineMap.extend({
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'cs-message-send',
+    tag: 'sentinel-message-send',
     ViewModel,
     view
 });

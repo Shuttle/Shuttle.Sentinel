@@ -4,7 +4,7 @@ import view from './add.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import Api from '~/api';
+import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
 import localisation from '~/localisation';
@@ -79,7 +79,7 @@ export const ViewModel = DefineMap.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'cs-datastore-add',
+    tag: 'sentinel-datastore-add',
     ViewModel,
     view
 });

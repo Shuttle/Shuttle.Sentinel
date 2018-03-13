@@ -1,9 +1,9 @@
 ﻿import Component from 'can-component';
-import InputViewModel from '~/components/input-view-model';
+import ComponentViewModel from 'shuttle-canstrap/infrastructure/component-view-model';
 import view from './message-builder.stache';
 import validator from 'can-define-validate-validatejs';
 
-export const ViewModel = InputViewModel.extend(
+export const ViewModel = ComponentViewModel.extend(
     'message-builder',
     {
         seal: false
@@ -29,7 +29,7 @@ export const ViewModel = InputViewModel.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'cs-message-builder',
+    tag: 'sentinel-message-builder',
     ViewModel,
     view
 });

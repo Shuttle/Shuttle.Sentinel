@@ -34,21 +34,6 @@ var map = [
         href: '#!queue/list',
         text: 'navigation:queues',
         permission: Permissions.View.Queues
-    },
-    {
-        text: 'navigation:system',
-        items: [
-            {
-                href: '#!user/list',
-                text: 'user:list.title',
-                permission: Permissions.View.Users
-            },
-            {
-                href: '#!role/list',
-                text: 'role:list.title',
-                permission: Permissions.View.Roles
-            }
-        ]
     }
 ];
 

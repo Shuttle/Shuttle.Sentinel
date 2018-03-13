@@ -4,9 +4,8 @@ import DefineList from 'can-define/list/';
 import view from './manage.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import alerts from '~/alerts';
 import localisation from '~/localisation';
-import Api from '~/api';
+import Api from 'shuttle-can-api';
 import each from 'can-util/js/each/';
 import $ from 'jquery';
 import state from '~/state';
@@ -197,7 +196,7 @@ export const ViewModel = DefineMap.extend(
             var self = this;
 
             if (!this.hasSourceQueueUri) {
-                alerts.show({ message: localisation.value('message:exceptions.source-queue-uri'), name: 'message:exceptions.source-queue-uri', type: 'danger' });
+                state.alerts.show({ message: localisation.value('message:exceptions.source-queue-uri'), name: 'message:exceptions.source-queue-uri', type: 'danger' });
 
                 return false;
             }
@@ -209,7 +208,7 @@ export const ViewModel = DefineMap.extend(
                     count: this.fetchCount || 1
                 })
                 .then(function(response) {
-                    alerts.show({ message: localisation.value('message:count-retrieved', { count: response.data.countRetrieved }), name: 'message:count-retrieved'});
+                    state.alerts.show({ message: localisation.value('message:count-retrieved', { count: response.data.countRetrieved }), name: 'message:count-retrieved'});
 
                     self.refresh();
 
@@ -242,7 +241,7 @@ export const ViewModel = DefineMap.extend(
             const self = this;
 
             if (!this.destinationQueueUri && (action === 'Move' || action === 'Copy')) {
-                alerts.show({ message: localisation.value('message:exceptions.destination-queue-uri'), name: 'message:exceptions.destination-queue-uri', type: 'danger' });
+                state.alerts.show({ message: localisation.value('message:exceptions.destination-queue-uri'), name: 'message:exceptions.destination-queue-uri', type: 'danger' });
 
                 return false;
             }
@@ -333,7 +332,7 @@ export const ViewModel = DefineMap.extend(
 
 
 export default Component.extend({
-    tag: 'cs-message-manage',
+    tag: 'sentinel-message-manage',
     ViewModel,
     view
 });

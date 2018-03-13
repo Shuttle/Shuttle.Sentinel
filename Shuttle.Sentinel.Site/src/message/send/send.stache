@@ -1,5 +1,5 @@
 ﻿<fieldset class="form-group">
   <cs-queue {(uri)}="destinationQueueUri" label="message:destination-queue-uri" required="true" />
-  <cs-message-builder {(message)}="message" {(message-type)}="messageType" />
+  <sentinel-message-builder {(message)}="message" {(message-type)}="messageType" />
   <cs-button {click}="@send" text="message:send" />
 </fieldset>

@@ -5,8 +5,7 @@ import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import Api from '~/api';
-import alerts from '~/alerts';
+import Api from 'shuttle-can-api';
 import localisation from '~/localisation';
 import state from '~/state';
 
@@ -89,7 +88,7 @@ export const ViewModel = DefineMap.extend({
     remove: function(row) {
         datastores.delete({ id: row.id })
             .then(function() {
-                alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('datastore:title') }), name: 'item-removal' });
+                state.alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('datastore:title') }), name: 'item-removal' });
             });
     },
 
@@ -101,7 +100,7 @@ export const ViewModel = DefineMap.extend({
 });
 
 export default Component.extend({
-    tag: 'cs-datastore-list',
+    tag: 'sentinel-datastore-list',
     ViewModel,
     view
 });

@@ -1,7 +1,7 @@
 ﻿import Component from 'can-component';
 import DefineMap from 'can-define/map/';
 import view from './queue-input.stache!';
-import Api from '~/api';
+import Api from 'shuttle-can-api';
 
 const Queue = DefineMap.extend(
     'queue',

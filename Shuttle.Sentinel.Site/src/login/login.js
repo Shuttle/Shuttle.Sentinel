@@ -65,7 +65,7 @@ export const ViewModel = DefineMap.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'cs-user-login',
+    tag: 'sentinel-user-login',
     ViewModel,
     view
 });

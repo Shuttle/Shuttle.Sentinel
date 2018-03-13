@@ -6,7 +6,7 @@ import i18n from 'shuttle-canstrap/infrastructure/i18n';
 
 let localisation = {
     _initialised: false,
-    _namespaces: ['access', 'navigation'],
+    _namespaces: ['sentinel', 'navigation'],
 
     start: function(callback) {
         stache.addHelper('i18n', function (key) {

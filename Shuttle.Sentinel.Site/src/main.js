@@ -9,7 +9,7 @@ import 'font-awesome/css/font-awesome.css';
 import {options as apiOptions} from 'shuttle-can-api';
 import loader from '@loader';
 
-apiOptions.url = loader.accessBaseURL;
+apiOptions.url = loader.serviceBaseURL;
 
 import stache from '~/main.stache!';
 import localisation from '~/localisation';
@@ -19,38 +19,31 @@ import router from '~/router';
 import canstrap from 'shuttle-canstrap';
 import access from 'shuttle-access';
 
-access.url = loader.serviceBaseURL;
+access.url = loader.accessBaseURL;
 
 import '~/dashboard/';
 import '~/datastore/';
 import '~/message/';
 import '~/queue/';
-import '~/role/';
 import '~/subscription/';
-import '~/user/';
+
+canstrap.button.remove.confirmation = function (options) {
+    state.modal.confirmation.show(options);
+}
 
 localisation.start(function(error) {
     if (error) {
         throw new Error(error);
     }
 
-    security.start()
-        .then(function() {
-            route('{resource}');
-            route('{resource}/{action}');
-            route('{resource}/{id}/{action}');
+    access.start()
+        .then(function () {
+            router.start();
 
-            route.data = router.data;
-
-            route.ready();
-        })
-        .then(function() {
             $('#application-container').html(stache(state));
 
             if (window.location.hash === '#!' || !window.location.hash) {
-                window.location.hash = security.isUserRequired
-                                           ? '#!user/register'
-                                           : '#!dashboard';
+                router.goto({resource: 'dashboard'});
             }
 
             router.process();
