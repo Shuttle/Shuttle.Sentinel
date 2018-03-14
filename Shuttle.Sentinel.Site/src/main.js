@@ -21,6 +21,8 @@ import access from 'shuttle-access';
 
 access.url = loader.accessBaseURL;
 
+import '~/login/';
+import '~/navigation/';
 import '~/dashboard/';
 import '~/datastore/';
 import '~/message/';

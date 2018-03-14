@@ -86,19 +86,15 @@ export const ViewModel = DefineMap.extend(
             
             state.title = localisation.value('subscription:list.title');
 
-            state.controls.push({
-                type: 'button',
-                title: 'add',
-                click: 'add',
-                elementClass: 'btn-primary',
-                context: this,
+            state.navbar.addButton({
+                type: 'add',
+                viewModel: this,
                 permission: 'sentinel://subscription/add'
             });
 
-            state.controls.push({
-                type: 'refresh-button',
-                click: 'refresh',
-                context: this
+            state.navbar.addButton({
+                type: 'refresh',
+                viewModel: this
             });
         },
 

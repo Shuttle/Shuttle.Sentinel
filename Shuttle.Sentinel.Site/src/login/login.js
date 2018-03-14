@@ -2,13 +2,12 @@ import Component from 'can-component/';
 import DefineMap from 'can-define/map/';
 import view from './login.stache!';
 import resources from '~/resources';
-import security from '~/security';
+import access from 'shuttle-access';
 import validator from 'can-define-validate-validatejs';
 
-resources.add('user', { action: 'login' });
+resources.add('login');
 
 export const ViewModel = DefineMap.extend(
-    'UserLogin',
     {
         username: {
             type: 'string',
@@ -27,14 +26,14 @@ export const ViewModel = DefineMap.extend(
             value: false
         },
         submitIconName: {
-            get: function() {
+            get: function () {
                 return this.working ? 'glyphicon-hourglass' : '';
             }
         },
-        hasErrors: function() {
+        hasErrors: function () {
             return !!this.errors();
         },
-        login: function() {
+        login: function () {
             var self = this;
 
             if (this.hasErrors()) {
@@ -43,17 +42,17 @@ export const ViewModel = DefineMap.extend(
 
             this.working = true;
 
-            security.login({
+            access.login({
                 username: this.username,
                 password: this.password
             })
-                .then(function() {
+                .then(function () {
                     window.location.hash = '#!dashboard';
                 })
-                .then(function() {
+                .then(function () {
                     self.working = false;
                 })
-                .catch(function() {
+                .catch(function () {
                     self.working = false;
                 });
 
@@ -65,7 +64,7 @@ export const ViewModel = DefineMap.extend(
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-user-login',
+    tag: 'sentinel-login',
     ViewModel,
     view
 });
