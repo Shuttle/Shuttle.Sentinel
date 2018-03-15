@@ -9,6 +9,7 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
 {
+    [Route("api/[controller]")]
     public class DataStoresController : Controller
     {
         private readonly IServiceBus _bus;
@@ -28,6 +29,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
+        [HttpGet]
         public IActionResult Get()
         {
             using (_databaseContextFactory.Create())
@@ -40,6 +42,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
+        [HttpPost]
         public IActionResult Post([FromBody] AddDataStoreModel model)
         {
             Guard.AgainstNull(model, nameof(model));
@@ -56,6 +59,7 @@ namespace Shuttle.Sentinel.WebApi
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
         [Route("api/datastores/{id}")]
+        [HttpDelete]
         public IActionResult Delete(Guid id)
         {
             _bus.Send(new RemoveDataStoreCommand

@@ -11,6 +11,7 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
 {
+    [Route("api/[controller]")]
     public class QueuesController : Controller
     {
         private readonly IServiceBus _bus;

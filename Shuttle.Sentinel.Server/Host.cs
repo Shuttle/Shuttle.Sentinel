@@ -5,6 +5,7 @@ using Castle.Windsor;
 using log4net;
 using Shuttle.Core.Castle;
 using Shuttle.Core.Container;
+using Shuttle.Core.Data;
 using Shuttle.Core.Log4Net;
 using Shuttle.Core.Logging;
 using Shuttle.Core.ServiceHost;
@@ -34,6 +35,7 @@ namespace Shuttle.Sentinel.Server
             ServiceBus.Register(container);
 
             container.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
+            container.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
 
             _bus = ServiceBus.Create(container).Start();
 
@@ -49,14 +51,22 @@ namespace Shuttle.Sentinel.Server
                 ipv4Address = ip.ToString();
             }
 
-            _bus.Send(new RegisterServerCommand
-            {
-                MachineName = Environment.MachineName,
-                IPv4Address = ipv4Address,
-                BaseDirectory = AppDomain.CurrentDomain.BaseDirectory
-            });
+            //var serviceBusConfiguration = container.Resolve<IServiceBusConfiguration>();
 
-            _bus.Send(new RegisterSystemMetricsCommand(), c => c.Local().Defer(DateTime.Now.AddSeconds(5)));
+            //if (!serviceBusConfiguration.HasInbox)
+            //{
+            //    throw new 
+            //}
+
+            //_bus.Send(new RegisterServerCommand
+            //{
+            //    MachineName = Environment.MachineName,
+            //    IPv4Address = ipv4Address,
+            //    BaseDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                
+            //}, c => c.Local());
+
+            //_bus.Send(new RegisterSystemMetricsCommand(), c => c.Local().Defer(DateTime.Now.AddSeconds(5)));
         }
 
         public void Stop()

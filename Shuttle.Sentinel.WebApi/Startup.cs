@@ -40,6 +40,7 @@ namespace Shuttle.Sentinel.WebApi
 
             var componentContainer = new WindsorComponentContainer(container);
 
+            componentContainer.RegisterSuffixed("Shuttle.Sentinel");
             componentContainer.RegisterSuffixed("Shuttle.Access.Sql");
 
             componentContainer.Register<IHttpContextAccessor, HttpContextAccessor>();
@@ -48,7 +49,7 @@ namespace Shuttle.Sentinel.WebApi
             ServiceBus.Register(componentContainer);
             EventStore.Register(componentContainer);
 
-            componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Access");
+            componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
 
             _bus = ServiceBus.Create(componentContainer).Start();
 

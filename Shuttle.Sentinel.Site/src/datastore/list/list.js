@@ -11,18 +11,23 @@ import state from '~/state';
 
 resources.add('datastore', { action: 'list', permission: Permissions.Manage.DataStores });
 
-var datastores = new Api('datastores/{id}');
+var datastores = new Api({ endpoint: 'datastores/{id}' });
 
 export const ViewModel = DefineMap.extend({
-    columns: { Value: DefineList },
-    refreshTimestamp: { type: 'string' },
+    columns: {
+        Default: DefineList
+    },
+
+    refreshTimestamp: {
+        type: 'string'
+    },
 
     get list () {
         const refreshTimestamp = this.refreshTimestamp;
         return datastores.list();
     },
 
-    init: function() {
+    init() {
         const columns = this.columns;
 
         if (!columns.length) {

@@ -6,14 +6,6 @@ namespace Shuttle.Sentinel
 {
 	public class SentinelSection : ConfigurationSection
 	{
-		[ConfigurationProperty("authenticationServiceType", IsRequired = false,
-			DefaultValue = "Shuttle.Access.Sql.AuthenticationService, Shuttle.Access.Sql")]
-		public string AuthenticationServiceType => (string)this["authenticationServiceType"];
-
-		[ConfigurationProperty("authorizationServiceType", IsRequired = false,
-			DefaultValue = "Shuttle.Access.Sql.AuthorizationService, Shuttle.Access.Sql")]
-		public string AuthorizationServiceType => (string)this["authorizationServiceType"];
-
 		[ConfigurationProperty("connectionStringName", IsRequired = false, DefaultValue = "Sentinel")]
 		public string ConnectionStringName => (string)this["connectionStringName"];
 
@@ -25,26 +17,6 @@ namespace Shuttle.Sentinel
 			var section = ConfigurationSectionProvider.Open<SentinelSection>("shuttle", "sentinel") ?? new SentinelSection();
 
 			var result = new SentinelConfiguration();
-
-			try
-			{
-				result.AuthenticationServiceType = Type.GetType(section.AuthenticationServiceType, true, true);
-			}
-			catch (Exception ex)
-			{
-				throw new ConfigurationErrorsException(string.Format(Resources.TypeNotFoundException, "AuthenticationServiceType",
-					section.AuthenticationServiceType, ex.Message));
-			}
-
-			try
-			{
-				result.AuthorizationServiceType = Type.GetType(section.AuthorizationServiceType, true, true);
-			}
-			catch (Exception ex)
-			{
-				throw new ConfigurationErrorsException(string.Format(Resources.TypeNotFoundException, "AuthorizationServiceType",
-					section.AuthorizationServiceType, ex.Message));
-			}
 
 			try
 			{

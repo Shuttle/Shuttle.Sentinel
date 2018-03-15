@@ -5,6 +5,7 @@ using Shuttle.Esb;
 
 namespace Shuttle.Sentinel.WebApi
 {
+    [Route("api/[controller]")]
     public class EnvironmentsController : Controller
     {
         private readonly IServiceBus _bus;
