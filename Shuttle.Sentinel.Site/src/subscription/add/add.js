@@ -50,7 +50,7 @@ export const ViewModel = DefineMap.extend(
 
         dataStoreId: { 
             type: 'string',
-            value: '',
+            default: '',
             validate: {
                 presence: true
             }
@@ -58,7 +58,7 @@ export const ViewModel = DefineMap.extend(
 
         messageType: { 
             type: 'string',
-            value: '',
+            default: '',
             validate: {
                 presence: true
             }
@@ -66,7 +66,7 @@ export const ViewModel = DefineMap.extend(
 
         inboxWorkQueueUri: { 
             type: 'string',
-            value: '',
+            default: '',
             validate: {
                 presence: true
             }

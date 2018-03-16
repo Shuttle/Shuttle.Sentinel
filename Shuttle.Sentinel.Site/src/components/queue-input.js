@@ -19,24 +19,32 @@ const Queue = DefineMap.extend(
 );
 
 var queues = new Api({
-    endpoint: 'queues/{search}' ,
+    endpoint: 'queues/{search}',
     Map: Queue
 });
 
 export const ViewModel = DefineMap.extend({
-    search: { type: 'string' },
-    value: { type: 'string' },
-    uri: { type: 'string' },
-
-    get queuesPromise() {
-        return queues.list({ search: encodeURIComponent(this.search) });
+    search: {
+        type: 'string'
     },
 
-    showQueues: function() {
+    value: {
+        type: 'string'
+    },
+
+    uri: {
+        type: 'string'
+    },
+
+    get queuesPromise() {
+        return queues.list({search: encodeURIComponent(this.search)});
+    },
+
+    showQueues: function () {
         this.search = '';
     },
 
-    searchQueues: function(el) {
+    searchQueues: function (el) {
         this.search = el.value;
         this.uri = el.value;
         this.value = el.value;
@@ -44,11 +52,11 @@ export const ViewModel = DefineMap.extend({
         $(el).parent().addClass('open');
     },
 
-    _ignoreClick: function(ev) {
+    _ignoreClick: function (ev) {
         ev.stopPropagation();
     },
 
-    selectQueue: function(queue) {
+    selectQueue: function (queue) {
         this.value = queue.securedUri;
         this.uri = queue.uri;
     }

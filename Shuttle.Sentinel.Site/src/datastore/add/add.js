@@ -32,7 +32,7 @@ export const ViewModel = DefineMap.extend(
 
         name: { 
             type: 'string',
-            value: '',
+            default: '',
             validate: {
                 presence: true
             }
@@ -40,7 +40,7 @@ export const ViewModel = DefineMap.extend(
 
         connectionString: { 
             type: 'string',
-            value: '',
+            default: '',
             validate: {
                 presence: true
             }
@@ -48,7 +48,7 @@ export const ViewModel = DefineMap.extend(
 
         providerName: { 
             type: 'string',
-            value: '',
+            default: '',
             validate: {
                 presence: true
             }

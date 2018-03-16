@@ -21,7 +21,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         uri: {
-            value: '',
+            default: '',
             get: function(value) {
                 var result = value;
 

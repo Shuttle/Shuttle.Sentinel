@@ -11,14 +11,14 @@ export const ViewModel = ComponentViewModel.extend(
     {
         messageType: {
             type: 'string',
-            value: '',
+            default: '',
             validate: {
                 presence: true
             }
         },
         message: {
             type: 'string',
-            value: '',
+            default: '',
             validate: {
                 presence: true
             }

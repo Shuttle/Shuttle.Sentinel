@@ -20,12 +20,12 @@ const Message = DefineMap.extend(
     {
         checked: {
             type: 'boolean',
-            value: false
+            default: false
         },
 
         selected: {
             type: 'boolean',
-            value: false
+            default: false
         },
 
         toggleCheck: function(ev) {
@@ -53,14 +53,14 @@ export const ViewModel = DefineMap.extend(
         message: {},
         messageRows: {},
         messages: { Value: DefineList },
-        hasMessages: { type: 'boolean', value: false },
-        showMessages: { type: 'boolean', value: true },
-        sourceQueueUri: { type: 'string', value: '' },
-        destinationQueueUri: { type: 'string', value: '' },
-        fetching: { type: 'boolean', value: false },
-        fetchCount: { type: 'number', value: 5 },
+        hasMessages: { type: 'boolean', default: false },
+        showMessages: { type: 'boolean', default: true },
+        sourceQueueUri: { type: 'string', default: '' },
+        destinationQueueUri: { type: 'string', default: '' },
+        fetching: { type: 'boolean', default: false },
+        fetchCount: { type: 'number', default: 5 },
         refreshTimestamp: { type: 'string' },
-        messageActions: { value: new DefineList() },
+        messageActions: { Default: DefineList },
 
         showTitle () {
             state.title = localisation.value('message:' + (this.showMessages ? 'title-manage' : 'message'));
@@ -80,11 +80,11 @@ export const ViewModel = DefineMap.extend(
         },
 
         columns: {
-            value: new DefineList()
+            Default: DefineList
         },
 
         messageColumns: {
-            value: [
+            default: [
                 {
                     columnClass: 'col-md-2',
                     columnTitle: 'name',

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shuttle.Access;
 using Shuttle.Core.Castle;
 using Shuttle.Core.Container;
 using Shuttle.Core.Data;
@@ -39,6 +40,8 @@ namespace Shuttle.Sentinel.WebApi
             var container = new WindsorContainer();
 
             var componentContainer = new WindsorComponentContainer(container);
+
+            componentContainer.RegisterInstance<IAccessConfiguration>(AccessSection.Configuration());
 
             componentContainer.RegisterSuffixed("Shuttle.Sentinel");
             componentContainer.RegisterSuffixed("Shuttle.Access.Sql");

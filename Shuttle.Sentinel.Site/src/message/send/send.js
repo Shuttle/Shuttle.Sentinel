@@ -15,7 +15,7 @@ var messages = new Api('messages');
 export const ViewModel = DefineMap.extend({
     destinationQueueUri: {
         type: 'string',
-        value: '',
+        default: '',
         validate: {
             presence: true
         }
@@ -23,7 +23,7 @@ export const ViewModel = DefineMap.extend({
 
     message: {
         type: 'string',
-        value: '',
+        default: '',
         validate: {
             presence: true
         }
@@ -31,7 +31,7 @@ export const ViewModel = DefineMap.extend({
 
     messageType: {
         type: 'string',
-        value: '',
+        default: '',
         validate: {
             presence: true
         }

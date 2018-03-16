@@ -33,34 +33,32 @@ export const ViewModel = DefineMap.extend({
         if (!columns.length) {
             columns.push({
                 columnTitle: 'clone',
-                columnClass: 'col-md-1',
-                columnType: 'button',
-                buttonTitle: 'clone',
-                buttonClick: 'clone',
-                buttonContext: this
+                columnClass: 'col-1',
+                stache: '<cs-button text:from="\'clone\'" click:from="@clone" elementClass:from="\'btn-sm\'"/>'
             });
 
             columns.push({
                 columnTitle: 'name',
+                columnClass: 'col-2',
                 attributeName: 'name'
             });
 
             columns.push({
                 columnTitle: 'datastore:connection-string',
+                columnClass: 'col',
                 attributeName: 'connectionString'
             });
 
             columns.push({
                 columnTitle: 'datastore:provider-name',
+                columnClass: 'col-2',
                 attributeName: 'providerName'
             });
 
             columns.push({
                 columnTitle: 'remove',
-                columnClass: 'col-md-1',
-                columnType: 'remove-button',
-                buttonContext: this,
-                buttonClick: 'remove'
+                columnClass: 'col-1',
+                stache: '<cs-button-remove click:from="@remove" elementClass:from="\'btn-sm\'"/>'
             });
         }
 

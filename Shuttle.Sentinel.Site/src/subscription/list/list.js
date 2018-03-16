@@ -13,8 +13,8 @@ import each from 'can-util/js/each/';
 resources.add('subscription', { action: 'list', permission: Permissions.Manage.Subscriptions });
 
 const Subscription = DefineMap.extend({
-    messageType: { type: 'string', value: '' },
-    inboxWorkQueueUri: { type: 'string', value: '' }
+    messageType: { type: 'string', default: '' },
+    inboxWorkQueueUri: { type: 'string', default: '' }
 });
 
 var subscriptions = new Api({
@@ -31,7 +31,7 @@ export const ViewModel = DefineMap.extend(
     {
         columns: { Value: DefineList },
         refreshTimestamp: { type: 'string' },
-        dataStoreId: { type: 'string', value: '' },
+        dataStoreId: { type: 'string', default: '' },
         dataStores: { Value: DefineList },
 
         get subscriptions () {

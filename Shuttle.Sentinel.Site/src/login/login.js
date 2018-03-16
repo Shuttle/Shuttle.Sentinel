@@ -23,7 +23,7 @@ export const ViewModel = DefineMap.extend(
         },
         working: {
             type: 'boolean',
-            value: false
+            default: false
         },
         submitIconName: {
             get: function () {
