@@ -26,7 +26,7 @@ export const ViewModel = DefineMap.extend(
                 var result = value;
 
                 if (!value) {
-                    result = state.pop('queue');
+                    result = state.stack.pop('queue');
 
                     if (result) {
                         result = result.uri;

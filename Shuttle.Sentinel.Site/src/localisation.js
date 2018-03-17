@@ -23,7 +23,7 @@ let localisation = {
                 lng: 'en',
                 fallbackLng: 'en',
                 ns: this._namespaces,
-                defaultNS: 'access'
+                defaultNS: 'sentinel'
             }, (error) => {
             if (!error) {
             this._initialised = true;

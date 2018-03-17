@@ -58,8 +58,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.DataStores)]
-        [Route("api/datastores/{id}")]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             _bus.Send(new RemoveDataStoreCommand

@@ -7,6 +7,7 @@ import route from 'can-route';
 import state from '~/state';
 import guard from 'shuttle-guard';
 import each from 'can-util/js/each/';
+import navbar from '~/navbar';
 
 var RouteData = DefineMap.extend({
     resource: {
@@ -111,7 +112,7 @@ var Router = DefineMap.extend({
         }
 
         state.alerts.clear();
-        state.navbar.controls.clear();
+        navbar.controls.clear();
         state.title = '';
 
         var componentName = resource.componentName || 'sentinel-' + resource.name + (isActionRoute ? `-${actionName}` : '');

@@ -5,6 +5,7 @@ import 'can-stache-route-helpers';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
+import './styles.css!';
 
 import {options as apiOptions} from 'shuttle-can-api';
 import loader from '@loader';

@@ -5,13 +5,48 @@ import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import router from '~/router';
-import Api from 'shuttle-can-api';
 import localisation from '~/localisation';
 import state from '~/state';
+import Api from 'shuttle-can-api';
 
 resources.add('datastore', { action: 'list', permission: Permissions.Manage.DataStores });
 
-var datastores = new Api({ endpoint: 'datastores/{id}' });
+export const Map = DefineMap.extend({
+    id: {
+        type: 'string'
+    },
+    name: {
+        type: 'string'
+    },
+    connectionString: {
+        type: 'string'
+    },
+    providerName: {
+        type: 'string'
+    },
+    remove() {
+        api.delete({id: this.id})
+            .then(function () {
+                state.alerts.show({
+                    message: localisation.value('itemRemovalRequested',
+                        {itemName: localisation.value('role:role')})
+                });
+            });
+    },
+    clone() {
+        state.stack.put('datastore', this);
+
+        router.goto({
+            resource: 'datastore',
+            action: 'add'
+        });
+    }
+});
+
+export const api = new Api({
+    endpoint: 'datastores/{id}',
+    Map
+});
 
 export const ViewModel = DefineMap.extend({
     columns: {
@@ -24,7 +59,7 @@ export const ViewModel = DefineMap.extend({
 
     get list () {
         const refreshTimestamp = this.refreshTimestamp;
-        return datastores.list();
+        return api.list();
     },
 
     init() {
@@ -77,24 +112,14 @@ export const ViewModel = DefineMap.extend({
     },
 
     add: function() {
-        router.goto('datastore/add');
+        router.goto({
+            resource: 'datastore',
+            action: 'add'
+        });
     },
 
     refresh: function() {
         this.refreshTimestamp = Date.now();
-    },
-
-    remove: function(row) {
-        datastores.delete({ id: row.id })
-            .then(function() {
-                state.alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('datastore:title') }), name: 'item-removal' });
-            });
-    },
-
-    clone: function(row) {
-        state.push('datastore', row);
-
-        this.add();
     }
 });
 

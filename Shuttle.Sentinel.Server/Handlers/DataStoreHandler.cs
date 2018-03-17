@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Contract;
+﻿using System;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
@@ -31,6 +32,7 @@ namespace Shuttle.Sentinel.Server
             {
                 _dataStoreQuery.Add(new DataStore
                 {
+                    Id = Guid.NewGuid(),
                     Name = message.Name,
                     ConnectionString = message.ConnectionString,
                     ProviderName = message.ProviderName

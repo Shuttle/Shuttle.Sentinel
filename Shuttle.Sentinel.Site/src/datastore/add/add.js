@@ -7,17 +7,20 @@ import router from '~/router';
 import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
+import stack from '~/stack';
 import localisation from '~/localisation';
 
 resources.add('datastore', { action: 'add', permission: Permissions.Manage.DataStores });
 
-var datastores = new Api('datastores/{id}');
+var datastores = new Api({
+    endpoint: 'datastores/{id}'
+});
 
 export const ViewModel = DefineMap.extend(
     'queues',
     {
         init: function() {
-            const result = state.pop('datastore');
+            const result = stack.pop('datastore');
 
             state.title = localisation.value('datastore:list.title');
 
@@ -71,7 +74,10 @@ export const ViewModel = DefineMap.extend(
         },
 
         close: function() {
-            router.goto('datastore/list');
+            router.goto({
+                resource: 'datastore',
+                action: 'list'
+            });
         }
     }
 );
