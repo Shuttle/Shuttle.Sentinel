@@ -1,8 +1,10 @@
-<cs-select label="subscription:data-store" {options}="dataStores" {(value)}="dataStoreId" />
-<div class="{{#unless dataStoreId}}hidden{{/if}}">
-  {{#if subscriptions.isResolved}}
-  <cs-table {columns}="columns" {rows}="subscriptions.value" />
-  {{else}}
-  <cs-fetching title="subscription:list.title" />
-  {{/if}}
+id: {{dataStoreId}}
+stores: {{dataStores.length}}
+<cs-form-select label:from="'subscription:data-store'" value:bind="dataStoreId" options:from="dataStores" />
+<div class="{{#unless dataStoreId}}invisible{{/if}}">
+    {{#if subscriptions.isResolved}}
+        <cs-table vm:columns:from="columns" vm:rows:from="subscriptions.value"/>
+    {{else}}
+        <cs-fetching title:from="'subscription:list.title'"/>
+    {{/if}}
 </div>

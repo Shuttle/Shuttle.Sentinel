@@ -29,7 +29,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
-        [Route("api/subscriptions/{dataStoreId}")]
+        [HttpGet("{dataStoreId}")]
         public IActionResult Get(Guid dataStoreId)
         {
             using (_databaseContextFactory.Create(dataStoreId))
@@ -62,6 +62,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
+        [HttpPost]
         public IActionResult Post([FromBody] SubscriptionModel model)
         {
             Guard.AgainstNull(model, nameof(model));
@@ -77,7 +78,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
-        [Route("api/subscriptions/remove")]
+        [HttpPost("remove")]
         public IActionResult RemoveSubscription([FromBody] SubscriptionModel model)
         {
             _bus.Send(new RemoveSubscriptionCommand

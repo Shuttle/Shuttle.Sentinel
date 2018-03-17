@@ -9,72 +9,121 @@ import Api from 'shuttle-can-api';
 import localisation from '~/localisation';
 import state from '~/state';
 import each from 'can-util/js/each/';
+import {OptionList} from 'shuttle-canstrap/select/';
 
-resources.add('subscription', { action: 'list', permission: Permissions.Manage.Subscriptions });
+resources.add('subscription', {action: 'list', permission: Permissions.Manage.Subscriptions});
 
 const Subscription = DefineMap.extend({
-    messageType: { type: 'string', default: '' },
-    inboxWorkQueueUri: { type: 'string', default: '' }
+    messageType: {
+        type: 'string',
+        default: ''
+    },
+
+    inboxWorkQueueUri: {
+        type: 'string',
+        default: ''
+    },
+
+    remove() {
+        const serialized = this.serialize();
+
+        serialized.dataStoreId = this.dataStoreId;
+
+        remove.post(serialized)
+            .then(function () {
+                state.alerts.show({
+                    message: localisation.value('itemRemovalRequested', {itemName: localisation.value('subscription:title')}),
+                    name: 'item-removal'
+                });
+            });
+    },
+
+    clone: function () {
+        const serialized = this.serialize();
+
+        serialized.dataStoreId = this.dataStoreId;
+
+        state.put('subscription', serialized);
+
+        router.goto({
+            resource: 'subscription',
+            action: 'add'
+        });
+    }
 });
 
-var subscriptions = new Api({
-    endpoint: 'subscriptions/{id}',
-    Map: Subscription
-});
+var api = {
+    subscriptions: new Api({
+        endpoint: 'subscriptions/{id}',
+        Map: Subscription
+    }),
+    remove: new Api({
+        endpoint: 'subscriptions/remove'
+    }),
+    stores: new Api({
+        endpoint: 'datastores'
+    })
+}
 
-var remove = new Api('subscriptions/remove');
-
-var dataStores = new Api('datastores');
 
 export const ViewModel = DefineMap.extend(
     'subscriptions',
     {
-        columns: { Value: DefineList },
-        refreshTimestamp: { type: 'string' },
-        dataStoreId: { type: 'string', default: '' },
-        dataStores: { Value: DefineList },
+        columns: {
+            Default: DefineList
+        },
 
-        get subscriptions () {
+        refreshTimestamp: {
+            type: 'string'
+        },
+
+        dataStoreId: {
+            type: 'string',
+            default: ''
+        },
+
+        dataStores: {
+            Default: OptionList
+        },
+
+        get subscriptions() {
             const refreshTimestamp = this.refreshTimestamp;
             const dataStoreId = this.dataStoreId;
 
-            return !dataStoreId ? undefined : subscriptions.list({ id: dataStoreId });
+            return !dataStoreId ? undefined : api.subscriptions.list({id: dataStoreId});
         },
 
-        init () {
+        init() {
             const self = this;
             const columns = this.columns;
 
             if (!columns.length) {
                 columns.push({
                     columnTitle: 'clone',
-                    columnClass: 'col-md-1',
-                    columnType: 'button',
-                    buttonTitle: 'clone',
-                    buttonClick: 'clone',
-                    buttonContext: this
+                    columnClass: 'col-1',
+                    stache: '<cs-button text:from="\'clone\'" click:from="@clone" elementClass:from="\'btn-sm\'"/>'
                 });
 
                 columns.push({
                     columnTitle: 'subscription:message-type',
+                    columnClass: 'col-3',
                     attributeName: 'messageType'
                 });
 
                 columns.push({
                     columnTitle: 'subscription:inbox-work-queue-uri',
+                    columnClass: 'col',
                     attributeName: 'securedUri'
                 });
 
                 columns.push({
                     columnTitle: 'remove',
-                    columnClass: 'col-md-1',
-                    columnType: 'remove-button',
-                    buttonContext: this,
-                    buttonClick: 'remove'
+                    columnClass: 'col-1',
+                    stache: '<cs-button-remove click:from="@remove" elementClass:from="\'btn-sm\'"/>'
                 });
             }
 
-            dataStores.list().then((response) => {
+            api.stores.list().then((response) => {
                 each(response, (store) => {
                     self.dataStores.push({
                         value: store.id,
@@ -83,7 +132,6 @@ export const ViewModel = DefineMap.extend(
                 });
             });
 
-            
             state.title = localisation.value('subscription:list.title');
 
             state.navbar.addButton({
@@ -98,33 +146,12 @@ export const ViewModel = DefineMap.extend(
             });
         },
 
-        add: function() {
+        add: function () {
             router.goto('subscription/add');
         },
 
-        refresh: function() {
+        refresh: function () {
             this.refreshTimestamp = Date.now();
-        },
-
-        remove: function(row) {
-            const serialized = row.serialize();
-
-            serialized.dataStoreId = this.dataStoreId;
-
-            remove.post(serialized)
-                .then(function() {
-                    state.alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('subscription:title') }), name: 'item-removal' });
-                });
-        },
-
-        clone: function(row) {
-            const serialized = row.serialize();
-
-            serialized.dataStoreId = this.dataStoreId;
-
-            state.push('subscription', serialized);
-
-            this.add();
         }
     });
 

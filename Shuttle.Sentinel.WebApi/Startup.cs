@@ -13,6 +13,7 @@ using Shuttle.Core.Data;
 using Shuttle.Core.Data.Http;
 using Shuttle.Esb;
 using Shuttle.Recall;
+using Shuttle.Sentinel.DataAccess;
 
 namespace Shuttle.Sentinel.WebApi
 {
@@ -52,6 +53,7 @@ namespace Shuttle.Sentinel.WebApi
             ServiceBus.Register(componentContainer);
             EventStore.Register(componentContainer);
 
+            componentContainer.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
             componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
 
             _bus = ServiceBus.Create(componentContainer).Start();

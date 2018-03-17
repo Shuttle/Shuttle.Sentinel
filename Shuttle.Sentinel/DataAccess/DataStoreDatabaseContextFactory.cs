@@ -35,11 +35,6 @@ namespace Shuttle.Sentinel.DataAccess
                 dataStore = _dataStoreQuery.Get(dataStoreId);
             }
 
-            if (dataStore == null)
-            {
-                throw new InvalidOperationException($"No data store could be retrieved that has an id of '{dataStoreId}'.");
-            }
-
             return Create(dataStore.ProviderName, dataStore.ConnectionString);
         }
     }
