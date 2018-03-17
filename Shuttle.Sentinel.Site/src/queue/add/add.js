@@ -11,10 +11,12 @@ import state from '~/state';
 
 resources.add('queue', { action: 'add', permission: Permissions.Manage.Queues });
 
-var queues = new Api('queues/{id}');
+var queues = new Api({
+    endpoint: 'queues/{id}'
+});
 
 export const ViewModel = DefineMap.extend(
-    'queues',
+    'queue',
     {
         init() {
             state.title = localisation.value('queue:list.title');
@@ -55,7 +57,10 @@ export const ViewModel = DefineMap.extend(
         },
 
         close: function() {
-            router.goto('queue/list');
+            router.goto({
+                resource: 'queue',
+                action: 'list'
+            });
         }
     }
 );

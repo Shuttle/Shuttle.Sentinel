@@ -59,7 +59,7 @@ export const Stack = DefineMap.extend({
     remove: function (name) {
         guard.againstUndefined(name, 'name');
 
-        let removeIndex = 1;
+        let removeIndex = -1;
 
         this.items.forEach(function (item, index) {
             if (item.name === name) {
@@ -71,8 +71,8 @@ export const Stack = DefineMap.extend({
             return true;
         });
 
-        if (removeIndex > 1) {
-            this.splice(removeIndex, 1);
+        if (removeIndex > -1) {
+            this.items.splice(removeIndex, 1);
         }
     }
 });

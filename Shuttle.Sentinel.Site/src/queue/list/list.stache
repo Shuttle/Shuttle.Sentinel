@@ -1,5 +1,5 @@
 {{#if queuesPromise.isResolved}}
-<cs-table {columns}="columns" {rows}="queuesPromise.value" />
+    <cs-table vm:columns:from="columns" vm:rows:from="queuesPromise.value" />
 {{else}}
-<cs-fetching title="queue:list.title" />
+    <cs-fetching title:from="'queue:list.title'" />
 {{/if}}

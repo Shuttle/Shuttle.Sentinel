@@ -30,6 +30,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
+        [HttpGet]
         public IActionResult Get()
         {
             using (_databaseContextFactory.Create())
@@ -42,7 +43,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
-        [Route("api/queues/{search}")]
+        [HttpGet("{search}")]
         public IActionResult GetSearch(string search)
         {
             using (_databaseContextFactory.Create())
@@ -83,6 +84,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
+        [HttpPost]
         public IActionResult Post([FromBody] QueueModel model)
         {
             Guard.AgainstNull(model, nameof(model));
@@ -105,7 +107,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(SystemPermissions.Manage.Queues)]
-        [Route("api/queues/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             _bus.Send(new RemoveQueueCommand

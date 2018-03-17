@@ -11,15 +11,50 @@ import state from '~/state';
 
 resources.add('queue', { action: 'list', permission: Permissions.Manage.Queues });
 
-var queues = new Api('queues/{id}');
+export const Map = DefineMap.extend({
+    id: {
+        type: 'string'
+    },
+    uri: {
+        type: 'string'
+    },
+    securedUri: {
+        type: 'string'
+    },
+    remove() {
+        api.delete({id: this.id})
+            .then(function () {
+                state.alerts.show({
+                    message: localisation.value('itemRemovalRequested',
+                        {itemName: localisation.value('role:role')})
+                });
+            });
+    },
+    clone() {
+        state.stack.put('queue', this);
+
+        router.goto({
+            resource: 'queue',
+            action: 'add'
+        });
+    }
+});
+
+var api = new Api({
+    endpoint: 'queues/{id}',
+    Map
+});
 
 export const ViewModel = DefineMap.extend({
-    columns: { Value: DefineList },
+    columns: {
+        Default: DefineList
+    },
+
     refreshTimestamp: { type: 'string' },
 
     get queuesPromise() {
         const refreshTimestamp = this.refreshTimestamp;
-        return queues.list();
+        return api.list();
     },
 
     init: function() {
@@ -28,24 +63,20 @@ export const ViewModel = DefineMap.extend({
         if (!columns.length) {
             columns.push({
                 columnTitle: 'clone',
-                columnClass: 'col-md-1',
-                columnType: 'button',
-                buttonTitle: 'clone',
-                buttonClick: 'clone',
-                buttonContext: this
+                columnClass: 'col-1',
+                stache: '<cs-button text:from="\'clone\'" click:from="@clone" elementClass:from="\'btn-sm\'"/>'
             });
 
             columns.push({
                 columnTitle: 'queue:queue-uri',
+                columnClass: 'col',
                 attributeName: 'uri'
             });
 
             columns.push({
                 columnTitle: 'remove',
-                columnClass: 'col-md-1',
-                columnType: 'remove-button',
-                buttonContext: this,
-                buttonClick: 'remove'
+                columnClass: 'col-1',
+                stache: '<cs-button-remove click:from="@remove" elementClass:from="\'btn-sm\'"/>'
             });
         }
 
@@ -64,24 +95,14 @@ export const ViewModel = DefineMap.extend({
     },
 
     add: function() {
-        router.goto('queue/add');
+        router.goto({
+            resource: 'queue',
+            action: 'add'
+        });
     },
 
     refresh: function() {
         this.refreshTimestamp = Date.now();
-    },
-
-    remove: function(row) {
-        queues.delete({ id: row.id })
-            .then(function() {
-                state.alerts.show({ message: localisation.value('itemRemovalRequested', { itemName: localisation.value('queue:title') }), name: 'item-removal' });
-            });
-    },
-
-    clone: function(row) {
-        state.push('queue', row);
-
-        this.add();
     }
 });
 
