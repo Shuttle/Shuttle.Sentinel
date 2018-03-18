@@ -45,6 +45,7 @@ namespace Shuttle.Sentinel.WebApi
             _log = Log.For(this);
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             using (_databaseContextFactory.Create())
@@ -83,7 +84,7 @@ namespace Shuttle.Sentinel.WebApi
             };
         }
 
-        [Route("api/messages/fetch")]
+        [HttpPost("fetch")]
         public IActionResult Fetch([FromBody] FetchMessageModel model)
         {
             try
@@ -143,7 +144,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [Route("api/messages/transfer")]
+        [HttpPost("transfer")]
         public IActionResult Transfer([FromBody] MessageMoveModel model)
         {
             try
@@ -245,6 +246,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
+        [HttpPost]
         public IActionResult Post([FromBody] SendMessageModel model)
         {
             Guard.AgainstNull(model, nameof(model));

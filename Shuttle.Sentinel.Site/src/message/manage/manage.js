@@ -10,7 +10,7 @@ import each from 'can-util/js/each/';
 import $ from 'jquery';
 import state from '~/state';
 
-resources.add('message', { action: 'manage', permission: Permissions.Manage.Messages });
+resources.add('message', {action: 'manage', permission: Permissions.Manage.Messages});
 
 const Message = DefineMap.extend(
     'message',
@@ -28,41 +28,47 @@ const Message = DefineMap.extend(
             default: false
         },
 
-        toggleCheck: function(ev) {
+        toggleCheck: function (ev) {
             this.checked = !this.checked;
 
             ev.stopPropagation();
         },
 
-        messageSelected: function(message) {
+        messageSelected: function (message) {
             this.viewModel.messageSelected(message);
         }
     }
 );
 
-var messages = new Api({
-    endpoint: 'messages',
-    Map: Message
-});
+var api = {
+    messages: new Api({
+        endpoint: 'messages',
+        Map: Message
+    }),
+    fetchMessages: new Api({
+        endpoint: 'messages/fetch'
+    }),
+    transferMessages: new Api({
+        endpoint: 'messages/transfer'
+    })
+}
 
-var fetchMessages = new Api('messages/fetch');
-var transferMessages = new Api('messages/transfer');
 export const ViewModel = DefineMap.extend(
     'manage',
     {
         message: {},
         messageRows: {},
-        messages: { Value: DefineList },
-        hasMessages: { type: 'boolean', default: false },
-        showMessages: { type: 'boolean', default: true },
-        sourceQueueUri: { type: 'string', default: '' },
-        destinationQueueUri: { type: 'string', default: '' },
-        fetching: { type: 'boolean', default: false },
-        fetchCount: { type: 'number', default: 5 },
-        refreshTimestamp: { type: 'string' },
-        messageActions: { Default: DefineList },
+        messages: {Value: DefineList},
+        hasMessages: {type: 'boolean', default: false},
+        showMessages: {type: 'boolean', default: true},
+        sourceQueueUri: {type: 'string', default: ''},
+        destinationQueueUri: {type: 'string', default: ''},
+        fetching: {type: 'boolean', default: false},
+        fetchCount: {type: 'number', default: 5},
+        refreshTimestamp: {type: 'string'},
+        messageActions: {Default: DefineList},
 
-        showTitle () {
+        showTitle() {
             state.title = localisation.value('message:' + (this.showMessages ? 'title-manage' : 'message'));
         },
 
@@ -70,8 +76,8 @@ export const ViewModel = DefineMap.extend(
             const self = this;
             const refreshTimestamp = this.refreshTimestamp;
 
-            return messages.list()
-                .then(function(list) {
+            return api.messages.list()
+                .then(function (list) {
                     self.messages = list;
                     self.hasMessages = list.length > 0;
 
@@ -86,7 +92,7 @@ export const ViewModel = DefineMap.extend(
         messageColumns: {
             default: [
                 {
-                    columnClass: 'col-md-2',
+                    columnClass: 'col-2',
                     columnTitle: 'name',
                     attributeName: 'name'
                 },
@@ -98,22 +104,22 @@ export const ViewModel = DefineMap.extend(
         },
 
         hasSourceQueueUri: {
-            get: function() {
+            get() {
                 return !!this.sourceQueueUri;
             }
         },
 
         hasDestinationQueueUri: {
-            get: function() {
+            get() {
                 return !!this.destinationQueueUri;
             }
         },
 
         noCheckedMessages: {
-            get: function() {
+            get() {
                 var checked = false;
 
-                each(this.messages, function(item) {
+                each(this.messages, function (item) {
                     if (checked) {
                         return;
                     }
@@ -125,7 +131,7 @@ export const ViewModel = DefineMap.extend(
             }
         },
 
-        init: function() {
+        init: function () {
             var self = this;
             let columns = this.columns;
             let messageActions = this.messageActions;
@@ -136,49 +142,49 @@ export const ViewModel = DefineMap.extend(
                     columnClass: 'col-md-1',
                     columnTitle: 'check',
                     columnType: 'view',
-                    view: '<span ($click)="toggleCheck(%event)" class="glyphicon {{#if checked}}glyphicon-check{{else}}glyphicon-unchecked{{/if}}" />'
+                    view: '<span on:click="toggleCheck(scope.event)" class="fa {{#if checked}}fa-check-square-o{{else}}fa-square-o{{/if}}" />'
                 });
 
                 columns.push(
-                {
-                    columnClass: 'col-md-2',
-                    columnTitle: 'message:message-id',
-                    attributeName: 'messageId'
-                });
+                    {
+                        columnClass: 'col-md-2',
+                        columnTitle: 'message:message-id',
+                        attributeName: 'messageId'
+                    });
 
                 columns.push(
-                {
-                    columnTitle: 'message:message',
-                    columnType: 'view',
-                    view: '<pre>{{message}}</pre>'
-                });
+                    {
+                        columnTitle: 'message:message',
+                        columnType: 'view',
+                        view: '<pre>{{message}}</pre>'
+                    });
             }
 
             if (!messageActions.length) {
                 messageActions.push({
                     text: "message:return-to-source",
-                    click: function() {
+                    click: function () {
                         self._transfer('ReturnToSourceQueue');
                     }
                 });
 
                 messageActions.push({
                     text: "message:send-to-recipient",
-                    click: function() {
+                    click: function () {
                         self._transfer('SendToRecipientQueue');
                     }
                 });
 
                 messageActions.push({
                     text: "message:stop-ignoring",
-                    click: function() {
+                    click: function () {
                         self._transfer('StopIgnoring');
                     }
                 });
 
                 messageActions.push({
                     text: "remove",
-                    click: function() {
+                    click: function () {
                         self._transfer('Remove');
                     }
                 });
@@ -188,15 +194,19 @@ export const ViewModel = DefineMap.extend(
             this.refresh();
         },
 
-        refresh: function() {
+        refresh: function () {
             this.refreshTimestamp = Date.now();
         },
 
-        fetch: function() {
+        fetch: function () {
             var self = this;
 
             if (!this.hasSourceQueueUri) {
-                state.alerts.show({ message: localisation.value('message:exceptions.source-queue-uri'), name: 'message:exceptions.source-queue-uri', type: 'danger' });
+                state.alerts.show({
+                    message: localisation.value('message:exceptions.source-queue-uri'),
+                    name: 'message:exceptions.source-queue-uri',
+                    type: 'danger'
+                });
 
                 return false;
             }
@@ -204,54 +214,63 @@ export const ViewModel = DefineMap.extend(
             this.fetching = true;
 
             fetchMessages.post({
-                    queueUri: this.sourceQueueUri,
-                    count: this.fetchCount || 1
-                })
-                .then(function(response) {
-                    state.alerts.show({ message: localisation.value('message:count-retrieved', { count: response.data.countRetrieved }), name: 'message:count-retrieved'});
+                queueUri: this.sourceQueueUri,
+                count: this.fetchCount || 1
+            })
+                .then(function (response) {
+                    state.alerts.show({
+                        message: localisation.value('message:count-retrieved', {count: response.data.countRetrieved}),
+                        name: 'message:count-retrieved'
+                    });
 
                     self.refresh();
 
                     self.fetching = false;
                 })
-                .catch(function() {
+                .catch(function () {
                     self.fetching = false;
                 });
 
             return true;
         },
 
-        checkedMessageIds: function() {
-            return $.map(this.messages, function(message) { return message.checked ? message.messageId : undefined; });
+        checkedMessageIds: function () {
+            return $.map(this.messages, function (message) {
+                return message.checked ? message.messageId : undefined;
+            });
         },
 
-        move: function() {
+        move: function () {
             return this._transfer('Move');
         },
 
-        copy: function() {
+        copy: function () {
             return this._transfer('Copy');
         },
 
-        returnToSourceQueue: function() {
+        returnToSourceQueue: function () {
             return this._transfer('Copy');
         },
 
-        _transfer: function(action) {
+        _transfer: function (action) {
             const self = this;
 
             if (!this.destinationQueueUri && (action === 'Move' || action === 'Copy')) {
-                state.alerts.show({ message: localisation.value('message:exceptions.destination-queue-uri'), name: 'message:exceptions.destination-queue-uri', type: 'danger' });
+                state.alerts.show({
+                    message: localisation.value('message:exceptions.destination-queue-uri'),
+                    name: 'message:exceptions.destination-queue-uri',
+                    type: 'danger'
+                });
 
                 return false;
             }
 
             transferMessages.post({
-                    messageIds: this.checkedMessageIds(),
-                    destinationQueueUri: this.destinationQueueUri,
-                    action: action
-                })
-                .then(function(response) {
+                messageIds: this.checkedMessageIds(),
+                destinationQueueUri: this.destinationQueueUri,
+                action: action
+            })
+                .then(function (response) {
                     self.refresh();
 
                     return response;
@@ -260,12 +279,12 @@ export const ViewModel = DefineMap.extend(
             return true;
         },
 
-        closeMessageView () {
+        closeMessageView() {
             this.showMessages = true;
             this.showTitle();
         },
 
-        messageSelected: function(message) {
+        messageSelected: function (message) {
             var self = this;
 
             this.message = message;
@@ -280,7 +299,7 @@ export const ViewModel = DefineMap.extend(
             this.addMessageRow('ExpiryDate', message.expiryDate);
 
             if (message.failureMessages && message.failureMessages.length) {
-                each(message.failureMessages, function(item, index) {
+                each(message.failureMessages, function (item, index) {
                     self.addMessageRow('FailureMessages.' + index, item);
                 });
             } else {
@@ -288,7 +307,7 @@ export const ViewModel = DefineMap.extend(
             }
 
             if (message.headers && message.headers.length) {
-                each(message.headers, function(item, index) {
+                each(message.headers, function (item, index) {
                     self.addMessageRow('Headers.' + index, item);
                 });
             } else {
@@ -307,25 +326,25 @@ export const ViewModel = DefineMap.extend(
             this.showTitle();
         },
 
-        addMessageRow: function(name, value) {
-            this.messageRows.push({ name: name, value: value });
+        addMessageRow: function (name, value) {
+            this.messageRows.push({name: name, value: value});
         },
 
-        checkAll: function() {
+        checkAll: function () {
             this._setCheckMarks(true);
         },
 
-        checkNone: function() {
+        checkNone: function () {
             this._setCheckMarks(false);
         },
 
-        checkInvert: function() {
+        checkInvert: function () {
             this._setCheckMarks();
         },
 
-        _setCheckMarks: function(value) {
-            each(this.messages, function(item) {
-                item.checked = (value == undefined? !item.checked: value);
+        _setCheckMarks: function (value) {
+            each(this.messages, function (item) {
+                item.checked = (value == undefined ? !item.checked : value);
             });
         }
     });

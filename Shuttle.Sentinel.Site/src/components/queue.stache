@@ -1,4 +1,4 @@
-﻿<cs-form-group {validation-message}="validationMessage" {element-class}="formGroupClass">
-	<cs-label {label}="label" {required}="required" />
-    <cs-queue-input {focus}="focus" {(value)}="value" {(uri)}="uri" {type}="type" {element-class}="inputClass"/>
+﻿<cs-form-group validationMessage:from="validationMessage" elementClass:from="formGroupClass">
+	<cs-label label:from="label" required:from="required" />
+    <cs-queue-input focus:from="focus" value:bind="value" uri:from="uri" type:from="type" elementClass:from="inputClass"/>
 </cs-form-group>

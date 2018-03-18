@@ -14,6 +14,7 @@ using Shuttle.Core.Data.Http;
 using Shuttle.Esb;
 using Shuttle.Recall;
 using Shuttle.Sentinel.DataAccess;
+using Shuttle.Sentinel.Queues;
 
 namespace Shuttle.Sentinel.WebApi
 {
@@ -47,6 +48,7 @@ namespace Shuttle.Sentinel.WebApi
             componentContainer.RegisterSuffixed("Shuttle.Sentinel");
             componentContainer.RegisterSuffixed("Shuttle.Access.Sql");
 
+            componentContainer.Register<IInspectionQueue, DefaultInspectionQueue>();
             componentContainer.Register<IHttpContextAccessor, HttpContextAccessor>();
             componentContainer.Register<IDatabaseContextCache, ContextDatabaseContextCache>();
 
@@ -55,6 +57,7 @@ namespace Shuttle.Sentinel.WebApi
 
             componentContainer.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
             componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
+            var inspectionQueue = componentContainer.Resolve<IInspectionQueue>();
 
             _bus = ServiceBus.Create(componentContainer).Start();
 

@@ -25,15 +25,18 @@ var queues = new Api({
 
 export const ViewModel = DefineMap.extend({
     search: {
-        type: 'string'
+        type: 'string',
+        default: ''
     },
 
     value: {
-        type: 'string'
+        type: 'string',
+        default: ''
     },
 
     uri: {
-        type: 'string'
+        type: 'string',
+        default: ''
     },
 
     get queuesPromise() {
@@ -49,11 +52,7 @@ export const ViewModel = DefineMap.extend({
         this.uri = el.value;
         this.value = el.value;
 
-        $(el).parent().addClass('open');
-    },
-
-    _ignoreClick: function (ev) {
-        ev.stopPropagation();
+        $(el).dropdown();
     },
 
     selectQueue: function (queue) {

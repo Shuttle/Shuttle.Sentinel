@@ -22,6 +22,8 @@ import access from 'shuttle-access';
 
 access.url = loader.accessBaseURL;
 
+import '~/components/queue-input';
+import '~/components/queue';
 import '~/login/';
 import '~/navigation/';
 import '~/dashboard/';

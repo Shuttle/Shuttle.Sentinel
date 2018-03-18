@@ -1,8 +1,8 @@
 ﻿import Component from 'can-component';
-import InputViewModel from './input-view-model';
+import ComponentViewModel from 'shuttle-canstrap/infrastructure/component-view-model';
 import view from './queue.stache!';
 
-export const ViewModel = InputViewModel.extend({
+export const ViewModel = ComponentViewModel.extend({
     uri: { type: 'string' }
 });
 

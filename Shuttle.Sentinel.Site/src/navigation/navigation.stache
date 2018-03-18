@@ -36,7 +36,7 @@
             {{/case}}
         {{/switch}}
         <li class="nav-item">
-            <a class="nav-link p-2" href="https://github.com/Shuttle/Shuttle.Access" target="_blank"
+            <a class="nav-link p-2" href="https://github.com/Shuttle/Shuttle.Sentinel" target="_blank"
                rel="noopener" aria-label="GitHub">
                 <svg class="navbar-nav-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 499.36"
                      focusable="false">

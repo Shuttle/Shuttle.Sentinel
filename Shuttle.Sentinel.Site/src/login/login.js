@@ -26,7 +26,7 @@ export const ViewModel = DefineMap.extend(
             default: false
         },
         submitIconName: {
-            get: function () {
+            get() {
                 return this.working ? 'glyphicon-hourglass' : '';
             }
         },

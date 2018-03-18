@@ -23,7 +23,7 @@ var RouteData = DefineMap.extend({
         default: ''
     },
     full: {
-        get: function () {
+        get() {
             return this.resource + (!!this.id ? `/${this.id}` : '') + (!!this.action ? `/${this.action}` : '');
         }
     }

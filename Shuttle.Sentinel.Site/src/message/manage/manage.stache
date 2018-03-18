@@ -1,58 +1,62 @@
-<div class="{{#unless showMessages}}hidden{{/unless}}">
-	<div class="row form-group">
-	<div class="col-md-6">
-		<cs-label label="message:source-queue-uri" />
-		<div class="row">
-		<div class="col-md-8">
-			<cs-queue-input {(uri)}="sourceQueueUri" />
-		</div>
-		<div class="col-md-4">
-			<div class="input-group">
-			<cs-input {(value)}="fetchCount" placeholder="count"/>
-			<span class="input-group-btn">
-				<button type="button" ($click)="fetch()" class="btn btn-primary">
-				<span class="glyphicon glyphicon-envelope"></span>
+<div class="{{#unless(showMessages)}}invisible{{/unless}}">
+    <div class="row form-group">
+        <div class="col-6">
+            <cs-label label:from="'message:source-queue-uri'"/>
+            <div class="row">
+                <div class="col-8">
+                    <cs-queue-input uri:from="sourceQueueUri"/>
+                </div>
+                <div class="col-4">
+                    <div class="input-group">
+                        <cs-input value:bind="fetchCount" placeholder:from="'count'"/>
+                        <span class="input-group-btn">
+				<button type="button" on:click="@fetch" class="btn btn-primary">
+                    <i class="fa fa-envelope-o " aria-hidden="true"></i>
 				</button>
 			</span>
-			</div>
-		</div>
-		</div>
-	</div>
-	<div class="col-md-6 {{#unless hasMessages}}hidden{{/unless}}">
-		<cs-label label="message:destination-queue-uri" />
-		<cs-queue-input {(uri)}="destinationQueueUri">
-		<span class="input-group-btn">
-			<button type="button" ($click)="@move" class="btn btn-default" >
-			{{i18n "move"}}
-			</button>
-			<button type="button" ($click)="@copy" class="btn btn-default  ">
-			{{i18n "copy"}}
-			</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 {{#unless(hasMessages)}}invisible{{/unless}}">
+            <cs-label label:from="'message:destination-queue-uri'"/>
+            <cs-queue-input uri:from="destinationQueueUri">
+		<span class="btn-group" role="group">
+			<button type="button" on:click="@move" class="btn btn-default">
+                {{i18n "move"}}
+            </button>
+			<button type="button" on:$click="@copy" class="btn btn-default  ">
+                {{i18n "copy"}}
+            </button>
 		</span>
-		</cs-queue-input>
-	</div>
-	</div>
-	<div class="form-group form-inline {{#unless hasMessages}}hidden{{/unless}}">
-	<div class="btn-group" role="group" aria-label="...">
-		<button type="button" class="btn btn-default" ($click)="checkNone()"><span class="glyphicon glyphicon-unchecked"></span></button>
-		<button type="button" class="btn btn-default" ($click)="checkInvert()"><span class="glyphicon glyphicon-transfer"></span></button>
-		<button type="button" class="btn btn-default" ($click)="checkAll"><span class="glyphicon glyphicon-check"></span></button>
-	</div>
-	<cs-button {actions}="messageActions" text="message:messages" element-class="btn-default" />
-	</div>
-	{{#if messagesPromise.isResolved}}
-	<cs-table {columns}="columns" {rows}="messagesPromise.value" {row-click}="@messageSelected" empty-message="message:no-messages" />
-	{{else}}
-	<cs-fetching title="message:title" />
-	{{/if}}
+            </cs-queue-input>
+        </div>
+    </div>
+    <div class="form-group form-inline {{#unless(hasMessages)}}invisible{{/unless}}">
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" on:click="@checkNone"><span
+                    class="glyphicon glyphicon-unchecked"></span></button>
+            <button type="button" class="btn btn-default" on:click="@checkInvert"><span
+                    class="glyphicon glyphicon-transfer"></span></button>
+            <button type="button" class="btn btn-default" on:click="@checkAll"><span
+                    class="glyphicon glyphicon-check"></span></button>
+        </div>
+        <cs-button actions:from="messageActions" text:from="'message:messages'" elementClass:from="'btn-default'"/>
+    </div>
+{{#if(messagesPromise.isResolved)}}
+        <cs-table columns:from="columns" rows:from="messagesPromise.value" rowClick:from="@messageSelected"
+                  emptyMessage:from="'message:no-messages'"/>
+{{else}}
+        <cs-fetching title:from="'message:title'"/>
+{{/if}}
 </div>
-<div class="{{#if showMessages}}hidden{{/if}}">
-	<div class="form-group">
-	  <cs-button text="close" element-class="btn-primary" {click}="@closeMessageView"/>
-	  <cs-checkbox ($click)="message.toggleCheck(%event)" {checked}="message.checked" />
-	</div>
-	<div>
-	  <pre>{{message.message}}</pre>
-	</div>
-	<cs-table {columns}="messageColumns" {rows}="messageRows" />
+<div class="{{#if(showMessages)}}invisible{{/if}}">
+    <div class="form-group">
+        <cs-button text:from="close" elementClass:from="btn-primary" click:from="@closeMessageView"/>
+        <cs-checkbox on:click="@message.toggleCheck(scope.event)" checked:from="message.checked"/>
+    </div>
+    <div>
+        <pre>{{message.message}}</pre>
+    </div>
+    <cs-table columns:from="messageColumns" rows:from="messageRows"/>
 </div>
