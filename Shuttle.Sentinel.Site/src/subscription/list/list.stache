@@ -1,5 +1,3 @@
-id: {{dataStoreId}}
-stores: {{dataStores.length}}
 <cs-form-select label:from="'subscription:data-store'" value:bind="dataStoreId" options:from="dataStores" />
 <div class="{{#unless dataStoreId}}invisible{{/if}}">
     {{#if subscriptions.isResolved}}

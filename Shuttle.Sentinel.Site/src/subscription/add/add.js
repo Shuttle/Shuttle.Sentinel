@@ -10,25 +10,37 @@ import validator from 'can-define-validate-validatejs';
 import state from '~/state';
 import each from 'can-util/js/each/';
 import localisation from '~/localisation';
+import {OptionList} from 'shuttle-canstrap/select/';
 
 resources.add('subscription', { action: 'add', permission: Permissions.Manage.Subscriptions });
 
-var dataStores = new Api('datastores');
-var subscriptions = new Api('subscriptions/{id}');
+var api = {
+    dataStores : new Api({
+        endpoint: 'datastores'
+    }),
+    subscriptions : new Api({
+        endpoint: 'subscriptions/{id}'
+    })
+}
 
 export const ViewModel = DefineMap.extend(
     'subscription',
     {
-        dataStores: { Value: DefineList },
+        dataStores: {
+            Default: OptionList
+        },
 
         init () {
             const self = this;
 
             state.title = localisation.value('subscription:list.title');
 
-            self.dataStores.push({ value: undefined, label: 'select' });
+            self.dataStores.push({
+                value: undefined,
+                label: 'select'
+            });
 
-            dataStores.list().then((response) => {
+            api.dataStores.list().then((response) => {
                 each(response, (store) => {
                     self.dataStores.push({
                         value: store.id,
@@ -37,7 +49,7 @@ export const ViewModel = DefineMap.extend(
                 });
             });
 
-            const result = state.pop('subscription');
+            const result = state.stack.pop('subscription');
 
             if (!result) {
                 return;
@@ -77,7 +89,7 @@ export const ViewModel = DefineMap.extend(
                 return false;
             }
 
-            subscriptions.post({
+            api.subscriptions.post({
                 dataStoreId: this.dataStoreId,
                 messageType: this.messageType,
                 inboxWorkQueueUri: this.inboxWorkQueueUri
@@ -89,7 +101,10 @@ export const ViewModel = DefineMap.extend(
         },
 
         close: function() {
-            router.goto('subscription/list');
+            router.goto({
+                resource: 'subscription',
+                action: 'list'
+            });
         }
     }
 );

@@ -52,6 +52,7 @@ namespace Shuttle.Sentinel.WebApi
                             
                             return new
                             {
+                                DataStoreId = dataStoreId,
                                 subscription.MessageType,
                                 subscription.InboxWorkQueueUri,
                                 SecuredUri = securedUri

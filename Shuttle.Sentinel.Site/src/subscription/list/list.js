@@ -14,6 +14,10 @@ import {OptionList} from 'shuttle-canstrap/select/';
 resources.add('subscription', {action: 'list', permission: Permissions.Manage.Subscriptions});
 
 const Subscription = DefineMap.extend({
+    dataStoreId: {
+        type: 'string'
+    },
+
     messageType: {
         type: 'string',
         default: ''
@@ -29,7 +33,7 @@ const Subscription = DefineMap.extend({
 
         serialized.dataStoreId = this.dataStoreId;
 
-        remove.post(serialized)
+        api.remove.post(serialized)
             .then(function () {
                 state.alerts.show({
                     message: localisation.value('itemRemovalRequested', {itemName: localisation.value('subscription:title')}),
@@ -43,7 +47,7 @@ const Subscription = DefineMap.extend({
 
         serialized.dataStoreId = this.dataStoreId;
 
-        state.put('subscription', serialized);
+        state.stack.put('subscription', serialized);
 
         router.goto({
             resource: 'subscription',
@@ -106,7 +110,7 @@ export const ViewModel = DefineMap.extend(
 
                 columns.push({
                     columnTitle: 'subscription:message-type',
-                    columnClass: 'col-3',
+                    columnClass: 'col-4',
                     attributeName: 'messageType'
                 });
 
@@ -122,6 +126,11 @@ export const ViewModel = DefineMap.extend(
                     stache: '<cs-button-remove click:from="@remove" elementClass:from="\'btn-sm\'"/>'
                 });
             }
+
+            self.dataStores.push({
+                value: undefined,
+                label: 'select'
+            });
 
             api.stores.list().then((response) => {
                 each(response, (store) => {
@@ -147,7 +156,10 @@ export const ViewModel = DefineMap.extend(
         },
 
         add: function () {
-            router.goto('subscription/add');
+            router.goto({
+                resource: 'subscription',
+                action: 'add'
+            });
         },
 
         refresh: function () {
