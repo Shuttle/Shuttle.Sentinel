@@ -1,19 +1,19 @@
-<div class="{{#unless(showMessages)}}invisible{{/unless}}">
+<div class="{{#unless(showMessages)}}d-none{{/unless}}">
     <div class="row form-group">
         <div class="col-6">
             <cs-label label:from="'message:source-queue-uri'"/>
             <div class="row">
                 <div class="col-8">
-                    <cs-queue-input uri:from="sourceQueueUri"/>
+                    <cs-queue-input uri:bind="sourceQueueUri"/>
                 </div>
                 <div class="col-4">
                     <div class="input-group">
-                        <cs-input value:bind="fetchCount" placeholder:from="'count'"/>
-                        <span class="input-group-btn">
-				<button type="button" on:click="@fetch" class="btn btn-primary">
-                    <i class="fa fa-envelope-o " aria-hidden="true"></i>
-				</button>
-			</span>
+                        <input type="text" class="form-control" placeholder="{{i18n('count')}}" value:bind="fetchCount">
+                        <span class="input-group-append">
+                            <button type="button" on:click="@fetch()" class="btn btn-primary">
+                                <i class="fa fa-envelope-o " aria-hidden="true"></i>
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -34,14 +34,14 @@
     </div>
     <div class="form-group form-inline {{#unless(hasMessages)}}invisible{{/unless}}">
         <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default" on:click="@checkNone"><span
-                    class="glyphicon glyphicon-unchecked"></span></button>
-            <button type="button" class="btn btn-default" on:click="@checkInvert"><span
-                    class="glyphicon glyphicon-transfer"></span></button>
-            <button type="button" class="btn btn-default" on:click="@checkAll"><span
-                    class="glyphicon glyphicon-check"></span></button>
+            <button type="button" class="btn btn-default" on:click="@checkNone()"><span
+                    class="fa fa-square-o"></span></button>
+            <button type="button" class="btn btn-default" on:click="@checkInvert()"><span
+                    class="fa fa-square"></span></button>
+            <button type="button" class="btn btn-default" on:click="@checkAll()"><span
+                    class="fa fa-check-square-o"></span></button>
         </div>
-        <cs-button actions:from="messageActions" text:from="'message:messages'" elementClass:from="'btn-default'"/>
+        <cs-button actions:from="messageActions" text:from="'message:messages'" elementClass:from="'btn-default ml-2'"/>
     </div>
 {{#if(messagesPromise.isResolved)}}
         <cs-table columns:from="columns" rows:from="messagesPromise.value" rowClick:from="@messageSelected"
@@ -50,10 +50,10 @@
         <cs-fetching title:from="'message:title'"/>
 {{/if}}
 </div>
-<div class="{{#if(showMessages)}}invisible{{/if}}">
+<div class="{{#if(showMessages)}}d-none{{/if}}">
     <div class="form-group">
-        <cs-button text:from="close" elementClass:from="btn-primary" click:from="@closeMessageView"/>
-        <cs-checkbox on:click="@message.toggleCheck(scope.event)" checked:from="message.checked"/>
+        <cs-button text:from="'close'" elementClass:from="btn-primary" click:from="@closeMessageView"/>
+        <cs-checkbox checked:bind="message.checked"/>
     </div>
     <div>
         <pre>{{message.message}}</pre>

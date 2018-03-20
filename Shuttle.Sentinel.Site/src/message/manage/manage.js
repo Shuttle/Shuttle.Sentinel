@@ -28,12 +28,6 @@ const Message = DefineMap.extend(
             default: false
         },
 
-        toggleCheck: function (ev) {
-            this.checked = !this.checked;
-
-            ev.stopPropagation();
-        },
-
         messageSelected: function (message) {
             this.viewModel.messageSelected(message);
         }
@@ -56,17 +50,45 @@ var api = {
 export const ViewModel = DefineMap.extend(
     'manage',
     {
-        message: {},
-        messageRows: {},
-        messages: {Value: DefineList},
-        hasMessages: {type: 'boolean', default: false},
-        showMessages: {type: 'boolean', default: true},
-        sourceQueueUri: {type: 'string', default: ''},
-        destinationQueueUri: {type: 'string', default: ''},
-        fetching: {type: 'boolean', default: false},
-        fetchCount: {type: 'number', default: 5},
-        refreshTimestamp: {type: 'string'},
-        messageActions: {Default: DefineList},
+        message: {
+            Default: Message
+        },
+        messageRows: {
+            Default: DefineList
+        },
+        messages: {
+            Default: DefineList
+        },
+        hasMessages: {
+            type: 'boolean',
+            default: false
+        },
+        showMessages: {
+            type: 'boolean',
+            default: true
+        },
+        sourceQueueUri: {
+            type: 'string',
+            default: ''
+        },
+        destinationQueueUri: {
+            type: 'string',
+            default: ''
+        },
+        fetching: {
+            type: 'boolean',
+            default: false
+        },
+        fetchCount: {
+            type: 'number',
+            default: 5
+        },
+        refreshTimestamp: {
+            type: 'string'
+        },
+        messageActions: {
+            Default: DefineList
+        },
 
         showTitle() {
             state.title = localisation.value('message:' + (this.showMessages ? 'title-manage' : 'message'));
@@ -139,15 +161,14 @@ export const ViewModel = DefineMap.extend(
             if (!columns.length) {
                 columns.push({
                     checked: false,
-                    columnClass: 'col-md-1',
+                    columnClass: 'col-1',
                     columnTitle: 'check',
-                    columnType: 'view',
-                    view: '<span on:click="toggleCheck(scope.event)" class="fa {{#if checked}}fa-check-square-o{{else}}fa-square-o{{/if}}" />'
+                    stache: '<span on:click="toggleCheck(scope.event)" class="fa {{#if checked}}fa-check-square-o{{else}}fa-square-o{{/if}}" />'
                 });
 
                 columns.push(
                     {
-                        columnClass: 'col-md-2',
+                        columnClass: 'col-2',
                         columnTitle: 'message:message-id',
                         attributeName: 'messageId'
                     });
@@ -155,8 +176,7 @@ export const ViewModel = DefineMap.extend(
                 columns.push(
                     {
                         columnTitle: 'message:message',
-                        columnType: 'view',
-                        view: '<pre>{{message}}</pre>'
+                        stache: '<pre>{{message}}</pre>'
                     });
             }
 
@@ -210,10 +230,13 @@ export const ViewModel = DefineMap.extend(
 
                 return false;
             }
+            else {
+                state.alerts.remove({name: 'message:exceptions.source-queue-uri'});
+            }
 
             this.fetching = true;
 
-            fetchMessages.post({
+            api.fetchMessages.post({
                 queueUri: this.sourceQueueUri,
                 count: this.fetchCount || 1
             })
@@ -265,7 +288,7 @@ export const ViewModel = DefineMap.extend(
                 return false;
             }
 
-            transferMessages.post({
+            api.transferMessages.post({
                 messageIds: this.checkedMessageIds(),
                 destinationQueueUri: this.destinationQueueUri,
                 action: action
