@@ -2,6 +2,7 @@
 import DefineMap from 'can-define/map/';
 import view from './queue-input.stache!';
 import Api from 'shuttle-can-api';
+import ComponentViewModel from 'shuttle-canstrap/infrastructure/component-view-model';
 
 const Queue = DefineMap.extend(
     'queue',
@@ -23,13 +24,8 @@ var queues = new Api({
     Map: Queue
 });
 
-export const ViewModel = DefineMap.extend({
+export const ViewModel = ComponentViewModel.extend({
     search: {
-        type: 'string',
-        default: ''
-    },
-
-    value: {
         type: 'string',
         default: ''
     },

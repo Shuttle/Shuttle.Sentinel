@@ -12,6 +12,7 @@
   "invert": "Invert",
   "itemRemovalRequested": "The request to remove the {{itemName}} has been successfully sent.  You may need to refresh the data to see the changes as it may take a while to process.",
   "name": "Name",
+  "fetch": "Fetch",
   "fetching": "Fetching {{name}}",
   "fetching-data": "(fetching data)",
   "modals": {

@@ -119,6 +119,7 @@ export const ViewModel = DefineMap.extend(
                     attributeName: 'name'
                 },
                 {
+                    columnClass: 'col',
                     columnTitle: 'value',
                     attributeName: 'value'
                 }
@@ -175,6 +176,7 @@ export const ViewModel = DefineMap.extend(
 
                 columns.push(
                     {
+                        columnClass: 'col',
                         columnTitle: 'message:message',
                         stache: '<pre>{{message}}</pre>'
                     });
