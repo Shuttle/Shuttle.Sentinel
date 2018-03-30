@@ -28,11 +28,13 @@
   "removeItemConfirmation": "Are you sure that you want to remove the selected item?",
   "removeItemNameConfirmation": "Are you sure that you want to remove the selected {{itemName}}?",
   "save": "Save",
+  "select": "Select",
   "sign-in": "Sign In",
   "sign-out": "Sign Out",
   "table-empty-message": "There are no items to display.",
   "uri": "Uri",
   "value": "Value",
+  "view": "View",
   "yes": "Yes",
   "workingMessage": "Please wait until the current operation completes and then try again.",
   "exceptions": {

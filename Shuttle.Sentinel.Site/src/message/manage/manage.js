@@ -18,6 +18,9 @@ const Message = DefineMap.extend(
         seal: false
     },
     {
+        parent: {
+            type: '*'
+        },
         checked: {
             type: 'boolean',
             default: false
@@ -28,8 +31,8 @@ const Message = DefineMap.extend(
             default: false
         },
 
-        messageSelected: function (message) {
-            this.viewModel.messageSelected(message);
+        messageSelected: function () {
+            this.viewModel.messageSelected(this);
         }
     }
 );
@@ -103,6 +106,10 @@ export const ViewModel = DefineMap.extend(
                     self.messages = list;
                     self.hasMessages = list.length > 0;
 
+                    each(list, function(message){
+                        message.viewModel = self;
+                    })
+
                     return list;
                 });
         },
@@ -161,10 +168,15 @@ export const ViewModel = DefineMap.extend(
 
             if (!columns.length) {
                 columns.push({
-                    checked: false,
                     columnClass: 'col-1',
                     columnTitle: 'check',
-                    stache: '<span on:click="toggleCheck(scope.event)" class="fa {{#if checked}}fa-check-square-o{{else}}fa-square-o{{/if}}" />'
+                    stache: '<cs-checkbox checked:bind="checked"/>'
+                });
+
+                columns.push({
+                    columnClass: 'col-1',
+                    columnTitle: 'view',
+                    stache: '<cs-button text:from="\'view\'" click:from="@messageSelected" elementClass:from="\'btn-secondary btn-sm\'"/>'
                 });
 
                 columns.push(
@@ -333,7 +345,7 @@ export const ViewModel = DefineMap.extend(
 
             if (message.headers && message.headers.length) {
                 each(message.headers, function (item, index) {
-                    self.addMessageRow('Headers.' + index, item);
+                    self.addMessageRow('Headers.' + item.key, item.value);
                 });
             } else {
                 this.addMessageRow('Headers', "(none)");

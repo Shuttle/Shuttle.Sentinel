@@ -24,25 +24,27 @@
     <cs-label label:from="'message:destination-queue-uri'"/>
     <cs-queue-input uri:from="destinationQueueUri"/>
 
-    <div class="form-group form-inline {{#unless(hasMessages)}}invisible{{/unless}}">
-    <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default" on:click="@checkNone()"><span
-                class="fa fa-square-o"></span></button>
-        <button type="button" class="btn btn-default" on:click="@checkInvert()"><span
-                class="fa fa-square"></span></button>
-        <button type="button" class="btn btn-default" on:click="@checkAll()"><span
-                class="fa fa-check-square-o"></span></button>
+    <div>
+        <div class="form-group mt-2 mb-2">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" on:click="@checkNone()"><span
+                        class="fa fa-square-o"></span></button>
+                <button type="button" class="btn btn-default" on:click="@checkInvert()"><span
+                        class="fa fa-square"></span></button>
+                <button type="button" class="btn btn-default" on:click="@checkAll()"><span
+                        class="fa fa-check-square-o"></span></button>
+            </div>
+            <cs-button actions:from="messageActions" text:from="'message:messages'"
+                       elementClass:from="'btn-default ml-2'"/>
+        </div>
     </div>
-    <cs-button actions:from="messageActions" text:from="'message:messages'" elementClass:from="'btn-default ml-2'"/>
-</div>
 {{#if(messagesPromise.isResolved)}}
-    <cs-table columns:from="columns" rows:from="messagesPromise.value" rowClick:from="@messageSelected"
-              emptyMessage:from="'message:no-messages'"/>
+    <cs-table columns:from="columns" rows:from="messagesPromise.value" emptyMessage:from="'message:no-messages'"/>
 {{else}}
     <cs-fetching title:from="'message:title'"/>
 {{/if}}
 </div>
-        <div class="{{#if(showMessages)}}d-none{{/if}}">
+<div class="{{#if(showMessages)}}d-none{{/if}}">
     <div class="form-group">
         <cs-button text:from="'close'" elementClass:from="btn-primary" click:from="@closeMessageView"/>
         <cs-checkbox checked:bind="message.checked"/>
@@ -50,5 +52,6 @@
     <div>
         <pre>{{message.message}}</pre>
     </div>
-    <cs-table columns:from="messageColumns" rows:from="messageRows"/>
+    <cs-table columns:from="messageColumns" rows:from="messageRows" tableClass="'table-sm'"/>
 </div>
+
