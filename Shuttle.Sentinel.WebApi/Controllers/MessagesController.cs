@@ -145,7 +145,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [HttpPost("transfer")]
-        public IActionResult Transfer([FromBody] MessageMoveModel model)
+        public IActionResult Transfer([FromBody] MessageTransferModel model)
         {
             try
             {
@@ -239,6 +239,71 @@ namespace Shuttle.Sentinel.WebApi
                 queue?.AttemptDispose();
 
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("transferdirect")]
+        public IActionResult TransferDirect([FromBody] MessageTransferDirectModel model)
+        {
+            try
+            {
+                var sourceQueue = _queueManager.CreateQueue(model.SourceQueueUri);
+                var destinationQueue = _queueManager.CreateQueue(model.DestinationQueueUri);
+                var countRetrieved = 0;
+
+                try
+                {
+                    for (var i = 0; i < model.Count; i++)
+                    {
+                        var receivedMessage = sourceQueue.GetMessage();
+
+                        if (receivedMessage != null)
+                        {
+                            countRetrieved++;
+
+                            TransportMessage transportMessage;
+
+                            try
+                            {
+                                transportMessage = GetTransportMessage(receivedMessage.Stream);
+                            }
+                            catch (Exception ex)
+                            {
+                                _log.Error(ex.AllMessages());
+
+                                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+                            }
+
+                            destinationQueue.Enqueue(transportMessage, receivedMessage.Stream);
+
+                            if (model.Action.Equals("Move", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                sourceQueue.Acknowledge(receivedMessage.AcknowledgementToken);
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                finally
+                {
+                    sourceQueue.AttemptDispose();
+                    destinationQueue.AttemptDispose();
+                }
+
+                return Ok(new
+                {
+                    Data = new
+                    {
+                        CountRetrieved = countRetrieved
+                    }
+                });
             }
             catch (Exception ex)
             {

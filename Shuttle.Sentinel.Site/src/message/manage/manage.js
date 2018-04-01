@@ -42,11 +42,14 @@ var api = {
         endpoint: 'messages',
         Map: Message
     }),
-    fetchMessages: new Api({
+    fetch: new Api({
         endpoint: 'messages/fetch'
     }),
-    transferMessages: new Api({
+    transfer: new Api({
         endpoint: 'messages/transfer'
+    }),
+    transferDirect: new Api({
+        endpoint: 'messages/transferdirect'
     })
 }
 
@@ -106,7 +109,7 @@ export const ViewModel = DefineMap.extend(
                     self.messages = list;
                     self.hasMessages = list.length > 0;
 
-                    each(list, function(message){
+                    each(list, function (message) {
                         message.viewModel = self;
                     })
 
@@ -217,6 +220,28 @@ export const ViewModel = DefineMap.extend(
                 });
 
                 messageActions.push({
+                    isSeparator: true
+                });
+
+                messageActions.push({
+                    text: "move",
+                    click: function () {
+                        self._transfer('Move');
+                    }
+                });
+
+                messageActions.push({
+                    text: "copy",
+                    click: function () {
+                        self._transfer('Copy');
+                    }
+                });
+
+                messageActions.push({
+                    isSeparator: true
+                });
+
+                messageActions.push({
                     text: "remove",
                     click: function () {
                         self._transfer('Remove');
@@ -250,7 +275,7 @@ export const ViewModel = DefineMap.extend(
 
             this.fetching = true;
 
-            api.fetchMessages.post({
+            api.fetch.post({
                 queueUri: this.sourceQueueUri,
                 count: this.fetchCount || 1
             })
@@ -285,13 +310,19 @@ export const ViewModel = DefineMap.extend(
             return this._transfer('Copy');
         },
 
+        moveDirect: function () {
+            return this._transferDirect('Move');
+        },
+
+        copyDirect: function () {
+            return this._transferDirect('Copy');
+        },
+
         returnToSourceQueue: function () {
             return this._transfer('Copy');
         },
 
-        _transfer: function (action) {
-            const self = this;
-
+        validateDestinationQueue(action) {
             if (!this.destinationQueueUri && (action === 'Move' || action === 'Copy')) {
                 state.alerts.show({
                     message: localisation.value('message:exceptions.destination-queue-uri'),
@@ -302,7 +333,17 @@ export const ViewModel = DefineMap.extend(
                 return false;
             }
 
-            api.transferMessages.post({
+            return true;
+        },
+
+        _transfer: function (action) {
+            const self = this;
+
+            if (!this.validateDestinationQueue(action)) {
+                return false;
+            }
+
+            api.transfer.post({
                 messageIds: this.checkedMessageIds(),
                 destinationQueueUri: this.destinationQueueUri,
                 action: action
@@ -311,6 +352,49 @@ export const ViewModel = DefineMap.extend(
                     self.refresh();
 
                     return response;
+                });
+
+            return true;
+        },
+
+        _transferDirect: function (action) {
+            const self = this;
+
+            if (!this.sourceQueueUri) {
+                state.alerts.show({
+                    message: localisation.value('message:exceptions.source-queue-uri'),
+                    name: 'message:exceptions.source-queue-uri',
+                    type: 'danger'
+                });
+
+                return false;
+            }
+
+            if (this.fetchCount < 1) {
+                state.alerts.show({
+                    message: localisation.value('message:exceptions.count'),
+                    name: 'message:exceptions.count',
+                    type: 'danger'
+                });
+
+                return false;
+            }
+
+            if (!this.validateDestinationQueue(action)) {
+                return false;
+            }
+
+            api.transferDirect.post({
+                sourceQueueUri: this.sourceQueueUri,
+                destinationQueueUri: this.destinationQueueUri,
+                action: action,
+                count: this.fetchCount
+            })
+                .then(function () {
+                    state.alerts.show({
+                        message: localisation.value('message:transfer-complete-' + action.toLowerCase()),
+                        name: 'message:transfer-complete'
+                    });
                 });
 
             return true;

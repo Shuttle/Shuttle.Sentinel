@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    public class MessageMoveModel
+    public class MessageTransferModel
     {
         public List<Guid> MessageIds { get; set; }
         public string DestinationQueueUri { get; set; }

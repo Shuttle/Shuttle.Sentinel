@@ -11,10 +11,10 @@
                     <button type="button" on:click="@fetch()" class="btn btn-primary">
                         {{i18n("fetch")}}
                     </button>
-                    <button type="button" on:click="@move" class="btn btn-default">
+                    <button type="button" on:click="@moveDirect()" class="btn btn-default">
                         {{i18n("move")}}
                     </button>
-                    <button type="button" on:$click="@copy" class="btn btn-default  ">
+                    <button type="button" on:click="@copyDirect()" class="btn btn-default  ">
                         {{i18n("copy")}}
                     </button>
                 </div>
