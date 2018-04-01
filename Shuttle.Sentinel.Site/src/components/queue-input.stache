@@ -3,11 +3,11 @@
        data-toggle="dropdown" placeholder="enter/select the queue uri" aria-haspopup="true"/>
 <ul class="dropdown-menu" aria-expanded="false">
     {{#if queuesPromise.isResolved}}
-        {{#queuesPromise.value}}
+        {{#each(queuesPromise.value)}}
             <li>
                 <a class="dropdown-item" href="#" on:click="../@selectQueue(.)">{{securedUri}}</a>
             </li>
-        {{/queuesPromise.value}}
+        {{/each}}
     {{else}}
         <li>
             <a class="dropdown-item" href="#">{{i18n "fetching-data"}}</a>

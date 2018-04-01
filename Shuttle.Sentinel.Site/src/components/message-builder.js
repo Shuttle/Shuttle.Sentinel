@@ -1,7 +1,10 @@
 ﻿import Component from 'can-component';
-import ComponentViewModel from 'shuttle-canstrap/infrastructure/component-view-model';
 import view from './message-builder.stache';
 import validator from 'can-define-validate-validatejs';
+import Api from "shuttle-can-api";
+import DefineMap from 'can-define/map/';
+import ComponentViewModel from 'shuttle-canstrap/infrastructure/component-view-model';
+
 
 export const ViewModel = ComponentViewModel.extend(
     'message-builder',
@@ -9,19 +12,15 @@ export const ViewModel = ComponentViewModel.extend(
         seal: false
     },
     {
+
         messageType: {
             type: 'string',
-            default: '',
-            validate: {
-                presence: true
-            }
+            default: ''
         },
-        message: {
+
+        emptyMessageType: {
             type: 'string',
-            default: '',
-            validate: {
-                presence: true
-            }
+            default: ''
         }
     }
 );

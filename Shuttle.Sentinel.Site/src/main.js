@@ -24,6 +24,7 @@ access.url = loader.accessBaseURL;
 
 import '~/components/queue-input';
 import '~/components/queue';
+import '~/components/message-builder';
 import '~/login/';
 import '~/navigation/';
 import '~/dashboard/';

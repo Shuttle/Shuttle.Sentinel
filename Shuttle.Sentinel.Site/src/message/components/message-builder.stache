@@ -1,4 +1,0 @@
-﻿<cs-form-input focus:from="'true'" label:from="'message:message-type'" vm:value:bind="messageType"
-               vm:errors:from="errors()" errorAttribute:from="'messageType'" vm:required:from="'true'"/>
-<cs-form-textarea label:from="'message:message'" value:bind="message" placeholder:from="'serialized message'"
-                  rows:from="'10'" required:from="'true'" validationMessage:from="message"/>

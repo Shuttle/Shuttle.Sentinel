@@ -13,8 +13,6 @@ namespace Shuttle.Sentinel.Tests
 			var section = GetSection<SentinelSection>("sentinel", file);
 
 			Assert.IsNotNull(section);
-			Assert.AreEqual("authentication-service-type", section.AuthenticationServiceType);
-			Assert.AreEqual("authorization-service-type", section.AuthorizationServiceType);
 			Assert.AreEqual("connection-string-name", section.ConnectionStringName);
 		}
 	}

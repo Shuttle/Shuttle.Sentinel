@@ -2,7 +2,7 @@
     <cs-label label:from="'message:source-queue-uri'"/>
     <div class="row form-group">
         <div class="col-8">
-            <cs-queue-input uri:bind="sourceQueueUri"/>
+            <sentinel-queue-input uri:bind="sourceQueueUri"/>
         </div>
         <div class="col-4">
             <div class="input-group">
@@ -22,7 +22,7 @@
         </div>
     </div>
     <cs-label label:from="'message:destination-queue-uri'"/>
-    <cs-queue-input uri:from="destinationQueueUri"/>
+    <sentinel-queue-input uri:bind="destinationQueueUri"/>
 
     <div>
         <div class="form-group mt-2 mb-2">
@@ -46,7 +46,7 @@
 </div>
 <div class="{{#if(showMessages)}}d-none{{/if}}">
     <div class="form-group">
-        <cs-button text:from="'close'" elementClass:from="btn-primary" click:from="@closeMessageView"/>
+        <cs-button text:from="'close'" elementClass:from="'btn-primary'" click:from="@closeMessageView"/>
         <cs-checkbox checked:bind="message.checked"/>
     </div>
     <div>

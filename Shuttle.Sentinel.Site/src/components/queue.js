@@ -7,7 +7,7 @@ export const ViewModel = ComponentViewModel.extend({
 });
 
 export default Component.extend({
-    tag: 'cs-queue',
+    tag: 'sentinel-queue',
     ViewModel: ViewModel,
     view
 });

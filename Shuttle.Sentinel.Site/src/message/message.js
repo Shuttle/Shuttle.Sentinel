@@ -1,5 +1,4 @@
-﻿import './components/message-builder';
-import './manage/';
+﻿import './manage/';
 import './send/';
 
 import localisation from '~/localisation';

@@ -25,26 +25,21 @@ var queues = new Api({
 });
 
 export const ViewModel = ComponentViewModel.extend({
-    search: {
-        type: 'string',
-        default: ''
-    },
-
-    uri: {
+    searchValue: {
         type: 'string',
         default: ''
     },
 
     get queuesPromise() {
-        return queues.list({search: encodeURIComponent(this.search)});
+        return queues.list({search: encodeURIComponent(this.searchValue)});
     },
 
     showQueues: function () {
         this.search = '';
     },
 
-    searchQueues: function (el) {
-        this.search = el.value;
+    searchQueues: function (el) {   
+        this.searchValue = el.value;
         this.uri = el.value;
         this.value = el.value;
 
@@ -58,7 +53,7 @@ export const ViewModel = ComponentViewModel.extend({
 });
 
 export default Component.extend({
-    tag: 'cs-queue-input',
+    tag: 'sentinel-queue-input',
     ViewModel,
     view
 });

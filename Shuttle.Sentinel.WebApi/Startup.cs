@@ -57,7 +57,6 @@ namespace Shuttle.Sentinel.WebApi
 
             componentContainer.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
             componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
-            var inspectionQueue = componentContainer.Resolve<IInspectionQueue>();
 
             _bus = ServiceBus.Create(componentContainer).Start();
 
