@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
@@ -6,13 +6,13 @@ using Shuttle.Sentinel.DataAccess.Query;
 
 namespace Shuttle.Sentinel.DataAccess
 {
-    public class QueueQuery : IQueueQuery
+    public class MessageHeaderQuery : IMessageHeaderQuery
     {
         private readonly IDatabaseGateway _databaseGateway;
-        private readonly IQueueQueryFactory _queryFactory;
+        private readonly IMessageHeaderQueryFactory _queryFactory;
         private readonly IQueryMapper _queryMapper;
 
-        public QueueQuery(IDatabaseGateway databaseGateway, IQueryMapper queryMapper, IQueueQueryFactory queryFactory)
+        public MessageHeaderQuery(IDatabaseGateway databaseGateway, IQueryMapper queryMapper, IMessageHeaderQueryFactory queryFactory)
         {
             Guard.AgainstNull(databaseGateway, nameof(databaseGateway));
             Guard.AgainstNull(queryFactory, nameof(queryFactory));
@@ -33,14 +33,14 @@ namespace Shuttle.Sentinel.DataAccess
             _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
         }
 
-        public IEnumerable<Queue> All()
+        public IEnumerable<MessageHeader> All()
         {
-            return _queryMapper.MapObjects<Queue>(_queryFactory.All());
+            return _queryMapper.MapObjects<MessageHeader>(_queryFactory.All());
         }
 
-        public IEnumerable<Queue> Search(string match)
+        public IEnumerable<MessageHeader> Search(string match)
         {
-            return _queryMapper.MapObjects<Queue>(_queryFactory.Search(match));
+            return _queryMapper.MapObjects<MessageHeader>(_queryFactory.Search(match));
         }
     }
 }

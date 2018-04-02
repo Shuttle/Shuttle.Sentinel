@@ -21,11 +21,11 @@ namespace Shuttle.Sentinel.WebApi
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IInspectionQueue _inspectionQueue;
+        private readonly ILog _log;
         private readonly IQueueManager _queueManager;
         private readonly ISerializer _serializer;
         private readonly ITransportMessageFactory _transportMessageFactory;
         private readonly Type _transportMessageType = typeof(TransportMessage);
-        private readonly ILog _log;
 
         public MessagesController(IDatabaseContextFactory databaseContextFactory, IInspectionQueue inspectionQueue,
             ISerializer serializer, IQueueManager queueManager, ITransportMessageFactory transportMessageFactory)
@@ -53,7 +53,7 @@ namespace Shuttle.Sentinel.WebApi
                 return Ok(new
                 {
                     Data = from message in _inspectionQueue.Messages().ToList()
-                    select PresentationMessage(message)
+                        select PresentationMessage(message)
                 });
             }
         }
@@ -112,7 +112,7 @@ namespace Shuttle.Sentinel.WebApi
                             {
                                 _log.Error(ex.AllMessages());
 
-                                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+                                return StatusCode((int) HttpStatusCode.InternalServerError, ex);
                             }
 
                             _inspectionQueue.Enqueue(model.QueueUri, transportMessage, receivedMessage.Stream);
@@ -178,7 +178,7 @@ namespace Shuttle.Sentinel.WebApi
                     {
                         _log.Error(ex.AllMessages());
 
-                        return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+                        return StatusCode((int) HttpStatusCode.InternalServerError, ex);
                     }
 
                     var queueUri = string.Empty;
@@ -275,7 +275,7 @@ namespace Shuttle.Sentinel.WebApi
                             {
                                 _log.Error(ex.AllMessages());
 
-                                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+                                return StatusCode((int) HttpStatusCode.InternalServerError, ex);
                             }
 
                             destinationQueue.Enqueue(transportMessage, receivedMessage.Stream);
@@ -327,6 +327,11 @@ namespace Shuttle.Sentinel.WebApi
                 transportMessage.AssemblyQualifiedName = model.MessageType;
                 transportMessage.MessageType = model.MessageType;
                 transportMessage.Message = Encoding.UTF8.GetBytes(model.Message);
+
+                foreach (var header in model.Headers)
+                {
+                    transportMessage.Headers.Add(new TransportHeader {Key = header.Key, Value = header.Value});
+                }
 
                 using (var stream = _serializer.Serialize(transportMessage))
                 {

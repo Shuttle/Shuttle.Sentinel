@@ -32,11 +32,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="DomainEvents\" />
-        <Folder Include="Domain\" />
-    </ItemGroup>
-
-    <ItemGroup>
         <None Include=".build\package.msbuild" />
         <None Include=".build\package.nuspec" />
         <None Include=".build\Shuttle.MSBuild.dll" />
