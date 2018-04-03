@@ -13,9 +13,15 @@ var map = [
                 href: '#!message/manage',
                 text: 'navigation:messages.manage',
                 permission: Permissions.Manage.Messages
-            },            {
+            },
+            {
                 href: '#!message/send',
                 text: 'navigation:messages.send',
+                permission: Permissions.Manage.Messages
+            },
+            {
+                href: '#!message/headers',
+                text: 'navigation:messages.headers',
                 permission: Permissions.Manage.Messages
             }
         ]

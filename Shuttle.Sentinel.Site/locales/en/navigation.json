@@ -3,7 +3,8 @@
   "messages": {
     "title": "Messages",
     "manage": "Manage",
-    "send": "Send"
+    "send": "Send",
+    "headers": "Headers"
   },
   "subscriptions": "Subscriptions",
   "data-stores": "Data Stores",
