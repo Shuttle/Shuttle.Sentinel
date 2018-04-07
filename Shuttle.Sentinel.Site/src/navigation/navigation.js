@@ -55,7 +55,7 @@ var ViewModel = DefineMap.extend({
                     if (add) {
                         result.push({
                             text: item.text,
-                            href: item.href,
+                            href: item.href || '',
                             list: list
                         });
                     }

@@ -15,6 +15,7 @@
   "fetch": "Fetch",
   "fetching": "Fetching {{name}}",
   "fetching-data": "(fetching data)",
+  "key": "Key",
   "modals": {
     "no-primary-click": "No primary click function has been assigned." 
   },

@@ -1,5 +1,6 @@
 ﻿{
   "count-retrieved": "{{count}} message(s) retrieved from the source queue.",
+  "details-title": "Message Details",
   "destination-queue-uri": "Destination queue uri",
   "exceptions": {
     "source-queue-uri": "Enter or select the 'Source queue uri' to retrieve messages from.",
@@ -7,6 +8,7 @@
     "count": "Count has to be greater than 0."
   },
   "get": "Get message(s)",
+  "headers-title": "Message Headers",
   "message-id": "Message Id",
   "messages": "Messages",
   "message": "Message",

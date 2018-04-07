@@ -1,4 +1,5 @@
 ﻿<fieldset class="form-group">
+<cs-collapse text:from="'message:details-title'" elementClass:from="'mb-2'">
     <sentinel-queue uri:bind="destinationQueueUri" label:from="'message:destination-queue-uri'" required:from="'true'"
                     vm:errors:from="errors()" errorAttribute:from="'destinationQueueUri'"/>
 <cs-form-group vm:errors:from="errors()" errorAttribute:from="'messageType'" elementClass:from="formGroupClass">
@@ -23,5 +24,9 @@
     <cs-form-textarea label:from="'message:message'" value:bind="message" placeholder:from="'serialized message'"
                       rows:from="'10'" required:from="'true'" vm:errors:from="errors()"
                       errorAttribute:from="'message'"/>
-    <cs-button click:from="@send" text:from="'message:send'"/>
+</cs-collapse>
+<cs-collapse text:from="'message:headers-title'" elementClass:from="'mb-2'" collapsed:from="'true'">
+    <sentinel-message-send-headers headers:to="headers" />
+</cs-collapse>
+<cs-button click:from="@send" text:from="'message:send'"/>
 </fieldset>

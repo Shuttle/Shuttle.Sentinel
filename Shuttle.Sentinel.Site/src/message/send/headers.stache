@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-6">
+        <cs-form-input label:from="'key'" vm:value:bind="headerKey" vm:errors:from="errors()"
+                       errorAttribute:from="'headerKey'"/>
+    </div>
+    <div class="col-6">
+        <cs-form-input label:from="'value'" vm:value:bind="headerValue" vm:errors:from="errors()"
+                       errorAttribute:from="'headerValue'"/>
+    </div>
+</div>
+<cs-table vm:columns:from="columns" vm:rows:from="headers" />
+<cs-button click:from="@add" text:from="'add'"/>

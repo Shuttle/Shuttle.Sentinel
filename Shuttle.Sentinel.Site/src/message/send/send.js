@@ -7,21 +7,20 @@ import localisation from '~/localisation';
 import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
+import {MessageHeaderList} from "./headers";
 
 resources.add('message', {action: 'send', permission: Permissions.Manage.Messages});
 
-const MessageType = DefineMap.extend(
-    {
-        messageType: {
-            type: 'string',
-            default: ''
-        },
-        emptyMessageType: {
-            type: 'string',
-            default: ''
-        }
+const MessageTypeMap = DefineMap.extend({
+    messageType: {
+        type: 'string',
+        default: ''
+    },
+    emptyMessageType: {
+        type: 'string',
+        default: ''
     }
-);
+});
 
 var api = {
     messages: new Api({
@@ -29,19 +28,11 @@ var api = {
     }),
     messageTypes: new Api({
         endpoint: 'messagetypes/{search}',
-        Map: MessageType
+        Map: MessageTypeMap
     })
 }
 
 export const ViewModel = DefineMap.extend({
-    value: {
-        Type: MessageType,
-        set(item){
-            this.messageType = item.messageType;
-            this.message = item.emptyMessageType;
-        }
-    },
-
     destinationQueueUri: {
         type: 'string',
         default: '',
@@ -81,13 +72,12 @@ export const ViewModel = DefineMap.extend({
 
     search: function (el) {
         this.searchValue = el.value;
-        this.value = el.value;
 
         $(el).dropdown();
     },
 
     select: function (item) {
-        this.value = item;
+        this.messageType = item.messageType;
     },
 
     send() {
@@ -100,13 +90,18 @@ export const ViewModel = DefineMap.extend({
         api.messages.post({
             destinationQueueUri: this.destinationQueueUri,
             messageType: this.messageType,
-            message: this.message
+            message: this.message,
+            headers: this.headers
         })
             .then(function () {
                 state.alerts.show({message: localisation.value('message:sent')});
             });
 
         return false;
+    },
+
+    headers: {
+        Type: MessageHeaderList
     }
 });
 
