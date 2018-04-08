@@ -1,10 +1,14 @@
 import Component from 'can-component/';
 import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
+import resources from '~/resources';
+import Permissions from '~/permissions';
 import view from './headers.stache!';
 import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import guard from 'shuttle-guard';
+
+resources.add('message', {action: 'headers', permission: Permissions.Manage.Messages});
 
 export const MessageHeaderMap = DefineMap.extend({
     key: {
@@ -14,10 +18,6 @@ export const MessageHeaderMap = DefineMap.extend({
     value: {
         type: 'string',
         default: ''
-    },
-    saved: {
-        type: 'boolean',
-        default: false
     }
 });
 
@@ -27,7 +27,7 @@ export const MessageHeaderList = DefineList.extend({
 
 var api = {
     messageHeaders: new Api({
-        endpoint: 'messageheaders/{search}',
+        endpoint: 'messageheaders/{id}',
         Map: MessageHeaderMap
     })
 }
@@ -53,14 +53,8 @@ export const ViewModel = DefineMap.extend({
 
             columns.push({
                 columnTitle: 'value',
-                columnClass: 'col-5',
+                columnClass: 'col',
                 attributeName: 'value'
-            });
-
-            columns.push({
-                columnTitle: 'saved',
-                columnClass: 'col-1',
-                stache: '<cs-checkbox click:from="@toggle" checked:bind="saved" checkedClass:from="\'fa-toggle-on\'" uncheckedClass:from="\'fa-toggle-off\'"/>{{#if working}}<i class="fa fa-hourglass-o" aria-hidden="true"></i>{{/if}}'
             });
 
             columns.push({
@@ -127,7 +121,7 @@ export const ViewModel = DefineMap.extend({
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-message-send-headers',
+    tag: 'sentinel-message-headers',
     ViewModel,
     view
 });
