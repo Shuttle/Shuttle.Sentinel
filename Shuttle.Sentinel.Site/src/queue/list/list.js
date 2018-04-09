@@ -64,7 +64,7 @@ export const ViewModel = DefineMap.extend({
             columns.push({
                 columnTitle: 'clone',
                 columnClass: 'col-1',
-                stache: '<cs-button text:from="\'clone\'" click:from="@clone" elementClass:from="\'btn-sm\'"/>'
+                stache: '<cs-button text:from="\'clone\'" click:from="clone" elementClass:from="\'btn-sm\'"/>'
             });
 
             columns.push({
@@ -76,7 +76,7 @@ export const ViewModel = DefineMap.extend({
             columns.push({
                 columnTitle: 'remove',
                 columnClass: 'col-1',
-                stache: '<cs-button-remove click:from="@remove" elementClass:from="\'btn-sm\'"/>'
+                stache: '<cs-button-remove click:from="remove" elementClass:from="\'btn-sm\'"/>'
             });
         }
 

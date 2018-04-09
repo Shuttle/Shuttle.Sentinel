@@ -68,21 +68,21 @@ export const Navbar = DefineMap.extend({
             case 'refresh': {
                 this.controls.push({
                     viewModel: options.viewModel,
-                    stache: `<cs-button-refresh click:from="@${click}" elementClass:from="'btn-sm mr-2'"/>`
+                    stache: `<cs-button-refresh click:from="${click}" elementClass:from="'btn-sm mr-2'"/>`
                 });
                 break;
             }
             case 'add': {
                 this.controls.push({
                     viewModel: options.viewModel,
-                    stache: `<cs-button click:from="@${click}" elementClass:from="\'btn-sm mr-2\'" permission:from="\'${permission}\'" text:from="\'${options.text || 'add'}\'"/>`
+                    stache: `<cs-button click:from="${click}" elementClass:from="\'btn-sm mr-2\'" permission:from="\'${permission}\'" text:from="\'${options.text || 'add'}\'"/>`
                 });
                 break;
             }
             case 'remove': {
                 this.controls.push({
                     viewModel: options.viewModel,
-                    stache: `<cs-button-remove click:from="@${click}" elementClass:from="\'btn-sm mr-2\'" permission:from="\'${permission}\'"/>`
+                    stache: `<cs-button-remove click:from="${click}" elementClass:from="\'btn-sm mr-2\'" permission:from="\'${permission}\'"/>`
                 });
                 break;
             }

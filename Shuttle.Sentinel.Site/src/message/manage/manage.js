@@ -179,7 +179,7 @@ export const ViewModel = DefineMap.extend(
                 columns.push({
                     columnClass: 'col-1',
                     columnTitle: 'view',
-                    stache: '<cs-button text:from="\'view\'" click:from="@messageSelected" elementClass:from="\'btn-secondary btn-sm\'"/>'
+                    stache: '<cs-button text:from="\'view\'" click:from="messageSelected" elementClass:from="\'btn-secondary btn-sm\'"/>'
                 });
 
                 columns.push(

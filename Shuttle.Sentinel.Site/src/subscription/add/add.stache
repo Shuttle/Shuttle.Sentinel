@@ -6,7 +6,7 @@
                        vm:errors:from="errors()" errorAttribute:from="'messageType'" vm:required:from="'true'"/>
         <cs-form-input label:from="'subscription:inbox-work-queue-uri'" vm:value:bind="inboxWorkQueueUri"
                        vm:errors:from="errors()" errorAttribute:from="'inboxWorkQueueUri'" vm:required:from="'true'"/>
-        <cs-button-submit vm:click:from="@add" text:from="'add'"/>
-        <cs-button vm:click:from="@close" text:from="'close'"/>
+        <cs-button-submit vm:click:from="add" text:from="'add'"/>
+        <cs-button vm:click:from="close" text:from="'close'"/>
     </fieldset>
 </cs-form>

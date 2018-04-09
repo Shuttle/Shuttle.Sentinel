@@ -8,6 +8,6 @@
                        errorAttribute:from="'headerValue'"/>
     </div>
 </div>
-<cs-button click:from="@add" text:from="'add'" elementClass:from="'mb-2'"/>
+<cs-button click:from="add" text:from="'add'" elementClass:from="'mb-2'"/>
 <cs-table vm:columns:from="columns" vm:rows:from="headers" />
 

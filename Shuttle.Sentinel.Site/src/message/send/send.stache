@@ -11,7 +11,7 @@
 {{#if list.isResolved}}
     {{#each(list.value)}}
     <li>
-        <a class="dropdown-item" href="#" on:click="../@select(.)">{{messageType}}</a>
+        <a class="dropdown-item" href="#" on:click="../select)">{{messageType}}</a>
     </li>
 {{/each}}
 {{else}}
@@ -28,5 +28,5 @@
 <cs-collapse text:from="'message:headers-title'" elementClass:from="'mb-2'" collapsed:from="'true'">
     <sentinel-message-send-headers headers:to="headers" />
 </cs-collapse>
-<cs-button click:from="@send" text:from="'message:send'"/>
+<cs-button click:from="send" text:from="'message:send'"/>
 </fieldset>

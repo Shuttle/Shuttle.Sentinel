@@ -60,7 +60,7 @@ export const ViewModel = DefineMap.extend({
             columns.push({
                 columnTitle: 'actions',
                 columnClass: 'col-1',
-                stache: '<cs-button click:from="@scope@root@edit(.)" text:from="\'edit\'" elementClass:from="\'btn-sm\'"/><cs-button-remove click:from="@remove" elementClass:from="\'btn-sm\'"/>'
+                stache: '<cs-button click:from="scope.root.edit" text:from="\'edit\'" elementClass:from="\'btn-sm\'"/><cs-button-remove click:from="remove" elementClass:from="\'btn-sm\'"/>'
             });
         }
     },
