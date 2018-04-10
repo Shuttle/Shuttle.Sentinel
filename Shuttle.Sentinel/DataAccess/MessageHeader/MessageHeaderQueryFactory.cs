@@ -25,8 +25,8 @@ if not exists(select null from MessageHeader where Key = @Key and Value = @Value
     ) 
     values 
     (
-        [@Key],
-        [@Value]
+        @Key,
+        @Value
     )
 ")
                 .AddParameterValue(MessageHeaderColumns.Key, key)
@@ -42,7 +42,7 @@ if not exists(select null from MessageHeader where Key = @Key and Value = @Value
 
         public IQuery All()
         {
-            return RawQuery.Create(string.Concat(SelectFrom, @"order by Key, Value"));
+            return RawQuery.Create(string.Concat(SelectFrom, @"order by [Key], Value"));
         }
 
         public IQuery Search(string match)

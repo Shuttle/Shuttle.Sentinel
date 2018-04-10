@@ -20,7 +20,7 @@ var map = [
                 permission: Permissions.Manage.Messages
             },
             {
-                href: '#!message/headers',
+                href: '#!messageheader/list',
                 text: 'navigation:messages.headers',
                 permission: Permissions.Manage.Messages
             }

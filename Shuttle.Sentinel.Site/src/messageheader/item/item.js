@@ -3,12 +3,12 @@ import DefineMap from 'can-define/map/';
 import DefineList from 'can-define/list/';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import view from './headers.stache!';
+import view from './item.stache!';
 import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import guard from 'shuttle-guard';
 
-resources.add('message', {action: 'headers', permission: Permissions.Manage.Messages});
+resources.add('messageheader', {action: 'add', permission: Permissions.Manage.Messages});
 
 export const MessageHeaderMap = DefineMap.extend({
     key: {
@@ -21,10 +21,6 @@ export const MessageHeaderMap = DefineMap.extend({
     }
 });
 
-export const MessageHeaderList = DefineList.extend({
-    '#': MessageHeaderMap
-});
-
 var api = {
     messageHeaders: new Api({
         endpoint: 'messageheaders/{id}',
@@ -35,10 +31,6 @@ var api = {
 export const ViewModel = DefineMap.extend({
     columns: {
         Default: DefineList
-    },
-
-    edit(header) {
-      alert(header.key);
     },
 
     init() {
@@ -81,10 +73,6 @@ export const ViewModel = DefineMap.extend({
         }
     },
 
-    headers: {
-        Default: MessageHeaderList
-    },
-
     find(key) {
         guard.againstUndefined(key, 'key');
 
@@ -104,17 +92,11 @@ export const ViewModel = DefineMap.extend({
             return false;
         }
 
-        const header = this.find(this.headerKey);
+        this.working = true;
 
-        if (!!header){
-            header.value = this.headerValue;
-        }
-        else {
-            this.headers.push({
-                key: this.headerKey,
-                value: this.headerValue
-            });
-        }
+api.messageHeaders.post({
+    key: this.headerKey,
+    value})
     }
 });
 

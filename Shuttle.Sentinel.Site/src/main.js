@@ -29,6 +29,7 @@ import '~/navigation/';
 import '~/dashboard/';
 import '~/datastore/';
 import '~/message/';
+import '~/messageheader/';
 import '~/queue/';
 import '~/subscription/';
 
