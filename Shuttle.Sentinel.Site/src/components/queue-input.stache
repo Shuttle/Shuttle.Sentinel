@@ -5,7 +5,7 @@
     {{#if queuesPromise.isResolved}}
         {{#each(queuesPromise.value)}}
             <li>
-                <a class="dropdown-item" href="#" on:click="../selectQueue">{{securedUri}}</a>
+                <a class="dropdown-item" href="#" on:click="../selectQueue(.)">{{securedUri}}</a>
             </li>
         {{/each}}
     {{else}}

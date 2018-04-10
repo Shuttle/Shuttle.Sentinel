@@ -78,6 +78,7 @@ export const ViewModel = DefineMap.extend({
 
     select: function (item) {
         this.messageType = item.messageType;
+        this.message = item.emptyMessageType;
     },
 
     send() {
@@ -91,7 +92,7 @@ export const ViewModel = DefineMap.extend({
             destinationQueueUri: this.destinationQueueUri,
             messageType: this.messageType,
             message: this.message,
-            headers: this.headers
+            headers: this.headers.serialize()
         })
             .then(function () {
                 state.alerts.show({message: localisation.value('message:sent')});

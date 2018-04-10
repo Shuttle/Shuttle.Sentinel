@@ -17,7 +17,8 @@ export const MessageHeaderMap = DefineMap.extend({
     },
     saved: {
         type: 'boolean',
-        default: false
+        default: false,
+        serialize: false
     },
     edit() {
         this.viewModel.edit(this);
@@ -26,7 +27,8 @@ export const MessageHeaderMap = DefineMap.extend({
         this.viewModel.remove(this);
     },
     viewModel: {
-        type: '*'
+        type: '*',
+        serialize: false
     }
 });
 

@@ -11,7 +11,7 @@
 {{#if list.isResolved}}
     {{#each(list.value)}}
     <li>
-        <a class="dropdown-item" href="#" on:click="../select)">{{messageType}}</a>
+        <a class="dropdown-item" href="#" on:click="../select(.)">{{messageType}}</a>
     </li>
 {{/each}}
 {{else}}
