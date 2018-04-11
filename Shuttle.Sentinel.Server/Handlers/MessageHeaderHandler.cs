@@ -29,7 +29,7 @@ namespace Shuttle.Sentinel.Server
 
             using (_databaseContextFactory.Create())
             {
-                _messageHeaderQuery.Save(message.Key, message.Value);
+                _messageHeaderQuery.Save(message.Id, message.Key, message.Value);
             }
         }
 

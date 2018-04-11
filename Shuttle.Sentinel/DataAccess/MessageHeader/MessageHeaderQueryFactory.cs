@@ -14,7 +14,7 @@ from
     MessageHeader 
 ";
 
-        public IQuery Save(string key, string value)
+        public IQuery Save(Guid id, string key, string value)
         {
             return RawQuery.Create(@"
 if not exists(select null from MessageHeader where [Key] = @Key and Value = @Value) 
@@ -26,11 +26,12 @@ if not exists(select null from MessageHeader where [Key] = @Key and Value = @Val
     ) 
     values 
     (
-        newid(),
+        @Id,
         @Key,
         @Value
     )
 ")
+                .AddParameterValue(Columns.Id, id)
                 .AddParameterValue(MessageHeaderColumns.Key, key)
                 .AddParameterValue(MessageHeaderColumns.Value, value);
         }

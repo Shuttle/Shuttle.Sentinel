@@ -6,7 +6,7 @@ namespace Shuttle.Sentinel.DataAccess
 {
     public interface IMessageHeaderQuery
     {
-        void Save(string key, string value);
+        void Save(Guid id, string key, string value);
         void Remove(Guid id);
         IEnumerable<MessageHeader> All();
         IEnumerable<MessageHeader> Search(string match);

@@ -38,6 +38,27 @@ export const MessageHeaderMap = DefineMap.extend({
     viewModel: {
         type: '*',
         serialize: false
+    },
+    toggle(){
+        var self = this;
+
+        if (!this.saved){
+            api.headers.post({
+                key: this.key,
+                value: this.value,
+            })
+                .then(function(id){
+                    self.id = id;
+                    self.saved = true;
+                });
+        } else{
+            api.headers.delete({
+                id: this.id
+            })
+                .then(function(){
+                    self.saved = false;
+                });
+        }
     }
 });
 
@@ -46,15 +67,18 @@ export const MessageHeaderList = DefineList.extend({
 });
 
 var api = {
-    messageHeaders: new Api({
+    search: new Api({
         endpoint: 'messageheaders/{search}',
         Map: MessageHeaderMap
+    }),
+    headers: new Api({
+        endpoint: 'messageheaders/{id}'
     })
 }
 
 export const ViewModel = DefineMap.extend({
     get savedHeaders() {
-        return api.messageHeaders.list({search: encodeURIComponent(this.searchValue)});
+        return api.search.list({search: encodeURIComponent(this.searchValue)});
     },
 
     searchValue: {
@@ -127,7 +151,7 @@ export const ViewModel = DefineMap.extend({
             columns.push({
                 columnTitle: 'saved',
                 columnClass: 'col-1',
-                stache: '<cs-checkbox click:from="toggle" checked:bind="saved" checkedClass:from="\'fa-toggle-on\'" uncheckedClass:from="\'fa-toggle-off\'"/>{{#if working}}<i class="fa fa-hourglass-o" aria-hidden="true"></i>{{/if}}'
+                stache: '<cs-checkbox click:from="toggle" checked:bind="saved" checkedClass:from="\'fa-toggle-on\'" uncheckedClass:from="\'fa-toggle-off\'"/>'
             });
 
             columns.push({
@@ -181,6 +205,7 @@ export const ViewModel = DefineMap.extend({
 
         if (!!header) {
             header.value = this.headerValue;
+            header.saved = false;
         }
         else {
             this.headers.push({

@@ -63,13 +63,16 @@ namespace Shuttle.Sentinel.WebApi
         {
             Guard.AgainstNull(model, nameof(model));
 
+            var id = Guid.NewGuid();
+
             _bus.Send(new AddMessageHeaderCommand
             {
+                Id = id,
                 Key = model.Key,
                 Value = model.Value
             });
 
-            return Ok();
+            return Ok(id);
         }
 
         [RequiresPermission(SystemPermissions.Manage.Messages)]
