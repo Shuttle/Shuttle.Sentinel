@@ -5,8 +5,8 @@
 <cs-form-group vm:errors:from="errors()" errorAttribute:from="'messageType'" elementClass:from="formGroupClass">
     <cs-label label:from="'message:message-type'" required:from="required"/>
     <input type="text" value:bind="messageType" on:input="search(scope.element)"
-           class="form-control dropdown-toggle {{elementClass}}"
-           data-toggle="dropdown" placeholder="enter/select the message type" aria-haspopup="true"/>
+           class="form-control dropdown-toggle"
+           data-toggle="dropdown" placeholder="{{i18n('message:placeholder-select-message-type')}}" aria-haspopup="true"/>
 <ul class="dropdown-menu" aria-expanded="false">
 {{#if list.isResolved}}
     {{#each(list.value)}}
@@ -21,7 +21,7 @@
 {{/if}}
 </ul>
 </cs-form-group>
-    <cs-form-textarea label:from="'message:message'" value:bind="message" placeholder:from="'serialized message'"
+    <cs-form-textarea label:from="'message:message'" value:bind="message" placeholder:from="'message:placeholder-serialized-message'"
                       rows:from="'10'" required:from="'true'" vm:errors:from="errors()"
                       errorAttribute:from="'message'"/>
 </cs-collapse>

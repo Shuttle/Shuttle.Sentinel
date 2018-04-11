@@ -7,6 +7,10 @@ import validator from 'can-define-validate-validatejs';
 import guard from 'shuttle-guard';
 
 export const MessageHeaderMap = DefineMap.extend({
+    id: {
+        type: 'string',
+        default: ''
+    },
     key: {
         type: 'string',
         default: ''
@@ -14,6 +18,11 @@ export const MessageHeaderMap = DefineMap.extend({
     value: {
         type: 'string',
         default: ''
+    },
+    description: {
+        get() {
+            return this.key + ': ' + this.value;
+        }
     },
     saved: {
         type: 'boolean',
@@ -44,6 +53,40 @@ var api = {
 }
 
 export const ViewModel = DefineMap.extend({
+    get savedHeaders() {
+        return api.messageHeaders.list({search: encodeURIComponent(this.searchValue)});
+    },
+
+    searchValue: {
+        type: 'string',
+        default: ''
+    },
+
+    searchHeader: function (el) {
+        this.searchValue = el.value;
+
+        $(el).dropdown();
+    },
+
+    select: function (item) {
+        const header = this.find(item.key);
+
+        if (!!header) {
+            header.id = item.id;
+            header.value = item.value;
+            header.saved = true;
+        }
+        else {
+            this.headers.push({
+                id: item.id,
+                key: item.key,
+                value: item.value,
+                saved: true,
+                viewModel: this
+            });
+        }
+    },
+
     columns: {
         Default: DefineList
     },
