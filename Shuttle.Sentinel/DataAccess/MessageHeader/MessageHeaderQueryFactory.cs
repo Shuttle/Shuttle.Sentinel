@@ -14,17 +14,19 @@ from
     MessageHeader 
 ";
 
-        public IQuery Add(string key, string value)
+        public IQuery Save(string key, string value)
         {
             return RawQuery.Create(@"
-if not exists(select null from MessageHeader where Key = @Key and Value = @Value) 
+if not exists(select null from MessageHeader where [Key] = @Key and Value = @Value) 
     insert into MessageHeader 
     (
+        [Id],
         [Key],
         [Value]
     ) 
     values 
     (
+        newid(),
         @Key,
         @Value
     )

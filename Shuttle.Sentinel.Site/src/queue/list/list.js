@@ -26,7 +26,7 @@ export const Map = DefineMap.extend({
             .then(function () {
                 state.alerts.show({
                     message: localisation.value('itemRemovalRequested',
-                        {itemName: localisation.value('role:role')})
+                        {itemName: localisation.value('queue:title')})
                 });
             });
     },

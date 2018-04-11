@@ -1,13 +1,10 @@
-<div class="row">
-    <div class="col-6">
+<cs-form title="messageheader:item.title">
+    <fieldset class="form-group">
         <cs-form-input label:from="'key'" vm:value:bind="headerKey" vm:errors:from="errors()"
                        errorAttribute:from="'headerKey'"/>
-    </div>
-    <div class="col-6">
         <cs-form-input label:from="'value'" vm:value:bind="headerValue" vm:errors:from="errors()"
                        errorAttribute:from="'headerValue'"/>
-    </div>
-</div>
-<cs-button click:from="add" text:from="'add'" elementClass:from="'mb-2'"/>
-<cs-table vm:columns:from="columns" vm:rows:from="headers" />
-
+        <cs-button-submit vm:click:from="save" text:from="'save'"/>
+        <cs-button vm:click:from="close" text:from="'close'"/>
+    </fieldset>
+</cs-form>

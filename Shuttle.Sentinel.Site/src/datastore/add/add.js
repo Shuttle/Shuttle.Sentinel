@@ -10,77 +10,74 @@ import state from '~/state';
 import stack from '~/stack';
 import localisation from '~/localisation';
 
-resources.add('datastore', { action: 'add', permission: Permissions.Manage.DataStores });
+resources.add('datastore', {action: 'add', permission: Permissions.Manage.DataStores});
 
 var datastores = new Api({
     endpoint: 'datastores/{id}'
 });
 
-export const ViewModel = DefineMap.extend(
-    'queues',
-    {
-        init: function() {
-            const result = stack.pop('datastore');
+export const ViewModel = DefineMap.extend({
+    init: function () {
+        const result = stack.pop('datastore');
 
-            state.title = localisation.value('datastore:list.title');
+        state.title = localisation.value('datastore:add.title');
 
-            if (!result) {
-                return;
-            }
-
-            this.name = result.name;
-            this.connectionString = result.connectionString;
-            this.providerName = result.providerName;
-        },
-
-        name: { 
-            type: 'string',
-            default: '',
-            validate: {
-                presence: true
-            }
-        },
-
-        connectionString: { 
-            type: 'string',
-            default: '',
-            validate: {
-                presence: true
-            }
-        },
-
-        providerName: { 
-            type: 'string',
-            default: '',
-            validate: {
-                presence: true
-            }
-        },
-
-        add: function() {
-            if (!!this.errors()) {
-                return false;
-            }
-
-            datastores.post({
-                name: this.name,
-                connectionString: this.connectionString,
-                providerName: this.providerName
-            });
-
-            this.close();
-
-            return false;
-        },
-
-        close: function() {
-            router.goto({
-                resource: 'datastore',
-                action: 'list'
-            });
+        if (!result) {
+            return;
         }
+
+        this.name = result.name;
+        this.connectionString = result.connectionString;
+        this.providerName = result.providerName;
+    },
+
+    name: {
+        type: 'string',
+        default: '',
+        validate: {
+            presence: true
+        }
+    },
+
+    connectionString: {
+        type: 'string',
+        default: '',
+        validate: {
+            presence: true
+        }
+    },
+
+    providerName: {
+        type: 'string',
+        default: '',
+        validate: {
+            presence: true
+        }
+    },
+
+    add: function () {
+        if (!!this.errors()) {
+            return false;
+        }
+
+        datastores.post({
+            name: this.name,
+            connectionString: this.connectionString,
+            providerName: this.providerName
+        });
+
+        this.close();
+
+        return false;
+    },
+
+    close: function () {
+        router.goto({
+            resource: 'datastore',
+            action: 'list'
+        });
     }
-);
+});
 
 validator(ViewModel);
 

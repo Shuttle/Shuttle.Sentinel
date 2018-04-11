@@ -1,5 +1,8 @@
 ﻿{
   "list": {
     "title": "Message Headers"
+  },
+  "item": {
+    "title": "Message Header"
   }
 }

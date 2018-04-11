@@ -91,7 +91,8 @@ var Router = DefineMap.extend({
         if (!resource) {
             state.alerts.show({
                 message: localisation.value('exceptions.resource-not-found', {
-                    hash: window.location.hash,
+                    resource: resourceName,
+                    action: actionName || '',
                     interpolation: {escape: false}
                 }), type: 'warning', name: 'route-error'
             });

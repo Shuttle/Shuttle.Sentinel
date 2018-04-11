@@ -1,60 +1,33 @@
 import Component from 'can-component/';
 import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import view from './item.stache!';
+import router from '~/router';
 import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
-import guard from 'shuttle-guard';
+import state from '~/state';
+import stack from '~/stack';
+import localisation from '~/localisation';
 
-resources.add('messageheader', {action: 'add', permission: Permissions.Manage.Messages});
+resources.add('messageheader', {action: 'item', permission: Permissions.Manage.Messages});
 
-export const MessageHeaderMap = DefineMap.extend({
-    key: {
-        type: 'string',
-        default: ''
-    },
-    value: {
-        type: 'string',
-        default: ''
-    }
+var api = new Api({
+    endpoint: 'messageheaders/{id}'
 });
 
-var api = {
-    messageHeaders: new Api({
-        endpoint: 'messageheaders/{id}',
-        Map: MessageHeaderMap
-    })
-}
-
 export const ViewModel = DefineMap.extend({
-    columns: {
-        Default: DefineList
-    },
-
     init() {
-        const columns = this.columns;
+        const result = stack.pop('messageheader');
 
-        if (!columns.length) {
-            columns.push({
-                columnTitle: 'key',
-                columnClass: 'col-5',
-                attributeName: 'key'
-            });
+        state.title = localisation.value('messageheader:item.title');
 
-            columns.push({
-                columnTitle: 'value',
-                columnClass: 'col',
-                attributeName: 'value'
-            });
-
-            columns.push({
-                columnTitle: 'actions',
-                columnClass: 'col-1',
-                stache: '<cs-button click:from="scope.root.edit" text:from="\'edit\'" elementClass:from="\'btn-sm\'"/><cs-button-remove click:from="remove" elementClass:from="\'btn-sm\'"/>'
-            });
+        if (!result) {
+            return;
         }
+
+        this.headerKey = result.key;
+        this.headerValue = result.value;
     },
 
     headerKey: {
@@ -73,37 +46,33 @@ export const ViewModel = DefineMap.extend({
         }
     },
 
-    find(key) {
-        guard.againstUndefined(key, 'key');
-
-        var match = key.toLowerCase();
-
-        var result = this.headers.filter(function(header){
-            return header.key.toLowerCase() === match;
-        });
-
-        return result.length > 0 ? result[0] : null;
-    },
-
-    add() {
-        const self = this;
-
+    save() {
         if (!!this.errors()) {
             return false;
         }
 
-        this.working = true;
+        api.post({
+            key: this.headerKey,
+            value: this.headerValue,
+        });
 
-api.messageHeaders.post({
-    key: this.headerKey,
-    value})
+        this.close();
+
+        return false;
+    },
+
+    close: function () {
+        router.goto({
+            resource: 'messageheader',
+            action: 'list'
+        });
     }
 });
 
 validator(ViewModel);
 
 export default Component.extend({
-    tag: 'sentinel-message-headers',
+    tag: 'sentinel-messageheader-item',
     ViewModel,
     view
 });

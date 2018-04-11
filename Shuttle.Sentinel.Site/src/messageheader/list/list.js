@@ -19,11 +19,24 @@ export const Map = DefineMap.extend({
     value: {
         type: 'string',
         default: ''
-    }
-});
+    },
+    remove() {
+        api.delete({id: this.id})
+            .then(function () {
+                state.alerts.show({
+                    message: localisation.value('itemRemovalRequested',
+                        {itemName: localisation.value('messageheader:item.title')})
+                });
+            });
+    },
+    edit() {
+        state.stack.put('messageheader', this);
 
-export const MessageHeaderList = DefineList.extend({
-    '#': Map
+        router.goto({
+            resource: 'messageheader',
+            action: 'item'
+        });
+    }
 });
 
 var api = new Api({
@@ -50,6 +63,12 @@ export const ViewModel = DefineMap.extend({
 
         if (!columns.length) {
             columns.push({
+                columnTitle: 'edit',
+                columnClass: 'col-1',
+                stache: '<cs-button text:from="\'edit\'" click:from="edit" elementClass:from="\'btn-sm\'"/>'
+            });
+
+            columns.push({
                 columnTitle: 'key',
                 columnClass: 'col-5',
                 attributeName: 'key'
@@ -62,9 +81,9 @@ export const ViewModel = DefineMap.extend({
             });
 
             columns.push({
-                columnTitle: 'actions',
+                columnTitle: 'remove',
                 columnClass: 'col-1',
-                stache: '<cs-button click:from="scope.root.edit" text:from="\'edit\'" elementClass:from="\'btn-sm\'"/><cs-button-remove click:from="remove" elementClass:from="\'btn-sm\'"/>'
+                stache: '<cs-button-remove click:from="remove" elementClass:from="\'btn-sm\'"/>'
             });
         }
 
@@ -85,7 +104,7 @@ export const ViewModel = DefineMap.extend({
     add: function() {
         router.goto({
             resource: 'messageheader',
-            action: 'add'
+            action: 'item'
         });
     },
 
