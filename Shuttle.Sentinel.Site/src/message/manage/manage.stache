@@ -8,13 +8,13 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="{{i18n('count')}}" value:bind="fetchCount">
                 <div class="input-group-append">
-                    <button type="button" on:click="fetch" class="btn btn-primary">
+                    <button type="button" on:click="fetch()" class="btn btn-primary">
                         {{i18n("fetch")}}
                     </button>
-                    <button type="button" on:click="moveDirect" class="btn btn-default">
+                    <button type="button" on:click="moveDirect()" class="btn btn-default">
                         {{i18n("move")}}
                     </button>
-                    <button type="button" on:click="copyDirect" class="btn btn-default  ">
+                    <button type="button" on:click="copyDirect()" class="btn btn-default  ">
                         {{i18n("copy")}}
                     </button>
                 </div>
@@ -27,11 +27,11 @@
     <div>
         <div class="form-group mt-2 mb-2">
             <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" on:click="checkNone"><span
+                <button type="button" class="btn btn-default" on:click="checkNone()"><span
                         class="fa fa-square-o"></span></button>
-                <button type="button" class="btn btn-default" on:click="checkInvert"><span
+                <button type="button" class="btn btn-default" on:click="checkInvert()"><span
                         class="fa fa-square"></span></button>
-                <button type="button" class="btn btn-default" on:click="checkAll"><span
+                <button type="button" class="btn btn-default" on:click="checkAll()"><span
                         class="fa fa-check-square-o"></span></button>
             </div>
             <cs-button actions:from="messageActions" text:from="'message:messages'"

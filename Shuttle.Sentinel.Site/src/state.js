@@ -4,10 +4,12 @@ import guard from 'shuttle-guard';
 import route from 'can-route';
 import {alerts} from 'shuttle-canstrap/alerts/';
 import loader from '@loader';
-import stache from 'can-stache';
 import localisation from '~/localisation';
 import navbar from '~/navbar';
 import stack from '~/stack';
+import access from "shuttle-access";
+import map from "./navigation/navigation-map";
+import each from 'can-util/js/each/';
 
 var State = DefineMap.extend({
     route: route,
@@ -68,6 +70,43 @@ var State = DefineMap.extend({
             return {};
         }
     },
+    resources: {
+        get: function (value) {
+            var result = new DefineList();
+
+            each(map, function (item) {
+                var add = false;
+                var list = new DefineList();
+
+                if (!item.permission || access.hasPermission(item.permission)) {
+                    if (item.items !== undefined) {
+                        each(item.items, function (subitem) {
+                            if (!subitem.permission || access.hasPermission(subitem.permission)) {
+                                add = true;
+
+                                list.push(new DefineMap({
+                                    href: subitem.href,
+                                    text: subitem.text
+                                }));
+                            }
+                        });
+                    } else {
+                        add = true;
+                    }
+
+                    if (add) {
+                        result.push({
+                            text: item.text,
+                            href: item.href || '',
+                            list: list
+                        });
+                    }
+                }
+            });
+
+            return result;
+        }
+    }
 });
 
 export default new State();

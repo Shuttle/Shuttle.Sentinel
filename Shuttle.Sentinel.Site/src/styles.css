@@ -5,6 +5,39 @@ body {
 
 .cs-buttons { margin: 15px 0; }
 
+
+#sidebar {
+	overflow: hidden;
+	z-index: 3;
+}
+
+#sidebar {
+	background-color: #333;
+	min-height: 100vh;
+}
+
+#sidebar .list-group-item {
+	border-radius: 0;
+	background-color: #333;
+	color: #ccc;
+	border-left: 0;
+	border-right: 0;
+	border-color: #2c2c2c;
+	white-space: nowrap;
+	width: 100%;
+}
+
+/* highlight active menu */
+#sidebar .list-group-item:not(.collapsed) {
+	background-color: #444;
+}
+
+/* open state */
+#sidebar .list-group-item[aria-expanded="true"] {
+	background-color: #222;
+}
+
+
 @media only screen and (max-width: 800px) {
 	/* Force table to not be like tables anymore */
 	table, 

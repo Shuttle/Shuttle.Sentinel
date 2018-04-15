@@ -1,9 +1,20 @@
-﻿<sentinel-navigation/>
-<main id="application-container" class="col-12 mt-3" role="main">
-    <cs-alerts/>
-    <cs-modal modalId:from="'modal-confirmation'" primaryText:from="'yes'" dismissText:from="'no'"
-              title:from="'confirmation'" message:from="modal.confirmation.message"
-              primaryClick:from='modal.confirmation.primaryClick'/>
-    <div id="application-content"></div>
-</main>
+﻿<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-md-3 float-left pl-0 pr-0 collapse-width navbar-collapse show" id="sidebar-collapse">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark access-navbar">
+                <a class="navbar-brand" href="#!dashboard">Shuttle.Sentinel</a>
+            </nav>
+            <cs-sidebar list:from="resources" id:from="'sidebar'" togglerId:from="'sidebarToggler'" />
+        </div>
+        <main id="application-container" class="col-md-9 m-0 p-0 main" role="main">
+            <sentinel-navigation/>
+            <cs-alerts/>
+            <cs-modal modalId:from="'modal-confirmation'" primaryText:from="'yes'" dismissText:from="'no'"
+                      title:from="'confirmation'" message:from="modal.confirmation.message"
+                      primaryClick:from='modal.confirmation.primaryClick'/>
+            <div id="application-content" class="p-3"></div>
+        </main>
+    </div>
+</div>
+
 
