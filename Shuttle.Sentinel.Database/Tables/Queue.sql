@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[Queue] (
     [Id]  UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
     [Uri] VARCHAR (130)    NOT NULL,
+    [IsErrorQueue] BIT NOT NULL DEFAULT 0, 
     CONSTRAINT [PK_Queue] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

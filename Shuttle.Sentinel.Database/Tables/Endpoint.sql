@@ -5,8 +5,13 @@
     [BaseDirectory]              VARCHAR (260)    NOT NULL,
     [EntryAssemblyQualifiedName] VARCHAR (500)    NOT NULL,
     [InboxWorkQueueUri]          VARCHAR (130)    NOT NULL,
-    [ControlInboxWorkQueueUri]   VARCHAR (130)    NOT NULL,
-    CONSTRAINT [PK_Endpoint] PRIMARY KEY NONCLUSTERED ([Id] ASC)
+    [InboxDeferredQueueUri]		VARCHAR(130) NULL, 
+    [InboxErrorQueueUri]		VARCHAR(130) NOT NULL, 
+    [ControlInboxWorkQueueUri]   VARCHAR (130)    NULL,
+    [ControlInboxErrorQueueUri]   VARCHAR (130)    NULL,
+    [OutboxWorkQueueUri]   VARCHAR (130)    NULL,
+    [OutboxErrorQueueUri]   VARCHAR (130)    NULL,
+	CONSTRAINT [PK_Endpoint] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 );
 
 GO

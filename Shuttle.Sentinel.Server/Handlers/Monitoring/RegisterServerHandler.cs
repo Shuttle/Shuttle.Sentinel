@@ -26,25 +26,17 @@ namespace Shuttle.Sentinel.Server
 
             using (_databaseContextFactory.Create())
             {
-                var id = _serverQuery.FindId(message.MachineName, message.BaseDirectory);
-
-                if (id.HasValue)
-                {
                     _serverQuery.Save(
-                        id.Value, 
+                        message.MachineName,
+                        message.BaseDirectory,
                         message.IPv4Address, 
                         message.InboxWorkQueueUri,
-                        message.ControlInboxWorkQueueUri);
-                }
-                else
-                {
-                    _serverQuery.Add(
-                        message.MachineName, 
-                        message.BaseDirectory,
-                        message.IPv4Address,
-                        message.InboxWorkQueueUri,
-                        message.ControlInboxWorkQueueUri);
-                }
+                        message.InboxDeferredQueueUri,
+                        message.InboxErrorQueueUri,
+                        message.OutboxWorkQueueUri,
+                        message.OutboxErrorQueueUri,
+                        message.ControlInboxWorkQueueUri,
+                        message.ControlInboxErrorQueueUri);
             }
         }
     }

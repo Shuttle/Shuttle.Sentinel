@@ -51,22 +51,31 @@ namespace Shuttle.Sentinel.Server
                 ipv4Address = ip.ToString();
             }
 
-            //var serviceBusConfiguration = container.Resolve<IServiceBusConfiguration>();
+            var serviceBusConfiguration = container.Resolve<IServiceBusConfiguration>();
 
-            //if (!serviceBusConfiguration.HasInbox)
-            //{
-            //    throw new 
-            //}
-
-            //_bus.Send(new RegisterServerCommand
-            //{
-            //    MachineName = Environment.MachineName,
-            //    IPv4Address = ipv4Address,
-            //    BaseDirectory = AppDomain.CurrentDomain.BaseDirectory,
-                
-            //}, c => c.Local());
-
-            //_bus.Send(new RegisterSystemMetricsCommand(), c => c.Local().Defer(DateTime.Now.AddSeconds(5)));
+            _bus.Send(new RegisterServerCommand
+            {
+                MachineName = Environment.MachineName,
+                IPv4Address = ipv4Address,
+                BaseDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                InboxWorkQueueUri = serviceBusConfiguration.Inbox.WorkQueueUri,
+                InboxDeferredQueueUri = serviceBusConfiguration.Inbox.HasDeferredQueue
+                    ? serviceBusConfiguration.Inbox.DeferredQueueUri
+                    : string.Empty,
+                InboxErrorQueueUri = serviceBusConfiguration.Inbox.ErrorQueueUri,
+                OutboxWorkQueueUri = serviceBusConfiguration.HasOutbox
+                    ? serviceBusConfiguration.Outbox.WorkQueueUri
+                    : string.Empty,
+                OutboxErrorQueueUri = serviceBusConfiguration.HasOutbox
+                    ? serviceBusConfiguration.Outbox.ErrorQueueUri
+                    : string.Empty,
+                ControlInboxWorkQueueUri = serviceBusConfiguration.HasControlInbox
+                    ? serviceBusConfiguration.ControlInbox.WorkQueueUri
+                    : string.Empty,
+                ControlInboxErrorQueueUri = serviceBusConfiguration.HasControlInbox
+                    ? serviceBusConfiguration.ControlInbox.ErrorQueueUri
+                    : string.Empty
+            }, c => c.Local());
         }
 
         public void Stop()

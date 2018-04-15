@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>Shuttle.Sentinel.Module</id>
+		<version>{semver}</version>
+		<authors>Eben Roux</authors>
+		<owners>Eben Roux</owners>
+		<licenseUrl>https://github.com/shuttle/Shuttle.Sentinel.Module/raw/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/shuttle/Shuttle.Sentinel.Module</projectUrl>
+		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Sentinel.Module/master/.media/logo.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>The Shuttle.Sentinel module may be included in a Shuttle.Esb endpoint to gather statistics about the endpoint.</description>
+		<releaseNotes/>
+		<copyright>Copyright (c) {year}, Eben Roux</copyright>
+		<tags>shuttle sentinel</tags>
+	  <dependencies>
+	    <dependency id="Shuttle.Esb" version="{Shuttle.Esb-version}" />
+	  </dependencies>
+	</metadata>
+</package>

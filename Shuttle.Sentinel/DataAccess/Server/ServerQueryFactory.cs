@@ -21,50 +21,76 @@ and
                 .AddParameterValue(ServerColumns.BaseDirectory, baseDirectory);
         }
 
-        public IQuery Save(Guid id, string ipv4Address, string inboxWorkQueueUri, string controlInboxWorkQueueUri)
+        public IQuery Save(string machineName, string baseDirectory, string ipv4Address, string inboxWorkQueueUri,
+            string inboxDeferredQueueUri, string inboxErrorQueueUri,
+            string controlInboxWorkQueueUri, string controlInboxErrorQueueUri, string outboxWorkQueueUri,
+            string outboxErrorQueueUri)
         {
             return RawQuery.Create(@"
-update
-    Server
-set
-    IPv4Address = @IPv4Address,
-    InboxWorkQueueUri = @InboxWorkQueueUri,
-    ControlInboxWorkQueueUri = @ControlInboxWorkQueueUri
-where
-    Id = @Id
-")
-                .AddParameterValue(ServerColumns.IPv4Address, ipv4Address)
-                .AddParameterValue(ServerColumns.InboxWorkQueueUri, inboxWorkQueueUri)
-                .AddParameterValue(ServerColumns.ControlInboxWorkQueueUri, controlInboxWorkQueueUri)
-                .AddParameterValue(Columns.Id, id);
-        }
-
-        public IQuery Add(string machineName, string baseDirectory, string ipv4Address, string inboxWorkQueueUri,
-            string controlInboxWorkQueueUri)
-        {
-            return RawQuery.Create(@"
-insert into Server
+if not exists
 (
-    MachineName,
-    BaseDirectory,
-    IPv4Address,
-    InboxWorkQueueUri,
-    ControlInboxWorkQueueUri
+    select
+        null
+    from
+        Server
+    where
+        MachineName = @MachineName
+    and
+        BaseDirectory = @BaseDirectory
 )
-values
-(
-    @MachineName,
-    @BaseDirectory,
-    @IPv4Address,
-    @InboxWorkQueueUri,
-    @ControlInboxWorkQueueUri
-)
+    insert into Server
+    (
+        MachineName,
+        BaseDirectory,
+        IPv4Address,
+        InboxWorkQueueUri,
+        InboxDeferredQueueUri,
+        InboxErrorQueueUri,
+        ControlInboxWorkQueueUri,
+        ControlInboxErrorQueueUri,
+        OutboxWorkQueueUri,
+        OutboxErrorQueueUri
+    )
+    values
+    (
+        @MachineName,
+        @BaseDirectory,
+        @IPv4Address,
+        @InboxWorkQueueUri,
+        @InboxDeferredQueueUri,
+        @InboxErrorQueueUri,
+        @ControlInboxWorkQueueUri,
+        @ControlInboxErrorQueueUri,
+        @OutboxWorkQueueUri,
+        @OutboxErrorQueueUri    
+    )
+else
+    update
+        Server
+    set
+        IPv4Address = @IPv4Address,
+        InboxWorkQueueUri = @InboxWorkQueueUri,
+        InboxDeferredQueueUri = @InboxDeferredQueueUri,
+        InboxErrorQueueUri = @InboxErrorQueueUri,
+        ControlInboxWorkQueueUri = @ControlInboxWorkQueueUri,
+        ControlInboxErrorQueueUri = @ControlInboxErrorQueueUri,
+        OutboxWorkQueueUri = @OutboxWorkQueueUri,
+        OutboxErrorQueueUri = @OutboxErrorQueueUri
+    where
+        MachineName = @MachineName
+    and
+        BaseDirectory = @BaseDirectory
 ")
                 .AddParameterValue(ServerColumns.MachineName, machineName)
                 .AddParameterValue(ServerColumns.BaseDirectory, baseDirectory)
                 .AddParameterValue(ServerColumns.IPv4Address, ipv4Address)
                 .AddParameterValue(ServerColumns.InboxWorkQueueUri, inboxWorkQueueUri)
-                .AddParameterValue(ServerColumns.ControlInboxWorkQueueUri, controlInboxWorkQueueUri);
+                .AddParameterValue(ServerColumns.InboxErrorQueueUri, inboxErrorQueueUri)
+                .AddParameterValue(ServerColumns.InboxDeferredQueueUri, inboxDeferredQueueUri)
+                .AddParameterValue(ServerColumns.ControlInboxWorkQueueUri, controlInboxWorkQueueUri)
+                .AddParameterValue(ServerColumns.ControlInboxErrorQueueUri, controlInboxErrorQueueUri)
+                .AddParameterValue(ServerColumns.OutboxWorkQueueUri, outboxWorkQueueUri)
+                .AddParameterValue(ServerColumns.OutboxErrorQueueUri, outboxErrorQueueUri);
         }
     }
 }
