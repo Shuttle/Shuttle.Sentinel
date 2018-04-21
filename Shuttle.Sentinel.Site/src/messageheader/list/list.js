@@ -87,7 +87,7 @@ export const ViewModel = DefineMap.extend({
             });
         }
 
-        state.title = localisation.value('messageheader:list.title');
+        state.title = 'messageheader:list.title';
 
         state.navbar.addButton({
             type: 'add',

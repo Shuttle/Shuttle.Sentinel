@@ -76,6 +76,8 @@ namespace Shuttle.Sentinel.WebApi
                 {
                     queue.Id,
                     queue.Uri,
+                    queue.Processor,
+                    queue.Type,
                     SecuredUri = securedUri
                 });
             }
@@ -98,9 +100,11 @@ namespace Shuttle.Sentinel.WebApi
                 return BadRequest(string.Format(Resources.InvalidUri, model.Uri));
             }
 
-            _bus.Send(new AddQueueCommand
+            _bus.Send(new SaveQueueCommand
             {
-                QueueUri = model.Uri
+                QueueUri = model.Uri,
+                Processor = model.Processor,
+                Type = model.Type
             });
 
             return Ok();

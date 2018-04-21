@@ -6,5 +6,7 @@ namespace Shuttle.Sentinel.DataAccess.Query
     {
         public Guid Id { get; set; }
         public string Uri { get; set; }
+        public string Processor { get; set; }
+        public string Type { get; set; }
     }
 }

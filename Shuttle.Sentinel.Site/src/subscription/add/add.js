@@ -33,7 +33,7 @@ export const ViewModel = DefineMap.extend(
         init () {
             const self = this;
 
-            state.title = localisation.value('subscription:list.title');
+            state.title = 'subscription:list.title';
 
             self.dataStores.push({
                 value: undefined,

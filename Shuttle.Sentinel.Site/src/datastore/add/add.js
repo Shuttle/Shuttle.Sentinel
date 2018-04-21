@@ -20,7 +20,7 @@ export const ViewModel = DefineMap.extend({
     init: function () {
         const result = stack.pop('datastore');
 
-        state.title = localisation.value('datastore:add.title');
+        state.title = 'datastore:add.title';
 
         if (!result) {
             return;

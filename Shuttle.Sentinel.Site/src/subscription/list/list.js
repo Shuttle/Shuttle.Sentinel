@@ -141,7 +141,7 @@ export const ViewModel = DefineMap.extend(
                 });
             });
 
-            state.title = localisation.value('subscription:list.title');
+            state.title = 'subscription:list.title';
 
             state.navbar.addButton({
                 type: 'add',

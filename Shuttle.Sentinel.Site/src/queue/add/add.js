@@ -6,10 +6,10 @@ import Permissions from '~/permissions';
 import router from '~/router';
 import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
-import localisation from '~/localisation';
 import state from '~/state';
+import {OptionList} from 'shuttle-canstrap/select/';
 
-resources.add('queue', { action: 'add', permission: Permissions.Manage.Queues });
+resources.add('queue', {action: 'add', permission: Permissions.Manage.Queues});
 
 var queues = new Api({
     endpoint: 'queues/{id}'
@@ -19,36 +19,108 @@ export const ViewModel = DefineMap.extend(
     'queue',
     {
         init() {
-            state.title = localisation.value('queue:list.title');
+            state.title = 'queue:list.title';
+
+            const result = state.stack.pop('queue');
+
+            if (!result) {
+                return;
+            }
+
+            this.uri = result.uri;
+            this.processor = result.processor;
+            this.type = result.type;
         },
 
         uri: {
             default: '',
-            get: function(value) {
-                var result = value;
-
-                if (!value) {
-                    result = state.stack.pop('queue');
-
-                    if (result) {
-                        result = result.uri;
-                    }
-                }
-
-                return result || value;
-            },
             validate: {
                 presence: true
             }
         },
 
-        add: function() {
+        processor: {
+            type: 'string',
+            default: 'unknown',
+            validate: {
+                presence: true
+            }
+        },
+
+        processorOptions: {
+            Type: OptionList,
+            get() {
+                return [
+                    {
+                        value: 'unknown',
+                        label: 'unknown'
+                    },
+                    {
+                        value: 'inbox',
+                        label: 'inbox'
+                    },
+                    {
+                        value: 'outbox',
+                        label: 'outbox'
+                    },
+                    {
+                        value: 'control-inbox',
+                        label: 'control-inbox'
+                    }
+                ]
+            }
+        },
+
+        type: {
+            type: 'string',
+            default: 'unknown',
+            validate: {
+                presence: true
+            }
+        },
+
+        typeOptions: {
+            Type: OptionList,
+            get() {
+                var result = [
+                    {
+                        value: 'unknown',
+                        label: 'unknown'
+                    },
+                    {
+                        value: 'work',
+                        label: 'work'
+                    },
+                    {
+                        value: 'error',
+                        label: 'error'
+                    }
+                ];
+
+                if (this.processor === 'inbox' || this.processor == 'unknown') {
+                    result.push({
+                        value: 'deferred',
+                        label: 'deferred'
+                    });
+                } else {
+                    if (this.type === 'deferred') {
+                        this.type = 'unknown';
+                    }
+                }
+
+                return result;
+            }
+        },
+
+        add: function () {
             if (!!this.errors()) {
                 return false;
             }
 
             queues.post({
-                uri: this.uri
+                uri: this.uri,
+                processor: this.processor,
+                type: this.type
             });
 
             this.close();
@@ -56,7 +128,7 @@ export const ViewModel = DefineMap.extend(
             return false;
         },
 
-        close: function() {
+        close: function () {
             router.goto({
                 resource: 'queue',
                 action: 'list'

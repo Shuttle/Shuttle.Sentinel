@@ -58,7 +58,7 @@ export const ViewModel = DefineMap.extend({
     },
 
     init() {
-        state.title = localisation.value('message:title-send');
+        state.title = 'message:title-send';
     },
 
     searchValue: {

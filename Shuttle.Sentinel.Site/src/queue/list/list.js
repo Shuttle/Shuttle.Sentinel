@@ -18,6 +18,12 @@ export const Map = DefineMap.extend({
     uri: {
         type: 'string'
     },
+    processor: {
+        type: 'string'
+    },
+    type: {
+        type: 'string'
+    },
     securedUri: {
         type: 'string'
     },
@@ -74,13 +80,25 @@ export const ViewModel = DefineMap.extend({
             });
 
             columns.push({
+                columnTitle: 'queue:processor',
+                columnClass: 'col-1',
+                attributeName: 'processor'
+            });
+
+            columns.push({
+                columnTitle: 'queue:type',
+                columnClass: 'col-1',
+                attributeName: 'type'
+            });
+
+            columns.push({
                 columnTitle: 'remove',
                 columnClass: 'col-1',
                 stache: '<cs-button-remove click:from="remove" elementClass:from="\'btn-sm\'"/>'
             });
         }
 
-        state.title = localisation.value('queue:list.title');
+        state.title = 'queue:list.title';
 
         state.navbar.addButton({
             type: 'add',

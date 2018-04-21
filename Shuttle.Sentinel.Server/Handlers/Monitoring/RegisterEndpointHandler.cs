@@ -46,7 +46,7 @@ namespace Shuttle.Sentinel.Server
 
             if (!string.IsNullOrEmpty(message.InboxWorkQueueUri))
             {
-                context.Send(new AddQueueCommand
+                context.Send(new SaveQueueCommand
                 {
                     QueueUri = message.InboxWorkQueueUri
                 }, c => c.Local());

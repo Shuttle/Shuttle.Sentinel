@@ -3,7 +3,7 @@ import DefineList from 'can-define/list/';
 import each from 'can-util/js/each/';
 
 var Resources = DefineMap.extend({
-	_resources: { Value: DefineList },
+	_resources: { Default: DefineList },
 
 	add: function (name, options) {
 		var o = options || {};

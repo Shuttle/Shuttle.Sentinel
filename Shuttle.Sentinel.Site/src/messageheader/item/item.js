@@ -20,7 +20,7 @@ export const ViewModel = DefineMap.extend({
     init() {
         const result = stack.pop('messageheader');
 
-        state.title = localisation.value('messageheader:item.title');
+        state.title = 'messageheader:item.title';
 
         if (!result) {
             return;

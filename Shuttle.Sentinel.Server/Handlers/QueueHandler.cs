@@ -8,7 +8,7 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class QueueHandler : 
-        IMessageHandler<AddQueueCommand>,
+        IMessageHandler<SaveQueueCommand>,
         IMessageHandler<RemoveQueueCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
@@ -23,13 +23,15 @@ namespace Shuttle.Sentinel.Server
             _queueQuery = queueQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<AddQueueCommand> context)
+        public void ProcessMessage(IHandlerContext<SaveQueueCommand> context)
         {
             Uri uri;
 
+            var message = context.Message;
+
             try
             {
-                uri = new Uri(context.Message.QueueUri);
+                uri = new Uri(message.QueueUri);
             }
             catch
             {
@@ -38,7 +40,7 @@ namespace Shuttle.Sentinel.Server
 
             using (_databaseContextFactory.Create())
             {
-                _queueQuery.Add(context.Message.QueueUri, uri.Secured().ToString());
+                _queueQuery.Save(message.QueueUri, message.Processor, message.Type);
             }
         }
 

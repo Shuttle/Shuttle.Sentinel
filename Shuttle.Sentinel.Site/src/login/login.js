@@ -4,11 +4,15 @@ import view from './login.stache!';
 import resources from '~/resources';
 import access from 'shuttle-access';
 import validator from 'can-define-validate-validatejs';
+import state from '~/state';
 
 resources.add('login');
 
 export const ViewModel = DefineMap.extend(
     {
+        init(){
+            state.title = 'sign-in';
+        },
         username: {
             type: 'string',
             validate: {

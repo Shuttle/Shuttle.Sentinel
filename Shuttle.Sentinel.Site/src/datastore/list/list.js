@@ -97,7 +97,7 @@ export const ViewModel = DefineMap.extend({
             });
         }
 
-        state.title = localisation.value('datastore:list.title');
+        state.title = 'datastore:list.title';
 
         state.navbar.addButton({
             type: 'add',

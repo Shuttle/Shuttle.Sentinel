@@ -6,5 +6,7 @@
   "list": {
     "title": "Queues"
   },
-  "queue-uri": "Queue uri"
+  "processor": "Processor",
+  "queue-uri": "Queue uri",
+  "type": "Type"
 }

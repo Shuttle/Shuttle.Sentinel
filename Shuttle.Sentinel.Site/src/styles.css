@@ -5,6 +5,14 @@ body {
 
 .cs-buttons { margin: 15px 0; }
 
+.main {
+	width: 100%;
+}
+
+#sidebar-collapse {
+	min-width:200px;
+	max-width:200px;
+}
 
 #sidebar {
 	overflow: hidden;

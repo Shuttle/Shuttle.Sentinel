@@ -8,25 +8,41 @@ namespace Shuttle.Sentinel.DataAccess
         private const string SelectFrom = @"
 select 
     Id, 
-    Uri
+    Uri,
+    Processor,
+    Type
 from 
     Queue 
 ";
 
-        public IQuery Add(string uri, string displayUri)
+        public IQuery Save(string uri, string processor, string type)
         {
             return RawQuery.Create(@"
-if not exists(select null from Queue where Uri = @Uri) 
+if exists(select null from Queue where Uri = @Uri)
+    update
+        Queue
+    set
+        Processor = @Processor,
+        Type = @Type
+    where
+        Uri = @Uri
+else
     insert into Queue 
     (
-        Uri
+        Uri,
+        Processor,
+        Type
     ) 
     values 
     (
-        @Uri
+        @Uri,
+        @Processor,
+        @Type
     )
 ")
-                .AddParameterValue(QueueColumns.Uri, uri);
+                .AddParameterValue(QueueColumns.Uri, uri)
+                .AddParameterValue(QueueColumns.Processor, processor)
+                .AddParameterValue(QueueColumns.Type, type);
         }
 
         public IQuery Remove(Guid id)
