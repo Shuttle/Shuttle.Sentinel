@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark access-navbar">
-    <span class="navbar-brand ml-md-auto d-md-flex">{{title}}</span>
-    <button id="sidebarToggler" class="navbar-toggler mx-2" type="button" data-toggle="collapse"
+    <span class="navbar-brand d-md-flex">{{title}}</span>
+    <button id="sidebarToggler" class="navbar-toggler ml-md-auto mr-2" type="button" data-toggle="collapse"
             data-target="#sidebar-collapse" aria-controls="sidebar-collapse" aria-expanded="false"
             aria-label="Toggle sidebar navigation">
-        <i class="fa fa-caret-square-o-down py-2 p-1"></i>
+        <i class="fa fa-caret-square-o-down p-1"></i>
     </button>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

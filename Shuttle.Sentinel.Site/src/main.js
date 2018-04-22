@@ -48,6 +48,16 @@ localisation.start(function(error) {
 
             $('#application-container').html(stache(state));
 
+            var sidebarCollapse = $('#sidebar-collapse')
+
+            sidebarCollapse.on('hidden.bs.collapse', function () {
+                state.sidebarCollapsed = true;
+            });
+
+            sidebarCollapse.on('shown.bs.collapse', function () {
+                state.sidebarCollapsed = false;
+            });
+
             if (window.location.hash === '#!' || !window.location.hash) {
                 router.goto({resource: 'dashboard'});
             }
@@ -55,3 +65,4 @@ localisation.start(function(error) {
             router.process();
         });
 });
+

@@ -12,6 +12,9 @@ import map from "./navigation/navigation-map";
 import each from 'can-util/js/each/';
 
 var State = DefineMap.extend({
+    sidebarCollapsed: {
+        type: 'boolean'
+    },
     route: route,
     alerts: {
         get() {
@@ -38,7 +41,7 @@ var State = DefineMap.extend({
         type: 'string',
         default: '',
         get(value) {
-            return localisation.value(value);
+            return !!value ? localisation.value(value) : this.sidebarCollapsed ? 'Shuttle.Sentinel' : '';
         }
     },
     modal: {
