@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using Shuttle.Core.Contract;
+using Shuttle.Core.Logging;
 using Shuttle.Core.Pipelines;
 using Shuttle.Core.Threading;
 using Shuttle.Esb;
+using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Module
 {
@@ -19,14 +22,22 @@ namespace Shuttle.Sentinel.Module
         private readonly Thread _thread;
         private DateTime _nextSendDate = DateTime.Now;
 
-        public SentinelModule(IServiceBus bus, IPipelineFactory pipelineFactory, IEndpointAggregator endpointAggregator,
+        public SentinelModule(IServiceBus bus, IMessageRouteProvider messageRoutePrvider,
+            IPipelineFactory pipelineFactory, IEndpointAggregator endpointAggregator,
             ISentinelObserver sentinelObserver, ISentinelConfiguration sentinelConfiguration)
         {
             Guard.AgainstNull(bus, nameof(bus));
+            Guard.AgainstNull(messageRoutePrvider, nameof(messageRoutePrvider));
             Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
             Guard.AgainstNull(endpointAggregator, nameof(endpointAggregator));
             Guard.AgainstNull(sentinelObserver, nameof(sentinelObserver));
             Guard.AgainstNull(sentinelConfiguration, nameof(sentinelConfiguration));
+
+            if (!messageRoutePrvider.GetRouteUris(typeof(RegisterEndpointCommand).FullName).Any())
+            {
+                Log.For(this).Warning(Resources.WarningSentinelRouteMissing);
+                return;
+            }
 
             _bus = bus;
             _endpointAggregator = endpointAggregator;
@@ -84,7 +95,7 @@ namespace Shuttle.Sentinel.Module
                     .Register<OnBeforeHandleMessage>();
             }
 
-            //e.Pipeline.RegisterObserver(new SentinelObserver(this, _sentinel));
+            e.Pipeline.RegisterObserver(_sentinelObserver);
         }
     }
 }

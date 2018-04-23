@@ -1,14 +1,14 @@
-﻿using System;
-using Shuttle.Core.Data;
+﻿using Shuttle.Core.Data;
 
 namespace Shuttle.Sentinel.DataAccess
 {
     public interface IEndpointQueryFactory
     {
-        IQuery FindId(string endpointName, string machineName, string baseDirectory);
-        IQuery Save(Guid id, string entryAssemblyQualifiedName, string inboxWorkQueueUri,
-            string controlInboxWorkQueueUri);
-        IQuery Add(string endpointName, string machineName, string baseDirectory, string entryAssemblyQualifiedName,
-            string inboxWorkQueueUri, string controlInboxWorkQueueUri);
+        IQuery FindId(string machineName, string baseDirectory);
+        IQuery Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName, string ipv4Address,
+            string inboxWorkQueueUri,
+            string inboxDeferredQueueUri, string inboxErrorQueueUri, string controlInboxWorkQueueUri,
+            string controlInboxErrorQueueUri, string outboxWorkQueueUri,
+            string outboxErrorQueueUri);
     }
 }

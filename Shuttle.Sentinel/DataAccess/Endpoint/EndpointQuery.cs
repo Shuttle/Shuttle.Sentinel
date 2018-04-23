@@ -18,41 +18,26 @@ namespace Shuttle.Sentinel.DataAccess
             _queryFactory = queryFactory;
         }
 
-        public void Register(string endpointName, string machineName, string baseDirectory,
-            string entryAssemblyQualifiedName,
-            string inboxWorkQueueUri, string controlInboxWorkQueueUri)
+        public void Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
+            string ipv4Address, string inboxWorkQueueUri,
+            string inboxDeferredQueueUri, string inboxErrorQueueUri, string outboxWorkQueueUri,
+            string outboxErrorQueueUri,
+            string controlInboxWorkQueueUri, string controlInboxErrorQueueUri)
         {
-            var id = FindId(endpointName, machineName, baseDirectory);
-
-            if (id.HasValue)
-            {
-                _databaseGateway.ExecuteUsing(_queryFactory.Save(
-                    id.Value,
-                    entryAssemblyQualifiedName,
-                    inboxWorkQueueUri,
-                    controlInboxWorkQueueUri));
-            }
-            else
-            {
-                _databaseGateway.ExecuteUsing(_queryFactory.Add(
-                    endpointName,
-                    machineName,
-                    baseDirectory,
-                    entryAssemblyQualifiedName,
-                    inboxWorkQueueUri,
-                    controlInboxWorkQueueUri));
-            }
+            _databaseGateway.ExecuteUsing(_queryFactory.Save(machineName, baseDirectory, entryAssemblyQualifiedName,
+                ipv4Address, inboxWorkQueueUri, inboxDeferredQueueUri, inboxErrorQueueUri, controlInboxWorkQueueUri,
+                controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri));
         }
 
-        public Guid? FindId(string endpointName, string machineName, string baseDirectory)
+        public Guid? FindId(string machineName, string baseDirectory)
         {
             return _databaseGateway.GetScalarUsing<Guid?>(_queryFactory.FindId(
-                endpointName,
                 machineName,
                 baseDirectory));
         }
 
-        public void AddMessageTypeMetric(Guid endpointId, string messageType, int count, double fastestExecutionDuration,
+        public void AddMessageTypeMetric(Guid endpointId, string messageType, int count,
+            double fastestExecutionDuration,
             double slowestExecutionDuration, double totalExecutionDuration)
         {
             throw new NotImplementedException();
@@ -63,7 +48,8 @@ namespace Shuttle.Sentinel.DataAccess
             throw new NotImplementedException();
         }
 
-        public void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType, string recipientInboxWorkQueueUri)
+        public void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType,
+            string recipientInboxWorkQueueUri)
         {
             throw new NotImplementedException();
         }

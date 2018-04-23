@@ -24,9 +24,7 @@ namespace Shuttle.Sentinel.Server
         {
             var message = context.Message;
 
-            if (string.IsNullOrEmpty(message.EndpointName)
-                ||
-                string.IsNullOrEmpty(message.MachineName)
+            if (string.IsNullOrEmpty(message.MachineName)
                 ||
                 string.IsNullOrEmpty(message.BaseDirectory))
             {
@@ -35,20 +33,70 @@ namespace Shuttle.Sentinel.Server
 
             using (_databaseContextFactory.Create())
             {
-                _endpointQuery.Register(
-                    message.EndpointName,
+                _endpointQuery.Save(
                     message.MachineName,
                     message.BaseDirectory,
                     message.EntryAssemblyQualifiedName,
+                    message.IPv4Address,
                     message.InboxWorkQueueUri,
-                    message.ControlInboxWorkQueueUri);
+                    message.InboxDeferredQueueUri,
+                    message.InboxErrorQueueUri,
+                    message.OutboxWorkQueueUri,
+                    message.OutboxErrorQueueUri,
+                    message.ControlInboxWorkQueueUri,
+                    message.ControlInboxErrorQueueUri);
+
+                var id = _endpointQuery.FindId(message.MachineName, message.BaseDirectory);
+
+                if (!id.HasValue)
+                {
+                    return;
+                }
+
+                var endpointId = id.Value;
+
+                foreach (var metric in message.MessageTypeMetrics)
+                {
+                    _endpointQuery.AddMessageTypeMetric(
+                        endpointId,
+                        metric.MessageType,
+                        metric.Count,
+                        metric.FastestExecutionDuration,
+                        metric.SlowestExecutionDuration,
+                        metric.TotalExecutionDuration);
+                }
+
+                foreach (var association in message.MessageTypeAssociations)
+                {
+                    _endpointQuery.AddMessageTypeAssociation(
+                        endpointId,
+                        association.MessageTypeHandled,
+                        association.MessageTypeDispatched);
+                }
+
+                foreach (var dispatched in message.MessageTypesDispatched)
+                {
+                    _endpointQuery.AddMessageTypeDispatched(
+                        endpointId,
+                        dispatched.MessageType,
+                        dispatched.RecipientInboxWorkQueueUri);
+                }
+
+                foreach (var messageType in message.MessageTypesHandled)
+                {
+                    _endpointQuery.AddMessageTypeHandled(
+                        endpointId,
+                        messageType);
+                }
             }
 
             if (!string.IsNullOrEmpty(message.InboxWorkQueueUri))
             {
                 context.Send(new SaveQueueCommand
                 {
-                    QueueUri = message.InboxWorkQueueUri
+                    QueueUri = message.InboxWorkQueueUri,
+                    Processor = "inbox",
+                    Type = "work"
                 }, c => c.Local());
             }
         }
