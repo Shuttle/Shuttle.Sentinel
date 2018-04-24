@@ -76,7 +76,6 @@
     <Build Include="Tables\MessageTypeDispatched.sql" />
     <Build Include="Tables\MessageTypeHandled.sql" />
     <Build Include="Tables\MessageTypeMetric.sql" />
-    <Build Include="Tables\Server.sql" />
     <Build Include="Tables\Endpoint.sql" />
     <Build Include="Tables\MessageHeader.sql" />
   </ItemGroup>

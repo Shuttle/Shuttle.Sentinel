@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using Shuttle.Core.Contract;
 using Shuttle.Esb;
 using Shuttle.Sentinel.Messages.v1;
@@ -28,6 +29,7 @@ namespace Shuttle.Sentinel.Module
         private readonly HashSet<string> _registeredDispatched = new HashSet<string>();
         private readonly HashSet<string> _registeredMessageTypes = new HashSet<string>();
         private readonly IServiceBusConfiguration _serviceBusConfiguration;
+        private readonly string _entryAssemblyQualifiedName;
 
         public EndpointAggregator(IServiceBusConfiguration serviceBusConfiguration)
         {
@@ -46,6 +48,8 @@ namespace Shuttle.Sentinel.Module
 
                 _ipv4Address = ip.ToString();
             }
+
+            _entryAssemblyQualifiedName = Assembly.GetEntryAssembly().FullName;
         }
 
         public void MessageProcessingStart(Guid messageId)
@@ -129,6 +133,7 @@ namespace Shuttle.Sentinel.Module
                     MachineName = Environment.MachineName,
                     IPv4Address = _ipv4Address,
                     BaseDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                    EntryAssemblyQualifiedName = _entryAssemblyQualifiedName,
                     InboxWorkQueueUri = _serviceBusConfiguration.Inbox.WorkQueueUri,
                     InboxDeferredQueueUri = _serviceBusConfiguration.Inbox.HasDeferredQueue
                         ? _serviceBusConfiguration.Inbox.DeferredQueueUri

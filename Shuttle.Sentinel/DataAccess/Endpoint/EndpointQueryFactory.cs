@@ -31,7 +31,7 @@ if not exists
     select
         null
     from
-        Server
+        Endpoint
     where
         MachineName = @MachineName
     and
@@ -85,6 +85,7 @@ else
 ")
                 .AddParameterValue(EndpointColumns.MachineName, machineName)
                 .AddParameterValue(EndpointColumns.BaseDirectory, baseDirectory)
+                .AddParameterValue(EndpointColumns.EntryAssemblyQualifiedName, entryAssemblyQualifiedName)
                 .AddParameterValue(EndpointColumns.IPv4Address, ipv4Address)
                 .AddParameterValue(EndpointColumns.InboxWorkQueueUri, inboxWorkQueueUri)
                 .AddParameterValue(EndpointColumns.InboxErrorQueueUri, inboxErrorQueueUri)

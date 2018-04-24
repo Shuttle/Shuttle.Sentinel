@@ -20,7 +20,7 @@ namespace Shuttle.Sentinel.Module
             }
         }
 
-        public ISentinelConfiguration Configuration()
+        public static ISentinelConfiguration Configuration()
         {
             var section = ConfigurationSectionProvider.Open<SentinelSection>("shuttle", "sentinel");
             var configuration = new SentinelConfiguration();

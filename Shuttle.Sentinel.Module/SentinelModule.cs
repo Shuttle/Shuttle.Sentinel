@@ -10,16 +10,19 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Module
 {
-    public class SentinelModule : IDisposable, IThreadState
+    public class SentinelModule : IDisposable, IThreadState, IPipelineObserver<OnStarted>
     {
+        private readonly string _inboxMessagePipelineName = typeof(InboxMessagePipeline).FullName;
+        private readonly string _dispatchTransportMessagePipelineName = typeof(DispatchTransportMessagePipeline).FullName;
+        private readonly string _startupPipelineName = typeof(StartupPipeline).FullName;
+
         private readonly IServiceBus _bus;
+        private readonly IMessageRouteProvider _messageRoutePrvider;
         private readonly IEndpointAggregator _endpointAggregator;
         private readonly ISentinelObserver _sentinelObserver;
         private readonly ISentinelConfiguration _sentinelConfiguration;
-        private readonly string _inboxMessagePipelineName = typeof(InboxMessagePipeline).FullName;
-        private readonly string _dispatchTransportMessagePipelineName = typeof(DispatchTransportMessagePipeline).FullName;
         private volatile bool _active;
-        private readonly Thread _thread;
+        private Thread _thread;
         private DateTime _nextSendDate = DateTime.Now;
 
         public SentinelModule(IServiceBus bus, IMessageRouteProvider messageRoutePrvider,
@@ -33,21 +36,61 @@ namespace Shuttle.Sentinel.Module
             Guard.AgainstNull(sentinelObserver, nameof(sentinelObserver));
             Guard.AgainstNull(sentinelConfiguration, nameof(sentinelConfiguration));
 
-            if (!messageRoutePrvider.GetRouteUris(typeof(RegisterEndpointCommand).FullName).Any())
-            {
-                Log.For(this).Warning(Resources.WarningSentinelRouteMissing);
-                return;
-            }
-
             _bus = bus;
+            _messageRoutePrvider = messageRoutePrvider;
             _endpointAggregator = endpointAggregator;
             _sentinelObserver = sentinelObserver;
             _sentinelConfiguration = sentinelConfiguration;
 
             pipelineFactory.PipelineCreated += PipelineCreated;
+        }
+
+        public void Dispose()
+        {
+            _active = false;
+        }
+
+        public bool Active => _active;
+
+        private void PipelineCreated(object sender, PipelineEventArgs e)
+        {
+            var pipelineName = e.Pipeline.GetType().FullName ?? string.Empty;
+
+            if (pipelineName.Equals(_startupPipelineName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                e.Pipeline.RegisterObserver(this);
+
+                return;
+            }
+
+            if (!pipelineName.Equals(_inboxMessagePipelineName, StringComparison.InvariantCultureIgnoreCase)
+                &&
+                !pipelineName.Equals(_dispatchTransportMessagePipelineName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return;
+            }
+
+            if (pipelineName.Equals(_inboxMessagePipelineName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                e.Pipeline.GetStage("Handle")
+                    .BeforeEvent<OnHandleMessage>()
+                    .Register<OnBeforeHandleMessage>();
+            }
+
+            e.Pipeline.RegisterObserver(_sentinelObserver);
+        }
+
+        public void Execute(OnStarted pipelineEvent)
+        {
+            if (!_messageRoutePrvider.GetRouteUris(typeof(RegisterEndpointCommand).FullName).Any())
+            {
+                Log.For(this).Warning(Resources.WarningSentinelRouteMissing);
+                return;
+            }
 
             _thread = new Thread(Send);
 
+            _active = true;
             _thread.Start();
 
             while (!_thread.IsAlive)
@@ -68,34 +111,8 @@ namespace Shuttle.Sentinel.Module
 
                 ThreadSleep.While(1000, this);
             }
-        }
 
-        public void Dispose()
-        {
-            _active = false;
-        }
-
-        public bool Active => _active;
-
-        private void PipelineCreated(object sender, PipelineEventArgs e)
-        {
-            var pipelineName = e.Pipeline.GetType().FullName ?? string.Empty;
-
-            if (!pipelineName.Equals(_inboxMessagePipelineName, StringComparison.InvariantCultureIgnoreCase)
-                &&
-                !pipelineName.Equals(_dispatchTransportMessagePipelineName, StringComparison.InvariantCultureIgnoreCase))
-            {
-                return;
-            }
-
-            if (pipelineName.Equals(_inboxMessagePipelineName, StringComparison.InvariantCultureIgnoreCase))
-            {
-                e.Pipeline.GetStage("Handle")
-                    .BeforeEvent<OnHandleMessage>()
-                    .Register<OnBeforeHandleMessage>();
-            }
-
-            e.Pipeline.RegisterObserver(_sentinelObserver);
+            _thread.Join(TimeSpan.FromSeconds(5));
         }
     }
 }
