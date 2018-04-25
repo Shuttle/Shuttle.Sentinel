@@ -1,6 +1,7 @@
 ﻿using System;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
+using Shuttle.Esb;
 
 namespace Shuttle.Sentinel.DataAccess
 {
@@ -36,27 +37,31 @@ namespace Shuttle.Sentinel.DataAccess
                 baseDirectory));
         }
 
-        public void AddMessageTypeMetric(Guid endpointId, string messageType, int count,
-            double fastestExecutionDuration,
-            double slowestExecutionDuration, double totalExecutionDuration)
+        public void AddMessageTypeMetric(Guid metricId, string messageType, DateTime dateRegistered, Guid endpointId,
+            int count,
+            double fastestExecutionDuration, double slowestExecutionDuration, double totalExecutionDuration)
         {
-            throw new NotImplementedException();
+            _databaseGateway.ExecuteUsing(_queryFactory.AddMessageTypeMetric(metricId, messageType, dateRegistered, endpointId,
+                count, fastestExecutionDuration, slowestExecutionDuration, totalExecutionDuration));
         }
 
         public void AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled, string messageTypeDispatched)
         {
-            throw new NotImplementedException();
+            _databaseGateway.ExecuteUsing(
+                _queryFactory.AddMessageTypeAssociation(endpointId, messageTypeHandled, messageTypeDispatched));
         }
 
         public void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType,
             string recipientInboxWorkQueueUri)
         {
-            throw new NotImplementedException();
+            _databaseGateway.ExecuteUsing(
+                _queryFactory.AddMessageTypeDispatched(endpointId, dispatchedMessageType, recipientInboxWorkQueueUri));
         }
 
         public void AddMessageTypeHandled(Guid endpointId, string messageType)
         {
-            throw new NotImplementedException();
+            _databaseGateway.ExecuteUsing(
+                _queryFactory.AddMessageTypeHandled(endpointId, messageType));
         }
     }
 }

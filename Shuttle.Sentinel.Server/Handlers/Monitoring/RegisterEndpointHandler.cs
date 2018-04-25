@@ -58,8 +58,10 @@ namespace Shuttle.Sentinel.Server
                 foreach (var metric in message.MessageTypeMetrics)
                 {
                     _endpointQuery.AddMessageTypeMetric(
-                        endpointId,
+                        context.TransportMessage.MessageId,
                         metric.MessageType,
+                        context.TransportMessage.SendDate,
+                        endpointId,
                         metric.Count,
                         metric.FastestExecutionDuration,
                         metric.SlowestExecutionDuration,
