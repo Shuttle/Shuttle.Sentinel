@@ -2,6 +2,7 @@ var Permissions = {
     Manage: {
         DataStores: 'sentinel://data-stores/manage',
         Messages: 'sentinel://messages/manage',
+        Monitoring: 'sentinel://monitoring/manage',
         Queues: 'sentinel://queues/manage',
         Schedules: 'sentinel://schedules/manage',
         Subscriptions: 'sentinel://subscriptions/manage'

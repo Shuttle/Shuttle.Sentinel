@@ -1,21 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Esb;
+using Shuttle.Sentinel.DataAccess.Query;
 
 namespace Shuttle.Sentinel.DataAccess
 {
     public class EndpointQuery : IEndpointQuery
     {
         private readonly IDatabaseGateway _databaseGateway;
+        private readonly IQueryMapper _queryMapper;
         private readonly IEndpointQueryFactory _queryFactory;
 
-        public EndpointQuery(IDatabaseGateway databaseGateway, IEndpointQueryFactory queryFactory)
+        public EndpointQuery(IDatabaseGateway databaseGateway, IQueryMapper queryMapper,
+            IEndpointQueryFactory queryFactory)
         {
             Guard.AgainstNull(databaseGateway, nameof(databaseGateway));
+            Guard.AgainstNull(queryMapper, nameof(queryMapper));
             Guard.AgainstNull(queryFactory, nameof(queryFactory));
 
             _databaseGateway = databaseGateway;
+            _queryMapper = queryMapper;
             _queryFactory = queryFactory;
         }
 
@@ -62,6 +67,21 @@ namespace Shuttle.Sentinel.DataAccess
         {
             _databaseGateway.ExecuteUsing(
                 _queryFactory.AddMessageTypeHandled(endpointId, messageType));
+        }
+
+        public void Remove(Guid id)
+        {
+            _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
+        }
+
+        public IEnumerable<Endpoint> All()
+        {
+            return _queryMapper.MapObjects<Endpoint>(_queryFactory.All());
+        }
+
+        public IEnumerable<Endpoint> Search(string match)
+        {
+            return _queryMapper.MapObjects<Endpoint>(_queryFactory.Search(match));
         }
     }
 }

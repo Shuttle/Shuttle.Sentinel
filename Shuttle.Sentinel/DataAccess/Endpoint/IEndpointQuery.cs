@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Shuttle.Sentinel.DataAccess.Query;
 
 namespace Shuttle.Sentinel.DataAccess
 {
@@ -18,5 +20,8 @@ namespace Shuttle.Sentinel.DataAccess
         void AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled, string messageTypeDispatched);
         void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType, string recipientInboxWorkQueueUri);
         void AddMessageTypeHandled(Guid endpointId, string messageType);
+        void Remove(Guid id);
+        IEnumerable<Endpoint> All();
+        IEnumerable<Endpoint> Search(string match);
     }
 }

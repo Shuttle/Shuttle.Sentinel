@@ -1,0 +1,10 @@
+﻿{
+  "title": "Endpoint",
+  "list": {
+    "title": "Endpoints"
+  },
+  "machine-name": "Machine name",
+  "base-directory": "Base directory",
+  "qualified-name": "Qualified name",
+  "ipv4-address": "IPv4 address"
+}

@@ -129,6 +129,9 @@
     <value>The provided value of '{0}' is not a valid URI.</value>
     <comment>0 = the invalid URI</comment>
   </data>
+  <data name="MissingConfigurationSectionException" xml:space="preserve">
+    <value>Could not find a configuration section named 'sentinel'.</value>
+  </data>
   <data name="PermissionNotFoundException" xml:space="preserve">
     <value>Permission '{0}' does not exist on role '{1}'.</value>
     <comment>0 = permission, 1 = role name</comment>

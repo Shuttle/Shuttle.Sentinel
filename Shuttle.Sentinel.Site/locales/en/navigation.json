@@ -1,13 +1,18 @@
 ﻿{
   "dashboard": "Dashboard",
+  "data-stores": "Data Stores",
   "messages": {
     "title": "Messages",
     "manage": "Manage",
     "send": "Send",
     "headers": "Headers"
   },
-  "subscriptions": "Subscriptions",
-  "data-stores": "Data Stores",
+  "monitoring": {
+    "title": "Monitoring",
+    "endpoints": "Endpoints"
+  },
   "queues": "Queues",
+  "schedules": "Schedules",
+  "subscriptions": "Subscriptions",
   "system": "System"
 }

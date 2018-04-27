@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Shuttle.Core.Data;
 
 namespace Shuttle.Sentinel.DataAccess
@@ -16,5 +17,6 @@ namespace Shuttle.Sentinel.DataAccess
         public static MappedColumn<string> ControlInboxErrorQueueUri = new MappedColumn<string>("ControlInboxErrorQueueUri", DbType.AnsiString);
         public static MappedColumn<string> OutboxWorkQueueUri = new MappedColumn<string>("OutboxWorkQueueUri", DbType.AnsiString);
         public static MappedColumn<string> OutboxErrorQueueUri = new MappedColumn<string>("OutboxErrorQueueUri", DbType.AnsiString);
+        public static MappedColumn<DateTime> HeartbeatDate = new MappedColumn<DateTime>("HeartbeatDate", DbType.DateTime);
     }
 }

@@ -28,6 +28,7 @@ import '~/login/';
 import '~/navigation/';
 import '~/dashboard/';
 import '~/datastore/';
+import '~/endpoint/';
 import '~/message/';
 import '~/messageheader/';
 import '~/queue/';

@@ -14,15 +14,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="add.stache" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/queue/add/add.stache">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="50" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="add.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/queue/add/add.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -38,20 +29,8 @@
       <file leaf-file-name="navigation.stache" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/navigation/navigation.stache">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
+            <state relative-caret-position="17">
               <caret line="2" column="65" selection-start-line="2" selection-start-column="65" selection-end-line="2" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="state.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/state.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -59,22 +38,78 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
+            <state relative-caret-position="241">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
                 <element signature="e#339#375#0" expanded="true" />
-                <element signature="e#595#629#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.stache" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.stache" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.stache">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="endpoint.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/endpoint/endpoint.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.stache" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.stache">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="55" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
+              <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="71">
+              <caret line="60" column="35" selection-start-line="60" selection-start-column="35" selection-end-line="60" selection-end-column="35" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="endpoint.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="navigation-map.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="navigation.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -140,11 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/subscription/list/list.js" />
-        <option value="$PROJECT_DIR$/src/message/components/message-builder.stache" />
-        <option value="$PROJECT_DIR$/src/components/queue.js" />
-        <option value="$PROJECT_DIR$/src/components/queue-input.js" />
-        <option value="$PROJECT_DIR$/src/components/message-type-input.js" />
         <option value="$PROJECT_DIR$/src/components/message-type-input.stache" />
         <option value="$PROJECT_DIR$/src/components/message-type.stache" />
         <option value="$PROJECT_DIR$/src/components/message-type.js" />
@@ -152,7 +182,6 @@
         <option value="$PROJECT_DIR$/src/components/message-builder.js" />
         <option value="$PROJECT_DIR$/src/components/queue.stache" />
         <option value="$PROJECT_DIR$/src/message/manage/manage.js" />
-        <option value="$PROJECT_DIR$/locales/en/navigation.json" />
         <option value="$PROJECT_DIR$/src/datastore/list/list.js" />
         <option value="$PROJECT_DIR$/src/message/headers/headers.stache" />
         <option value="$PROJECT_DIR$/src/navbar.js" />
@@ -162,7 +191,6 @@
         <option value="$PROJECT_DIR$/locales/en/messageheaders.json" />
         <option value="$PROJECT_DIR$/src/messageheaders/list/list.js" />
         <option value="$PROJECT_DIR$/src/messageheaders/messageheaders.js" />
-        <option value="$PROJECT_DIR$/src/navigation/navigation-map.js" />
         <option value="$PROJECT_DIR$/src/message/message.js" />
         <option value="$PROJECT_DIR$/src/messageheader/list/list.stache" />
         <option value="$PROJECT_DIR$/src/datastore/add/add.js" />
@@ -181,16 +209,23 @@
         <option value="$PROJECT_DIR$/src/login/login.stache" />
         <option value="$PROJECT_DIR$/locales/en/sentinel.json" />
         <option value="$PROJECT_DIR$/src/login/login.js" />
-        <option value="$PROJECT_DIR$/src/dashboard/dashboard.stache" />
         <option value="$PROJECT_DIR$/locales/en/queue.json" />
         <option value="$PROJECT_DIR$/src/queue/list/list.js" />
         <option value="$PROJECT_DIR$/src/styles.css" />
         <option value="$PROJECT_DIR$/src/queue/add/add.stache" />
         <option value="$PROJECT_DIR$/src/queue/add/add.js" />
         <option value="$PROJECT_DIR$/src/navigation/navigation.stache" />
-        <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/state.js" />
         <option value="$PROJECT_DIR$/src/main.stache" />
+        <option value="$PROJECT_DIR$/locales/en/navigation.json" />
+        <option value="$PROJECT_DIR$/src/permissions.js" />
+        <option value="$PROJECT_DIR$/src/navigation/navigation-map.js" />
+        <option value="$PROJECT_DIR$/src/dashboard/dashboard.stache" />
+        <option value="$PROJECT_DIR$/locales/en/endpoint.json" />
+        <option value="$PROJECT_DIR$/src/main.js" />
+        <option value="$PROJECT_DIR$/src/endpoint/endpoint.js" />
+        <option value="$PROJECT_DIR$/src/endpoint/list/list.stache" />
+        <option value="$PROJECT_DIR$/src/endpoint/list/list.js" />
       </list>
     </option>
   </component>
@@ -216,6 +251,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -243,45 +279,25 @@
               <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
               <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+              <item name="endpoint" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
               <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="login" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="navigation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="queue" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="queue" type="462c0819:PsiDirectoryNode" />
-              <item name="add" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="queue" type="462c0819:PsiDirectoryNode" />
+              <item name="endpoint" type="462c0819:PsiDirectoryNode" />
               <item name="list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="queue" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -294,18 +310,18 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\locales\en" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\item" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\message\headers" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\list" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\components" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\navigation" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\locales\en" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\item" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\message\headers" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -371,26 +387,29 @@
       <workItem from="1524492429341" duration="376000" />
       <workItem from="1524506153786" duration="594000" />
       <workItem from="1524583777416" duration="598000" />
+      <workItem from="1524755985952" duration="2911000" />
+      <workItem from="1524807426859" duration="4106000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165657000" />
+    <option name="totallyTimeSpent" value="172674000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20423001" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20423001" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.27542374" />
-      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.27542374" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997175" />
+      <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -407,48 +426,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/shuttle-canstrap/nav-dropdown/nav-dropdown.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="966">
-          <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/datastore/datastore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/localisation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/datastore/add/add.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" selection-start-line="8" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/subscription/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="36" column="19" lean-forward="true" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/subscription/add/add.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/queue.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -477,13 +454,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="119" selection-start-line="2" selection-start-column="119" selection-end-line="2" selection-end-column="119" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -634,13 +604,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="38" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/navigation/navigation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -666,13 +629,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -704,6 +660,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/state.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/queue/add/add.stache">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -723,37 +689,88 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/navigation/navigation.stache">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
+        <state relative-caret-position="17">
           <caret line="2" column="65" selection-start-line="2" selection-start-column="65" selection-end-line="2" selection-end-column="65" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.js">
+    <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <element signature="e#339#375#0" expanded="true" />
-            <element signature="e#595#629#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/state.js">
+    <entry file="file://$PROJECT_DIR$/src/endpoint/add/add.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.stache">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.stache">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/permissions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="18" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#339#375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/endpoint.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.stache">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="3" column="55" selection-start-line="3" selection-start-column="55" selection-end-line="3" selection-end-column="55" />
+          <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="60" column="35" selection-start-line="60" selection-start-column="35" selection-end-line="60" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

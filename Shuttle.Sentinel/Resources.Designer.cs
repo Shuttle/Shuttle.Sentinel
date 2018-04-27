@@ -88,6 +88,15 @@ namespace Shuttle.Sentinel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find a configuration section named &apos;sentinel&apos;..
+        /// </summary>
+        public static string MissingConfigurationSectionException {
+            get {
+                return ResourceManager.GetString("MissingConfigurationSectionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permission &apos;{0}&apos; does not exist on role &apos;{1}&apos;..
         /// </summary>
         public static string PermissionNotFoundException {

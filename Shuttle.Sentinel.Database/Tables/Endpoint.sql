@@ -11,6 +11,7 @@
     [ControlInboxErrorQueueUri]   VARCHAR (130)    NULL,
     [OutboxWorkQueueUri]   VARCHAR (130)    NULL,
     [OutboxErrorQueueUri]   VARCHAR (130)    NULL,
+    [HeartbeatDate] DATETIME NOT NULL DEFAULT getdate(), 
     CONSTRAINT [PK_Endpoint] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 );
 

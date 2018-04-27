@@ -15,6 +15,7 @@ using Shuttle.Esb;
 using Shuttle.Recall;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Queues;
+using Shuttle.Sentinel.WebApi.Configuration;
 
 namespace Shuttle.Sentinel.WebApi
 {
@@ -43,7 +44,8 @@ namespace Shuttle.Sentinel.WebApi
 
             var componentContainer = new WindsorComponentContainer(container);
 
-            componentContainer.RegisterInstance<IAccessConfiguration>(AccessSection.Configuration());
+            componentContainer.RegisterInstance(AccessSection.Configuration());
+            componentContainer.RegisterInstance(SentinelSection.Configuration());
 
             componentContainer.RegisterSuffixed("Shuttle.Sentinel");
             componentContainer.RegisterSuffixed("Shuttle.Access.Sql");

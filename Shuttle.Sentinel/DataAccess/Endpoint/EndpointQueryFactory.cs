@@ -5,6 +5,24 @@ namespace Shuttle.Sentinel.DataAccess
 {
     public class EndpointQueryFactory : IEndpointQueryFactory
     {
+        private const string SelectFrom = @"
+select 
+    Id, 
+    MachineName,
+    BaseDirectory,
+    EntryAssemblyQualifiedName,
+    IPv4Address,
+    InboxWorkQueueUri,
+    InboxDeferredQueueUri,
+    InboxErrorQueueUri,
+    ControlInboxWorkQueueUri,
+    ControlInboxErrorQueueUri,
+    OutboxWorkQueueUri,
+    OutboxErrorQueueUri
+from 
+    Endpoint
+";
+
         public IQuery FindId(string machineName, string baseDirectory)
         {
             return RawQuery.Create(@"
@@ -222,6 +240,35 @@ if not exists (select null from MessageTypeMetric where MetricId = @MetricId and
                 .AddParameterValue(MessageColumns.TotalExecutionDuration, totalExecutionDuration)
                 .AddParameterValue(MessageColumns.FastestExecutionDuration, fastestExecutionDuration)
                 .AddParameterValue(MessageColumns.SlowestExecutionDuration, slowestExecutionDuration);
+        }
+
+        public IQuery Remove(Guid id)
+        {
+            return RawQuery.Create(
+                    @"delete from Endpoint where Id = @Id")
+                .AddParameterValue(Columns.Id, id);
+        }
+
+        public IQuery All()
+        {
+            return RawQuery.Create(string.Concat(SelectFrom, @"order by MachineName"));
+        }
+
+        public IQuery Search(string match)
+        {
+            return RawQuery.Create(string.Concat(SelectFrom, @"
+where 
+	MachineName like @Match
+or
+	BaseDirectory like @Match
+or
+	EntryAssemblyQualifiedName like @Match
+or
+	InboxWorkQueueUri like @Match
+order by 
+    MachineName
+"))
+                .AddParameterValue(Columns.Match, string.Concat("%", match, "%"));
         }
     }
 }

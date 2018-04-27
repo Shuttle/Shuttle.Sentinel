@@ -7,6 +7,17 @@ var map = [
         permission: Permissions.View.Dashboard
     },
     {
+        text: 'navigation:monitoring.title',
+        permission: Permissions.View.Dashboard,
+        items: [
+            {
+                href: '#!endpoint/list',
+                text: 'navigation:monitoring.endpoints',
+                permission: Permissions.Manage.Monitoring
+            },
+        ]
+    },
+    {
         text: 'navigation:messages.title',
         items: [
             {
@@ -40,6 +51,11 @@ var map = [
         href: '#!queue/list',
         text: 'navigation:queues',
         permission: Permissions.View.Queues
+    },
+    {
+        href: '#!schedule/list',
+        text: 'navigation:schedules',
+        permission: Permissions.View.Schedules
     }
 ];
 
