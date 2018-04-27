@@ -75,6 +75,7 @@ namespace Shuttle.Sentinel.WebApi
                     endpoint.ControlInboxErrorQueueUri,
                     endpoint.OutboxWorkQueueUri,
                     endpoint.OutboxErrorQueueUri,
+                    endpoint.HeartbeatDate,
                     InboxWorkQueueUriSecured = GetSecuredUri(endpoint.InboxWorkQueueUri),
                     InboxDeferredQueueUriSecured = GetSecuredUri(endpoint.InboxDeferredQueueUri),
                     InboxErrorQueueUriSecured = GetSecuredUri(endpoint.InboxErrorQueueUri),

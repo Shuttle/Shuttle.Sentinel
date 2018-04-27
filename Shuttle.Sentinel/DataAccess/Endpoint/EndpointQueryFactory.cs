@@ -18,7 +18,8 @@ select
     ControlInboxWorkQueueUri,
     ControlInboxErrorQueueUri,
     OutboxWorkQueueUri,
-    OutboxErrorQueueUri
+    OutboxErrorQueueUri,
+    HeartbeatDate
 from 
     Endpoint
 ";
@@ -45,6 +46,8 @@ and
             string outboxErrorQueueUri)
         {
             return RawQuery.Create(@"
+declare @date DateTime = getdate();
+
 if not exists
 (
     select
@@ -68,7 +71,8 @@ if not exists
         ControlInboxWorkQueueUri,
         ControlInboxErrorQueueUri,
         OutboxWorkQueueUri,
-        OutboxErrorQueueUri
+        OutboxErrorQueueUri,
+        HeartbeatDate
     )
     values
     (
@@ -82,7 +86,8 @@ if not exists
         @ControlInboxWorkQueueUri,
         @ControlInboxErrorQueueUri,
         @OutboxWorkQueueUri,
-        @OutboxErrorQueueUri    
+        @OutboxErrorQueueUri,
+        @date
     )
 else
     update
@@ -96,7 +101,8 @@ else
         ControlInboxWorkQueueUri = @ControlInboxWorkQueueUri,
         ControlInboxErrorQueueUri = @ControlInboxErrorQueueUri,
         OutboxWorkQueueUri = @OutboxWorkQueueUri,
-        OutboxErrorQueueUri = @OutboxErrorQueueUri
+        OutboxErrorQueueUri = @OutboxErrorQueueUri,
+        HeartbeatDate = @date
     where
         MachineName = @MachineName
     and

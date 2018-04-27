@@ -3,6 +3,7 @@
   "list": {
     "title": "Endpoints"
   },
+  "heartbeat-date": "Heartbeat date",
   "machine-name": "Machine name",
   "base-directory": "Base directory",
   "qualified-name": "Qualified name",

@@ -24,6 +24,9 @@ export const Map = DefineMap.extend({
     ipv4Address: {
         type: 'string'
     },
+    heartbeatDate: {
+        type: 'date'
+    },
     remove() {
         api.delete({id: this.id})
             .then(function () {
@@ -72,6 +75,12 @@ export const ViewModel = DefineMap.extend({
                 columnTitle: 'endpoint:ipv4-address',
                 columnClass: 'col-1',
                 attributeName: 'ipv4Address'
+            });
+
+            columns.push({
+                columnTitle: 'endpoint:heartbeat-date',
+                columnClass: 'col-1',
+                attributeName: 'heartbeatDate'
             });
 
             columns.push({
