@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 
 namespace Shuttle.Sentinel.WebApi
@@ -11,20 +10,19 @@ namespace Shuttle.Sentinel.WebApi
     public class MessageTypesHandledController : Controller
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
-        private readonly IMessageTypeHandledQuery _messageTypesHandledQuery;
+        private readonly IMessageTypeHandledQuery _messageTypeHandledQuery;
 
-        public MessageTypesHandledController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
-            IMessageTypeHandledQuery messageTypesHandledQuery)
+        public MessageTypesHandledController(IDatabaseContextFactory databaseContextFactory,
+            IMessageTypeHandledQuery messageTypeHandledQuery)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
-            Guard.AgainstNull(messageTypesHandledQuery, nameof(messageTypesHandledQuery));
-            Guard.AgainstNull(bus, nameof(bus));
+            Guard.AgainstNull(messageTypeHandledQuery, nameof(messageTypeHandledQuery));
 
             _databaseContextFactory = databaseContextFactory;
-            _messageTypesHandledQuery = messageTypesHandledQuery;
+            _messageTypeHandledQuery = messageTypeHandledQuery;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Endpoints)]
+        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
         [HttpGet("{search?}")]
         public IActionResult GetSearch(string search = null)
         {
@@ -32,7 +30,7 @@ namespace Shuttle.Sentinel.WebApi
             {
                 return Ok(new
                 {
-                    Data = _messageTypesHandledQuery.Search(search ?? string.Empty)
+                    Data = _messageTypeHandledQuery.Search(search ?? string.Empty)
                 });
             }
         }

@@ -32,6 +32,7 @@ import '~/endpoint/';
 import '~/message/';
 import '~/messageheader/';
 import '~/messagetypehandled/';
+import '~/messagetypedispatched/';
 import '~/queue/';
 import '~/subscription/';
 

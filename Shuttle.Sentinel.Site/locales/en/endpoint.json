@@ -9,5 +9,6 @@
   "message-types-handled": "Message types handled",
   "machine-name": "Machine name",
   "base-directory": "Base directory",
-  "qualified-name": "Qualified name"
+  "qualified-name": "Qualified name",
+  "recipient-inbox-work-queue-uri": "Recipient Inbox Work Queue Uri"
 }

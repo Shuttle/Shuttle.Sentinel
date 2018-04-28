@@ -34,7 +34,7 @@ namespace Shuttle.Sentinel.WebApi
             _bus = bus;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Endpoints)]
+        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
         [HttpGet]
         public IActionResult Get()
         {
@@ -47,7 +47,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Endpoints)]
+        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
         [HttpGet("{search}")]
         public IActionResult GetSearch(string search)
         {
@@ -134,7 +134,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Endpoints)]
+        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {

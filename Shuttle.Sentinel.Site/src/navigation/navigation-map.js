@@ -19,6 +19,11 @@ var map = [
                 text: 'navigation:message-types.handled',
                 permission: Permissions.Manage.Monitoring
             },
+            {
+                href: '#!messagetypedispatched/list',
+                text: 'navigation:message-types.dispatched',
+                permission: Permissions.Manage.Monitoring
+            }
         ]
     },
     {

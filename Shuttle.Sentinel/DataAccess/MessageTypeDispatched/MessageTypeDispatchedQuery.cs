@@ -5,13 +5,13 @@ using Shuttle.Sentinel.DataAccess.Query;
 
 namespace Shuttle.Sentinel.DataAccess
 {
-    public class MessageTypeHandledQuery : IMessageTypeHandledQuery
+    public class MessageTypeDispatchedQuery : IMessageTypeDispatchedQuery
     {
-        private readonly IMessageTypeHandledQueryFactory _queryFactory;
+        private readonly IMessageTypeDispatchedQueryFactory _queryFactory;
         private readonly IQueryMapper _queryMapper;
 
-        public MessageTypeHandledQuery(IQueryMapper queryMapper,
-            IMessageTypeHandledQueryFactory queryFactory)
+        public MessageTypeDispatchedQuery(IQueryMapper queryMapper,
+            IMessageTypeDispatchedQueryFactory queryFactory)
         {
             Guard.AgainstNull(queryMapper, nameof(queryMapper));
             Guard.AgainstNull(queryFactory, nameof(queryFactory));
@@ -20,9 +20,9 @@ namespace Shuttle.Sentinel.DataAccess
             _queryFactory = queryFactory;
         }
 
-        public IEnumerable<MessageTypeHandled> Search(string match)
+        public IEnumerable<MessageTypeDispatched> Search(string match)
         {
-            return _queryMapper.MapObjects<MessageTypeHandled>(_queryFactory.Search(match));
+            return _queryMapper.MapObjects<MessageTypeDispatched>(_queryFactory.Search(match));
         }
     }
 }

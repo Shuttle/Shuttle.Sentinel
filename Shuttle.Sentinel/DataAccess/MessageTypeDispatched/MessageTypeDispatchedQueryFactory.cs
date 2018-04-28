@@ -3,20 +3,24 @@ using Shuttle.Core.Data;
 
 namespace Shuttle.Sentinel.DataAccess
 {
-    public class MessageTypesHandledQueryFactory : IMessageTypesHandledQueryFactory
+    public class MessageTypeDispatchedQueryFactory : IMessageTypeDispatchedQueryFactory
     {
         public IQuery Search(string match)
         {
             return RawQuery.Create(@"
 select
     MessageType,
+    RecipientInboxWorkQueueUri,
     count(*) EndpointCount
 from
-    MessageTypeHandled
+    MessageTypeDispatched
 where 
 	MessageType like @Match
+or
+    RecipientInboxWorkQueueUri like @Match
 group by
-    MessageType
+    MessageType,
+    RecipientInboxWorkQueueUri
 order by
     MessageType
 ")

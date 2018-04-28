@@ -2,7 +2,7 @@
 
 namespace Shuttle.Sentinel.DataAccess
 {
-    public interface IMessageTypesHandledQueryFactory
+    public interface IMessageTypeHandledQueryFactory
     {
         IQuery Search(string match);
     }

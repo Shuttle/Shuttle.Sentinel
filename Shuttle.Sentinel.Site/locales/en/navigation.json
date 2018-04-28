@@ -10,7 +10,8 @@
   },
   "message-types": {
     "title": "Message Types",
-    "handled": "Handled"
+    "handled": "Handled",
+    "dispatched": "Dispatched"
   },
   "queues": "Queues",
   "schedules": "Schedules",
