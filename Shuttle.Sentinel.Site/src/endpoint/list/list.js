@@ -133,7 +133,7 @@ export const ViewModel = DefineMap.extend({
             });
         }
 
-        state.title = 'endpoint:list.title';
+        state.title = 'endpoint:endpoints';
 
         state.navbar.addButton({
             type: 'refresh',

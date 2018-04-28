@@ -7,12 +7,16 @@ var map = [
         permission: Permissions.View.Dashboard
     },
     {
-        text: 'navigation:monitoring.title',
-        permission: Permissions.View.Dashboard,
+        href: '#!endpoint/list',
+        text: 'navigation:endpoints',
+        permission: Permissions.Manage.Monitoring
+    },
+    {
+        text: 'navigation:message-types.title',
         items: [
             {
-                href: '#!endpoint/list',
-                text: 'navigation:monitoring.endpoints',
+                href: '#!messagetypehandled/list',
+                text: 'navigation:message-types.handled',
                 permission: Permissions.Manage.Monitoring
             },
         ]

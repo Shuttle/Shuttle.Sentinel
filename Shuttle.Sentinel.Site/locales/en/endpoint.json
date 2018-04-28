@@ -1,12 +1,13 @@
 ﻿{
-  "title": "Endpoint",
-  "list": {
-    "title": "Endpoints"
-  },
+  "endpoint": "Endpoint",
+  "endpoint-count": "Endpoint count",
+  "endpoints": "Endpoints",
   "heartbeat-date": "Heartbeat date",
   "heartbeat-interval": "Heartbeat interval",
+  "ipv4-address": "IPv4 address",
+  "message-type": "Message type",
+  "message-types-handled": "Message types handled",
   "machine-name": "Machine name",
   "base-directory": "Base directory",
-  "qualified-name": "Qualified name",
-  "ipv4-address": "IPv4 address"
+  "qualified-name": "Qualified name"
 }

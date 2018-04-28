@@ -1,15 +1,16 @@
 ﻿{
   "dashboard": "Dashboard",
   "data-stores": "Data Stores",
+  "endpoints": "Endpoints",
   "messages": {
     "title": "Messages",
     "manage": "Manage",
     "send": "Send",
     "headers": "Headers"
   },
-  "monitoring": {
-    "title": "Monitoring",
-    "endpoints": "Endpoints"
+  "message-types": {
+    "title": "Message Types",
+    "handled": "Handled"
   },
   "queues": "Queues",
   "schedules": "Schedules",

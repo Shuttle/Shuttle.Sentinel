@@ -14,11 +14,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="navigation.stache" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/navigation/navigation.stache">
+      <file leaf-file-name="list.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/messagetypehandled/list/list.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="65" selection-start-line="2" selection-start-column="65" selection-end-line="2" selection-end-column="65" />
+            <state relative-caret-position="88">
+              <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.stache" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/messagetypehandled/list/list.stache">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="60" selection-start-line="3" selection-start-column="60" selection-end-line="3" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sentinel.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/locales/en/sentinel.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -26,8 +44,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="224">
+              <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
                 <element signature="e#339#375#0" expanded="true" />
@@ -36,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.stache" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.stache">
+      <file leaf-file-name="endpoint.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/endpoint/endpoint.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -49,37 +67,7 @@
         <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.stache">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="125" column="57" selection-start-line="125" selection-start-column="57" selection-end-line="125" selection-end-column="57" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/styles.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="endpoint.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+              <caret line="3" column="48" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -87,8 +75,29 @@
       <file leaf-file-name="navigation-map.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="57" />
+            <state relative-caret-position="238">
+              <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="endpoint.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="135" column="41" selection-start-line="135" selection-start-column="41" selection-end-line="135" selection-end-column="41" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,8 +105,8 @@
       <file leaf-file-name="navigation.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+            <state relative-caret-position="51">
+              <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -163,8 +172,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/message-type-input.stache" />
-        <option value="$PROJECT_DIR$/src/components/message-type.stache" />
         <option value="$PROJECT_DIR$/src/components/message-type.js" />
         <option value="$PROJECT_DIR$/src/components/message-builder.stache" />
         <option value="$PROJECT_DIR$/src/components/message-builder.js" />
@@ -195,7 +202,6 @@
         <option value="$PROJECT_DIR$/src/message/manage/manage.stache" />
         <option value="$PROJECT_DIR$/src/navigation/navigation.js" />
         <option value="$PROJECT_DIR$/src/login/login.stache" />
-        <option value="$PROJECT_DIR$/locales/en/sentinel.json" />
         <option value="$PROJECT_DIR$/src/login/login.js" />
         <option value="$PROJECT_DIR$/locales/en/queue.json" />
         <option value="$PROJECT_DIR$/src/queue/list/list.js" />
@@ -204,16 +210,19 @@
         <option value="$PROJECT_DIR$/src/navigation/navigation.stache" />
         <option value="$PROJECT_DIR$/src/state.js" />
         <option value="$PROJECT_DIR$/src/main.stache" />
-        <option value="$PROJECT_DIR$/locales/en/navigation.json" />
         <option value="$PROJECT_DIR$/src/permissions.js" />
-        <option value="$PROJECT_DIR$/src/navigation/navigation-map.js" />
         <option value="$PROJECT_DIR$/src/dashboard/dashboard.stache" />
-        <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/endpoint/endpoint.js" />
-        <option value="$PROJECT_DIR$/src/endpoint/list/list.stache" />
         <option value="$PROJECT_DIR$/src/styles.css" />
-        <option value="$PROJECT_DIR$/src/endpoint/list/list.js" />
+        <option value="$PROJECT_DIR$/locales/en/navigation.json" />
+        <option value="$PROJECT_DIR$/src/main.js" />
+        <option value="$PROJECT_DIR$/src/navigation/navigation-map.js" />
+        <option value="$PROJECT_DIR$/locales/en/sentinel.json" />
         <option value="$PROJECT_DIR$/locales/en/endpoint.json" />
+        <option value="$PROJECT_DIR$/src/endpoint/list/list.js" />
+        <option value="$PROJECT_DIR$/src/endpoint/list/list.stache" />
+        <option value="$PROJECT_DIR$/src/messagetypehandled/list/list.stache" />
+        <option value="$PROJECT_DIR$/src/messagetypehandled/list/list.js" />
       </list>
     </option>
   </component>
@@ -279,7 +288,33 @@
               <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
               <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="queue" type="462c0819:PsiDirectoryNode" />
+              <item name="message" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="message" type="462c0819:PsiDirectoryNode" />
+              <item name="send" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="messagetypehandled" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="messagetypehandled" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="navigation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -298,18 +333,18 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\locales\en" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\item" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\message\headers" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\list" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\components" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\navigation" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\locales\en" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\item" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\message\headers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -377,12 +412,12 @@
       <workItem from="1524583777416" duration="598000" />
       <workItem from="1524755985952" duration="2911000" />
       <workItem from="1524807426859" duration="6227000" />
-      <workItem from="1524892553147" duration="3449000" />
+      <workItem from="1524892553147" duration="7126000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178244000" />
+    <option name="totallyTimeSpent" value="181921000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -415,23 +450,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1224">
-          <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/queue.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/queue-input.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -582,13 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/message/send/headers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="58" column="39" selection-start-line="58" selection-start-column="39" selection-end-line="58" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/message/manage/manage.stache">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
@@ -607,13 +618,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/sentinel.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -679,20 +683,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/navigation/navigation.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="65" selection-start-line="2" selection-start-column="65" selection-end-line="2" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.stache">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -707,35 +697,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <element signature="e#339#375#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/endpoint/endpoint.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
@@ -746,27 +711,94 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/navigation/navigation.stache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="2" column="65" selection-start-line="2" selection-start-column="65" selection-end-line="2" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#339#375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/locales/en/sentinel.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/message/send/headers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="58" column="39" selection-start-line="58" selection-start-column="39" selection-end-line="58" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+        <state relative-caret-position="187">
+          <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="135" column="41" selection-start-line="135" selection-start-column="41" selection-end-line="135" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/endpoint.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.stache">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="3" column="38" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+          <caret line="3" column="48" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
+    <entry file="file://$PROJECT_DIR$/src/messagetypehandled/list/list.stache">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="125" column="57" selection-start-line="125" selection-start-column="57" selection-end-line="125" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="51">
+          <caret line="3" column="60" selection-start-line="3" selection-start-column="60" selection-end-line="3" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messagetypehandled/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
         </state>
       </provider>
     </entry>

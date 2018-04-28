@@ -31,6 +31,7 @@ import '~/datastore/';
 import '~/endpoint/';
 import '~/message/';
 import '~/messageheader/';
+import '~/messagetypehandled/';
 import '~/queue/';
 import '~/subscription/';
 
