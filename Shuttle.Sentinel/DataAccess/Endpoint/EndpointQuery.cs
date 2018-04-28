@@ -9,8 +9,8 @@ namespace Shuttle.Sentinel.DataAccess
     public class EndpointQuery : IEndpointQuery
     {
         private readonly IDatabaseGateway _databaseGateway;
-        private readonly IQueryMapper _queryMapper;
         private readonly IEndpointQueryFactory _queryFactory;
+        private readonly IQueryMapper _queryMapper;
 
         public EndpointQuery(IDatabaseGateway databaseGateway, IQueryMapper queryMapper,
             IEndpointQueryFactory queryFactory)
@@ -25,14 +25,13 @@ namespace Shuttle.Sentinel.DataAccess
         }
 
         public void Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
-            string ipv4Address, string inboxWorkQueueUri,
-            string inboxDeferredQueueUri, string inboxErrorQueueUri, string outboxWorkQueueUri,
-            string outboxErrorQueueUri,
-            string controlInboxWorkQueueUri, string controlInboxErrorQueueUri)
+            string ipv4Address, string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
+            string outboxWorkQueueUri, string outboxErrorQueueUri, string controlInboxWorkQueueUri,
+            string controlInboxErrorQueueUri, string heartbeatIntervalDuration)
         {
             _databaseGateway.ExecuteUsing(_queryFactory.Save(machineName, baseDirectory, entryAssemblyQualifiedName,
                 ipv4Address, inboxWorkQueueUri, inboxDeferredQueueUri, inboxErrorQueueUri, controlInboxWorkQueueUri,
-                controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri));
+                controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri, heartbeatIntervalDuration));
         }
 
         public Guid? FindId(string machineName, string baseDirectory)
@@ -46,7 +45,8 @@ namespace Shuttle.Sentinel.DataAccess
             int count,
             double fastestExecutionDuration, double slowestExecutionDuration, double totalExecutionDuration)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.AddMessageTypeMetric(metricId, messageType, dateRegistered, endpointId,
+            _databaseGateway.ExecuteUsing(_queryFactory.AddMessageTypeMetric(metricId, messageType, dateRegistered,
+                endpointId,
                 count, fastestExecutionDuration, slowestExecutionDuration, totalExecutionDuration));
         }
 

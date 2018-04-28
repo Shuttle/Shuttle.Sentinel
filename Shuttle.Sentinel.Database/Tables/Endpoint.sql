@@ -12,6 +12,7 @@
     [OutboxWorkQueueUri]   VARCHAR (130)    NULL,
     [OutboxErrorQueueUri]   VARCHAR (130)    NULL,
     [HeartbeatDate] DATETIME NOT NULL DEFAULT getdate(), 
+    [HeartbeatIntervalDuration] VARCHAR(25) NOT NULL DEFAULT '00:00:30', 
     CONSTRAINT [PK_Endpoint] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 );
 

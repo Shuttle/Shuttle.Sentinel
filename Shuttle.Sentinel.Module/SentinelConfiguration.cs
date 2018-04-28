@@ -4,10 +4,12 @@ namespace Shuttle.Sentinel.Module
 {
     public class SentinelConfiguration : ISentinelConfiguration
     {
+        public static readonly TimeSpan DefaultHeartbeatIntervalDuration = TimeSpan.FromSeconds(30);
+
         public SentinelConfiguration()
         {
             Enabled = true;
-            HeartbeatIntervalDuration = TimeSpan.FromSeconds(30);
+            HeartbeatIntervalDuration = DefaultHeartbeatIntervalDuration;
         }
 
         public bool Enabled { get; set; }

@@ -19,6 +19,7 @@ select
     ControlInboxErrorQueueUri,
     OutboxWorkQueueUri,
     OutboxErrorQueueUri,
+    HeartbeatIntervalDuration,
     HeartbeatDate
 from 
     Endpoint
@@ -43,7 +44,7 @@ and
         public IQuery Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
             string ipv4Address, string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string controlInboxWorkQueueUri, string controlInboxErrorQueueUri, string outboxWorkQueueUri,
-            string outboxErrorQueueUri)
+            string outboxErrorQueueUri, string heartbeatIntervalDuration)
         {
             return RawQuery.Create(@"
 declare @date DateTime = getdate();
@@ -72,6 +73,7 @@ if not exists
         ControlInboxErrorQueueUri,
         OutboxWorkQueueUri,
         OutboxErrorQueueUri,
+        HeartbeatIntervalDuration,
         HeartbeatDate
     )
     values
@@ -87,6 +89,7 @@ if not exists
         @ControlInboxErrorQueueUri,
         @OutboxWorkQueueUri,
         @OutboxErrorQueueUri,
+        @HeartbeatIntervalDuration,
         @date
     )
 else
@@ -118,7 +121,8 @@ else
                 .AddParameterValue(EndpointColumns.ControlInboxWorkQueueUri, controlInboxWorkQueueUri)
                 .AddParameterValue(EndpointColumns.ControlInboxErrorQueueUri, controlInboxErrorQueueUri)
                 .AddParameterValue(EndpointColumns.OutboxWorkQueueUri, outboxWorkQueueUri)
-                .AddParameterValue(EndpointColumns.OutboxErrorQueueUri, outboxErrorQueueUri);
+                .AddParameterValue(EndpointColumns.OutboxErrorQueueUri, outboxErrorQueueUri)
+                .AddParameterValue(EndpointColumns.HeartbeatIntervalDuration, heartbeatIntervalDuration);
         }
 
         public IQuery AddMessageTypeHandled(Guid endpointId, string messageType)

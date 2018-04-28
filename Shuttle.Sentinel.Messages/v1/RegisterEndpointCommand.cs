@@ -24,6 +24,7 @@ namespace Shuttle.Sentinel.Messages.v1
         public string OutboxErrorQueueUri { get; set; }
         public string ControlInboxWorkQueueUri { get; set; }
         public string ControlInboxErrorQueueUri { get; set; }
+        public string HeartbeatIntervalDuration { get; set; }
 
         public List<Association> MessageTypeAssociations { get; set; }
         public List<Dispatched> MessageTypesDispatched { get; set; }

@@ -39,6 +39,19 @@ namespace Shuttle.Sentinel.Server
                 return;
             }
 
+            string heartbeatIntervalDuration;
+
+            try
+            {
+                var span = TimeSpan.Parse(message.HeartbeatIntervalDuration);
+
+                heartbeatIntervalDuration = span.ToString();
+            }
+            catch
+            {
+                heartbeatIntervalDuration = SentinelConfiguration.DefaultHeartbeatIntervalDuration.ToString();
+            }
+
             using (_databaseContextFactory.Create())
             {
                 _endpointQuery.Save(
@@ -52,7 +65,8 @@ namespace Shuttle.Sentinel.Server
                     message.OutboxWorkQueueUri,
                     message.OutboxErrorQueueUri,
                     message.ControlInboxWorkQueueUri,
-                    message.ControlInboxErrorQueueUri);
+                    message.ControlInboxErrorQueueUri,
+                    heartbeatIntervalDuration);
 
                 var id = _endpointQuery.FindId(message.MachineName, message.BaseDirectory);
 

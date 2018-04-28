@@ -9,7 +9,7 @@ namespace Shuttle.Sentinel.DataAccess
         void Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName, string ipv4Address,
             string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string outboxWorkQueueUri, string outboxErrorQueueUri, string controlInboxWorkQueueUri,
-            string controlInboxErrorQueueUri);
+            string controlInboxErrorQueueUri, string heartbeatIntervalDuration);
 
         Guid? FindId(string machineName, string baseDirectory);
 

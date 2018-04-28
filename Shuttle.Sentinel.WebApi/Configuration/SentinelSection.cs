@@ -13,23 +13,23 @@ namespace Shuttle.Sentinel.WebApi.Configuration
         public string SerializerType => (string) this["serializerType"];
 
         [TypeConverter(typeof(StringDurationArrayConverter))]
-        [ConfigurationProperty("heartbeatIntervalDuration", IsRequired = false, DefaultValue = null)]
-        public TimeSpan HeartbeatIntervalDuration
+        [ConfigurationProperty("heartbeatRecoveryDuration", IsRequired = false, DefaultValue = null)]
+        public TimeSpan HeartbeatRecoveryDuration
         {
             get
             {
-                var result = this["heartbeatIntervalDuration"];
+                var result = this["heartbeatRecoveryDuration"];
 
                 if (result is TimeSpan span)
                 {
-                    return span.Equals(TimeSpan.Zero) ? SentinelConfiguration.DefaultHeartbeatIntervalDuration : span;
+                    return span.Equals(TimeSpan.Zero) ? SentinelConfiguration.DefaultHeartbeatRecoveryDuration : span;
                 }
 
                 var spans = result as TimeSpan[];
 
                 return spans == null
-                    ? SentinelConfiguration.DefaultHeartbeatIntervalDuration
-                    : (spans.Length > 0 ? spans[0] : SentinelConfiguration.DefaultHeartbeatIntervalDuration);
+                    ? SentinelConfiguration.DefaultHeartbeatRecoveryDuration
+                    : (spans.Length > 0 ? spans[0] : SentinelConfiguration.DefaultHeartbeatRecoveryDuration);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Shuttle.Sentinel.WebApi.Configuration
 
             var result = new SentinelConfiguration
             {
-                HeartbeatIntervalDuration = section.HeartbeatIntervalDuration
+                HeartbeatRecoveryDuration = section.HeartbeatRecoveryDuration
             };
 
             try

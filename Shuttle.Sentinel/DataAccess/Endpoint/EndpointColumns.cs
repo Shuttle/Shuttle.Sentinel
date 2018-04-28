@@ -18,5 +18,6 @@ namespace Shuttle.Sentinel.DataAccess
         public static MappedColumn<string> OutboxWorkQueueUri = new MappedColumn<string>("OutboxWorkQueueUri", DbType.AnsiString);
         public static MappedColumn<string> OutboxErrorQueueUri = new MappedColumn<string>("OutboxErrorQueueUri", DbType.AnsiString);
         public static MappedColumn<DateTime> HeartbeatDate = new MappedColumn<DateTime>("HeartbeatDate", DbType.DateTime);
+        public static MappedColumn<string> HeartbeatIntervalDuration = new MappedColumn<string>("HeartbeatIntervalDuration", DbType.AnsiString);
     }
 }

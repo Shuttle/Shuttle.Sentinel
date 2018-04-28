@@ -4,14 +4,14 @@ namespace Shuttle.Sentinel.WebApi.Configuration
 {
 	public class SentinelConfiguration : ISentinelConfiguration
 	{
-	    public static readonly TimeSpan DefaultHeartbeatIntervalDuration = TimeSpan.FromSeconds(30);
+	    public static readonly TimeSpan DefaultHeartbeatRecoveryDuration = TimeSpan.FromSeconds(5);
 
 	    public Type SerializerType { get; set; }
-	    public TimeSpan HeartbeatIntervalDuration { get; set; }
+	    public TimeSpan HeartbeatRecoveryDuration { get; set; }
 
 	    public SentinelConfiguration()
 	    {
-            HeartbeatIntervalDuration = TimeSpan.FromSeconds(30);
+            HeartbeatRecoveryDuration = DefaultHeartbeatRecoveryDuration;
 	    }
 	}
 }

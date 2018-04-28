@@ -8,6 +8,7 @@ using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
+using Shuttle.Sentinel.WebApi.Configuration;
 
 namespace Shuttle.Sentinel.WebApi
 {
@@ -17,15 +18,19 @@ namespace Shuttle.Sentinel.WebApi
         private readonly IServiceBus _bus;
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
+        private readonly ISentinelConfiguration _configuration;
 
-        public EndpointsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery)
+        public EndpointsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
+            IEndpointQuery endpointQuery, ISentinelConfiguration configuration)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(endpointQuery, nameof(endpointQuery));
             Guard.AgainstNull(bus, nameof(bus));
+            Guard.AgainstNull(configuration, nameof(configuration));
 
             _databaseContextFactory = databaseContextFactory;
             _endpointQuery = endpointQuery;
+            _configuration = configuration;
             _bus = bus;
         }
 
@@ -57,10 +62,31 @@ namespace Shuttle.Sentinel.WebApi
 
         private IEnumerable<dynamic> Data(IEnumerable<Endpoint> endpoints)
         {
+            var now = DateTime.Now;
             var result = new List<dynamic>();
 
             foreach (var endpoint in endpoints)
             {
+                var heartbeatStatus = "success";
+
+                try
+                {
+                    var heartbeatIntervalDuration = TimeSpan.Parse(endpoint.HeartbeatIntervalDuration);
+                    var heartbeatExpiryDate = now.Subtract(heartbeatIntervalDuration);
+
+                    if (endpoint.HeartbeatDate < heartbeatExpiryDate)
+                    {
+                        heartbeatStatus = endpoint.HeartbeatDate <
+                                          heartbeatExpiryDate.Subtract(_configuration.HeartbeatRecoveryDuration)
+                            ? "down"
+                            : "recovery";
+                    }
+                }
+                catch
+                {
+                    heartbeatStatus = "unknown";
+                }
+
                 result.Add(new
                 {
                     endpoint.Id,
@@ -75,6 +101,7 @@ namespace Shuttle.Sentinel.WebApi
                     endpoint.ControlInboxErrorQueueUri,
                     endpoint.OutboxWorkQueueUri,
                     endpoint.OutboxErrorQueueUri,
+                    endpoint.HeartbeatIntervalDuration,
                     endpoint.HeartbeatDate,
                     InboxWorkQueueUriSecured = GetSecuredUri(endpoint.InboxWorkQueueUri),
                     InboxDeferredQueueUriSecured = GetSecuredUri(endpoint.InboxDeferredQueueUri),
@@ -82,7 +109,8 @@ namespace Shuttle.Sentinel.WebApi
                     ControlInboxWorkQueueUriSecured = GetSecuredUri(endpoint.ControlInboxWorkQueueUri),
                     ControlInboxErrorQueueUriSecured = GetSecuredUri(endpoint.ControlInboxErrorQueueUri),
                     OutboxWorkQueueUriSecured = GetSecuredUri(endpoint.OutboxWorkQueueUri),
-                    OutboxErrorQueueUriSecured = GetSecuredUri(endpoint.OutboxErrorQueueUri)
+                    OutboxErrorQueueUriSecured = GetSecuredUri(endpoint.OutboxErrorQueueUri),
+                    HeartbeatStatus = heartbeatStatus
                 });
             }
 

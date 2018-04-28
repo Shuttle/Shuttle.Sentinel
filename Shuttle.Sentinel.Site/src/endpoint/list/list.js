@@ -9,7 +9,7 @@ import Api from 'shuttle-can-api';
 import localisation from '~/localisation';
 import state from '~/state';
 
-resources.add('endpoint', { action: 'list', permission: Permissions.Manage.Monitoring });
+resources.add('endpoint', {action: 'list', permission: Permissions.Manage.Monitoring});
 
 export const Map = DefineMap.extend({
     id: {
@@ -21,11 +21,36 @@ export const Map = DefineMap.extend({
     baseDirectory: {
         type: 'string'
     },
+    entryAssemblyQualifiedName: {
+        type: 'string'
+    },
     ipv4Address: {
         type: 'string'
     },
     heartbeatDate: {
         type: 'date'
+    },
+    heartbeatIntervalDuration: {
+        type: 'string'
+    },
+    heartbeatStatus: {
+        type: 'string'
+    },
+    badgeType: {
+        type: 'string',
+        get() {
+            switch (this.heartbeatStatus) {
+                case 'success': {
+                    return 'success';
+                }
+                case 'down': {
+                    return 'danger';
+                }
+                default: {
+                    return 'warning';
+                }
+            }
+        }
     },
     remove() {
         api.delete({id: this.id})
@@ -48,17 +73,23 @@ export const ViewModel = DefineMap.extend({
         Default: DefineList
     },
 
-    refreshTimestamp: { type: 'string' },
+    refreshTimestamp: {type: 'string'},
 
     get listPromise() {
         const refreshTimestamp = this.refreshTimestamp;
         return api.list();
     },
 
-    init: function() {
+    init: function () {
         const columns = this.columns;
 
         if (!columns.length) {
+            columns.push({
+                columnTitle: 'status',
+                columnClass: 'col-1',
+                stache: "<span class=\"badge badge-{{badgeType}}\">{{heartbeatStatus}}</span>"
+            });
+
             columns.push({
                 columnTitle: 'endpoint:machine-name',
                 columnClass: 'col-2',
@@ -67,8 +98,14 @@ export const ViewModel = DefineMap.extend({
 
             columns.push({
                 columnTitle: 'endpoint:base-directory',
-                columnClass: 'col',
+                columnClass: 'col-3',
                 attributeName: 'baseDirectory'
+            });
+
+            columns.push({
+                columnTitle: 'endpoint:qualified-name',
+                columnClass: 'col-2',
+                attributeName: 'entryAssemblyQualifiedName'
             });
 
             columns.push({
@@ -81,6 +118,12 @@ export const ViewModel = DefineMap.extend({
                 columnTitle: 'endpoint:heartbeat-date',
                 columnClass: 'col-1',
                 attributeName: 'heartbeatDate'
+            });
+
+            columns.push({
+                columnTitle: 'endpoint:heartbeat-interval',
+                columnClass: 'col-1',
+                attributeName: 'heartbeatIntervalDuration'
             });
 
             columns.push({
@@ -98,7 +141,7 @@ export const ViewModel = DefineMap.extend({
         });
     },
 
-    refresh: function() {
+    refresh: function () {
         this.refreshTimestamp = Date.now();
     }
 });

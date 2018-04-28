@@ -15,5 +15,6 @@
         public string OutboxWorkQueueUri { get; set; }
         public string OutboxErrorQueueUri { get; set; }
         public System.DateTime HeartbeatDate { get; set; }
+        public string HeartbeatIntervalDuration { get; set; }
     }
 }

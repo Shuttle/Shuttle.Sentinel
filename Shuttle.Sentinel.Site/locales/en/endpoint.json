@@ -4,6 +4,7 @@
     "title": "Endpoints"
   },
   "heartbeat-date": "Heartbeat date",
+  "heartbeat-interval": "Heartbeat interval",
   "machine-name": "Machine name",
   "base-directory": "Base directory",
   "qualified-name": "Qualified name",

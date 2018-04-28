@@ -11,7 +11,7 @@ namespace Shuttle.Sentinel.DataAccess
             string inboxWorkQueueUri,
             string inboxDeferredQueueUri, string inboxErrorQueueUri, string controlInboxWorkQueueUri,
             string controlInboxErrorQueueUri, string outboxWorkQueueUri,
-            string outboxErrorQueueUri);
+            string outboxErrorQueueUri, string heartbeatIntervalDuration);
 
         IQuery AddMessageTypeHandled(Guid endpointId, string messageType);
 
