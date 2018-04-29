@@ -1,33 +1,24 @@
-<div class="card-deck">
+<div class="card-deck mb-2">
     <div class="card">
         <div class="card-header">
             {{i18n 'endpoint:endpoints'}}
         </div>
         <div class="card-body">
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             <a href="#!endpoint/list" class="btn btn-success">
-                {{i18n('statuses.up')}} <span class="badge badge-light">{{endpoints.up}}</span>
+                {{i18n('statuses.up')}} <span class="badge badge-light">{{endpoints.upCount}}</span>
             </a>
             <a href="#!endpoint/list" class="btn btn-danger">
-                {{i18n('statuses.down')}} <span class="badge badge-light">{{endpoints.down}}</span>
+                {{i18n('statuses.down')}} <span class="badge badge-light">{{endpoints.downCount}}</span>
             </a>
             <a href="#!endpoint/list" class="btn btn-warning">
-                {{i18n('statuses.recovery')}} <span class="badge badge-light">{{endpoints.recovery}}</span>
+                {{i18n('statuses.recovery')}} <span class="badge badge-light">{{endpoints.recoveryCount}}</span>
             </a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
     </div>
 </div>
+{{#if metrics.listPromise.isResolved}}
+    <cs-table vm:columns:from="metrics.columns" vm:rows:from="metrics.listPromise.value" />
+{{else}}
+    <cs-fetching title:from="'dashboard:metrics'" />
+{{/if}}
+

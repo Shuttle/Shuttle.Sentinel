@@ -150,7 +150,6 @@ export const ViewModel = DefineMap.extend({
     }
 });
 
-
 export default Component.extend({
     tag: 'sentinel-endpoint-list',
     ViewModel,

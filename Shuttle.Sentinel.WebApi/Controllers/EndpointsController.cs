@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
@@ -16,9 +17,9 @@ namespace Shuttle.Sentinel.WebApi
     public class EndpointsController : Controller
     {
         private readonly IServiceBus _bus;
+        private readonly ISentinelConfiguration _configuration;
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
-        private readonly ISentinelConfiguration _configuration;
 
         public EndpointsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
             IEndpointQuery endpointQuery, ISentinelConfiguration configuration)
@@ -34,7 +35,6 @@ namespace Shuttle.Sentinel.WebApi
             _bus = bus;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
         [HttpGet]
         public IActionResult Get()
         {
@@ -47,7 +47,6 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
         [HttpGet("{search}")]
         public IActionResult GetSearch(string search)
         {
@@ -60,33 +59,63 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        private IEnumerable<dynamic> Data(IEnumerable<Endpoint> endpoints)
+        [HttpGet("statistics")]
+        public IActionResult GetStatistics()
+        {
+            List<Endpoint> endpoints;
+
+            using (_databaseContextFactory.Create())
+            {
+                endpoints = _endpointQuery.All().ToList();
+            }
+
+            return Ok(new
+            {
+                Data = new
+                {
+                    UpCount = endpoints.Count(item =>
+                        GetHeartbeatStatus(item).Equals("up", StringComparison.InvariantCultureIgnoreCase)),
+                    DownCount = endpoints.Count(item =>
+                        GetHeartbeatStatus(item).Equals("down", StringComparison.InvariantCultureIgnoreCase)),
+                    RecoveryCount = endpoints.Count(item =>
+                        GetHeartbeatStatus(item).Equals("recovery", StringComparison.InvariantCultureIgnoreCase))
+                }
+            });
+        }
+
+        private string GetHeartbeatStatus(Endpoint endpoint)
         {
             var now = DateTime.Now;
+
+            var heartbeatStatus = "up";
+
+            try
+            {
+                var heartbeatIntervalDuration = TimeSpan.Parse(endpoint.HeartbeatIntervalDuration);
+                var heartbeatExpiryDate = now.Subtract(heartbeatIntervalDuration);
+
+                if (endpoint.HeartbeatDate < heartbeatExpiryDate)
+                {
+                    heartbeatStatus = endpoint.HeartbeatDate <
+                                      heartbeatExpiryDate.Subtract(_configuration.HeartbeatRecoveryDuration)
+                        ? "down"
+                        : "recovery";
+                }
+            }
+            catch
+            {
+                heartbeatStatus = "unknown";
+            }
+
+            return heartbeatStatus;
+        }
+
+        private IEnumerable<dynamic> Data(IEnumerable<Endpoint> endpoints)
+        {
             var result = new List<dynamic>();
 
             foreach (var endpoint in endpoints)
             {
-                var heartbeatStatus = "up";
-
-                try
-                {
-                    var heartbeatIntervalDuration = TimeSpan.Parse(endpoint.HeartbeatIntervalDuration);
-                    var heartbeatExpiryDate = now.Subtract(heartbeatIntervalDuration);
-
-                    if (endpoint.HeartbeatDate < heartbeatExpiryDate)
-                    {
-                        heartbeatStatus = endpoint.HeartbeatDate <
-                                          heartbeatExpiryDate.Subtract(_configuration.HeartbeatRecoveryDuration)
-                            ? "down"
-                            : "recovery";
-                    }
-                }
-                catch
-                {
-                    heartbeatStatus = "unknown";
-                }
-
                 result.Add(new
                 {
                     endpoint.Id,
@@ -110,7 +139,7 @@ namespace Shuttle.Sentinel.WebApi
                     ControlInboxErrorQueueUriSecured = GetSecuredUri(endpoint.ControlInboxErrorQueueUri),
                     OutboxWorkQueueUriSecured = GetSecuredUri(endpoint.OutboxWorkQueueUri),
                     OutboxErrorQueueUriSecured = GetSecuredUri(endpoint.OutboxErrorQueueUri),
-                    HeartbeatStatus = heartbeatStatus
+                    HeartbeatStatus = GetHeartbeatStatus(endpoint)
                 });
             }
 
