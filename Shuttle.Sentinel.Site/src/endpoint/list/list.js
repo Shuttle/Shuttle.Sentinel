@@ -4,7 +4,6 @@ import DefineList from 'can-define/list/';
 import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import router from '~/router';
 import Api from 'shuttle-can-api';
 import localisation from '~/localisation';
 import state from '~/state';
@@ -36,11 +35,16 @@ export const Map = DefineMap.extend({
     heartbeatStatus: {
         type: 'string'
     },
+    heartbeatStatusText: {
+        get() {
+            return localisation.value("statuses." + this.heartbeatStatus);
+        }
+    },
     badgeType: {
         type: 'string',
         get() {
             switch (this.heartbeatStatus) {
-                case 'success': {
+                case 'up': {
                     return 'success';
                 }
                 case 'down': {
@@ -87,7 +91,7 @@ export const ViewModel = DefineMap.extend({
             columns.push({
                 columnTitle: 'status',
                 columnClass: 'col-1',
-                stache: "<span class=\"badge badge-{{badgeType}}\">{{heartbeatStatus}}</span>"
+                stache: "<span class=\"badge badge-{{badgeType}}\">{{heartbeatStatusText}}</span>"
             });
 
             columns.push({

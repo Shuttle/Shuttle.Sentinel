@@ -14,67 +14,66 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="endpoint.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="list.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/list/list.js">
+        <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="message.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/locales/en/message.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-269">
-              <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+            <state relative-caret-position="88">
+              <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
-                <element signature="e#339#375#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="messagetypedispatched.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/messagetypedispatched.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="list.stache" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/list/list.stache">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="endpoint.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
+        <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.stache">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="33" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="33" />
+            <state relative-caret-position="51">
+              <caret line="3" column="48" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="navigation-map.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
+      <file leaf-file-name="sentinel.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/locales/en/sentinel.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="23" column="48" lean-forward="true" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="58" />
+            <state relative-caret-position="174">
+              <caret line="40" column="9" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboard.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/locales/en/dashboard.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="dashboard.stache" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.stache">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboard.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,8 +81,8 @@
       <file leaf-file-name="navigation.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+            <state relative-caret-position="204">
+              <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -99,8 +98,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>message-builder</find>
-      <find>btn-pri</find>
       <find>cs-queue</find>
       <find>messageActions</find>
       <find>value</find>
@@ -129,6 +126,8 @@
       <find>_resour</find>
       <find>processor</find>
       <find>resize</find>
+      <find>localisation.v</find>
+      <find>status</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -149,11 +148,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/message-builder.stache" />
-        <option value="$PROJECT_DIR$/src/components/message-builder.js" />
-        <option value="$PROJECT_DIR$/src/components/queue.stache" />
-        <option value="$PROJECT_DIR$/src/message/manage/manage.js" />
-        <option value="$PROJECT_DIR$/src/datastore/list/list.js" />
         <option value="$PROJECT_DIR$/src/message/headers/headers.stache" />
         <option value="$PROJECT_DIR$/src/navbar.js" />
         <option value="$PROJECT_DIR$/src/components/queue-input.stache" />
@@ -187,19 +181,24 @@
         <option value="$PROJECT_DIR$/src/state.js" />
         <option value="$PROJECT_DIR$/src/main.stache" />
         <option value="$PROJECT_DIR$/src/permissions.js" />
-        <option value="$PROJECT_DIR$/src/dashboard/dashboard.stache" />
         <option value="$PROJECT_DIR$/src/endpoint/endpoint.js" />
         <option value="$PROJECT_DIR$/src/styles.css" />
-        <option value="$PROJECT_DIR$/locales/en/sentinel.json" />
-        <option value="$PROJECT_DIR$/src/endpoint/list/list.js" />
         <option value="$PROJECT_DIR$/src/endpoint/list/list.stache" />
         <option value="$PROJECT_DIR$/src/messagetypehandled/list/list.stache" />
         <option value="$PROJECT_DIR$/src/messagetypehandled/list/list.js" />
+        <option value="$PROJECT_DIR$/src/messagetypedispatched/list/list.js" />
+        <option value="$PROJECT_DIR$/src/messagetypeassociation/messagetypeassociation.js" />
+        <option value="$PROJECT_DIR$/src/messagetypedispatched/messagetypedispatched.js" />
+        <option value="$PROJECT_DIR$/src/messagetypehandled/messagetypehandled.js" />
+        <option value="$PROJECT_DIR$/src/messagetypeassociation/list/list.js" />
         <option value="$PROJECT_DIR$/locales/en/endpoint.json" />
+        <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/navigation/navigation-map.js" />
         <option value="$PROJECT_DIR$/locales/en/navigation.json" />
-        <option value="$PROJECT_DIR$/src/main.js" />
-        <option value="$PROJECT_DIR$/src/messagetypedispatched/list/list.js" />
+        <option value="$PROJECT_DIR$/src/messagetypeassociation/list/list.stache" />
+        <option value="$PROJECT_DIR$/src/dashboard/dashboard.stache" />
+        <option value="$PROJECT_DIR$/locales/en/sentinel.json" />
+        <option value="$PROJECT_DIR$/src/endpoint/list/list.js" />
       </list>
     </option>
   </component>
@@ -225,6 +224,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -252,6 +252,12 @@
               <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
               <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="dashboard" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="endpoint" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -273,6 +279,19 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="message" type="462c0819:PsiDirectoryNode" />
               <item name="send" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="messagetypeassociation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="messagetypeassociation" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
@@ -310,7 +329,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -323,18 +341,18 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\list" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\components" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\navigation" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\locales\en" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\item" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\message\headers" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\list" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\components" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\navigation" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -402,12 +420,13 @@
       <workItem from="1524583777416" duration="598000" />
       <workItem from="1524755985952" duration="2911000" />
       <workItem from="1524807426859" duration="6227000" />
-      <workItem from="1524892553147" duration="9432000" />
+      <workItem from="1524892553147" duration="10127000" />
+      <workItem from="1524983615464" duration="4328000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184227000" />
+    <option name="totallyTimeSpent" value="189250000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -417,6 +436,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
@@ -430,7 +450,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -440,35 +459,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/message-builder.js" />
-    <entry file="file://$PROJECT_DIR$/src/subscription/add/add.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="90" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/queue.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="119" selection-start-line="2" selection-start-column="119" selection-end-line="2" selection-end-column="119" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/navbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="84" column="59" selection-start-line="84" selection-start-column="59" selection-end-line="84" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/queue-input.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="63" selection-start-line="7" selection-start-column="63" selection-end-line="7" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/message/message.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -657,13 +647,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/permissions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -692,24 +675,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/sentinel.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/message/send/headers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="58" column="39" selection-start-line="58" selection-start-column="39" selection-end-line="58" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="48" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -727,16 +696,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="17" column="15" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/endpoint/endpoint.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -751,31 +710,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
+    <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/list/list.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="33" />
+        <state relative-caret-position="17">
+          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
+    <entry file="file://$PROJECT_DIR$/src/messagetypeassociation/messagetypeassociation.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="23" column="48" lean-forward="true" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="58" />
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
+    <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/messagetypedispatched.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messagetypehandled/messagetypehandled.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-269">
-          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+        <state relative-caret-position="323">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
             <element signature="e#339#375#0" expanded="true" />
@@ -783,22 +749,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/messagetypedispatched.js">
+    <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="60" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messagetypeassociation/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="65" column="57" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messagetypeassociation/list/list.stache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
-            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/list/list.stache">
+    <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/locales/en/dashboard.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/list/list.js">
+    <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.stache">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
+        <state relative-caret-position="238">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.stache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="48" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/locales/en/sentinel.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="40" column="9" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

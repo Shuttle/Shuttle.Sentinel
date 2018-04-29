@@ -67,7 +67,7 @@ namespace Shuttle.Sentinel.WebApi
 
             foreach (var endpoint in endpoints)
             {
-                var heartbeatStatus = "success";
+                var heartbeatStatus = "up";
 
                 try
                 {

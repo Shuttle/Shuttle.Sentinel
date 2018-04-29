@@ -15,13 +15,18 @@ var map = [
         text: 'navigation:message-types.title',
         items: [
             {
-                href: '#!messagetypehandled/list',
-                text: 'navigation:message-types.handled',
+                href: '#!messagetypeassociation/list',
+                text: 'navigation:message-types.associations',
                 permission: Permissions.Manage.Monitoring
             },
             {
                 href: '#!messagetypedispatched/list',
                 text: 'navigation:message-types.dispatched',
+                permission: Permissions.Manage.Monitoring
+            },
+            {
+                href: '#!messagetypehandled/list',
+                text: 'navigation:message-types.handled',
                 permission: Permissions.Manage.Monitoring
             }
         ]

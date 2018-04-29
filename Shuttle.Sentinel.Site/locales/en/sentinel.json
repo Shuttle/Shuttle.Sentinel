@@ -13,7 +13,6 @@
   "edit": "Edit",
   "invert": "Invert",
   "itemRemovalRequested": "The request to remove the {{itemName}} has been successfully sent.  You may need to refresh the data to see the changes as it may take a while to process.",
-  "name": "Name",
   "fetch": "Fetch",
   "fetching": "Fetching {{name}}",
   "fetching-data": "(fetching data)",
@@ -33,9 +32,18 @@
   "removeItemNameConfirmation": "Are you sure that you want to remove the selected {{itemName}}?",
   "save": "Save",
   "saved": "Saved",
+  "security": {
+    "access-denied": "You do not have access to '{{name}}' as you require permission '{{permission}}'."
+  },
   "select": "Select",
   "sign-in": "Sign In",
   "sign-out": "Sign Out",
+  "status": "Status",
+  "statuses": {
+    "up": "Up",
+    "down": "Down",
+    "recovery": "Recovery"
+  },
   "table-empty-message": "There are no items to display.",
   "uri": "Uri",
   "username": "Username",
@@ -48,8 +56,5 @@
     "resource-not-found": "Could not find resource '~/{{resource}}/{{action}}'.",
     "login": "Could not sign in username '{{username}}'.  Please ensure that you have entered the correct credentials.",
     "invalid-uri": "'{{attributeName}}' is not a valid uri."
-  },
-  "security": {
-    "access-denied": "You do not have access to '{{name}}' as you require permission '{{permission}}'."
   }
 }

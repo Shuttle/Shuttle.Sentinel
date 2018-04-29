@@ -1,11 +1,19 @@
 <div class="card-deck">
     <div class="card">
         <div class="card-header">
-            {{i18n 'navigation:monitoring.endpoints'}}
+            {{i18n 'endpoint:endpoints'}}
         </div>
         <div class="card-body">
             <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-            <a href="#!endpoint/list" class="btn btn-primary">{{i18n('view')}}</a>
+            <a href="#!endpoint/list" class="btn btn-success">
+                {{i18n('statuses.up')}} <span class="badge badge-light">{{endpoints.up}}</span>
+            </a>
+            <a href="#!endpoint/list" class="btn btn-danger">
+                {{i18n('statuses.down')}} <span class="badge badge-light">{{endpoints.down}}</span>
+            </a>
+            <a href="#!endpoint/list" class="btn btn-warning">
+                {{i18n('statuses.recovery')}} <span class="badge badge-light">{{endpoints.recovery}}</span>
+            </a>
         </div>
     </div>
     <div class="card">
