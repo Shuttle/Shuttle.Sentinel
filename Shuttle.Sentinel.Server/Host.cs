@@ -7,7 +7,6 @@ using Shuttle.Core.Log4Net;
 using Shuttle.Core.Logging;
 using Shuttle.Core.ServiceHost;
 using Shuttle.Esb;
-using Shuttle.Recall;
 using Shuttle.Sentinel.DataAccess;
 
 namespace Shuttle.Sentinel.Server
@@ -27,7 +26,6 @@ namespace Shuttle.Sentinel.Server
 
             container.RegisterSuffixed("Shuttle.Sentinel");
 
-            EventStore.Register(container);
             ServiceBus.Register(container);
 
             container.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");

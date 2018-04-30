@@ -12,7 +12,6 @@ using Shuttle.Core.Container;
 using Shuttle.Core.Data;
 using Shuttle.Core.Data.Http;
 using Shuttle.Esb;
-using Shuttle.Recall;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Queues;
 using Shuttle.Sentinel.WebApi.Configuration;
@@ -55,7 +54,6 @@ namespace Shuttle.Sentinel.WebApi
             componentContainer.Register<IDatabaseContextCache, ContextDatabaseContextCache>();
 
             ServiceBus.Register(componentContainer);
-            EventStore.Register(componentContainer);
 
             componentContainer.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
             componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");

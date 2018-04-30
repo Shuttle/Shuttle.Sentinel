@@ -78,6 +78,7 @@
     <Build Include="Tables\MessageTypeMetric.sql" />
     <Build Include="Tables\Endpoint.sql" />
     <Build Include="Tables\MessageHeader.sql" />
+    <Build Include="Tables\Schedule.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".script\permissions.sql" />
