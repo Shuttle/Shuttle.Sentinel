@@ -1,17 +1,41 @@
 <?xml version="1.0"?>
-<package >
-	<metadata>
-		<id>Shuttle.Sentinel</id>
-		<version>{semver}</version>
-		<authors>Eben Roux</authors>
-		<owners>Eben Roux</owners>
-		<licenseUrl>https://github.com/shuttle/Shuttle.Sentinel/raw/master/LICENSE</licenseUrl>
-		<projectUrl>https://github.com/shuttle/Shuttle.Sentinel</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Sentinel/master/.media/logo.png</iconUrl>
-		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Core management and administration package.</description>
-		<releaseNotes/>
-		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>shuttle shuttle.esb shuttle.esb.scheduling shuttle.recall</tags>
-	</metadata>
+
+<package>
+  <metadata>
+    <id>Shuttle.Sentinel</id>
+    <version>{semver}</version>
+    <authors>Eben Roux</authors>
+    <owners>Eben Roux</owners>
+    <licenseUrl>https://github.com/shuttle/Shuttle.Sentinel/raw/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/shuttle/Shuttle.Sentinel</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Sentinel/master/.media/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Core management and administration package.</description>
+    <releaseNotes />
+    <copyright>Copyright (c) {year}, Eben Roux</copyright>
+    <tags>shuttle shuttle.esb shuttle.esb.scheduling shuttle.recall</tags>
+    <dependencies>
+      <group>
+        <dependency id="Shuttle.Core.Configuration" version="{Shuttle.Core.Configuration-version}" />
+        <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
+        <dependency id="Shuttle.Esb" version="{Shuttle.Esb-version}" />
+      </group>
+
+      <group targetFramework="netstandard2.0">
+        <dependency id="Shuttle.Core.Configuration" version="{Shuttle.Core.Configuration-version}" />
+        <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
+        <dependency id="Shuttle.Esb" version="{Shuttle.Esb-version}" />
+        <dependency id="System.Configuration.ConfigurationManager"
+                    version="{System.Configuration.ConfigurationManager-version}" />
+      </group>
+
+      <group targetFramework="netcoreapp2.0">
+        <dependency id="Shuttle.Core.Configuration" version="{Shuttle.Core.Configuration-version}" />
+        <dependency id="Shuttle.Core.Data" version="{Shuttle.Core.Data-version}" />
+        <dependency id="Shuttle.Esb" version="{Shuttle.Esb-version}" />
+        <dependency id="System.Configuration.ConfigurationManager"
+                    version="{System.Configuration.ConfigurationManager-version}" />
+      </group>
+    </dependencies>
+  </metadata>
 </package>

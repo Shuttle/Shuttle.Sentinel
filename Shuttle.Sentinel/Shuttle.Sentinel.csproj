@@ -6,14 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Shuttle.Core.Configuration" Version="10.0.0" />
         <PackageReference Include="Shuttle.Core.Data" Version="10.0.4" />
-        <PackageReference Include="Shuttle.Esb" Version="10.0.3" />
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netcoreapp2.0'" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="System.Configuration" Condition="'$(TargetFramework)' != 'netstandard2.0' and '$(TargetFramework)' != 'netcoreapp2.0'" />
+        <PackageReference Include="Shuttle.Esb" Version="10.0.7" />
     </ItemGroup>
 
     <ItemGroup>
