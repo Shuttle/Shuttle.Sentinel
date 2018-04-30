@@ -16,9 +16,4 @@
         </div>
     </div>
 </div>
-{{#if metrics.listPromise.isResolved}}
-    <cs-table vm:columns:from="metrics.columns" vm:rows:from="metrics.listPromise.value" />
-{{else}}
-    <cs-fetching title:from="'dashboard:metrics'" />
-{{/if}}
-
+<cs-table vm:columns:from="metrics.columns" vm:rows:from="metrics.list" />

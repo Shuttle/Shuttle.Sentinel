@@ -10,17 +10,17 @@ namespace Shuttle.Sentinel.DataAccess
             return RawQuery.Create(@"
 select
 	MessageType,
-	Sum(Count) Count,
-	Sum(TotalExecutionDuration) TotalExecutionDuration,
-	Min(FastestExecutionDuration) FastestExecutionDuration,
-	Max(SlowestExecutionDuration) SlowestExecutionDuration,
-	Sum(TotalExecutionDuration) / Sum(Count) AverageExecutionDuration
+	sum(Count) Count,
+	round(sum(TotalExecutionDuration), 3) TotalExecutionDuration,
+	round(min(FastestExecutionDuration), 3) FastestExecutionDuration,
+	round(max(SlowestExecutionDuration), 3) SlowestExecutionDuration,
+	round(sum(TotalExecutionDuration) / sum(Count), 3) AverageExecutionDuration
 from
 	MessageTypeMetric
 where
 	DateRegistered > @Date
 and
-	MessageType = @Match
+	MessageType like @Match
 group by
 	MessageType
 order by

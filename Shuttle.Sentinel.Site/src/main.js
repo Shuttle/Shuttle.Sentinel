@@ -41,6 +41,26 @@ canstrap.button.remove.confirmation = function (options) {
     state.modal.confirmation.show(options);
 }
 
+$.ajaxPrefilter(function (options, originalOptions) {
+    options.error = function (xhr) {
+        if (xhr.status != 200) {
+            if (xhr.responseJSON) {
+                state.alerts.show({message: xhr.responseJSON.message, type: 'danger', name: 'ajax-prefilter-error'});
+            } else {
+                state.alerts.show({
+                    message: xhr.status + ' / ' + xhr.statusText,
+                    type: 'danger',
+                    name: 'ajax-prefilter-error'
+                });
+            }
+        }
+
+        if (originalOptions.error) {
+            originalOptions.error(xhr);
+        }
+    };
+});
+
 localisation.start(function(error) {
     if (error) {
         throw new Error(error);

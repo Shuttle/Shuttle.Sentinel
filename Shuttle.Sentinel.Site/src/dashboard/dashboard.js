@@ -7,11 +7,11 @@ import localisation from '~/localisation';
 import Permissions from '~/permissions';
 import state from '~/state';
 import Api from 'shuttle-can-api';
-import {Map} from "../endpoint/list/list";
+import moment from 'moment';
 
 localisation.addNamespace('dashboard');
 
-resources.add('dashboard', { permission: Permissions.View.Dashboard });
+resources.add('dashboard', {permission: Permissions.View.Dashboard});
 
 const MetricMap = DefineMap.extend({
     messageType: {
@@ -83,22 +83,22 @@ const EndpointsViewModel = DefineMap.extend({
         default: new Date()
     },
 
-    refresh(){
+    refresh() {
         var self = this;
 
-        if (new Date() < this.refreshDate || this.working){
+        if (new Date() < this.refreshDate || this.working) {
             return;
         }
 
         this.working = true;
 
         api.endpoints.map()
-            .then(function(map){
+            .then(function (map) {
                 self.upCount = map.upCount;
                 self.downCount = map.downCount;
                 self.recoveryCount = map.recoveryCount;
             })
-            .then(function(){
+            .then(function () {
                 var t = new Date();
 
                 t.setSeconds(t.getSeconds() + self.interval);
@@ -111,6 +111,17 @@ const EndpointsViewModel = DefineMap.extend({
 });
 
 const MetricsViewModel = DefineMap.extend({
+    list: {
+        Default: DefineList.extend({
+            '#': MetricMap
+        }),
+        get(value) {
+            return !!this.listPromise && !!value
+                ? value
+                : [];
+        }
+    },
+
     working: {
         type: 'boolean',
         default: false
@@ -140,8 +151,10 @@ const MetricsViewModel = DefineMap.extend({
 
         t.setMinutes(t.getMinutes() - 5);
 
-        return api.metrics.post({ from: t.toISOString() })
-            .then(function(){
+        return api.metrics.post({from: moment(t).format('LLLL')})
+            .then(function (response) {
+                self.list.replace(response.data);
+
                 var t = new Date();
 
                 t.setSeconds(t.getSeconds() + self.interval);
@@ -158,37 +171,37 @@ const MetricsViewModel = DefineMap.extend({
         if (!columns.length) {
             columns.push({
                 columnTitle: 'endpoint:message-type',
-                columnClass: 'col-2',
+                columnClass: 'col-7',
                 attributeName: 'messageType'
             });
 
             columns.push({
                 columnTitle: 'count',
-                columnClass: 'col-2',
+                columnClass: 'col-1',
                 attributeName: 'count'
             });
 
             columns.push({
                 columnTitle: 'duration',
-                columnClass: 'col-2',
+                columnClass: 'col-1',
                 attributeName: 'totalExecutionDuration'
             });
 
             columns.push({
                 columnTitle: 'average',
-                columnClass: 'col-2',
-                attributeName: 'everageExecutionDuration'
+                columnClass: 'col-1',
+                attributeName: 'averageExecutionDuration'
             });
 
             columns.push({
                 columnTitle: 'fastest',
-                columnClass: 'col-2',
+                columnClass: 'col-1',
                 attributeName: 'fastestExecutionDuration'
             });
 
             columns.push({
                 columnTitle: 'slowest',
-                columnClass: 'col-2',
+                columnClass: 'col-1',
                 attributeName: 'slowestExecutionDuration'
             });
 
@@ -198,7 +211,7 @@ const MetricsViewModel = DefineMap.extend({
     refresh: function () {
         var self = this;
 
-        if (new Date() < this.refreshDate || this.working){
+        if (new Date() < this.refreshDate || this.working) {
             return;
         }
 
@@ -209,7 +222,7 @@ const MetricsViewModel = DefineMap.extend({
 });
 
 export const ViewModel = DefineMap.extend({
-    init () {
+    init() {
         state.title = 'dashboard:title';
 
         this.refresh();
@@ -223,13 +236,13 @@ export const ViewModel = DefineMap.extend({
         Default: MetricsViewModel
     },
 
-    refresh(){
+    refresh() {
         const self = this;
 
         this.endpoints.refresh();
         this.metrics.refresh();
 
-        setTimeout(function(){
+        setTimeout(function () {
             self.refresh.call(self);
         }, 1000);
     }
