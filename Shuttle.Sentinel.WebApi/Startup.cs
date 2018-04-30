@@ -48,6 +48,7 @@ namespace Shuttle.Sentinel.WebApi
 
             componentContainer.RegisterSuffixed("Shuttle.Sentinel");
             componentContainer.RegisterSuffixed("Shuttle.Access.Sql");
+            componentContainer.RegisterSuffixed("Shuttle.Esb.Scheduling");
 
             componentContainer.Register<IInspectionQueue, DefaultInspectionQueue>();
             componentContainer.Register<IHttpContextAccessor, HttpContextAccessor>();

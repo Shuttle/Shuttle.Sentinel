@@ -25,6 +25,7 @@ namespace Shuttle.Sentinel.Server
             var container = new WindsorComponentContainer(_container);
 
             container.RegisterSuffixed("Shuttle.Sentinel");
+            container.RegisterSuffixed("Shuttle.Esb.Scheduling");
 
             ServiceBus.Register(container);
 
