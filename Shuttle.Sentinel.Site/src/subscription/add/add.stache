@@ -1,6 +1,6 @@
 <cs-form title="subscription:add.title">
     <fieldset class="form-group">
-        <cs-form-select label:from="'subscription:data-store'" value:bind="dataStoreId" options:from="dataStores"
+        <cs-form-select label:from="'data-store'" value:bind="dataStoreId" options:from="dataStores"
                         vm:required:from="'true'"/>
         <cs-form-input focus:from="'true'" label:from="'subscription:message-type'" vm:value:bind="messageType"
                        vm:errors:from="errors()" errorAttribute:from="'messageType'" vm:required:from="'true'"/>

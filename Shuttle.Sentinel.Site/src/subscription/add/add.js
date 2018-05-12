@@ -1,6 +1,5 @@
 import Component from 'can-component/';
 import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
 import view from './add.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
@@ -9,7 +8,6 @@ import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
 import each from 'can-util/js/each/';
-import localisation from '~/localisation';
 import {OptionList} from 'shuttle-canstrap/select/';
 
 resources.add('subscription', { action: 'add', permission: Permissions.Manage.Subscriptions });
