@@ -9,6 +9,8 @@ import validator from 'can-define-validate-validatejs';
 import state from '~/state';
 import stack from '~/stack';
 import moment from "moment/moment";
+import {OptionList} from "shuttle-canstrap/select/";
+import each from 'can-util/js/each/';
 
 resources.add('schedule', {action: 'item', permission: Permissions.Manage.Schedules});
 
@@ -22,10 +24,29 @@ var api = {
 }
 
 export const ViewModel = DefineMap.extend({
+    dataStores: {
+        Default: OptionList
+    },
+
     init() {
+        const self = this;
         const result = stack.pop('schedule');
 
         state.title = 'schedule:item.title';
+
+        self.dataStores.push({
+            value: undefined,
+            label: 'select'
+        });
+
+        api.dataStores.list().then((response) => {
+            each(response, (store) => {
+                self.dataStores.push({
+                    value: store.id,
+                    label: store.name
+                });
+            });
+        });
 
         if (!result) {
             return;
@@ -89,9 +110,13 @@ export const ViewModel = DefineMap.extend({
             return false;
         }
 
-        api.post({
-            key: this.headerKey,
-            value: this.headerValue,
+        api.schedules.post({
+            dataStoreId: this.dataStoreId,
+            id: this.id,
+            name: this.name,
+            inboxWorkQueueUri: this.inboxWorkQueueUri,
+            cronExpression: this.cronExpression,
+            nextNotification: this.nextNotification
         });
 
         this.close();
@@ -101,7 +126,7 @@ export const ViewModel = DefineMap.extend({
 
     close: function () {
         router.goto({
-            resource: 'messageheader',
+            resource: 'schedule',
             action: 'list'
         });
     }

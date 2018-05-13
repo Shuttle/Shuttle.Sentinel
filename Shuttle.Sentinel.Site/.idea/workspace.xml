@@ -17,25 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-                <element signature="e#339#375#0" expanded="true" />
-                <element signature="e#595#629#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="item.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/schedule/item/item.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+            <state relative-caret-position="234">
+              <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -43,20 +29,32 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="send.stache" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/message/send/send.stache">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="2" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="schedule.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/locales/en/schedule.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+            <state relative-caret-position="170">
+              <caret line="10" column="52" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="add.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/queue/add/add.js">
+        <entry file="file://$PROJECT_DIR$/src/subscription/add/add.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="45" />
+            <state relative-caret-position="153">
+              <caret line="90" column="46" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="46" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,7 +62,7 @@
       <file leaf-file-name="list.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/schedule/list/list.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3213">
+            <state relative-caret-position="2206">
               <caret line="200" column="29" selection-start-line="200" selection-start-column="29" selection-end-line="200" selection-end-column="29" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -73,20 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="item.stache" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/schedule/item/item.stache">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="46" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+            <state relative-caret-position="136">
+              <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -198,11 +187,11 @@
         <option value="$PROJECT_DIR$/src/schedule/list/list.stache" />
         <option value="$PROJECT_DIR$/src/schedule/list/list.js" />
         <option value="$PROJECT_DIR$/src/subscription/add/add.js" />
-        <option value="$PROJECT_DIR$/src/schedule/item/item.js" />
-        <option value="$PROJECT_DIR$/src/schedule/item/item.stache" />
-        <option value="$PROJECT_DIR$/locales/en/schedule.json" />
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/schedule/item/item.stache" />
+        <option value="$PROJECT_DIR$/locales/en/schedule.json" />
+        <option value="$PROJECT_DIR$/src/schedule/item/item.js" />
       </list>
     </option>
   </component>
@@ -227,7 +216,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -238,12 +226,70 @@
             <path>
               <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
               <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
+              <item name="locales" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="locales" type="462c0819:PsiDirectoryNode" />
+              <item name="en" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="message" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="message" type="462c0819:PsiDirectoryNode" />
+              <item name="send" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="schedule" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="schedule" type="462c0819:PsiDirectoryNode" />
+              <item name="item" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="schedule" type="462c0819:PsiDirectoryNode" />
+              <item name="list" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="subscription" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="subscription" type="462c0819:PsiDirectoryNode" />
+              <item name="add" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -342,12 +388,13 @@
       <workItem from="1525238745789" duration="669000" />
       <workItem from="1525356883555" duration="1810000" />
       <workItem from="1525449583985" duration="1777000" />
-      <workItem from="1526119266060" duration="4267000" />
+      <workItem from="1526119266060" duration="4867000" />
+      <workItem from="1526194935249" duration="1364000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223328000" />
+    <option name="totallyTimeSpent" value="225292000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -670,44 +717,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/schedule/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3213">
-          <caret line="200" column="29" selection-start-line="200" selection-start-column="29" selection-end-line="200" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/validate.js/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-204" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/validate.js/validate.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="238">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/can-validate-validatejs/can-validate-validatejs.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/subscription/add/add.js">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="55" selection-start-line="7" selection-end-line="7" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/schedule/item/item.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="46" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
+        <state relative-caret-position="336">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>
@@ -718,10 +749,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/schedule/item/item.js">
+    <entry file="file://$PROJECT_DIR$/src/schedule/list/list.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+        <state relative-caret-position="2206">
+          <caret line="200" column="29" selection-start-line="200" selection-start-column="29" selection-end-line="200" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/message/send/send.stache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="2" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/schedule/item/item.stache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/subscription/add/add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="90" column="46" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="46" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -730,27 +785,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/locales/en/schedule.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        <state relative-caret-position="170">
+          <caret line="10" column="52" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.js">
+    <entry file="file://$PROJECT_DIR$/src/schedule/item/item.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="234">
+          <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <element signature="e#339#375#0" expanded="true" />
-            <element signature="e#595#629#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>

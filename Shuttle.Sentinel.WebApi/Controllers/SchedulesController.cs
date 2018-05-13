@@ -75,7 +75,7 @@ namespace Shuttle.Sentinel.WebApi
             _bus.Send(new SaveScheduleCommand
             {
                 DataStoreId = model.DataStoreId,
-                Id = model.Id,
+                Id = model.Id ?? Guid.Empty,
                 Name=model.Name,
                 InboxWorkQueueUri = model.InboxWorkQueueUri,
                 CronExpression = model.CronExpression,

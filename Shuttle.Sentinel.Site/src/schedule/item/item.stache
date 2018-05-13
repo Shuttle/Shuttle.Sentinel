@@ -4,9 +4,9 @@
                         vm:required:from="'true'"/>
         <cs-form-input focus:from="'true'" label:from="'name'" vm:value:bind="name"
                        vm:errors:from="errors()" errorAttribute:from="'name'" vm:required:from="'true'"/>
-        <cs-form-input label:from="'schedule:inbox-work-queue-uri'" vm:value:bind="inboxWorkQueueUri"
-                       vm:errors:from="errors()" errorAttribute:from="'inboxWorkQueueUri'" vm:required:from="'true'"/>
-        <cs-form-input label:from="'schedule:cronExpression'" vm:value:bind="cronExpression"
+        <sentinel-queue uri:bind="inboxWorkQueueUri" label:from="'schedule:inbox-work-queue-uri'" required:from="'true'"
+                        vm:errors:from="errors()" errorAttribute:from="'inboxWorkQueueUri'"/>
+        <cs-form-input label:from="'schedule:cron-expression'" vm:value:bind="cronExpression"
                        vm:errors:from="errors()" errorAttribute:from="'cronExpression'" vm:required:from="'true'"/>
         <cs-form-input label:from="'schedule:next-notification'" vm:value:bind="nextNotification"
                        vm:errors:from="errors()" errorAttribute:from="'nextNotification'" vm:required:from="'true'"

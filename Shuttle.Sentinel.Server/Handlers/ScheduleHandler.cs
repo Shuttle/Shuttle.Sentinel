@@ -51,7 +51,6 @@ namespace Shuttle.Sentinel.Server
                 return;
             }
 
-
             using (_databaseContextFactory.Create(message.DataStoreId))
             {
                 if (_scheduleRepository.Contains(message.Name, message.InboxWorkQueueUri, message.CronExpression))

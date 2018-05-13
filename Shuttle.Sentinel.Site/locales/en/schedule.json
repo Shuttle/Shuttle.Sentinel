@@ -8,6 +8,6 @@
   },
   "data-store": "Data store",
   "inbox-work-queue-uri": "Inbox work queue uri",
-  "cron-expression": "CRON expression",
+  "cron-expression": "CRON expression (m h doM M doW)",
   "next-notification": "Next notification date"
 }
