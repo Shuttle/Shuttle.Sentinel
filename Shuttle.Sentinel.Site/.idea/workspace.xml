@@ -20,7 +20,7 @@
       <file leaf-file-name="item.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/schedule/item/item.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
+            <state relative-caret-position="98">
               <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -50,8 +50,8 @@
       <file leaf-file-name="add.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/subscription/add/add.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="90" column="46" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="46" />
+            <state relative-caret-position="1360">
+              <caret line="90" column="46" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="46" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -62,7 +62,7 @@
       <file leaf-file-name="list.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/schedule/list/list.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2206">
+            <state relative-caret-position="3213">
               <caret line="200" column="29" selection-start-line="200" selection-start-column="29" selection-end-line="200" selection-end-column="29" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -389,26 +389,26 @@
       <workItem from="1525356883555" duration="1810000" />
       <workItem from="1525449583985" duration="1777000" />
       <workItem from="1526119266060" duration="4867000" />
-      <workItem from="1526194935249" duration="1364000" />
+      <workItem from="1526194935249" duration="1964000" />
+      <workItem from="1526800817414" duration="460000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="225292000" />
+    <option name="totallyTimeSpent" value="226352000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992126" visible="true" weight="0.20423001" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992126" visible="true" weight="0.20423001" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info id="npm" order="2" sideWeight="0.5007874" side_tool="true" weight="0.20423001" />
       <window_info anchor="bottom" id="Run" order="2" />
+      <window_info id="npm" order="2" sideWeight="0.5007874" side_tool="true" weight="0.20423001" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.35734463" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.35734463" />
       <window_info id="Favorites" order="3" sideWeight="0.5007874" side_tool="true" weight="0.20423001" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997175" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
@@ -428,6 +428,13 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/schedule/item/item.stache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/schedule/item/item.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1224">
@@ -722,16 +729,10 @@
         <state relative-caret-position="-204" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/validate.js/validate.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -751,7 +752,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/schedule/list/list.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2206">
+        <state relative-caret-position="3213">
           <caret line="200" column="29" selection-start-line="200" selection-start-column="29" selection-end-line="200" selection-end-column="29" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
@@ -775,8 +776,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/subscription/add/add.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="90" column="46" lean-forward="true" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="46" />
+        <state relative-caret-position="1360">
+          <caret line="90" column="46" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="46" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -792,7 +793,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/schedule/item/item.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
+        <state relative-caret-position="98">
           <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
