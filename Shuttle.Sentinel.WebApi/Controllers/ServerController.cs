@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
+using Shuttle.Access.Mvc;
 
 namespace Shuttle.Sentinel.WebApi
 {

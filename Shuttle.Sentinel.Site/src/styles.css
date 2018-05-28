@@ -9,6 +9,7 @@ body {
 
 .main {
 	width: 100%;
+	min-hei: 100vh;
 }
 
 #sidebar-collapse {
@@ -23,7 +24,7 @@ body {
 
 #sidebar {
 	background-color: #333;
-	min-height: 100vh;
+	min-height: 100%;
 }
 
 #sidebar .list-group-item {

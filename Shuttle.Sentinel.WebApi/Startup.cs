@@ -1,16 +1,19 @@
-﻿using System;
+﻿using System.Linq;
 using Castle.Windsor;
-using Castle.Windsor.MsDependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shuttle.Access;
+using Shuttle.Access.Sql;
 using Shuttle.Core.Castle;
 using Shuttle.Core.Container;
 using Shuttle.Core.Data;
 using Shuttle.Core.Data.Http;
+using Shuttle.Core.Data.SqlClient;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Queues;
@@ -34,17 +37,35 @@ namespace Shuttle.Sentinel.WebApi
             _bus?.Dispose();
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IWindsorContainer>(new WindsorContainer());
+            services.AddSingleton<IControllerActivator, ControllerActivator>();
+
+            services.AddSingleton(AccessSection.Configuration());
+            services.AddSingleton(SentinelSection.Configuration());
+            services.AddSingleton<IDbProviderFactories, DbProviderFactories>();
+            services.AddSingleton<IConnectionConfigurationProvider, ConnectionConfigurationProvider>();
+            services.AddSingleton<IDatabaseContextCache, ContextDatabaseContextCache>();
+            services.AddSingleton<IDatabaseContextFactory, DatabaseContextFactory>();
+            services.AddSingleton<IDatabaseGateway, DatabaseGateway>();
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddSingleton<IDbCommandFactory, DbCommandFactory>();
+            services.AddSingleton<IQueryMapper, QueryMapper>();
+            services.AddSingleton<ISessionQueryFactory, SessionQueryFactory>();
+            services.AddSingleton<ISessionQuery, SessionQuery>();
+
             services.AddMvc();
             services.AddCors();
+        }
 
-            var container = new WindsorContainer();
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            IApplicationLifetime applicationLifetime)
+        {
+            var container = app.ApplicationServices.GetService<IWindsorContainer>();
 
             var componentContainer = new WindsorComponentContainer(container);
-
-            componentContainer.RegisterInstance(AccessSection.Configuration());
-            componentContainer.RegisterInstance(SentinelSection.Configuration());
 
             componentContainer.RegisterSuffixed("Shuttle.Sentinel");
             componentContainer.RegisterSuffixed("Shuttle.Access.Sql");
@@ -53,6 +74,20 @@ namespace Shuttle.Sentinel.WebApi
             componentContainer.Register<IInspectionQueue, DefaultInspectionQueue>();
             componentContainer.Register<IHttpContextAccessor, HttpContextAccessor>();
             componentContainer.Register<IDatabaseContextCache, ContextDatabaseContextCache>();
+            componentContainer.Register<IHashingService, HashingService>();
+
+            componentContainer.RegisterInstance(app.ApplicationServices.GetService<IAccessConfiguration>());
+            componentContainer.RegisterInstance(app.ApplicationServices.GetService<ISentinelConfiguration>());
+
+            var applicationPartManager = app.ApplicationServices.GetRequiredService<ApplicationPartManager>();
+            var controllerFeature = new ControllerFeature();
+
+            applicationPartManager.PopulateFeature(controllerFeature);
+
+            foreach (var type in controllerFeature.Controllers.Select(t => t.AsType()))
+            {
+                componentContainer.Register(type, type);
+            }
 
             ServiceBus.Register(componentContainer);
 
@@ -61,13 +96,6 @@ namespace Shuttle.Sentinel.WebApi
 
             _bus = ServiceBus.Create(componentContainer).Start();
 
-            return WindsorRegistrationHelper.CreateServiceProvider(container, services);
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IApplicationLifetime applicationLifetime)
-        {
             applicationLifetime.ApplicationStopping.Register(OnShutdown);
 
             if (env.IsDevelopment())
