@@ -9,7 +9,7 @@
 		<projectUrl>https://github.com/shuttle/Shuttle.Sentinel.Messages</projectUrl>
 		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Sentinel.Messages/master/.media/logo.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Message for use with Shuttle.Sentinel solutions.</description>
+		<description>Messages for use with Shuttle.Sentinel solutions.</description>
 		<releaseNotes/>
 		<copyright>Copyright (c) {year}, Eben Roux</copyright>
 		<tags>shuttle</tags>
