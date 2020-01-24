@@ -1,5 +1,4 @@
-import DefineMap from 'can-define/map/';
-import Component from 'can-component';
+import {DefineMap,Component} from 'can';
 import view from './navigation.stache!';
 import access from 'shuttle-access';
 import state from '~/state';

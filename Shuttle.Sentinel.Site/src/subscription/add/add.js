@@ -1,5 +1,4 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
+import {DefineMap,Component,Reflect} from 'can';
 import view from './add.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
@@ -7,7 +6,6 @@ import router from '~/router';
 import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
-import each from 'can-util/js/each/';
 import {OptionList} from 'shuttle-canstrap/select/';
 
 resources.add('subscription', { action: 'add', permission: Permissions.Manage.Subscriptions });
@@ -39,7 +37,7 @@ export const ViewModel = DefineMap.extend(
             });
 
             api.dataStores.list().then((response) => {
-                each(response, (store) => {
+                Reflect.each(response, (store) => {
                     self.dataStores.push({
                         value: store.id,
                         label: store.name

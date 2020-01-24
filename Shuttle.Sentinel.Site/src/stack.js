@@ -1,6 +1,5 @@
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
-import guard from "shuttle-guard";
+import {DefineMap,DefineList} from 'can';
+import guard from 'shuttle-guard';
 
 export const Stack = DefineMap.extend({
     items: {

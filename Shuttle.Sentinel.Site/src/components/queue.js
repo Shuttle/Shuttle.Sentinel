@@ -1,4 +1,4 @@
-﻿import Component from 'can-component';
+﻿import {Component} from 'can';
 import ComponentViewModel from 'shuttle-canstrap/infrastructure/component-view-model';
 import view from './queue.stache!';
 

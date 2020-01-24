@@ -1,7 +1,6 @@
+import {DefineMap,DefineList} from 'can';
 import guard from 'shuttle-guard';
 import stache from 'can-stache';
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
 
 export const NavbarControlMap = DefineMap.extend({
     stache: {

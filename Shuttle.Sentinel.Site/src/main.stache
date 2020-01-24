@@ -8,7 +8,7 @@
     <main id="application-container" class="m-0 p-0 main" role="main">
         <sentinel-navigation/>
         <div class="m-3">
-            <cs-alerts/>
+            <cs-alerts alerts:from="alerts"/>
             <cs-modal modalId:from="'modal-confirmation'" primaryText:from="'yes'" dismissText:from="'no'"
                       title:from="'confirmation'" message:from="modal.confirmation.message"
                       primaryClick:from='modal.confirmation.primaryClick'/>

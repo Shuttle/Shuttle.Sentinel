@@ -1,5 +1,4 @@
-﻿import Component from 'can-component';
-import DefineMap from 'can-define/map/';
+﻿import {DefineMap,Component} from 'can';
 import view from './queue-input.stache!';
 import Api from 'shuttle-can-api';
 import ComponentViewModel from 'shuttle-canstrap/infrastructure/component-view-model';

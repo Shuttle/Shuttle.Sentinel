@@ -1,6 +1,4 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
+import {DefineMap,DefineList,Component} from 'can';
 import view from './dashboard.stache!';
 import resources from '~/resources';
 import localisation from '~/localisation';

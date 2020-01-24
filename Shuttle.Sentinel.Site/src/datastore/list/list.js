@@ -1,6 +1,4 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
+import {DefineMap,DefineList,Component} from 'can';
 import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
@@ -27,7 +25,7 @@ export const Map = DefineMap.extend({
     remove() {
         api.delete({id: this.id})
             .then(function () {
-                state.alerts.show({
+                state.alerts.add({
                     message: localisation.value('itemRemovalRequested',
                         {itemName: localisation.value('role:role')})
                 });

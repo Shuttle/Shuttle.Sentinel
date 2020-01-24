@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shuttle.Access;
+using Shuttle.Access.DataAccess;
 using Shuttle.Access.Sql;
 using Shuttle.Core.Castle;
 using Shuttle.Core.Container;
@@ -59,7 +60,6 @@ namespace Shuttle.Sentinel.WebApi
             services.AddCors();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,
             IApplicationLifetime applicationLifetime)
         {

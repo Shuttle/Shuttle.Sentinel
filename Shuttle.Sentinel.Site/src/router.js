@@ -1,4 +1,4 @@
-﻿import DefineMap from 'can-define/map/';
+﻿import {DefineMap,Reflect} from 'can';
 import resources from '~/resources';
 import localisation from '~/localisation';
 import access from 'shuttle-access';
@@ -6,7 +6,6 @@ import stache from 'can-stache';
 import route from 'can-route';
 import state from '~/state';
 import guard from 'shuttle-guard';
-import each from 'can-util/js/each/';
 import navbar from '~/navbar';
 
 var RouteData = DefineMap.extend({
@@ -89,7 +88,7 @@ var Router = DefineMap.extend({
         }
 
         if (!resource) {
-            state.alerts.show({
+            state.alerts.add({
                 message: localisation.value('exceptions.resource-not-found', {
                     resource: resourceName,
                     action: actionName || '',
@@ -101,7 +100,7 @@ var Router = DefineMap.extend({
         }
 
         if (resource.permission && !access.hasPermission(resource.permission)) {
-            state.alerts.show({
+            state.alerts.add({
                 message: localisation.value('security.access-denied', {
                     name: resource.name || window.location.hash,
                     permission: resource.permission,
@@ -132,7 +131,7 @@ var Router = DefineMap.extend({
             throw new Error('The \'data\' argument does not contain a \'resource\' value.')
         }
 
-        each(Object.getOwnPropertyNames(data), function (propertyName) {
+        Reflect.each(Object.getOwnPropertyNames(data), function (propertyName) {
                 if (
                     propertyName !== 'resource'
                     &&

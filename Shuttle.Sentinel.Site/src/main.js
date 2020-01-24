@@ -63,9 +63,9 @@ $.ajaxPrefilter(function (options, originalOptions) {
     options.error = function (xhr) {
         if (xhr.status != 200) {
             if (xhr.responseJSON) {
-                state.alerts.show({message: xhr.responseJSON.message, type: 'danger', name: 'ajax-prefilter-error'});
+                state.alerts.add({message: xhr.responseJSON.message, type: 'danger', name: 'ajax-prefilter-error'});
             } else {
-                state.alerts.show({
+                state.alerts.add({
                     message: xhr.status + ' / ' + xhr.statusText,
                     type: 'danger',
                     name: 'ajax-prefilter-error'

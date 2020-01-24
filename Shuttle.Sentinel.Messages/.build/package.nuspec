@@ -1,17 +1,21 @@
 <?xml version="1.0"?>
-<package >
-	<metadata>
-		<id>Shuttle.Sentinel.Messages</id>
-		<version>{semver}</version>
-		<authors>Eben Roux</authors>
-		<owners>Eben Roux</owners>
-		<licenseUrl>https://github.com/shuttle/Shuttle.Sentinel.Messages/raw/master/LICENSE</licenseUrl>
-		<projectUrl>https://github.com/shuttle/Shuttle.Sentinel.Messages</projectUrl>
-		<iconUrl>https://raw.githubusercontent.com/Shuttle/Shuttle.Sentinel.Messages/master/.media/logo.png</iconUrl>
-		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Messages for use with Shuttle.Sentinel solutions.</description>
-		<releaseNotes/>
-		<copyright>Copyright (c) {year}, Eben Roux</copyright>
-		<tags>shuttle</tags>
-	</metadata>
+<package>
+  <metadata>
+    <id>Shuttle.Sentinel.Messages</id>
+    <version>{semver}</version>
+    <authors>Eben Roux</authors>
+    <owners>Eben Roux</owners>
+    <license type="expression">BSD-3-Clause</license>
+    <projectUrl>https://github.com/shuttle/Shuttle.Sentinel.Messages</projectUrl>
+    <icon>images\logo.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Messages for use with Shuttle.Sentinel solutions.</description>
+    <releaseNotes />
+    <copyright>Copyright (c) {year}, Eben Roux</copyright>
+    <tags>shuttle</tags>
+  </metadata>
+  <files>
+    <file src="..\..\..\..\.media\logo.png" target="images\" />
+  	<file src="lib\**\*.*" target="lib" />
+  </files>
 </package>

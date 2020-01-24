@@ -1,5 +1,4 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
+import {DefineMap,Component} from 'can';
 import view from './add.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
@@ -8,7 +7,6 @@ import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
 import stack from '~/stack';
-import localisation from '~/localisation';
 
 resources.add('datastore', {action: 'add', permission: Permissions.Manage.DataStores});
 

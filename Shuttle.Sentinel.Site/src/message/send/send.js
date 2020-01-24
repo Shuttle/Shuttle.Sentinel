@@ -1,6 +1,4 @@
-﻿import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
-import view from './send.stache!';
+﻿import {DefineMap,Component} from 'can';import view from './send.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import localisation from '~/localisation';
@@ -95,7 +93,7 @@ export const ViewModel = DefineMap.extend({
             headers: this.headers.serialize()
         })
             .then(function () {
-                state.alerts.show({message: localisation.value('message:sent')});
+                state.alerts.add({message: localisation.value('message:sent')});
             });
 
         return false;

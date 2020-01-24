@@ -1,6 +1,4 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
+import {DefineMap,DefineList,Component} from 'can';
 import view from './headers.stache!';
 import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';

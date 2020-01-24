@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Shuttle.Sentinel.Server")]
 [assembly: AssemblyProduct("Shuttle.Sentinel")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyCopyright("Copyright © Eben Roux 2017")]
+[assembly: AssemblyCopyright("Copyright © Eben Roux 2019")]
 [assembly: AssemblyCompany("Shuttle")]
 [assembly: AssemblyInformationalVersion("1.0.0")]
 [assembly: ComVisible(false)]

@@ -1,12 +1,9 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
+import {DefineMap,DefineList,Component,Reflect} from 'can';
 import view from './manage.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import localisation from '~/localisation';
 import Api from 'shuttle-can-api';
-import each from 'can-util/js/each/';
 import $ from 'jquery';
 import state from '~/state';
 
@@ -109,7 +106,7 @@ export const ViewModel = DefineMap.extend(
                     self.messages = list;
                     self.hasMessages = list.length > 0;
 
-                    each(list, function (message) {
+                    Reflect.each(list, function (message) {
                         message.viewModel = self;
                     })
 
@@ -152,7 +149,7 @@ export const ViewModel = DefineMap.extend(
             get() {
                 var checked = false;
 
-                each(this.messages, function (item) {
+                Reflect.each(this.messages, function (item) {
                     if (checked) {
                         return;
                     }
@@ -261,7 +258,7 @@ export const ViewModel = DefineMap.extend(
             var self = this;
 
             if (!this.hasSourceQueueUri) {
-                state.alerts.show({
+                state.alerts.add({
                     message: localisation.value('message:exceptions.source-queue-uri'),
                     name: 'message:exceptions.source-queue-uri',
                     type: 'danger'
@@ -280,7 +277,7 @@ export const ViewModel = DefineMap.extend(
                 count: this.fetchCount || 1
             })
                 .then(function (response) {
-                    state.alerts.show({
+                    state.alerts.add({
                         message: localisation.value('message:count-retrieved', {count: response.data.countRetrieved}),
                         name: 'message:count-retrieved'
                     });
@@ -324,7 +321,7 @@ export const ViewModel = DefineMap.extend(
 
         validateDestinationQueue(action) {
             if (!this.destinationQueueUri && (action === 'Move' || action === 'Copy')) {
-                state.alerts.show({
+                state.alerts.add({
                     message: localisation.value('message:exceptions.destination-queue-uri'),
                     name: 'message:exceptions.destination-queue-uri',
                     type: 'danger'
@@ -361,7 +358,7 @@ export const ViewModel = DefineMap.extend(
             const self = this;
 
             if (!this.sourceQueueUri) {
-                state.alerts.show({
+                state.alerts.add({
                     message: localisation.value('message:exceptions.source-queue-uri'),
                     name: 'message:exceptions.source-queue-uri',
                     type: 'danger'
@@ -371,7 +368,7 @@ export const ViewModel = DefineMap.extend(
             }
 
             if (this.fetchCount < 1) {
-                state.alerts.show({
+                state.alerts.add({
                     message: localisation.value('message:exceptions.count'),
                     name: 'message:exceptions.count',
                     type: 'danger'
@@ -391,7 +388,7 @@ export const ViewModel = DefineMap.extend(
                 count: this.fetchCount
             })
                 .then(function () {
-                    state.alerts.show({
+                    state.alerts.add({
                         message: localisation.value('message:transfer-complete-' + action.toLowerCase()),
                         name: 'message:transfer-complete'
                     });
@@ -420,7 +417,7 @@ export const ViewModel = DefineMap.extend(
             this.addMessageRow('ExpiryDate', message.expiryDate);
 
             if (message.failureMessages && message.failureMessages.length) {
-                each(message.failureMessages, function (item, index) {
+                Reflect.each(message.failureMessages, function (item, index) {
                     self.addMessageRow('FailureMessages.' + index, item);
                 });
             } else {
@@ -428,7 +425,7 @@ export const ViewModel = DefineMap.extend(
             }
 
             if (message.headers && message.headers.length) {
-                each(message.headers, function (item, index) {
+                Reflect.each(message.headers, function (item, index) {
                     self.addMessageRow('Headers.' + item.key, item.value);
                 });
             } else {
@@ -464,7 +461,7 @@ export const ViewModel = DefineMap.extend(
         },
 
         _setCheckMarks: function (value) {
-            each(this.messages, function (item) {
+            Reflect.each(this.messages, function (item) {
                 item.checked = (value == undefined ? !item.checked : value);
             });
         }

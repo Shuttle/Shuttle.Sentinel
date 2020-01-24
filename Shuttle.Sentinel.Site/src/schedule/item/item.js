@@ -1,5 +1,4 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
+import {DefineMap,Component,Reflect} from 'can';
 import resources from '~/resources';
 import Permissions from '~/permissions';
 import view from './item.stache!';
@@ -8,9 +7,7 @@ import Api from 'shuttle-can-api';
 import validator from 'can-define-validate-validatejs';
 import state from '~/state';
 import stack from '~/stack';
-import moment from "moment/moment";
 import {OptionList} from "shuttle-canstrap/select/";
-import each from 'can-util/js/each/';
 
 resources.add('schedule', {action: 'item', permission: Permissions.Manage.Schedules});
 
@@ -40,7 +37,7 @@ export const ViewModel = DefineMap.extend({
         });
 
         api.dataStores.list().then((response) => {
-            each(response, (store) => {
+            Reflect.each(response, (store) => {
                 self.dataStores.push({
                     value: store.id,
                     label: store.name

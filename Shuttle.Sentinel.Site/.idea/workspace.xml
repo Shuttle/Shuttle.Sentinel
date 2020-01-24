@@ -1,12 +1,287 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4439083c-4499-42c0-9846-90f1722005cc" name="Default" comment="" />
+    <list default="true" id="4439083c-4499-42c0-9846-90f1722005cc" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.media/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/../.media/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/../LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/.script/permissions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/.script/permissions.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Shuttle.Sentinel.Database.refactorlog" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Shuttle.Sentinel.Database.refactorlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Shuttle.Sentinel.Database.sqlproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Shuttle.Sentinel.Database.sqlproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/DataStore.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/DataStore.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/Endpoint.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/Endpoint.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/InspectionQueue.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/InspectionQueue.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageHeader.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageHeader.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageTypeAssociation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageTypeAssociation.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageTypeDispatched.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageTypeDispatched.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageTypeHandled.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageTypeHandled.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageTypeMetric.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/MessageTypeMetric.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/Queue.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/Queue.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/Schedule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/Schedule.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/SubscriberMessageType.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/SubscriberMessageType.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/SystemParameter.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Database/Tables/SystemParameter.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/.build/Shuttle.MSBuild.targets" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/.build/Shuttle.MSBuild.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/.build/package.msbuild" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/.build/package.msbuild" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/.build/package.nuspec" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/.build/package.nuspec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/Properties/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/Shuttle.Sentinel.Messages.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/Shuttle.Sentinel.Messages.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/AddDataStoreCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/AddDataStoreCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/AddMessageHeaderCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/AddMessageHeaderCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/AddRoleCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/AddRoleCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/AddSubscriptionCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/AddSubscriptionCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RegisterEndpointCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RegisterEndpointCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RegisterSystemMetricsCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RegisterSystemMetricsCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RegisterUserCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RegisterUserCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveDataStoreCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveDataStoreCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveEndpointCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveEndpointCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveMessageHeaderCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveMessageHeaderCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveQueueCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveQueueCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveRoleCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveRoleCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveScheduleCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveScheduleCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveSubscriptionCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveSubscriptionCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveUserCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/RemoveUserCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/SaveQueueCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/SaveQueueCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/SaveScheduleCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/SaveScheduleCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/SetRolePermissionCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/SetRolePermissionCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/SetUserRoleCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Messages/v1/SetUserRoleCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/.build/Shuttle.MSBuild.targets" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/.build/Shuttle.MSBuild.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/.build/package.msbuild" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/.build/package.msbuild" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/.build/package.nuspec" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/.build/package.nuspec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Bootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Bootstrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/EndpointAggregator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/EndpointAggregator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/IEndpointAggregator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/IEndpointAggregator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/ISentinelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/ISentinelConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/ISentinelObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/ISentinelObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Properties/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/ReceiveMessageEvents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/ReceiveMessageEvents.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Resources.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Resources.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Resources.resx" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Resources.resx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/SentinelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/SentinelConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/SentinelModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/SentinelModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/SentinelObserver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/SentinelObserver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/SentinelSection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/SentinelSection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Shuttle.Sentinel.Module.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Module/Shuttle.Sentinel.Module.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/App.config" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/App.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/DataStoreHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/DataStoreHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/MessageHeaderHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/MessageHeaderHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/Monitoring/RegisterEndpointHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/Monitoring/RegisterEndpointHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/Monitoring/RegisterSystemMetricsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/Monitoring/RegisterSystemMetricsHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/QueueHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/QueueHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/ScheduleHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/ScheduleHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/SubscriptionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Handlers/SubscriptionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Host.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Host.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Properties/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Shuttle.Sentinel.Server.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Server/Shuttle.Sentinel.Server.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/development.html" beforeDir="false" afterPath="$PROJECT_DIR$/development.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/dashboard.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/dashboard.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/datastore.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/datastore.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/endpoint.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/endpoint.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/message.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/message.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/messageheader.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/messageheader.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/navigation.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/navigation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/queue.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/queue.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/schedule.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/schedule.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/sentinel.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/sentinel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en/subscription.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en/subscription.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/regex-conversion.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/queue-input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/queue-input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/queue-input.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/queue-input.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/queue.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/queue.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/queue.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/queue.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dashboard/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/dashboard/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dashboard/dashboard.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/dashboard/dashboard.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datastore/add/add.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/datastore/add/add.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datastore/add/add.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/datastore/add/add.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datastore/datastore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/datastore/datastore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datastore/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/datastore/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/datastore/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/datastore/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoint/endpoint.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoint/endpoint.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoint/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoint/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/endpoint/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/endpoint/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/localisation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/localisation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logger.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/logger.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/login/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/login.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/login/login.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/message/manage/manage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/message/manage/manage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/message/manage/manage.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/message/manage/manage.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/message/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/message/message.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/message/send/headers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/message/send/headers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/message/send/headers.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/message/send/headers.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/message/send/send.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/message/send/send.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/message/send/send.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/message/send/send.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messageheader/item/item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messageheader/item/item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messageheader/item/item.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/messageheader/item/item.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messageheader/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messageheader/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messageheader/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/messageheader/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messageheader/messageheader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messageheader/messageheader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypeassociation/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypeassociation/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypeassociation/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypeassociation/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypeassociation/messagetypeassociation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypeassociation/messagetypeassociation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypedispatched/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypedispatched/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypedispatched/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypedispatched/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypedispatched/messagetypedispatched.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypedispatched/messagetypedispatched.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypehandled/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypehandled/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypehandled/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypehandled/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/messagetypehandled/messagetypehandled.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/messagetypehandled/messagetypehandled.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modals.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modals.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navigation/navigation-map.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/navigation-map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navigation/navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/navigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navigation/navigation.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/navigation.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/permissions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/permissions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/queue/add/add.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/add/add.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/queue/add/add.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/add/add.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/queue/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/queue/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/queue/queue.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/queue.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schedule/item/item.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schedule/item/item.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schedule/item/item.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/schedule/item/item.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schedule/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schedule/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schedule/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/schedule/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schedule/schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schedule/schedule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stack.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/subscription/add/add.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/subscription/add/add.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/subscription/add/add.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/subscription/add/add.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/subscription/list/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/subscription/list/list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/subscription/list/list.stache" beforeDir="false" afterPath="$PROJECT_DIR$/src/subscription/list/list.stache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/subscription/subscription.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/subscription/subscription.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Tests/SectionFixture.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Tests/SectionFixture.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Tests/Shuttle.Sentinel.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Tests/Shuttle.Sentinel.Tests.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Tests/configuration-files/Sentinel-Full-Grouped.config" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Tests/configuration-files/Sentinel-Full-Grouped.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.Tests/configuration-files/Sentinel-Full.config" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.Tests/configuration-files/Sentinel-Full.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/App.config" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/App.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Configuration/ISentinelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Configuration/ISentinelConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Configuration/SentinelConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Configuration/SentinelConfiguration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Configuration/SentinelSection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Configuration/SentinelSection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/ControllerActivator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/ControllerActivator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/DataStoresController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/DataStoresController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/EndpointsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/EndpointsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/EnvironmentsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/EnvironmentsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageHeadersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageHeadersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypeAssociationsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypeAssociationsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypeMetricsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypeMetricsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypesDispatchedController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypesDispatchedController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypesHandledController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessageTypesHandledController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessagesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/MessagesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/QueuesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/QueuesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/SchedulesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/SchedulesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/ServerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/ServerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/SubscriptionsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Controllers/SubscriptionsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/AddDataStoreModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/AddDataStoreModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/AddRoleModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/AddRoleModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/FetchMessageModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/FetchMessageModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageHeaderModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageHeaderModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageTransferDirectModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageTransferDirectModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageTransferModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageTransferModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageTypeMetricSearchModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageTypeMetricSearchModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageTypeModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/MessageTypeModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/QueueModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/QueueModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/RegisterSessionModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/RegisterSessionModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/RegisterUserModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/RegisterUserModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/RolePermissionStatusModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/RolePermissionStatusModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/ScheduleModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/ScheduleModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/SendMessageModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/SendMessageModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/SetRolePermissionModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/SetRolePermissionModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/SetUserRoleModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/SetUserRoleModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/SubscriptionModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/SubscriptionModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/UserRoleStatusModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Models/UserRoleStatusModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Shuttle.Sentinel.WebApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Shuttle.Sentinel.WebApi.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/log4net.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.WebApi/log4net.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel.sln" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/.build/Shuttle.MSBuild.targets" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/.build/Shuttle.MSBuild.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/.build/package.msbuild" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/.build/package.msbuild" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/.build/package.nuspec" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/.build/package.nuspec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Columns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Columns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/DataStoreColumns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/DataStoreColumns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/DataStoreQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/DataStoreQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/DataStoreQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/DataStoreQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/IDataStoreQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/IDataStoreQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/IDataStoreQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStore/IDataStoreQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStoreDatabaseContextFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/DataStoreDatabaseContextFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/EndpointColumns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/EndpointColumns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/EndpointQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/EndpointQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/EndpointQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/EndpointQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/IEndpointQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/IEndpointQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/IEndpointQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/IEndpointQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/MessageColumns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Endpoint/MessageColumns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/IDataStoreDatabaseContextFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/IDataStoreDatabaseContextFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/InspectionQueue/IInspectionQueueQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/InspectionQueue/IInspectionQueueQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/InspectionQueue/InspectionQueueColumns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/InspectionQueue/InspectionQueueColumns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/InspectionQueue/InspectionQueueQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/InspectionQueue/InspectionQueueQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/IMessageHeaderQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/IMessageHeaderQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/IMessageHeaderQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/IMessageHeaderQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/MessageHeaderColumns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/MessageHeaderColumns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/MessageHeaderQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/MessageHeaderQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/MessageHeaderQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageHeader/MessageHeaderQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeAssociation/IMessageTypeAssociationQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeAssociation/IMessageTypeAssociationQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeAssociation/IMessageTypeAssociationQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeAssociation/IMessageTypeAssociationQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeAssociation/MessageTypeAssociationQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeAssociation/MessageTypeAssociationQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeAssociation/MessageTypeAssociationQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeAssociation/MessageTypeAssociationQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeDispatched/IMessageTypeDispatchedQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeDispatched/IMessageTypeDispatchedQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeDispatched/IMessageTypeDispatchedQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeDispatched/IMessageTypeDispatchedQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeDispatched/MessageTypeDispatchedQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeDispatched/MessageTypeDispatchedQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeDispatched/MessageTypeDispatchedQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeDispatched/MessageTypeDispatchedQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeHandled/IMessageTypeHandledQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeHandled/IMessageTypeHandledQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeHandled/IMessageTypeHandledQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeHandled/IMessageTypeHandledQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeHandled/MessageTypeHandledQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeHandled/MessageTypeHandledQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeHandled/MessageTypeHandledQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeHandled/MessageTypeHandledQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeMetric/IMessageTypeMetricQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeMetric/IMessageTypeMetricQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeMetric/IMessageTypeMetricQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeMetric/IMessageTypeMetricQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeMetric/MessageTypeAssociationQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeMetric/MessageTypeAssociationQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeMetric/MessageTypeMetricQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/MessageTypeMetric/MessageTypeMetricQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/DataStore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/DataStore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/Endpoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/Endpoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageHeader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageHeader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageTypeAssociation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageTypeAssociation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageTypeDispatched.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageTypeDispatched.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageTypeHandled.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageTypeHandled.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageTypeMetric.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/MessageTypeMetric.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/Queue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/Queue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/Subscription.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Query/Subscription.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/IQueueQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/IQueueQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/IQueueQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/IQueueQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/QueueColumns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/QueueColumns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/QueueQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/QueueQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/QueueQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Queue/QueueQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/ISubscriptionQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/ISubscriptionQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/ISubscriptionQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/ISubscriptionQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/SubscriptionColumns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/SubscriptionColumns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/SubscriptionQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/SubscriptionQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/SubscriptionQueryFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/DataAccess/Subscription/SubscriptionQueryFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/Properties/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/Properties/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/Queues/DefaultInspectionQueue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/Queues/DefaultInspectionQueue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/Queues/IInspectionQueue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/Queues/IInspectionQueue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/Queues/InspectionMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/Queues/InspectionMessage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/Resources.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/Resources.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/Resources.resx" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/Resources.resx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/SentinelException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/SentinelException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/Shuttle.Sentinel.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/Shuttle.Sentinel.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Shuttle.Sentinel/SystemPermissions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../Shuttle.Sentinel/SystemPermissions.cs" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,99 +292,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="datastore.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/datastore/datastore.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/login/login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="51">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
               <folding>
-                <element signature="e#0#17#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.stache" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.stache">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
+            <state relative-caret-position="459">
+              <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="item.stache" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/schedule/item/item.stache">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/message/manage/manage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1200">
-              <caret line="94" column="54" selection-start-line="94" selection-start-column="54" selection-end-line="94" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="queue.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/queue.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="queue-input.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/queue-input.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="33" column="75" lean-forward="true" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="75" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="queue-input.stache" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/queue-input.stache">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="36" selection-start-column="31" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/queue/list/list.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1480">
-              <caret line="83" column="37" selection-start-line="83" selection-start-column="37" selection-end-line="83" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/schedule/item/item.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="permissions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/permissions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
+            <state relative-caret-position="51">
+              <caret line="3" column="40" selection-start-line="3" selection-start-column="40" selection-end-line="3" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -125,16 +333,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>click:from</find>
-      <find>selectQue</find>
-      <find>select</find>
       <find>selectQ</find>
       <find>MessageHeaderList</find>
       <find>place</find>
       <find>fetch</find>
       <find>data-parent</find>
       <find>DropdownList</find>
-      <find>each</find>
       <find>dropdown</find>
       <find>css</find>
       <find>init</find>
@@ -155,6 +359,10 @@
       <find>pr-2</find>
       <find>sidebar</find>
       <find>resize</find>
+      <find>state.alerts.show</find>
+      <find>each</find>
+      <find>can-</find>
+      <find>'can-</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -172,80 +380,73 @@
       <replace>type</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/messageheader/item/item.stache" />
-        <option value="$PROJECT_DIR$/src/router.js" />
-        <option value="$PROJECT_DIR$/src/messageheader/list/list.js" />
-        <option value="$PROJECT_DIR$/src/messageheader/item/item.js" />
-        <option value="$PROJECT_DIR$/src/stack.js" />
-        <option value="$PROJECT_DIR$/src/message/send/send.stache" />
-        <option value="$PROJECT_DIR$/locales/en/message.json" />
-        <option value="$PROJECT_DIR$/src/message/send/headers.stache" />
-        <option value="$PROJECT_DIR$/src/message/send/headers.js" />
-        <option value="$PROJECT_DIR$/src/message/manage/manage.stache" />
-        <option value="$PROJECT_DIR$/src/navigation/navigation.js" />
-        <option value="$PROJECT_DIR$/src/login/login.stache" />
-        <option value="$PROJECT_DIR$/src/login/login.js" />
-        <option value="$PROJECT_DIR$/locales/en/queue.json" />
-        <option value="$PROJECT_DIR$/src/queue/list/list.js" />
-        <option value="$PROJECT_DIR$/src/queue/add/add.stache" />
-        <option value="$PROJECT_DIR$/src/queue/add/add.js" />
-        <option value="$PROJECT_DIR$/src/navigation/navigation.stache" />
-        <option value="$PROJECT_DIR$/src/state.js" />
-        <option value="$PROJECT_DIR$/src/main.stache" />
-        <option value="$PROJECT_DIR$/src/endpoint/endpoint.js" />
         <option value="$PROJECT_DIR$/src/endpoint/list/list.stache" />
         <option value="$PROJECT_DIR$/src/messagetypehandled/list/list.stache" />
-        <option value="$PROJECT_DIR$/src/messagetypehandled/list/list.js" />
-        <option value="$PROJECT_DIR$/src/messagetypedispatched/list/list.js" />
         <option value="$PROJECT_DIR$/src/messagetypeassociation/messagetypeassociation.js" />
         <option value="$PROJECT_DIR$/src/messagetypedispatched/messagetypedispatched.js" />
         <option value="$PROJECT_DIR$/src/messagetypehandled/messagetypehandled.js" />
-        <option value="$PROJECT_DIR$/src/messagetypeassociation/list/list.js" />
         <option value="$PROJECT_DIR$/locales/en/endpoint.json" />
         <option value="$PROJECT_DIR$/src/navigation/navigation-map.js" />
         <option value="$PROJECT_DIR$/locales/en/navigation.json" />
         <option value="$PROJECT_DIR$/src/messagetypeassociation/list/list.stache" />
         <option value="$PROJECT_DIR$/locales/en/dashboard.json" />
-        <option value="$PROJECT_DIR$/src/endpoint/list/list.js" />
         <option value="$PROJECT_DIR$/src/dashboard/dashboard.stache" />
-        <option value="$PROJECT_DIR$/src/dashboard/dashboard.js" />
         <option value="$PROJECT_DIR$/src/schedule/schedule.js" />
         <option value="$PROJECT_DIR$/src/permissions.js" />
         <option value="$PROJECT_DIR$/src/subscription/list/list.stache" />
         <option value="$PROJECT_DIR$/src/subscription/add/add.stache" />
         <option value="$PROJECT_DIR$/locales/en/sentinel.json" />
         <option value="$PROJECT_DIR$/src/schedule/list/list.stache" />
-        <option value="$PROJECT_DIR$/src/schedule/list/list.js" />
-        <option value="$PROJECT_DIR$/src/subscription/add/add.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/schedule/item/item.stache" />
         <option value="$PROJECT_DIR$/locales/en/schedule.json" />
-        <option value="$PROJECT_DIR$/src/schedule/item/item.js" />
         <option value="$PROJECT_DIR$/src/styles.css" />
+        <option value="$PROJECT_DIR$/src/main.stache" />
+        <option value="$PROJECT_DIR$/src/components/queue.js" />
+        <option value="$PROJECT_DIR$/src/components/queue-input.js" />
+        <option value="$PROJECT_DIR$/src/dashboard/dashboard.js" />
+        <option value="$PROJECT_DIR$/src/datastore/add/add.js" />
+        <option value="$PROJECT_DIR$/src/login/login.js" />
+        <option value="$PROJECT_DIR$/src/message/send/headers.js" />
+        <option value="$PROJECT_DIR$/src/messageheader/item/item.js" />
+        <option value="$PROJECT_DIR$/src/messagetypeassociation/list/list.js" />
+        <option value="$PROJECT_DIR$/src/messagetypedispatched/list/list.js" />
+        <option value="$PROJECT_DIR$/src/messagetypehandled/list/list.js" />
+        <option value="$PROJECT_DIR$/src/navigation/navigation.js" />
+        <option value="$PROJECT_DIR$/src/queue/add/add.js" />
+        <option value="$PROJECT_DIR$/src/navbar.js" />
+        <option value="$PROJECT_DIR$/src/stack.js" />
+        <option value="$PROJECT_DIR$/src/datastore/list/list.js" />
+        <option value="$PROJECT_DIR$/src/queue/list/list.js" />
+        <option value="$PROJECT_DIR$/src/endpoint/list/list.js" />
         <option value="$PROJECT_DIR$/src/main.js" />
+        <option value="$PROJECT_DIR$/src/subscription/list/list.js" />
+        <option value="$PROJECT_DIR$/src/subscription/add/add.js" />
+        <option value="$PROJECT_DIR$/src/schedule/list/list.js" />
+        <option value="$PROJECT_DIR$/src/state.js" />
+        <option value="$PROJECT_DIR$/src/resources.js" />
+        <option value="$PROJECT_DIR$/src/router.js" />
+        <option value="$PROJECT_DIR$/src/schedule/item/item.js" />
+        <option value="$PROJECT_DIR$/src/message/manage/manage.js" />
+        <option value="$PROJECT_DIR$/src/messageheader/list/list.js" />
+        <option value="$PROJECT_DIR$/src/message/send/send.js" />
+        <option value="$PROJECT_DIR$/src/logger.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
-    <package-json value="$PROJECT_DIR$/package.json" />
-  </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="1940" />
-    <option name="height" value="1050" />
+    <option name="x" value="1912" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -258,24 +459,6 @@
               <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
               <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="schedule" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Shuttle.Sentinel.Site" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Shuttle.Sentinel.Site" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="schedule" type="462c0819:PsiDirectoryNode" />
-              <item name="item" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -285,26 +468,28 @@
   </component>
   <component name="PropertiesComponent">
     <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.prettier" value="true" />
     <property name="node.js.path.for.package.prettier" value="project" />
     <property name="node.js.selected.package.prettier" value="" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\list" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\components" />
-      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\navigation" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\locales\en" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\schedule" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\item" />
       <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\messageheaders\list" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\components" />
+      <recent name="C:\development.github\shuttle\Shuttle.Sentinel\Shuttle.Sentinel.Site\src\navigation" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -320,7 +505,9 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="development.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Shuttle.Sentinel.Site/development.html" />
+    <configuration name="development.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Shuttle.Sentinel.Site/development.html">
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.development.html" />
@@ -398,197 +585,49 @@
       <workItem from="1532175606776" duration="734000" />
       <workItem from="1532536833372" duration="642000" />
       <workItem from="1536423241821" duration="5000" />
+      <workItem from="1553616372636" duration="68000" />
+      <workItem from="1553668386548" duration="27000" />
+      <workItem from="1560333500463" duration="812000" />
+      <workItem from="1560356064026" duration="302000" />
+      <workItem from="1560401327211" duration="5674000" />
+      <workItem from="1560445061158" duration="2170000" />
+      <workItem from="1560507566222" duration="612000" />
+      <workItem from="1560926113773" duration="587000" />
+      <workItem from="1564719075082" duration="7000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="246740000" />
+    <option name="totallyTimeSpent" value="256999000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992126" visible="true" weight="0.16259088" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992126" visible="true" weight="0.16227607" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="npm" order="2" sideWeight="0.5007874" side_tool="true" weight="0.20423001" />
+      <window_info id="Favorites" order="3" sideWeight="0.5007874" side_tool="true" weight="0.20423001" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997175" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.27193934" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info id="npm" order="2" sideWeight="0.5007874" side_tool="true" weight="0.20423001" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.27259886" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997175" />
-      <window_info id="Favorites" order="3" sideWeight="0.5007874" side_tool="true" weight="0.20423001" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/queue-input.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="36" selection-start-column="31" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/queue-input.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/queue/add/add.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="50" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="41" selection-start-line="14" selection-start-column="41" selection-end-line="14" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/navigation/navigation.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="2" column="65" selection-start-line="2" selection-start-column="65" selection-end-line="2" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/message/send/headers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="58" column="39" selection-start-line="58" selection-start-column="39" selection-end-line="58" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypehandled/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="46" column="29" selection-start-line="46" selection-start-column="29" selection-end-line="46" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/endpoint/endpoint.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypeassociation/messagetypeassociation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/messagetypedispatched.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypehandled/messagetypehandled.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypeassociation/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="65" column="57" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypeassociation/list/list.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/navigation.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/dashboard.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="1" lean-forward="true" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2431">
-          <caret line="151" selection-start-line="151" selection-end-line="151" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/message.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/locales/en/endpoint.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/messagetypehandled/list/list.stache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="60" selection-start-line="3" selection-start-column="60" selection-end-line="3" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/schedule/schedule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/messageheader/list/list.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
@@ -629,31 +668,10 @@
         <state relative-caret-position="-204" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/queue/add/add.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/schedule/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3213">
-          <caret line="200" column="29" selection-start-line="200" selection-start-column="29" selection-end-line="200" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/message/send/send.stache">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" selection-start-line="2" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/subscription/add/add.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="90" column="46" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -664,27 +682,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/state.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="46" column="9" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logger.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="49" lean-forward="true" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -692,38 +689,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="33" selection-start-line="13" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/datastore/list/list.stache">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/datastore/list/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="43" selection-start-line="26" selection-end-line="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/permissions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -738,41 +707,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.stache">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
+        <state relative-caret-position="17">
           <caret line="1" column="9" selection-start-line="1" selection-start-column="9" selection-end-line="1" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/schedule/item/item.stache">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
+        <state relative-caret-position="272">
           <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="94" column="54" selection-start-line="94" selection-start-column="54" selection-end-line="94" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/queue.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/queue-input.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="33" column="75" lean-forward="true" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -783,17 +726,272 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.stache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/queue.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="30" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/queue-input.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dashboard/dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datastore/add/add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/datastore/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/endpoint/endpoint.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/message/send/headers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messageheader/item/item.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messagetypehandled/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/navigation/navigation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/navigation/navigation-map.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messagetypedispatched/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/messagetypeassociation/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/queue/add/add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/queue/list/list.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1480">
-          <caret line="83" column="37" selection-start-line="83" selection-start-column="37" selection-end-line="83" selection-end-column="37" />
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/schedule/item/item.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="128" column="31" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/schedule/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/subscription/add/add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/subscription/subscription.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/localisation.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/logger.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modals.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/navbar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="28" selection-start-column="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/permissions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="52" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/resources.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="28" selection-start-column="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stack.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/state.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json" />
+    <entry file="file://$PROJECT_DIR$/regex-conversion.txt" />
+    <entry file="file://$PROJECT_DIR$/src/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="24" column="33" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#380#416#0" expanded="true" />
+            <element signature="e#636#670#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/subscription/list/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="29" column="44" lean-forward="true" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/login/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/message/manage/manage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="40" selection-start-line="3" selection-start-column="40" selection-end-line="3" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
         </state>
       </provider>
     </entry>

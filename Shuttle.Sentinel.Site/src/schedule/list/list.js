@@ -1,6 +1,4 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
+import {DefineMap,DefineList,Component,Reflect} from 'can';
 import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
@@ -8,7 +6,6 @@ import router from '~/router';
 import Api from 'shuttle-can-api';
 import localisation from '~/localisation';
 import state from '~/state';
-import each from 'can-util/js/each/';
 import {OptionList} from 'shuttle-canstrap/select/';
 
 resources.add('schedule', {action: 'list', permission: Permissions.Manage.Schedules});
@@ -51,7 +48,7 @@ const ScheduleMap = DefineMap.extend({
     remove() {
         api.schedules.delete({ dataStoreId: this.dataStoreId, id: this.id })
             .then(function () {
-                state.alerts.show({
+                state.alerts.add({
                     message: localisation.value('itemRemovalRequested', {itemName: localisation.value('schedule:title')}),
                     name: 'item-removal'
                 });
@@ -173,7 +170,7 @@ export const ViewModel = DefineMap.extend(
             });
 
             api.stores.list().then((response) => {
-                each(response, (store) => {
+                Reflect.each(response, (store) => {
                     self.dataStores.push({
                         value: store.id,
                         label: store.name

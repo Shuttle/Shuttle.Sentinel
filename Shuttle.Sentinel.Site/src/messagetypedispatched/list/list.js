@@ -1,12 +1,8 @@
-import Component from 'can-component/';
-import DefineMap from 'can-define/map/';
-import DefineList from 'can-define/list/';
+import {DefineMap,DefineList,Component} from 'can';
 import view from './list.stache!';
 import resources from '~/resources';
 import Permissions from '~/permissions';
-import router from '~/router';
 import Api from 'shuttle-can-api';
-import localisation from '~/localisation';
 import state from '~/state';
 
 resources.add('messagetypedispatched', {action: 'list', permission: Permissions.Manage.Monitoring});
