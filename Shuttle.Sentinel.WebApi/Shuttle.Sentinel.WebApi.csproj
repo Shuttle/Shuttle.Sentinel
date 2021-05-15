@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net50</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,23 +9,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.11" />
-    <PackageReference Include="Shuttle.Access.Mvc" Version="1.0.0" />
-    <PackageReference Include="Shuttle.Access.Sql" Version="1.0.4" />
-    <PackageReference Include="Shuttle.Core.Castle" Version="10.0.5" />
-    <PackageReference Include="Shuttle.Core.Configuration" Version="10.0.3" />
+    <PackageReference Include="Shuttle.Access.Api" Version="2.0.0" />
+    <PackageReference Include="Shuttle.Access.Mvc" Version="2.0.0" />
+    <PackageReference Include="Shuttle.Access.Mvc.DataStore" Version="2.0.0" />
+    <PackageReference Include="Shuttle.Access.Sql" Version="2.0.0" />
+    <PackageReference Include="Shuttle.Core.Castle" Version="10.0.7" />
+    <PackageReference Include="Shuttle.Core.Configuration" Version="10.0.4" />
+    <PackageReference Include="Shuttle.Core.Data" Version="11.0.4" />
     <PackageReference Include="Shuttle.Core.Data.Http" Version="11.0.0" />
     <PackageReference Include="Shuttle.Core.Data.SqlClient" Version="10.0.7" />
-    <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.1" />
-    <PackageReference Include="Shuttle.Esb.RabbitMQ" Version="10.0.15" />
-    <PackageReference Include="Shuttle.Esb.Scheduling" Version="10.0.0" />
-    <PackageReference Include="Shuttle.Recall.Sql.Storage" Version="10.2.0" />
-    <PackageReference Include="Shuttle.Sentinel" Version="1.0.0" />
-    <PackageReference Include="Shuttle.Sentinel.Messages" Version="1.0.18" />
+    <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.4" />
+    <PackageReference Include="Shuttle.Esb.AzureMQ" Version="11.0.2" />
+    <PackageReference Include="Shuttle.Esb.Scheduling" Version="11.0.1" />
+    <PackageReference Include="Shuttle.OAuth.GitHub" Version="1.0.0" />
+    <PackageReference Include="Shuttle.Recall.Sql.Storage" Version="12.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shuttle.Sentinel.Messages\Shuttle.Sentinel.Messages.csproj" />
+    <ProjectReference Include="..\Shuttle.Sentinel\Shuttle.Sentinel.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,0 @@
-<cs-form-select label:from="'data-store'" value:bind="dataStoreId" options:from="dataStores" />
-<div class="{{#unless dataStoreId}}invisible{{/if}}">
-    {{#if listPromise.isResolved}}
-        <cs-table vm:columns:from="columns" vm:rows:from="listPromise.value"/>
-    {{else}}
-        <cs-fetching title:from="'schedule:list.title'"/>
-    {{/if}}
-</div>

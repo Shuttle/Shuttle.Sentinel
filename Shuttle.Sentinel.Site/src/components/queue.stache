@@ -1,5 +1,0 @@
-﻿<cs-form-group validationMessage:from="validationMessage" elementClass:from="formGroupClass">
-    <cs-label label:from="label" required:from="required"/>
-    <sentinel-queue-input focus:from="focus" value:bind="value" uri:bind="uri" type:from="type" required:from="required"
-                          elementClass:from="inputClass"/>
-</cs-form-group>

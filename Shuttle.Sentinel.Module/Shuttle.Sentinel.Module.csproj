@@ -1,39 +1,38 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFrameworks>net461;netstandard2.0;netcoreapp2.1</TargetFrameworks>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <None Include=".build\package.msbuild" />
-        <None Include=".build\package.nuspec" />
-        <None Include=".build\Shuttle.MSBuild.dll" />
-        <None Include=".build\Shuttle.MSBuild.targets" />
-    </ItemGroup>
+  <ItemGroup>
+    <None Include=".build\package.msbuild" />
+    <None Include=".build\package.nuspec" />
+    <None Include=".build\Shuttle.MSBuild.dll" />
+    <None Include=".build\Shuttle.MSBuild.targets" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Shuttle.Esb" Version="10.1.8" />
-        <PackageReference Include="Shuttle.Sentinel.Messages" Version="1.0.18" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Shuttle.Esb" Version="11.2.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Reference Include="System.Configuration" Condition="'$(TargetFramework)' != 'netstandard2.0' and '$(TargetFramework)' != 'netcoreapp2.0'" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shuttle.Sentinel.Messages\Shuttle.Sentinel.Messages.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <Compile Update="Resources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Update="Resources.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-    </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>

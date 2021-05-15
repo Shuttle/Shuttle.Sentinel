@@ -1,5 +1,4 @@
 ﻿using Shuttle.Core.Contract;
-using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.DataAccess.Query;

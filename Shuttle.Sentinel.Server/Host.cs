@@ -1,5 +1,6 @@
 ﻿using Castle.Windsor;
 using log4net;
+using Shuttle.Access.Api;
 using Shuttle.Core.Castle;
 using Shuttle.Core.Container;
 using Shuttle.Core.Data;
@@ -7,6 +8,7 @@ using Shuttle.Core.Log4Net;
 using Shuttle.Core.Logging;
 using Shuttle.Core.ServiceHost;
 using Shuttle.Esb;
+using Shuttle.Recall;
 using Shuttle.Sentinel.DataAccess;
 
 namespace Shuttle.Sentinel.Server
@@ -24,10 +26,15 @@ namespace Shuttle.Sentinel.Server
 
             var container = new WindsorComponentContainer(_container);
 
+            container.RegisterInstance(SentinelServerSection.GetConfiguration());
             container.RegisterSuffixed("Shuttle.Sentinel");
             container.RegisterSuffixed("Shuttle.Esb.Scheduling");
 
+            container.RegisterInstance(AccessClientSection.GetConfiguration());
+            container.Register<IAccessClient, AccessClient>();
+
             ServiceBus.Register(container);
+            EventStore.Register(container);
 
             container.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
             container.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");

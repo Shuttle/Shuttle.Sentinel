@@ -19,7 +19,7 @@ namespace Shuttle.Sentinel {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -79,11 +79,38 @@ namespace Shuttle.Sentinel {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The enumerable of &apos;{0}&apos; is empty.  Cannot retrieve first item..
+        /// </summary>
+        public static string GetException {
+            get {
+                return ResourceManager.GetString("GetException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not extract Id from value &apos;{0}&apos;..
+        /// </summary>
+        public static string IdExtractionException {
+            get {
+                return ResourceManager.GetString("IdExtractionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The provided value of &apos;{0}&apos; is not a valid URI..
         /// </summary>
         public static string InvalidUri {
             get {
                 return ResourceManager.GetString("InvalidUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find the &apos;Sentinel&quot; configuration section..
+        /// </summary>
+        public static string MissingConfigurationSection {
+            get {
+                return ResourceManager.GetString("MissingConfigurationSection", resourceCulture);
             }
         }
         

@@ -10,34 +10,35 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Module
 {
-    public class SentinelModule : IDisposable, IThreadState, IPipelineObserver<OnStarted>
+    public class SentinelModule : IDisposable, IPipelineObserver<OnStarted>
     {
         private readonly string _inboxMessagePipelineName = typeof(InboxMessagePipeline).FullName;
         private readonly string _dispatchTransportMessagePipelineName = typeof(DispatchTransportMessagePipeline).FullName;
         private readonly string _startupPipelineName = typeof(StartupPipeline).FullName;
 
         private readonly IServiceBus _bus;
-        private readonly IMessageRouteProvider _messageRoutePrvider;
+        private readonly IMessageRouteProvider _messageRouteProvider;
         private readonly IEndpointAggregator _endpointAggregator;
         private readonly ISentinelObserver _sentinelObserver;
         private readonly ISentinelConfiguration _sentinelConfiguration;
         private volatile bool _active;
         private Thread _thread;
         private DateTime _nextSendDate = DateTime.Now;
+        private CancellationToken _cancellationToken;
 
-        public SentinelModule(IServiceBus bus, IMessageRouteProvider messageRoutePrvider,
+        public SentinelModule(IServiceBus bus, IMessageRouteProvider messageRouteProvider,
             IPipelineFactory pipelineFactory, IEndpointAggregator endpointAggregator,
             ISentinelObserver sentinelObserver, ISentinelConfiguration sentinelConfiguration)
         {
             Guard.AgainstNull(bus, nameof(bus));
-            Guard.AgainstNull(messageRoutePrvider, nameof(messageRoutePrvider));
+            Guard.AgainstNull(messageRouteProvider, nameof(messageRouteProvider));
             Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
             Guard.AgainstNull(endpointAggregator, nameof(endpointAggregator));
             Guard.AgainstNull(sentinelObserver, nameof(sentinelObserver));
             Guard.AgainstNull(sentinelConfiguration, nameof(sentinelConfiguration));
 
             _bus = bus;
-            _messageRoutePrvider = messageRoutePrvider;
+            _messageRouteProvider = messageRouteProvider;
             _endpointAggregator = endpointAggregator;
             _sentinelObserver = sentinelObserver;
             _sentinelConfiguration = sentinelConfiguration;
@@ -49,8 +50,6 @@ namespace Shuttle.Sentinel.Module
         {
             _active = false;
         }
-
-        public bool Active => _active;
 
         private void PipelineCreated(object sender, PipelineEventArgs e)
         {
@@ -82,11 +81,15 @@ namespace Shuttle.Sentinel.Module
 
         public void Execute(OnStarted pipelineEvent)
         {
-            if (!_messageRoutePrvider.GetRouteUris(typeof(RegisterEndpointCommand).FullName).Any())
+            Guard.AgainstNull(pipelineEvent, nameof(pipelineEvent));
+            
+            if (!_messageRouteProvider.GetRouteUris(typeof(RegisterEndpointCommand).FullName).Any())
             {
                 Log.For(this).Warning(Resources.WarningSentinelRouteMissing);
                 return;
             }
+
+            _cancellationToken = pipelineEvent.Pipeline.State.GetCancellationToken();
 
             _thread = new Thread(Send);
 
@@ -109,7 +112,7 @@ namespace Shuttle.Sentinel.Module
                     _nextSendDate = DateTime.Now.Add(_sentinelConfiguration.HeartbeatIntervalDuration);
                 }
 
-                ThreadSleep.While(1000, this);
+                ThreadSleep.While(1000, _cancellationToken);
             }
 
             _thread.Join(TimeSpan.FromSeconds(5));

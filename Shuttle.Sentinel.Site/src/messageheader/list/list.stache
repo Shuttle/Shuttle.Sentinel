@@ -1,5 +1,0 @@
-{{#if list.isResolved}}
-    <cs-table vm:columns:from="columns" vm:rows:from="list.value" />
-{{else}}
-    <cs-fetching title:from="'messageheader:list.title'" />
-{{/if}}

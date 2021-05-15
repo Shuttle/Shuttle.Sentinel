@@ -75,6 +75,12 @@
     <Build Include="Tables\Endpoint.sql" />
     <Build Include="Tables\MessageHeader.sql" />
     <Build Include="Tables\Schedule.sql" />
+    <Build Include="Tables\EventStore.sql" />
+    <Build Include="Tables\EventType.sql" />
+    <Build Include="Tables\KeyStore.sql" />
+    <Build Include="Tables\Projection.sql" />
+    <Build Include="Tables\Profile.sql" />
+    <Build Include="Tables\SnapshotStore.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".script\permissions.sql" />

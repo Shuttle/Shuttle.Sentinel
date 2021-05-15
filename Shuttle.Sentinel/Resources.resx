@@ -125,9 +125,20 @@
     <value>Could not enqueue message id '{0}' on inspection queue.  Exception: {1}</value>
     <comment>0 = message id, 1 = exception message</comment>
   </data>
+  <data name="GetException" xml:space="preserve">
+    <value>The enumerable of '{0}' is empty.  Cannot retrieve first item.</value>
+    <comment>0 = type name</comment>
+  </data>
+  <data name="IdExtractionException" xml:space="preserve">
+    <value>Could not extract Id from value '{0}'.</value>
+    <comment>0 = value containing id</comment>
+  </data>
   <data name="InvalidUri" xml:space="preserve">
     <value>The provided value of '{0}' is not a valid URI.</value>
     <comment>0 = the invalid URI</comment>
+  </data>
+  <data name="MissingConfigurationSection" xml:space="preserve">
+    <value>Could not find the 'Sentinel" configuration section.</value>
   </data>
   <data name="MissingConfigurationSectionException" xml:space="preserve">
     <value>Could not find a configuration section named 'sentinel'.</value>

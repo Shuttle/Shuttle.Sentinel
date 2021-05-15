@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.IO;
 using log4net;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Shuttle.Core.Log4Net;
 using Shuttle.Core.Logging;
 
@@ -12,24 +14,26 @@ namespace Shuttle.Sentinel.WebApi
     {
         public static void Main(string[] args)
         {
+            DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
+
             Log.Assign(
                 new Log4NetLog(LogManager.GetLogger(typeof(Program)),
                     new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.xml"))));
 
             Log.Information("[started]");
 
-            BuildWebHost(args).Run();
+            CreateHostBuilder(args).Build().Run();
 
             Log.Information("[stopped]");
 
             LogManager.Shutdown();
         }
 
-        public static IWebHost BuildWebHost(string[] args)
-        {
-            return WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
-        }
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }
