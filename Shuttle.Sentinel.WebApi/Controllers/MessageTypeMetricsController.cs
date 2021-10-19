@@ -23,7 +23,7 @@ namespace Shuttle.Sentinel.WebApi
             _messageTypeMetricQuery = messageTypeMetricQuery;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
+        [RequiresPermission(Permissions.Manage.Monitoring)]
         [HttpPost("search")]
         public IActionResult Search([FromBody] MessageTypeMetricSearchModel model)
         {

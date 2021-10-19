@@ -22,7 +22,7 @@ namespace Shuttle.Sentinel.WebApi
             _messageTypeAssociationQuery = messageTypeAssociationQuery;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
+        [RequiresPermission(Permissions.Manage.Monitoring)]
         [HttpGet("{search?}")]
         public IActionResult GetSearch(string search = null)
         {

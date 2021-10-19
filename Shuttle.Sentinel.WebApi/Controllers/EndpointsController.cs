@@ -36,18 +36,17 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [HttpGet]
+        [RequiresPermission(Permissions.View.Monitoring)]
         public IActionResult Get()
         {
             using (_databaseContextFactory.Create())
             {
-                return Ok(new
-                {
-                    Data = Data(_endpointQuery.All())
-                });
+                return Ok(Data(_endpointQuery.All()));
             }
         }
 
         [HttpGet("{search}")]
+        [RequiresPermission(Permissions.View.Monitoring)]
         public IActionResult GetSearch(string search)
         {
             using (_databaseContextFactory.Create())
@@ -60,6 +59,7 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [HttpGet("statistics")]
+        [RequiresPermission(Permissions.View.Monitoring)]
         public IActionResult GetStatistics()
         {
             List<Endpoint> endpoints;
@@ -163,7 +163,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Monitoring)]
+        [RequiresPermission(Permissions.Manage.Monitoring)]
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {

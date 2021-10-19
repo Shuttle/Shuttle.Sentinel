@@ -29,7 +29,7 @@ namespace Shuttle.Sentinel.WebApi
             _bus = bus;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Queues)]
+        [RequiresPermission(Permissions.Manage.Queues)]
         [HttpGet]
         public IActionResult Get()
         {
@@ -42,7 +42,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Queues)]
+        [RequiresPermission(Permissions.Manage.Queues)]
         [HttpGet("{search}")]
         public IActionResult GetSearch(string search)
         {
@@ -85,7 +85,7 @@ namespace Shuttle.Sentinel.WebApi
             return result;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Queues)]
+        [RequiresPermission(Permissions.Manage.Queues)]
         [HttpPost]
         public IActionResult Post([FromBody] QueueModel model)
         {
@@ -110,7 +110,7 @@ namespace Shuttle.Sentinel.WebApi
             return Ok();
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Queues)]
+        [RequiresPermission(Permissions.Manage.Queues)]
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {

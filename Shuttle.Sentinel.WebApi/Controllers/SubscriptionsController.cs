@@ -28,7 +28,7 @@ namespace Shuttle.Sentinel.WebApi
             _bus = bus;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
+        [RequiresPermission(Permissions.Manage.Subscriptions)]
         [HttpGet("{dataStoreId}")]
         public IActionResult Get(Guid dataStoreId)
         {
@@ -62,7 +62,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
+        [RequiresPermission(Permissions.Manage.Subscriptions)]
         [HttpPost]
         public IActionResult Post([FromBody] SubscriptionModel model)
         {
@@ -78,7 +78,7 @@ namespace Shuttle.Sentinel.WebApi
             return Ok();
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Subscriptions)]
+        [RequiresPermission(Permissions.Manage.Subscriptions)]
         [HttpPost("remove")]
         public IActionResult RemoveSubscription([FromBody] SubscriptionModel model)
         {

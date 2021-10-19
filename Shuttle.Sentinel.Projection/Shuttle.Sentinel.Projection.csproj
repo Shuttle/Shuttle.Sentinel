@@ -14,7 +14,7 @@
     <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.4" />
     <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.1.1" />
     <PackageReference Include="Shuttle.Recall.Sql.EventProcessing" Version="12.0.2" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
   <ItemGroup>

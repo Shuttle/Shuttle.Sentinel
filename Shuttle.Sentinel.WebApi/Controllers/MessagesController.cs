@@ -16,7 +16,7 @@ using Shuttle.Sentinel.Queues;
 namespace Shuttle.Sentinel.WebApi
 {
     [Route("[controller]")]
-    [RequiresPermission(SystemPermissions.Manage.Messages)]
+    [RequiresPermission(Permissions.Manage.Messages)]
     public class MessagesController : Controller
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;

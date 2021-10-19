@@ -13,7 +13,7 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.WebApi
 {
     [Route("[controller]")]
-    [RequiresPermission(SystemPermissions.Manage.Messages)]
+    [RequiresPermission(Permissions.Manage.Messages)]
     public class MessageHeadersController : Controller
     {
         private readonly IServiceBus _bus;
@@ -31,7 +31,7 @@ namespace Shuttle.Sentinel.WebApi
             _bus = bus;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Messages)]
+        [RequiresPermission(Permissions.Manage.Messages)]
         [HttpGet]
         public IActionResult Get()
         {
@@ -44,7 +44,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Messages)]
+        [RequiresPermission(Permissions.Manage.Messages)]
         [HttpGet("{search}")]
         public IActionResult GetSearch(string search)
         {
@@ -57,7 +57,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Messages)]
+        [RequiresPermission(Permissions.Manage.Messages)]
         [HttpPost]
         public IActionResult Post([FromBody] MessageHeaderModel model)
         {
@@ -75,7 +75,7 @@ namespace Shuttle.Sentinel.WebApi
             return Ok(id);
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Messages)]
+        [RequiresPermission(Permissions.Manage.Messages)]
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {

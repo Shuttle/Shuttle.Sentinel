@@ -29,7 +29,7 @@ namespace Shuttle.Sentinel.WebApi
             _bus = bus;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Schedules)]
+        [RequiresPermission(Permissions.Manage.Schedules)]
         [HttpGet("{dataStoreId}/{search?}")]
         public IActionResult Get(Guid dataStoreId, string match = null)
         {
@@ -66,7 +66,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Schedules)]
+        [RequiresPermission(Permissions.Manage.Schedules)]
         [HttpPost]
         public IActionResult Post([FromBody] ScheduleModel model)
         {
@@ -85,7 +85,7 @@ namespace Shuttle.Sentinel.WebApi
             return Ok();
         }
 
-        [RequiresPermission(SystemPermissions.Manage.Schedules)]
+        [RequiresPermission(Permissions.Manage.Schedules)]
         [HttpDelete("{dataStoreId}/{id}")]
         public IActionResult RemoveSchedule(Guid dataStoreId, Guid id)
         {

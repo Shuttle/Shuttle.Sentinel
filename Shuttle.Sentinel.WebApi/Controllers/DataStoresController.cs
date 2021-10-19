@@ -28,7 +28,7 @@ namespace Shuttle.Sentinel.WebApi
             _bus = bus;
         }
 
-        [RequiresPermission(SystemPermissions.Manage.DataStores)]
+        [RequiresPermission(Permissions.Manage.DataStores)]
         [HttpGet]
         public IActionResult Get()
         {
@@ -41,7 +41,7 @@ namespace Shuttle.Sentinel.WebApi
             }
         }
 
-        [RequiresPermission(SystemPermissions.Manage.DataStores)]
+        [RequiresPermission(Permissions.Manage.DataStores)]
         [HttpPost]
         public IActionResult Post([FromBody] AddDataStoreModel model)
         {
@@ -57,7 +57,7 @@ namespace Shuttle.Sentinel.WebApi
             return Ok();
         }
 
-        [RequiresPermission(SystemPermissions.Manage.DataStores)]
+        [RequiresPermission(Permissions.Manage.DataStores)]
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
