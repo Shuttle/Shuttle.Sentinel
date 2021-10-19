@@ -15,7 +15,7 @@ using Shuttle.Sentinel.Queues;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [RequiresPermission(SystemPermissions.Manage.Messages)]
     public class MessagesController : Controller
     {

@@ -13,7 +13,7 @@ using Shuttle.Sentinel.WebApi.Configuration;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class EndpointsController : Controller
     {
         private readonly IServiceBus _bus;

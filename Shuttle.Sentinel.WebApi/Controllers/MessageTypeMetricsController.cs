@@ -7,7 +7,7 @@ using Shuttle.Sentinel.DataAccess;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class MessageTypeMetricsController : Controller
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;

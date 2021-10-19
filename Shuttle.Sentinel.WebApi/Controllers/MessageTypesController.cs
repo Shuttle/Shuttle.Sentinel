@@ -12,7 +12,7 @@ using Shuttle.Core.Streams;
 
 namespace Shuttle.Sentinel.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class MessageTypesController : Controller
     {
         private static bool _initialized;

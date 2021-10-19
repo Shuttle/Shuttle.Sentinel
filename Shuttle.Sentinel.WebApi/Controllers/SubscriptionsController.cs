@@ -9,7 +9,7 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class SubscriptionsController : Controller
     {
         private readonly IServiceBus _bus;

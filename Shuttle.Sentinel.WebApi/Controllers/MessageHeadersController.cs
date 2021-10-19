@@ -12,7 +12,7 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [RequiresPermission(SystemPermissions.Manage.Messages)]
     public class MessageHeadersController : Controller
     {
