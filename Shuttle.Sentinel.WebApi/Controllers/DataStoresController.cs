@@ -34,10 +34,7 @@ namespace Shuttle.Sentinel.WebApi
         {
             using (_databaseContextFactory.Create())
             {
-                return Ok(new
-                {
-                    Data = _dataStoreQuery.All()
-                });
+                return Ok(_dataStoreQuery.All());
             }
         }
 

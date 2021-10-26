@@ -35,10 +35,7 @@ namespace Shuttle.Sentinel.WebApi
         {
             using (_databaseContextFactory.Create())
             {
-                return Ok(new
-                {
-                    Data = Data(_queueQuery.All())
-                });
+                return Ok(Data(_queueQuery.All()));
             }
         }
 
@@ -48,10 +45,7 @@ namespace Shuttle.Sentinel.WebApi
         {
             using (_databaseContextFactory.Create())
             {
-                return Ok(new
-                {
-                    Data = Data(_queueQuery.Search(search))
-                });
+                return Ok(Data(_queueQuery.Search(search)));
             }
         }
 
@@ -100,7 +94,7 @@ namespace Shuttle.Sentinel.WebApi
                 return BadRequest(string.Format(Resources.InvalidUri, model.Uri));
             }
 
-            _bus.Send(new SaveQueueCommand
+            _bus.Send(new RegisterQueueCommand
             {
                 QueueUri = model.Uri,
                 Processor = model.Processor,

@@ -8,7 +8,7 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class QueueHandler : 
-        IMessageHandler<SaveQueueCommand>,
+        IMessageHandler<RegisterQueueCommand>,
         IMessageHandler<RemoveQueueCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
@@ -23,7 +23,7 @@ namespace Shuttle.Sentinel.Server
             _queueQuery = queueQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<SaveQueueCommand> context)
+        public void ProcessMessage(IHandlerContext<RegisterQueueCommand> context)
         {
             Uri uri;
 

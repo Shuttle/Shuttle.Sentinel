@@ -72,7 +72,7 @@ namespace Shuttle.Sentinel.WebApi
         {
             Guard.AgainstNull(model, nameof(model));
 
-            _bus.Send(new SaveScheduleCommand
+            _bus.Send(new RegisterScheduleCommand
             {
                 DataStoreId = model.DataStoreId,
                 Id = model.Id ?? Guid.Empty,

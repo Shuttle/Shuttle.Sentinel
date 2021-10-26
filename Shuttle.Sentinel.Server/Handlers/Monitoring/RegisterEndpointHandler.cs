@@ -114,16 +114,16 @@ namespace Shuttle.Sentinel.Server
                 }
             }
 
-            SaveQueue(context, message.InboxWorkQueueUri, "inbox", "work");
-            SaveQueue(context, message.InboxDeferredQueueUri, "inbox", "deferred");
-            SaveQueue(context, message.InboxErrorQueueUri, "inbox", "error");
-            SaveQueue(context, message.OutboxWorkQueueUri, "outbox", "work");
-            SaveQueue(context, message.OutboxErrorQueueUri, "outbox", "error");
-            SaveQueue(context, message.ControlInboxWorkQueueUri, "control-inbox", "work");
-            SaveQueue(context, message.ControlInboxErrorQueueUri, "control-inbox", "error");
+            RegisterQueue(context, message.InboxWorkQueueUri, "inbox", "work");
+            RegisterQueue(context, message.InboxDeferredQueueUri, "inbox", "deferred");
+            RegisterQueue(context, message.InboxErrorQueueUri, "inbox", "error");
+            RegisterQueue(context, message.OutboxWorkQueueUri, "outbox", "work");
+            RegisterQueue(context, message.OutboxErrorQueueUri, "outbox", "error");
+            RegisterQueue(context, message.ControlInboxWorkQueueUri, "control-inbox", "work");
+            RegisterQueue(context, message.ControlInboxErrorQueueUri, "control-inbox", "error");
         }
 
-        private void SaveQueue(IHandlerContext<RegisterEndpointCommand> context, string uri, string processor,
+        private void RegisterQueue(IHandlerContext<RegisterEndpointCommand> context, string uri, string processor,
             string type)
         {
             if (string.IsNullOrEmpty(uri))
@@ -131,7 +131,7 @@ namespace Shuttle.Sentinel.Server
                 return;
             }
 
-            context.Send(new SaveQueueCommand
+            context.Send(new RegisterQueueCommand
             {
                 QueueUri = uri,
                 Processor = processor,
