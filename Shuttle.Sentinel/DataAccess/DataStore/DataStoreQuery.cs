@@ -33,9 +33,9 @@ namespace Shuttle.Sentinel.DataAccess
             _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
         }
 
-        public IEnumerable<DataStore> All()
+        public IEnumerable<DataStore> Search(DataStore.Specification specification)
         {
-            return _queryMapper.MapObjects<DataStore>(_queryFactory.All());
+            return _queryMapper.MapObjects<DataStore>(_queryFactory.Search(specification));
         }
 
         public DataStore Get(Guid id)

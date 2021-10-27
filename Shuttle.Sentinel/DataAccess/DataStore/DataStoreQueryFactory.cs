@@ -43,9 +43,25 @@ where
                 .AddParameterValue(Columns.Id, id);
         }
 
-        public IQuery All()
+        public IQuery Search(DataStore.Specification specification)
         {
-            return RawQuery.Create(@"select Id, Name, ConnectionString, ProviderName from DataStore order by Name");
+            return RawQuery.Create(@"
+select 
+    Id, 
+    Name, 
+    ConnectionString, 
+    ProviderName 
+from 
+    DataStore 
+where
+    (
+        @Id is null
+        or
+        Id = @Id
+    )
+order by 
+    Name")
+                .AddParameterValue(Columns.Id, specification.Id);
         }
 
         public IQuery Get(Guid id)

@@ -8,7 +8,7 @@ namespace Shuttle.Sentinel.DataAccess
     {
         void Add(DataStore dataStore);
         void Remove(Guid id);
-        IEnumerable<DataStore> All();
+        IEnumerable<DataStore> Search(DataStore.Specification specification);
         DataStore Get(Guid id);
     }
 }

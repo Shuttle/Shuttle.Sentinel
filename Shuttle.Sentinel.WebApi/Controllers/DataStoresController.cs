@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
+using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.WebApi
@@ -29,12 +31,28 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(Permissions.Manage.DataStores)]
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("{id?}")]
+        public IActionResult Get(Guid id)
         {
+            var specification = new DataStore.Specification();
+
+            if (!Guid.Empty.Equals(id))
+            {
+                specification.WithId(id);
+            }
+
             using (_databaseContextFactory.Create())
             {
-                return Ok(_dataStoreQuery.All());
+                var result = _dataStoreQuery.Search(specification);
+
+                try
+                {
+                    return Ok(Guid.Empty.Equals(id) ? result : result.FirstOrDefault().GuardAgainstRecordNotFound(id));
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
         }
 

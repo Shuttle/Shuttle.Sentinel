@@ -8,5 +8,17 @@ namespace Shuttle.Sentinel.DataAccess.Query
         public string Name { get; set; }
         public string ConnectionString { get; set; }
         public string ProviderName { get; set; }
+
+        public class Specification
+        {
+            public Guid? Id { get; private set; }
+
+            public Specification WithId(Guid id)
+            {
+                Id = id;
+
+                return this;
+            }
+        }
     }
 }

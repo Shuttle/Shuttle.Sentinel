@@ -34,9 +34,7 @@ namespace Shuttle.Sentinel.WebApi
         {
             using (_databaseContextFactory.Create(dataStoreId))
             {
-                return Ok(new
-                {
-                    Data = _subscriptionQuery.All()
+                return Ok(_subscriptionQuery.All()
                     .Select(subscription=>
                         {
                             string securedUri;
@@ -58,7 +56,7 @@ namespace Shuttle.Sentinel.WebApi
                                 SecuredUri = securedUri
                             };
                         })
-                });
+                );
             }
         }
 

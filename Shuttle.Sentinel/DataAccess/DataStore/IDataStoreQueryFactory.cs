@@ -8,7 +8,7 @@ namespace Shuttle.Sentinel.DataAccess
     {
         IQuery Add(DataStore dataStore);
         IQuery Remove(Guid id);
-        IQuery All();
+        IQuery Search(DataStore.Specification specification);
         IQuery Get(Guid id);
     }
 }
