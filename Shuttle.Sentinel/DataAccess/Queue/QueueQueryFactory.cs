@@ -1,5 +1,6 @@
 ﻿using System;
 using Shuttle.Core.Data;
+using Shuttle.Sentinel.DataAccess.Query;
 
 namespace Shuttle.Sentinel.DataAccess
 {
@@ -57,14 +58,25 @@ else
             return RawQuery.Create(string.Concat(SelectFrom, @"order by Uri"));
         }
 
-        public IQuery Search(string match)
+        public IQuery Search(Queue.Specification specification)
         {
             return RawQuery.Create(string.Concat(SelectFrom, @"
 where 
+(
+    @Id is null
+    or
+    Id = @Id
+)
+and
+(
+    @Uri is null
+    or
     Uri like @Uri 
+)
 order by Uri
 "))
-                .AddParameterValue(QueueColumns.Uri, string.Concat("%", match, "%"));
+                .AddParameterValue(Columns.Id, specification.Id)
+                .AddParameterValue(QueueColumns.Uri, string.IsNullOrWhiteSpace(specification.UriMatch) ? null : $"%{specification.UriMatch}%");
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Shuttle.Sentinel.DataAccess
         IQuery Save(string uri, string processor, string type);
         IQuery Remove(Guid id);
         IQuery All();
-        IQuery Search(string match);
+        IQuery Search(Query.Queue.Specification specification);
     }
 }

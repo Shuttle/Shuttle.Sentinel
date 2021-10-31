@@ -8,7 +8,6 @@ namespace Shuttle.Sentinel.DataAccess
     {
         void Save(string uri, string processor, string type);
         void Remove(Guid id);
-        IEnumerable<Queue> All();
-        IEnumerable<Queue> Search(string match);
+        IEnumerable<Queue> Search(Queue.Specification specification);
     }
 }

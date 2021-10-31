@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
@@ -30,22 +31,43 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(Permissions.Manage.Queues)]
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("{id?}")]
+        public IActionResult Get(Guid id)
         {
+            var specification = new Queue.Specification();
+
+            if (!Guid.Empty.Equals(id))
+            {
+                specification.WithId(id);
+            }
+
             using (_databaseContextFactory.Create())
             {
-                return Ok(Data(_queueQuery.All()));
+                var result = _queueQuery.Search(specification);
+
+                try
+                {
+                    return Ok(Guid.Empty.Equals(id) ? result : result.FirstOrDefault().GuardAgainstRecordNotFound(id));
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
         }
 
         [RequiresPermission(Permissions.Manage.Queues)]
-        [HttpGet("{search}")]
-        public IActionResult GetSearch(string search)
+        [HttpGet("uri/{uriMatch}")]
+        public IActionResult MatchingUri(string uriMatch)
         {
+            if (string.IsNullOrWhiteSpace(uriMatch))
+            {
+                return BadRequest();
+            }
+
             using (_databaseContextFactory.Create())
             {
-                return Ok(Data(_queueQuery.Search(search)));
+                return Ok(Data(_queueQuery.Search(new Queue.Specification().MatchingUri(uriMatch))));
             }
         }
 

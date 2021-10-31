@@ -33,14 +33,9 @@ namespace Shuttle.Sentinel.DataAccess
             _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
         }
 
-        public IEnumerable<Queue> All()
+        public IEnumerable<Queue> Search(Queue.Specification specification)
         {
-            return _queryMapper.MapObjects<Queue>(_queryFactory.All());
-        }
-
-        public IEnumerable<Queue> Search(string match)
-        {
-            return _queryMapper.MapObjects<Queue>(_queryFactory.Search(match));
+            return _queryMapper.MapObjects<Queue>(_queryFactory.Search(specification));
         }
     }
 }

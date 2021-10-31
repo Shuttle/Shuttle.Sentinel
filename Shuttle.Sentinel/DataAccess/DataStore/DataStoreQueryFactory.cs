@@ -54,11 +54,11 @@ select
 from 
     DataStore 
 where
-    (
-        @Id is null
-        or
-        Id = @Id
-    )
+(
+    @Id is null
+    or
+    Id = @Id
+)
 order by 
     Name")
                 .AddParameterValue(Columns.Id, specification.Id);
