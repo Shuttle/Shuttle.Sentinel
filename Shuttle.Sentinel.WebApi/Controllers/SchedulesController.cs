@@ -7,6 +7,7 @@ using Shuttle.Esb;
 using Shuttle.Esb.Scheduling;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Messages.v1;
+using Schedule = Shuttle.Esb.Scheduling.Query.Schedule;
 
 namespace Shuttle.Sentinel.WebApi
 {
@@ -33,12 +34,12 @@ namespace Shuttle.Sentinel.WebApi
         [HttpGet("{dataStoreId}/{search?}")]
         public IActionResult Get(Guid dataStoreId, string match = null)
         {
-            using (_databaseContextFactory.Create(dataStoreId))
+            try
             {
-                return Ok(new
+                using (_databaseContextFactory.Create(dataStoreId))
                 {
-                    Data = _scheduleQuery.Search(match ?? string.Empty)
-                    .Select(schedule=>
+                    return Ok(_scheduleQuery.Search(new Schedule.Specification().MatchingFuzzy(match))
+                        .Select(schedule=>
                         {
                             string securedUri;
 
@@ -62,7 +63,12 @@ namespace Shuttle.Sentinel.WebApi
                                 schedule.NextNotification
                             };
                         })
-                });
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

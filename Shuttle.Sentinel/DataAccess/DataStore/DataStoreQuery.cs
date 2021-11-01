@@ -23,9 +23,9 @@ namespace Shuttle.Sentinel.DataAccess
             _queryMapper = queryMapper;
         }
 
-        public void Add(DataStore dataStore)
+        public void Register(DataStore dataStore)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Add(dataStore));
+            _databaseGateway.ExecuteUsing(_queryFactory.Register(dataStore));
         }
 
         public void Remove(Guid id)

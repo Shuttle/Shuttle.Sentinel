@@ -6,9 +6,31 @@ namespace Shuttle.Sentinel.DataAccess
 {
     public class DataStoreQueryFactory : IDataStoreQueryFactory
     {
-        public IQuery Add(DataStore dataStore)
+        public IQuery Register(DataStore dataStore)
         {
             return RawQuery.Create(@"
+if exists
+(
+    select 
+        null 
+    from 
+        DataStore 
+    where 
+        Id = @Id
+)
+begin
+    update
+	    DataStore
+    set
+	    Name = @Name,
+	    ConnectionString = @ConnectionString,
+	    ProviderName = @ProviderName
+    where
+	    Id = @Id    
+
+    return;
+end
+
 if not exists (select null from DataStore where Name = @Name)
     insert into DataStore 
     (

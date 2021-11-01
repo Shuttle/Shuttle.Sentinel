@@ -9,7 +9,7 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class DataStoreHandler : 
-        IMessageHandler<AddDataStoreCommand>,
+        IMessageHandler<RegisterDataStoreCommand>,
         IMessageHandler<RemoveDataStoreCommand>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
@@ -24,15 +24,15 @@ namespace Shuttle.Sentinel.Server
             _dataStoreQuery = dataStoreQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<AddDataStoreCommand> context)
+        public void ProcessMessage(IHandlerContext<RegisterDataStoreCommand> context)
         {
             var message = context.Message;
 
             using (_databaseContextFactory.Create())
             {
-                _dataStoreQuery.Add(new DataStore
+                _dataStoreQuery.Register(new DataStore
                 {
-                    Id = Guid.NewGuid(),
+                    Id = !message.Id.HasValue || Guid.Empty.Equals(message.Id) ? Guid.NewGuid() : message.Id.Value,
                     Name = message.Name,
                     ConnectionString = message.ConnectionString,
                     ProviderName = message.ProviderName

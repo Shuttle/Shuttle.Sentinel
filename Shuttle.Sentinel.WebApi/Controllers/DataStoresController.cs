@@ -58,16 +58,11 @@ namespace Shuttle.Sentinel.WebApi
 
         [RequiresPermission(Permissions.Manage.DataStores)]
         [HttpPost]
-        public IActionResult Post([FromBody] AddDataStoreModel model)
+        public IActionResult Post([FromBody] RegisterDataStoreCommand command)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(command, nameof(command));
 
-            _bus.Send(new AddDataStoreCommand
-            {
-                Name = model.Name,
-                ConnectionString = model.ConnectionString,
-                ProviderName = model.ProviderName
-            });
+            _bus.Send(command);
 
             return Ok();
         }
