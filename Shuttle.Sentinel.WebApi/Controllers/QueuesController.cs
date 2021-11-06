@@ -57,17 +57,17 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(Permissions.Manage.Queues)]
-        [HttpGet("uri/{uriMatch}")]
-        public IActionResult MatchingUri(string uriMatch)
+        [HttpGet("uri")]
+        public IActionResult MatchingUri(string match)
         {
-            if (string.IsNullOrWhiteSpace(uriMatch))
+            if (string.IsNullOrWhiteSpace(match))
             {
                 return BadRequest();
             }
 
             using (_databaseContextFactory.Create())
             {
-                return Ok(Data(_queueQuery.Search(new Queue.Specification().MatchingUri(uriMatch))));
+                return Ok(Data(_queueQuery.Search(new Queue.Specification().MatchingUri(match))));
             }
         }
 
