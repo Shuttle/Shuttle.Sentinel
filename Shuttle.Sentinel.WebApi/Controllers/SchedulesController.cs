@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
+using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Esb.Scheduling;
 using Shuttle.Sentinel.DataAccess;
@@ -31,38 +32,60 @@ namespace Shuttle.Sentinel.WebApi
         }
 
         [RequiresPermission(Permissions.Manage.Schedules)]
-        [HttpGet("{dataStoreId}/{search?}")]
-        public IActionResult Get(Guid dataStoreId, string match = null)
+        [HttpGet("{dataStoreId}/{id}")]
+        public IActionResult Get(Guid dataStoreId, Guid id)
+        {
+            try
+            {
+                using (_databaseContextFactory.Create(dataStoreId))
+                {
+                    return Ok(_scheduleQuery.Search(new Schedule.Specification().WithId(id))
+                        .Select(schedule => GetSchedule(dataStoreId, schedule)).FirstOrDefault()
+                        .GuardAgainstRecordNotFound(id)
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        private static object GetSchedule(Guid dataStoreId, Schedule schedule)
+        {
+            string securedUri;
+
+            try
+            {
+                securedUri = new Uri(schedule.InboxWorkQueueUri).Secured().ToString();
+            }
+            catch
+            {
+                securedUri = "(invalid uri)";
+            }
+
+            return new
+            {
+                DataStoreId = dataStoreId,
+                schedule.Id,
+                schedule.Name,
+                schedule.InboxWorkQueueUri,
+                SecuredUri = securedUri,
+                schedule.CronExpression,
+                schedule.NextNotification
+            };
+        }
+
+        [RequiresPermission(Permissions.Manage.Schedules)]
+        [HttpGet("search/{dataStoreId}/{match?}")]
+        public IActionResult Search(Guid dataStoreId, string match = null)
         {
             try
             {
                 using (_databaseContextFactory.Create(dataStoreId))
                 {
                     return Ok(_scheduleQuery.Search(new Schedule.Specification().MatchingFuzzy(match))
-                        .Select(schedule=>
-                        {
-                            string securedUri;
-
-                            try
-                            {
-                                securedUri = new Uri(schedule.InboxWorkQueueUri).Secured().ToString();
-                            }
-                            catch
-                            {
-                                securedUri = "(invalid uri)";
-                            }
-                            
-                            return new
-                            {
-                                DataStoreId = dataStoreId,
-                                schedule.Id,
-                                schedule.Name,
-                                schedule.InboxWorkQueueUri,
-                                SecuredUri = securedUri,
-                                schedule.CronExpression,
-                                schedule.NextNotification
-                            };
-                        })
+                        .Select(schedule => GetSchedule(dataStoreId, schedule))
                     );
                 }
             }
@@ -78,15 +101,26 @@ namespace Shuttle.Sentinel.WebApi
         {
             Guard.AgainstNull(model, nameof(model));
 
-            _bus.Send(new RegisterScheduleCommand
+            var message = new RegisterScheduleCommand
             {
                 DataStoreId = model.DataStoreId,
                 Id = model.Id ?? Guid.Empty,
-                Name=model.Name,
+                Name = model.Name,
                 InboxWorkQueueUri = model.InboxWorkQueueUri,
                 CronExpression = model.CronExpression,
                 NextNotification = model.NextNotification
-            });
+            };
+
+            try
+            {
+                message.ApplyInvariants();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            _bus.Send(message);
 
             return Ok();
         }
