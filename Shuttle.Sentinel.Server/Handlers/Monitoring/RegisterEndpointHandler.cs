@@ -133,7 +133,7 @@ namespace Shuttle.Sentinel.Server
 
             context.Send(new RegisterQueueCommand
             {
-                QueueUri = uri,
+                Uri = uri,
                 Processor = processor,
                 Type = type
             }, c => c.Local());

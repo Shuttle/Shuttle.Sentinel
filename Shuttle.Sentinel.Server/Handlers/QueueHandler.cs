@@ -31,7 +31,7 @@ namespace Shuttle.Sentinel.Server
 
             try
             {
-                uri = new Uri(message.QueueUri);
+                uri = new Uri(message.Uri);
             }
             catch
             {
@@ -40,7 +40,7 @@ namespace Shuttle.Sentinel.Server
 
             using (_databaseContextFactory.Create())
             {
-                _queueQuery.Save(message.QueueUri, message.Processor, message.Type);
+                _queueQuery.Save(message.Uri, message.Processor, message.Type);
             }
         }
 

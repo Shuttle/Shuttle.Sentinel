@@ -43,11 +43,11 @@ namespace Shuttle.Sentinel.WebApi
 
             using (_databaseContextFactory.Create())
             {
-                var result = _queueQuery.Search(specification);
+                var result = Data(_queueQuery.Search(specification));
 
                 try
                 {
-                    return Ok(Guid.Empty.Equals(id) ? result : result.FirstOrDefault().GuardAgainstRecordNotFound(id));
+                    return Ok(Guid.Empty.Equals(id) ? result : ((object)result.FirstOrDefault()).GuardAgainstRecordNotFound(id));
                 }
                 catch (Exception ex)
                 {
@@ -103,25 +103,20 @@ namespace Shuttle.Sentinel.WebApi
 
         [RequiresPermission(Permissions.Manage.Queues)]
         [HttpPost]
-        public IActionResult Post([FromBody] QueueModel model)
+        public IActionResult Post([FromBody] RegisterQueueCommand command)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(command, nameof(command));
 
             try
             {
-                var uri = new Uri(model.Uri);
+                _ = new Uri(command.Uri);
             }
             catch (Exception)
             {
-                return BadRequest(string.Format(Resources.InvalidUri, model.Uri));
+                return BadRequest(string.Format(Resources.InvalidUri, command.Uri));
             }
 
-            _bus.Send(new RegisterQueueCommand
-            {
-                QueueUri = model.Uri,
-                Processor = model.Processor,
-                Type = model.Type
-            });
+            _bus.Send(command);
 
             return Ok();
         }
