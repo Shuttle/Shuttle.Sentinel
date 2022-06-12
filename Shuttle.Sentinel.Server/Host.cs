@@ -1,4 +1,6 @@
-﻿using log4net;
+﻿using System;
+using System.Threading;
+using log4net;
 using Ninject;
 using Shuttle.Access.Api;
 using Shuttle.Core.Container;
@@ -20,6 +22,7 @@ namespace Shuttle.Sentinel.Server
     {
         private IServiceBus _bus;
         private IKernel _kernel;
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         public void Start()
         {
@@ -45,7 +48,13 @@ namespace Shuttle.Sentinel.Server
             container.RegisterSubscription();
 
             container.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
-            container.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
+
+            var databaseContextFactory = container.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
+
+            if (!databaseContextFactory.IsAvailable("Sentinel", _cancellationTokenSource.Token))
+            {
+                throw new ApplicationException("[connection failure]");
+            }
 
             _bus = container.Resolve<IServiceBus>().Start();
         }

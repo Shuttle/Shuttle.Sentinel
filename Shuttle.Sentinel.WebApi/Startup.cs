@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -43,6 +45,7 @@ namespace Shuttle.Sentinel.WebApi
     {
         private IServiceBus _bus;
         private readonly ILog _log;
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         public Startup(IConfiguration configuration)
         {
@@ -80,6 +83,7 @@ namespace Shuttle.Sentinel.WebApi
             services.AddSingleton<IDataRowMapper<Session>, SessionMapper>();
             services.AddSingleton(typeof(IDataRepository<>), typeof(DataRepository<>));
             services.AddSingleton<IAccessService, DataStoreAccessService>();
+            //services.AddSingleton<IAccessService, MockAccessService>();
 
             services.AddSwaggerGen(options =>
             {
@@ -169,6 +173,13 @@ namespace Shuttle.Sentinel.WebApi
 
             componentContainer.Register<IAzureStorageConfiguration, DefaultAzureStorageConfiguration>();
 
+            var databaseContextFactory = componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
+
+            if (!databaseContextFactory.IsAvailable("Sentinel", _cancellationTokenSource.Token))
+            {
+                throw new ApplicationException("[connection failure]");
+            }
+            
             _bus = componentContainer.Resolve<IServiceBus>().Start();
 
             applicationLifetime.ApplicationStopping.Register(OnShutdown);
@@ -213,6 +224,24 @@ namespace Shuttle.Sentinel.WebApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shuttle.Access.WebApi.v1");
             });
 
+        }
+    }
+
+    public class MockAccessService : IAccessService
+    {
+        public bool Contains(Guid token)
+        {
+            return true;
+        }
+
+        public bool HasPermission(Guid token, string permission)
+        {
+            return true;
+        }
+
+        public void Remove(Guid token)
+        {
+            
         }
     }
 }

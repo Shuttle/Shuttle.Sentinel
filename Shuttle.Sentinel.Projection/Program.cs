@@ -58,7 +58,7 @@ namespace Shuttle.Sentinel.Projection
 
             var databaseContextFactory = container.Resolve<IDatabaseContextFactory>();
 
-            if (!databaseContextFactory.IsAvailable("Access", _cancellationTokenSource.Token))
+            if (!databaseContextFactory.IsAvailable("Sentinel", _cancellationTokenSource.Token))
             {
                 throw new ApplicationException("[connection failure]");
             }
