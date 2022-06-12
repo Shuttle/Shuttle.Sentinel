@@ -6,12 +6,13 @@ using Shuttle.Esb;
 using Shuttle.OAuth;
 using Shuttle.Recall.Sql.Storage;
 using Shuttle.Sentinel.DataAccess.Profile;
-using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
 
-namespace Shuttle.Sentinel.WebApi.Controllers
+namespace Shuttle.Sentinel.WebApi.v1
 {
-    [Route("[controller]")]
+    [Route("[controller]", Order = 1)]
+    [Route("v{version:apiVersion}/[controller]", Order = 2)]
+    [ApiVersion("1")]
     public class OAuthController : Controller
     {
         private readonly IServiceBus _bus;

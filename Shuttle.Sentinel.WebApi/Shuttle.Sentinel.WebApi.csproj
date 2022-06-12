@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net50</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,20 +9,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
+    <PackageReference Include="Shuttle.Access" Version="4.0.1" />
     <PackageReference Include="Shuttle.Access.Api" Version="2.0.0" />
     <PackageReference Include="Shuttle.Access.Mvc" Version="4.0.1" />
     <PackageReference Include="Shuttle.Access.Mvc.DataStore" Version="4.0.0" />
-    <PackageReference Include="Shuttle.Access.Sql" Version="4.0.0" />
-    <PackageReference Include="Shuttle.Core.Castle" Version="10.0.7" />
+    <PackageReference Include="Shuttle.Access.Sql" Version="4.1.0" />
     <PackageReference Include="Shuttle.Core.Configuration" Version="10.0.4" />
-    <PackageReference Include="Shuttle.Core.Data" Version="11.0.4" />
-    <PackageReference Include="Shuttle.Core.Data.Http" Version="11.0.0" />
+    <PackageReference Include="Shuttle.Core.Data" Version="12.1.0" />
+    <PackageReference Include="Shuttle.Core.Data.Http" Version="12.0.2" />
     <PackageReference Include="Shuttle.Core.Data.SqlClient" Version="10.0.7" />
     <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.4" />
-    <PackageReference Include="Shuttle.Esb.AzureMQ" Version="11.0.2" />
-    <PackageReference Include="Shuttle.Esb.Scheduling" Version="12.0.4" />
-    <PackageReference Include="Shuttle.OAuth.GitHub" Version="1.0.0" />
-    <PackageReference Include="Shuttle.Recall.Sql.Storage" Version="12.0.2" />
+    <PackageReference Include="Shuttle.Core.Ninject" Version="10.1.1" />
+    <PackageReference Include="Shuttle.Esb.AzureMQ" Version="12.0.1" />
+    <PackageReference Include="Shuttle.Esb.Scheduling" Version="12.0.6" />
+    <PackageReference Include="Shuttle.OAuth.GitHub" Version="1.1.0" />
+    <PackageReference Include="Shuttle.Recall.Sql.Storage" Version="14.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
   <ItemGroup>

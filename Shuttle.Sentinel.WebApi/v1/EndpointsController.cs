@@ -11,9 +11,11 @@ using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
 using Shuttle.Sentinel.WebApi.Configuration;
 
-namespace Shuttle.Sentinel.WebApi
+namespace Shuttle.Sentinel.WebApi.v1
 {
-    [Route("[controller]")]
+    [Route("[controller]", Order = 1)]
+    [Route("v{version:apiVersion}/[controller]", Order = 2)]
+    [ApiVersion("1")]
     public class EndpointsController : Controller
     {
         private readonly IServiceBus _bus;

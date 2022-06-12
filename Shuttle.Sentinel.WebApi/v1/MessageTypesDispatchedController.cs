@@ -7,9 +7,11 @@ using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 
-namespace Shuttle.Sentinel.WebApi
+namespace Shuttle.Sentinel.WebApi.v1
 {
-    [Route("[controller]")]
+    [Route("[controller]", Order = 1)]
+    [Route("v{version:apiVersion}/[controller]", Order = 2)]
+    [ApiVersion("1")]
     public class MessageTypesDispatchedController : Controller
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;

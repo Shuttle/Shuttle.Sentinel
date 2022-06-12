@@ -10,9 +10,11 @@ using Shuttle.Sentinel.DataAccess.Profile;
 using Shuttle.Sentinel.Messages.v1;
 using Shuttle.Sentinel.WebApi.Models;
 
-namespace Shuttle.Sentinel.WebApi.Controllers
+namespace Shuttle.Sentinel.WebApi.v1
 {
-    [Route("[controller]")]
+    [Route("[controller]", Order = 1)]
+    [Route("v{version:apiVersion}/[controller]", Order = 2)]
+    [ApiVersion("1")]
     [ApiController]
     public class ProfilesController : ControllerBase
     {

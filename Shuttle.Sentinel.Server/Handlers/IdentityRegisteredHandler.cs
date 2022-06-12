@@ -10,7 +10,7 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server.Handlers
 {
-    public class IdentityRegisteredHandler : IMessageHandler<IdentityRegisteredEvent>
+    public class IdentityRegisteredHandler : IMessageHandler<IdentityRegistered>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
@@ -30,7 +30,7 @@ namespace Shuttle.Sentinel.Server.Handlers
             _serverConfiguration = serverConfiguration;
         }                                       
                                                     
-        public void ProcessMessage(IHandlerContext<IdentityRegisteredEvent> context)
+        public void ProcessMessage(IHandlerContext<IdentityRegistered> context)
         {                           
             Guard.AgainstNull(context, nameof(context));
 

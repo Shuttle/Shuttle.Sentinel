@@ -10,9 +10,11 @@ using Shuttle.Core.Logging;
 using Shuttle.Core.Serialization;
 using Shuttle.Core.Streams;
 
-namespace Shuttle.Sentinel.WebApi.Controllers
+namespace Shuttle.Sentinel.WebApi.v1
 {
-    [Route("[controller]")]
+    [Route("[controller]", Order = 1)]
+    [Route("v{version:apiVersion}/[controller]", Order = 2)]
+    [ApiVersion("1")]
     public class MessageTypesController : Controller
     {
         private static bool _initialized;

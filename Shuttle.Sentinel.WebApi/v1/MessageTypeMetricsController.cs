@@ -1,13 +1,14 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Sentinel.DataAccess;
 
-namespace Shuttle.Sentinel.WebApi
+namespace Shuttle.Sentinel.WebApi.v1
 {
-    [Route("[controller]")]
+    [Route("[controller]", Order = 1)]
+    [Route("v{version:apiVersion}/[controller]", Order = 2)]
+    [ApiVersion("1")]
     public class MessageTypeMetricsController : Controller
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;

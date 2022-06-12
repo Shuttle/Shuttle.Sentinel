@@ -10,9 +10,11 @@ using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Messages.v1;
 using Schedule = Shuttle.Esb.Scheduling.Query.Schedule;
 
-namespace Shuttle.Sentinel.WebApi
+namespace Shuttle.Sentinel.WebApi.v1
 {
-    [Route("[controller]")]
+    [Route("[controller]", Order = 1)]
+    [Route("v{version:apiVersion}/[controller]", Order = 2)]
+    [ApiVersion("1")]
     public class SchedulesController : Controller
     {
         private readonly IServiceBus _bus;

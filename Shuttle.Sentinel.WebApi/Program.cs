@@ -14,7 +14,7 @@ namespace Shuttle.Sentinel.WebApi
     {
         public static void Main(string[] args)
         {
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
 
             Log.Assign(
                 new Log4NetLog(LogManager.GetLogger(typeof(Program)),

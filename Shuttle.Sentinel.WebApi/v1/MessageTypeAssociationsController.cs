@@ -4,22 +4,24 @@ using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Sentinel.DataAccess;
 
-namespace Shuttle.Sentinel.WebApi
+namespace Shuttle.Sentinel.WebApi.v1
 {
-    [Route("[controller]")]
-    public class MessageTypesHandledController : Controller
+    [Route("[controller]", Order = 1)]
+    [Route("v{version:apiVersion}/[controller]", Order = 2)]
+    [ApiVersion("1")]
+    public class MessageTypeAssociationsController : Controller
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
-        private readonly IMessageTypeHandledQuery _messageTypeHandledQuery;
+        private readonly IMessageTypeAssociationQuery _messageTypeAssociationQuery;
 
-        public MessageTypesHandledController(IDatabaseContextFactory databaseContextFactory,
-            IMessageTypeHandledQuery messageTypeHandledQuery)
+        public MessageTypeAssociationsController(IDatabaseContextFactory databaseContextFactory,
+            IMessageTypeAssociationQuery messageTypeAssociationQuery)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
-            Guard.AgainstNull(messageTypeHandledQuery, nameof(messageTypeHandledQuery));
+            Guard.AgainstNull(messageTypeAssociationQuery, nameof(messageTypeAssociationQuery));
 
             _databaseContextFactory = databaseContextFactory;
-            _messageTypeHandledQuery = messageTypeHandledQuery;
+            _messageTypeAssociationQuery = messageTypeAssociationQuery;
         }
 
         [RequiresPermission(Permissions.Manage.Monitoring)]
@@ -30,7 +32,7 @@ namespace Shuttle.Sentinel.WebApi
             {
                 return Ok(new
                 {
-                    Data = _messageTypeHandledQuery.Search(search ?? string.Empty)
+                    Data = _messageTypeAssociationQuery.Search(search ?? string.Empty)
                 });
             }
         }

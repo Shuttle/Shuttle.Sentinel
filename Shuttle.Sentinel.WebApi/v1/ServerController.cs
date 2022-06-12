@@ -1,13 +1,14 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
-using Shuttle.Access.Mvc;
 
-namespace Shuttle.Sentinel.WebApi
+namespace Shuttle.Sentinel.WebApi.v1
 {
+	[Route("[controller]", Order = 1)]
+	[Route("v{version:apiVersion}/[controller]", Order = 2)]
+	[ApiVersion("1")]
 	public class ServerController : Controller
 	{
-		[HttpGet]
-		[Route("api/server/configuration")]
+		[HttpGet("configuration")]
 		public IActionResult GetServerConfiguration()
 		{
 			var version = Assembly.GetExecutingAssembly().GetName().Version;

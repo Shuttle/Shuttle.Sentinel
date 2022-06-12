@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,11 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shuttle.Core.Castle" Version="10.0.7" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
     <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.4" />
+    <PackageReference Include="Shuttle.Core.Ninject" Version="10.1.1" />
     <PackageReference Include="Shuttle.Core.ServiceHost" Version="10.1.1" />
-    <PackageReference Include="Shuttle.Recall.Sql.EventProcessing" Version="12.0.2" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="Shuttle.Recall.Sql.EventProcessing" Version="14.0.0" />
   </ItemGroup>
 
   <ItemGroup>

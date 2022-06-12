@@ -1,15 +1,20 @@
-﻿using System.Data.Common;
-using System.Data.SqlClient;
-using Castle.Windsor;
+﻿using System;
+using System.Data.Common;
+using System.Text;
+using System.Threading;
 using log4net;
-using Shuttle.Core.Castle;
+using Microsoft.Data.SqlClient;
+using Ninject;
 using Shuttle.Core.Container;
 using Shuttle.Core.Data;
 using Shuttle.Core.Log4Net;
 using Shuttle.Core.Logging;
+using Shuttle.Core.Ninject;
 using Shuttle.Core.Reflection;
 using Shuttle.Core.ServiceHost;
 using Shuttle.Recall;
+using Shuttle.Recall.Sql.EventProcessing;
+using Shuttle.Recall.Sql.Storage;
 
 namespace Shuttle.Sentinel.Projection
 {
@@ -17,35 +22,46 @@ namespace Shuttle.Sentinel.Projection
     {
         private static void Main(string[] args)
         {
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             ServiceHost.Run<Host>();
         }
     }
 
     public class Host : IServiceHost
     {
-        private IWindsorContainer _container;
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
         private IEventProcessor _eventProcessor;
         private IEventStore _eventStore;
+        private IKernel _kernel;
 
         public void Start()
         {
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
-
             Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof(Host))));
 
-            _container = new WindsorContainer();
+            _kernel = new StandardKernel();
 
-            var container = new WindsorComponentContainer(_container);
+            var container = new NinjectComponentContainer(_kernel);
 
+            container.RegisterDataAccess();
             container.RegisterSuffixed("Shuttle.Sentinel");
+            container.RegisterEventStore();
+            container.RegisterEventStoreStorage();
+            container.RegisterEventProcessing();
 
-            EventStore.Register(container);
+            _ = container.Resolve<EventProcessingModule>();
 
-            _eventStore = EventStore.Create(container);
-
-            container.Register<ProfileHandler>();
-
+            _eventStore = container.Resolve<IEventStore>();
             _eventProcessor = container.Resolve<IEventProcessor>();
+
+            var databaseContextFactory = container.Resolve<IDatabaseContextFactory>();
+
+            if (!databaseContextFactory.IsAvailable("Access", _cancellationTokenSource.Token))
+            {
+                throw new ApplicationException("[connection failure]");
+            }
 
             using (container.Resolve<IDatabaseContextFactory>().Create("Sentinel"))
             {
@@ -59,7 +75,7 @@ namespace Shuttle.Sentinel.Projection
 
         public void Stop()
         {
-            _container?.Dispose();
+            _kernel?.Dispose();
             _eventProcessor?.Dispose();
             _eventStore?.AttemptDispose();
         }
