@@ -4,9 +4,9 @@ using Shuttle.Core.Contract;
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public static class RegisterProfileCommandExtensions
+    public static class RegisterProfileExtensions
     {
-        public static void ApplyInvariants(this RegisterProfileCommand message)
+        public static void ApplyInvariants(this RegisterProfile message)
         {
             Guard.AgainstNull(message, nameof(message));
             Guard.AgainstNullOrEmptyString(message.EMailAddress, nameof(message.EMailAddress));

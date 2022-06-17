@@ -2,7 +2,7 @@
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public class RegisterScheduleCommand
+    public class RegisterSchedule
     {
         public Guid DataStoreId { get; set; }
         public Guid Id { get; set; }

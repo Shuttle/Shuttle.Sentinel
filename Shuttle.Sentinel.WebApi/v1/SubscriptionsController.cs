@@ -68,7 +68,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         {
             Guard.AgainstNull(model, nameof(model));
 
-            _bus.Send(new AddSubscriptionCommand
+            _bus.Send(new AddSubscription
             {
                 DataStoreId = model.DataStoreId,
                 MessageType = model.MessageType,
@@ -82,7 +82,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         [HttpPost("remove")]
         public IActionResult RemoveSubscription([FromBody] SubscriptionModel model)
         {
-            _bus.Send(new RemoveSubscriptionCommand
+            _bus.Send(new RemoveSubscription
             {
                 DataStoreId = model.DataStoreId,
                 MessageType = model.MessageType,

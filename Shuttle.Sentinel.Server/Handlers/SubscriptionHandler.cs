@@ -7,8 +7,8 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class SubscriptionHandler : 
-        IMessageHandler<AddSubscriptionCommand>,
-        IMessageHandler<RemoveSubscriptionCommand>
+        IMessageHandler<AddSubscription>,
+        IMessageHandler<RemoveSubscription>
     {
         private readonly IDataStoreDatabaseContextFactory _databaseContextFactory;
         private readonly ISubscriptionQuery _subscriptionQuery;
@@ -22,7 +22,7 @@ namespace Shuttle.Sentinel.Server
             _subscriptionQuery = subscriptionQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<AddSubscriptionCommand> context)
+        public void ProcessMessage(IHandlerContext<AddSubscription> context)
         {
             Guard.AgainstNull(context,"context");
 
@@ -38,7 +38,7 @@ namespace Shuttle.Sentinel.Server
             }
         }
 
-        public void ProcessMessage(IHandlerContext<RemoveSubscriptionCommand> context)
+        public void ProcessMessage(IHandlerContext<RemoveSubscription> context)
         {
             Guard.AgainstNull(context, nameof(context));
 

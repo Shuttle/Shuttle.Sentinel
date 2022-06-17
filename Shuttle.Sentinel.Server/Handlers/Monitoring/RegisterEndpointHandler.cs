@@ -8,7 +8,7 @@ using Shuttle.Sentinel.Module;
 
 namespace Shuttle.Sentinel.Server
 {
-    public class RegisterEndpointHandler : IMessageHandler<RegisterEndpointCommand>
+    public class RegisterEndpointHandler : IMessageHandler<RegisterEndpoint>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
@@ -26,7 +26,7 @@ namespace Shuttle.Sentinel.Server
             _configuration = configuration;
         }
 
-        public void ProcessMessage(IHandlerContext<RegisterEndpointCommand> context)
+        public void ProcessMessage(IHandlerContext<RegisterEndpoint> context)
         {
             var message = context.Message;
 
@@ -123,7 +123,7 @@ namespace Shuttle.Sentinel.Server
             RegisterQueue(context, message.ControlInboxErrorQueueUri, "control-inbox", "error");
         }
 
-        private void RegisterQueue(IHandlerContext<RegisterEndpointCommand> context, string uri, string processor,
+        private void RegisterQueue(IHandlerContext<RegisterEndpoint> context, string uri, string processor,
             string type)
         {
             if (string.IsNullOrEmpty(uri))
@@ -131,7 +131,7 @@ namespace Shuttle.Sentinel.Server
                 return;
             }
 
-            context.Send(new RegisterQueueCommand
+            context.Send(new RegisterQueue
             {
                 Uri = uri,
                 Processor = processor,

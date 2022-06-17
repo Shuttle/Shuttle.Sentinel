@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Sentinel", "Shuttle.Sentinel\Shuttle.Sentinel.csproj", "{9048BEFD-D559-4EDD-B646-2A7630FACA24}"
 EndProject
@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Sentinel.Server", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Sentinel.Module", "Shuttle.Sentinel.Module\Shuttle.Sentinel.Module.csproj", "{4A5940A0-6337-43B2-A7B8-9E793C5D0BB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Projection", "Shuttle.Sentinel.Projection\Shuttle.Sentinel.Projection.csproj", "{5D824780-0A03-4812-9592-52209C2868E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Sentinel.Projection", "Shuttle.Sentinel.Projection\Shuttle.Sentinel.Projection.csproj", "{5D824780-0A03-4812-9592-52209C2868E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Application", "Shuttle.Sentinel.Application\Shuttle.Sentinel.Application.csproj", "{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{5D824780-0A03-4812-9592-52209C2868E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D824780-0A03-4812-9592-52209C2868E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D824780-0A03-4812-9592-52209C2868E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

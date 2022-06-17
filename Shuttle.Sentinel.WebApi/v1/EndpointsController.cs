@@ -169,7 +169,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            _bus.Send(new RemoveEndpointCommand
+            _bus.Send(new RemoveEndpoint
             {
                 Id = id
             });

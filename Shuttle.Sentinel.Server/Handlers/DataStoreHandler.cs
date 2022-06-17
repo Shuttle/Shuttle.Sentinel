@@ -9,8 +9,8 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class DataStoreHandler : 
-        IMessageHandler<RegisterDataStoreCommand>,
-        IMessageHandler<RemoveDataStoreCommand>
+        IMessageHandler<RegisterDataStore>,
+        IMessageHandler<RemoveDataStore>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IDataStoreQuery _dataStoreQuery;
@@ -24,7 +24,7 @@ namespace Shuttle.Sentinel.Server
             _dataStoreQuery = dataStoreQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<RegisterDataStoreCommand> context)
+        public void ProcessMessage(IHandlerContext<RegisterDataStore> context)
         {
             var message = context.Message;
 
@@ -40,7 +40,7 @@ namespace Shuttle.Sentinel.Server
             }
         }
 
-        public void ProcessMessage(IHandlerContext<RemoveDataStoreCommand> context)
+        public void ProcessMessage(IHandlerContext<RemoveDataStore> context)
         {
             using (_databaseContextFactory.Create())
             {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -17,18 +17,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Ninject;
 using Shuttle.Access;
-using Shuttle.Access.Api;
 using Shuttle.Access.DataAccess;
-using Shuttle.Access.Mvc.DataStore;
+using Shuttle.Access.Mvc.Rest;
+using Shuttle.Access.RestClient;
 using Shuttle.Access.Sql;
 using Shuttle.Core.Configuration;
 using Shuttle.Core.Container;
 using Shuttle.Core.Data;
 using Shuttle.Core.Data.Http;
+using Shuttle.Core.DependencyInjection;
 using Shuttle.Core.Logging;
-using Shuttle.Core.Ninject;
 using Shuttle.Core.Reflection;
 using Shuttle.Esb;
 using Shuttle.Esb.AzureMQ;
@@ -43,9 +42,9 @@ namespace Shuttle.Sentinel.WebApi
 {
     public class Startup
     {
-        private IServiceBus _bus;
-        private readonly ILog _log;
         private readonly CancellationTokenSource _cancellationTokenSource = new();
+        private readonly ILog _log;
+        private IServiceBus _bus;
 
         public Startup(IConfiguration configuration)
         {
@@ -63,10 +62,10 @@ namespace Shuttle.Sentinel.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IKernel>(new StandardKernel());
-            services.AddSingleton<IControllerActivator, ControllerActivator>();
+            services.AddSingleton(AccessClientSection.GetConfiguration());
+            services.AddSingleton<IAccessClient, AccessClient>();
 
-            services.AddSingleton(AccessSection.Configuration());
+            services.AddSingleton(AccessSessionSection.GetConfiguration());
             services.AddSingleton(SentinelSection.Configuration());
             services.AddSingleton<IConnectionConfigurationProvider, ConnectionConfigurationProvider>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -82,8 +81,7 @@ namespace Shuttle.Sentinel.WebApi
             services.AddSingleton<ISessionRepository, SessionRepository>();
             services.AddSingleton<IDataRowMapper<Session>, SessionMapper>();
             services.AddSingleton(typeof(IDataRepository<>), typeof(DataRepository<>));
-            services.AddSingleton<IAccessService, DataStoreAccessService>();
-            //services.AddSingleton<IAccessService, MockAccessService>();
+            services.AddSingleton<IAccessService, RestAccessService>();
 
             services.AddSwaggerGen(options =>
             {
@@ -124,63 +122,59 @@ namespace Shuttle.Sentinel.WebApi
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
-        }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
-        {
-            var container = app.ApplicationServices.GetService<IKernel>();
+            var registry = new ServiceCollectionComponentRegistry(services);
 
-            var componentContainer = new NinjectComponentContainer(container);
+            registry.RegisterSuffixed("Shuttle.Sentinel");
+            registry.RegisterSuffixed("Shuttle.Access.Sql");
+            registry.RegisterSuffixed("Shuttle.Esb.Scheduling");
 
-            componentContainer.RegisterSuffixed("Shuttle.Sentinel");
-            componentContainer.RegisterSuffixed("Shuttle.Access.Sql");
-            componentContainer.RegisterSuffixed("Shuttle.Esb.Scheduling");
+            registry.Register<IInspectionQueue, DefaultInspectionQueue>();
+            registry.Register<IHttpContextAccessor, HttpContextAccessor>();
+            registry.Register<IDatabaseContextCache, ContextDatabaseContextCache>();
+            registry.Register<IHashingService, HashingService>();
+            registry.RegisterInstance(AccessClientSection.GetConfiguration());
+            registry.Register<IAccessClient, AccessClient>();
+            registry.Register<IWebApiConfiguration, WebApiConfiguration>();
 
-            componentContainer.Register<IInspectionQueue, DefaultInspectionQueue>();
-            componentContainer.Register<IHttpContextAccessor, HttpContextAccessor>();
-            componentContainer.Register<IDatabaseContextCache, ContextDatabaseContextCache>();
-            componentContainer.Register<IHashingService, HashingService>();
-            componentContainer.RegisterInstance(AccessClientSection.GetConfiguration());
-            componentContainer.Register<IAccessClient, AccessClient>();
-
-            componentContainer.RegisterInstance(app.ApplicationServices.GetService<IAccessConfiguration>());
-            componentContainer.RegisterInstance(app.ApplicationServices.GetService<ISentinelConfiguration>());
-            componentContainer.Register<IWebApiConfiguration, WebApiConfiguration>();
-
-            componentContainer.RegisterInstance(
+            registry.RegisterInstance(
                 OAuthConfigurationProvider.Open(
                     ConfigurationItem<string>.ReadSetting("oauth-credentials-path").GetValue()));
-
-            var applicationPartManager = app.ApplicationServices.GetRequiredService<ApplicationPartManager>();
-            var controllerFeature = new ControllerFeature();
-
-            applicationPartManager.PopulateFeature(controllerFeature);
-
-            foreach (var type in controllerFeature.Controllers.Select(t => t.AsType()))
-            {
-                componentContainer.Register(type, type);
-            }
-
-            componentContainer.RegisterDataAccess();
-            componentContainer.RegisterServiceBus();
-            componentContainer.RegisterEventStore();
-            componentContainer.RegisterEventStoreStorage();
+            registry.RegisterDataAccess();
+            registry.RegisterServiceBus();
+            registry.RegisterEventStore();
+            registry.RegisterEventStoreStorage();
             //componentContainer.RegisterMediator();
             //componentContainer.RegisterMediatorParticipants(Assembly.Load("Shuttle.Access.Application"));
 
-            componentContainer.Resolve<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
-            componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
+            registry.Register<IAzureStorageConfiguration, DefaultAzureStorageConfiguration>();
+        }
 
-            componentContainer.Register<IAzureStorageConfiguration, DefaultAzureStorageConfiguration>();
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            IHostApplicationLifetime applicationLifetime)
+        {
 
-            var databaseContextFactory = componentContainer.Resolve<IDatabaseContextFactory>().ConfigureWith("Sentinel");
+            var applicationPartManager = app.ApplicationServices.GetRequiredService<ApplicationPartManager>();
+            //var controllerFeature = new ControllerFeature();
+
+            //applicationPartManager.PopulateFeature(controllerFeature);
+
+            //foreach (var type in controllerFeature.Controllers.Select(t => t.AsType()))
+            //{
+            //    componentContainer.Register(type, type);
+            //}
+
+            app.ApplicationServices.GetRequiredService<IDataStoreDatabaseContextFactory>().ConfigureWith("Sentinel");
+
+            var databaseContextFactory =
+                app.ApplicationServices.GetRequiredService<IDatabaseContextFactory>().ConfigureWith("Sentinel");
 
             if (!databaseContextFactory.IsAvailable("Sentinel", _cancellationTokenSource.Token))
             {
                 throw new ApplicationException("[connection failure]");
             }
-            
-            _bus = componentContainer.Resolve<IServiceBus>().Start();
+
+            _bus = app.ApplicationServices.GetRequiredService<IServiceBus>().Start();
 
             applicationLifetime.ApplicationStopping.Register(OnShutdown);
 
@@ -215,7 +209,10 @@ namespace Shuttle.Sentinel.WebApi
 
             app.UseRouting();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.UseSwagger();
 
@@ -223,25 +220,6 @@ namespace Shuttle.Sentinel.WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shuttle.Access.WebApi.v1");
             });
-
-        }
-    }
-
-    public class MockAccessService : IAccessService
-    {
-        public bool Contains(Guid token)
-        {
-            return true;
-        }
-
-        public bool HasPermission(Guid token, string permission)
-        {
-            return true;
-        }
-
-        public void Remove(Guid token)
-        {
-            
         }
     }
 }

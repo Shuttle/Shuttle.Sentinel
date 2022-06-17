@@ -2,7 +2,7 @@
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public class RemoveQueueCommand
+    public class RemoveRole
     {
         public Guid Id { get; set; }
     }

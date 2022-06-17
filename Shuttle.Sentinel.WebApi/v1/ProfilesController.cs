@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Shuttle.Access.Api;
+using Shuttle.Access.Messages.v1;
+using Shuttle.Access.RestClient;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
@@ -50,7 +51,7 @@ namespace Shuttle.Sentinel.WebApi.v1
                         .WithEffectiveDate(DateTime.Now)).FirstOrDefault();
 
                 return profile != null
-                    ? (IActionResult)Ok(new
+                    ? Ok(new
                     {
                         identityName = Profile.GetIdentityName(profile.SentinelId)
                     })
@@ -59,7 +60,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] RegisterProfileCommand message)
+        public IActionResult Post([FromBody] RegisterProfile message)
         {
             Guard.AgainstNull(message, nameof(message));
 
@@ -91,7 +92,7 @@ namespace Shuttle.Sentinel.WebApi.v1
                 return BadRequest(ex.Message);
             }
 
-            _bus.Send(new SendPasswordResetEMailCommand
+            _bus.Send(new SendPasswordResetEMail
             {
                 EMailAddress = model.EMailAddress
             });
@@ -111,7 +112,11 @@ namespace Shuttle.Sentinel.WebApi.v1
 
                 if (!profile.Activated)
                 {
-                    _accessClient.Activate(profile.IdentityName, DateTime.Now);
+                    _accessClient.Identities.Activate(new ActivateIdentity
+                    {
+                        Id = id,
+                        Name = profile.IdentityName
+                    });
 
                     stream.AddEvent(profile.Activate());
 
@@ -142,15 +147,18 @@ namespace Shuttle.Sentinel.WebApi.v1
                 return BadRequest();
             }
 
-            var registerSessionResult = _accessClient.RegisterSession(Profile.GetIdentityName(queryProfile.SentinelId));
+            var registerSessionResult = _accessClient.Sessions.Post(new RegisterDelegatedSession
+            {
+                IdentityName = Profile.GetIdentityName(queryProfile.SentinelId)
+            }).Result;
 
-            return registerSessionResult.Ok
+            return registerSessionResult.IsSuccessStatusCode
                 ? Ok(new
                 {
                     Success = true,
-                    registerSessionResult.IdentityName,
-                    Token = registerSessionResult.Token.ToString("n"),
-                    Permissions = registerSessionResult.Permissions.Select(permission => new
+                    registerSessionResult.Content.IdentityName,
+                    Token = registerSessionResult.Content.Token.ToString("n"),
+                    Permissions = registerSessionResult.Content.Permissions.Select(permission => new
                     {
                         Permission = permission
                     }).ToList()
@@ -179,7 +187,9 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             using (_databaseContextFactory.Create())
             {
-                queryProfile = _profileQuery.Search(new DataAccess.Query.Profile.Specification().WithPasswordResetToken(model.PasswordResetToken)).SingleOrDefault();
+                queryProfile = _profileQuery
+                    .Search(new DataAccess.Query.Profile.Specification().WithPasswordResetToken(
+                        model.PasswordResetToken)).SingleOrDefault();
             }
 
             if (queryProfile == null)
@@ -187,7 +197,12 @@ namespace Shuttle.Sentinel.WebApi.v1
                 return BadRequest();
             }
 
-            _accessClient.ResetPassword(Profile.GetIdentityName(queryProfile.SentinelId), model.PasswordResetToken, model.Password);
+            _accessClient.Identities.ResetPassword(new ResetPassword
+            {
+                Name = Profile.GetIdentityName(queryProfile.SentinelId),
+                Password = model.Password,
+                PasswordResetToken = model.PasswordResetToken
+            });
 
             return Ok();
         }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public class RegisterEndpointCommand
+    public class RegisterEndpoint
     {
-        public RegisterEndpointCommand()
+        public RegisterEndpoint()
         {
             MessageTypeMetrics = new List<MessageTypeMetric>();
             MessageTypesHandled = new List<string>();

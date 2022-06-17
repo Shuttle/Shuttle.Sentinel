@@ -8,8 +8,8 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class QueueHandler : 
-        IMessageHandler<RegisterQueueCommand>,
-        IMessageHandler<RemoveQueueCommand>
+        IMessageHandler<RegisterQueue>,
+        IMessageHandler<RemoveQueue>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IQueueQuery _queueQuery;
@@ -23,7 +23,7 @@ namespace Shuttle.Sentinel.Server
             _queueQuery = queueQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<RegisterQueueCommand> context)
+        public void ProcessMessage(IHandlerContext<RegisterQueue> context)
         {
             Uri uri;
 
@@ -44,7 +44,7 @@ namespace Shuttle.Sentinel.Server
             }
         }
 
-        public void ProcessMessage(IHandlerContext<RemoveQueueCommand> context)
+        public void ProcessMessage(IHandlerContext<RemoveQueue> context)
         {
             using (_databaseContextFactory.Create())
             {

@@ -105,7 +105,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
         [RequiresPermission(Permissions.Manage.Queues)]
         [HttpPost]
-        public IActionResult Post([FromBody] RegisterQueueCommand command)
+        public IActionResult Post([FromBody] RegisterQueue command)
         {
             Guard.AgainstNull(command, nameof(command));
 
@@ -127,7 +127,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            _bus.Send(new RemoveQueueCommand
+            _bus.Send(new RemoveQueue
             {
                 Id = id
             });

@@ -4,14 +4,15 @@ using System.Text;
 using System.Threading;
 using log4net;
 using Microsoft.Data.SqlClient;
-using Ninject;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Shuttle.Core.Container;
 using Shuttle.Core.Data;
+using Shuttle.Core.DependencyInjection;
 using Shuttle.Core.Log4Net;
 using Shuttle.Core.Logging;
-using Shuttle.Core.Ninject;
 using Shuttle.Core.Reflection;
-using Shuttle.Core.ServiceHost;
+using Shuttle.Core.WorkerService;
 using Shuttle.Recall;
 using Shuttle.Recall.Sql.EventProcessing;
 using Shuttle.Recall.Sql.Storage;
@@ -35,49 +36,53 @@ namespace Shuttle.Sentinel.Projection
         private readonly CancellationTokenSource _cancellationTokenSource = new();
         private IEventProcessor _eventProcessor;
         private IEventStore _eventStore;
-        private IKernel _kernel;
 
-        public void Start()
+        public void Stop()
+        {
+            _eventProcessor?.Dispose();
+            _eventStore?.AttemptDispose();
+        }
+
+        public void Start(IServiceProvider serviceProvider)
         {
             Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof(Host))));
 
-            _kernel = new StandardKernel();
+            var resolver = new ServiceProviderComponentResolver(serviceProvider);
 
-            var container = new NinjectComponentContainer(_kernel);
+            _ = serviceProvider.GetRequiredService<EventProcessingModule>();
 
-            container.RegisterDataAccess();
-            container.RegisterSuffixed("Shuttle.Sentinel");
-            container.RegisterEventStore();
-            container.RegisterEventStoreStorage();
-            container.RegisterEventProcessing();
+            _eventStore = serviceProvider.GetRequiredService<IEventStore>();
+            _eventProcessor = serviceProvider.GetRequiredService<IEventProcessor>();
 
-            _ = container.Resolve<EventProcessingModule>();
-
-            _eventStore = container.Resolve<IEventStore>();
-            _eventProcessor = container.Resolve<IEventProcessor>();
-
-            var databaseContextFactory = container.Resolve<IDatabaseContextFactory>();
+            var databaseContextFactory = serviceProvider.GetRequiredService<IDatabaseContextFactory>();
 
             if (!databaseContextFactory.IsAvailable("Sentinel", _cancellationTokenSource.Token))
             {
                 throw new ApplicationException("[connection failure]");
             }
 
-            using (container.Resolve<IDatabaseContextFactory>().Create("Sentinel"))
+            using (serviceProvider.GetRequiredService<IDatabaseContextFactory>().Create("Sentinel"))
             {
                 _eventProcessor.AddProjection("Profile");
 
-                container.AddEventHandler<ProfileHandler>("Profile");
+                resolver.AddEventHandler<ProfileHandler>("Profile");
             }
 
             _eventProcessor.Start();
         }
 
-        public void Stop()
+        public void Configure(IHostBuilder builder)
         {
-            _kernel?.Dispose();
-            _eventProcessor?.Dispose();
-            _eventStore?.AttemptDispose();
+            builder.ConfigureServices(services =>
+            {
+                var container = new ServiceCollectionComponentRegistry(services);
+
+                container.RegisterDataAccess();
+                container.RegisterSuffixed("Shuttle.Sentinel");
+                container.RegisterEventStore();
+                container.RegisterEventStoreStorage();
+                container.RegisterEventProcessing();
+            });
         }
     }
 }

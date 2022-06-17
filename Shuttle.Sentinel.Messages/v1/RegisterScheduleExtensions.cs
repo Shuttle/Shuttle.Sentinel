@@ -3,16 +3,16 @@ using Shuttle.Core.Contract;
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public static class RegisterScheduleCommandExtensions
+    public static class RegisterScheduleExtensions
     {
-        public static void ApplyInvariants(this RegisterScheduleCommand message)
+        public static void ApplyInvariants(this RegisterSchedule message)
         {
             Guard.AgainstNull(message, nameof(message));
             Guard.AgainstNullOrEmptyString(message.Name, nameof(message.Name));
 
             try
             {
-                var _ = new Uri(message.InboxWorkQueueUri);
+                _ = new Uri(message.InboxWorkQueueUri);
             }
             catch
             {

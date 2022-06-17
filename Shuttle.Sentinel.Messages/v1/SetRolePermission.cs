@@ -2,7 +2,7 @@
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public class SetRolePermissionCommand
+    public class SetRolePermission
     {
         public Guid RoleId { get; set; }
         public string Permission { get; set; }

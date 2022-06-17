@@ -8,8 +8,8 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class ScheduleHandler :
-        IMessageHandler<RegisterScheduleCommand>,
-        IMessageHandler<RemoveScheduleCommand>
+        IMessageHandler<RegisterSchedule>,
+        IMessageHandler<RemoveSchedule>
     {
         private readonly IDataStoreDatabaseContextFactory _databaseContextFactory;
         private readonly IScheduleRepository _scheduleRepository;
@@ -24,7 +24,7 @@ namespace Shuttle.Sentinel.Server
             _scheduleRepository = scheduleRepository;
         }
 
-        public void ProcessMessage(IHandlerContext<RemoveScheduleCommand> context)
+        public void ProcessMessage(IHandlerContext<RemoveSchedule> context)
         {
             Guard.AgainstNull(context, nameof(context));
 
@@ -36,7 +36,7 @@ namespace Shuttle.Sentinel.Server
             }
         }
 
-        public void ProcessMessage(IHandlerContext<RegisterScheduleCommand> context)
+        public void ProcessMessage(IHandlerContext<RegisterSchedule> context)
         {
             Guard.AgainstNull(context, "context");
 

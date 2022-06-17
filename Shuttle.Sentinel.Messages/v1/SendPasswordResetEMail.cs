@@ -1,6 +1,6 @@
 ﻿namespace Shuttle.Sentinel.Messages.v1
 {
-    public class SendPasswordResetEMailCommand
+    public class SendPasswordResetEMail
     {
         public string EMailAddress { get; set; }
     }

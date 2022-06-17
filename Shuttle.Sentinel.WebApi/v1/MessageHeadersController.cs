@@ -64,7 +64,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             var id = Guid.NewGuid();
 
-            _bus.Send(new AddMessageHeaderCommand
+            _bus.Send(new AddMessageHeader
             {
                 Id = id,
                 Key = model.Key,
@@ -78,7 +78,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            _bus.Send(new RemoveMessageHeaderCommand
+            _bus.Send(new RemoveMessageHeader
             {
                 Id = id
             });

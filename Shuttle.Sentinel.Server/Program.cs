@@ -1,6 +1,8 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
-using Shuttle.Core.ServiceHost;
+using System.Net.Http;
+using System.Text;
+using Shuttle.Core.WorkerService;
 
 namespace Shuttle.Sentinel.Server
 {
@@ -8,11 +10,19 @@ namespace Shuttle.Sentinel.Server
     {
         private static void Main()
         {
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
+            DbProviderFactories.RegisterFactory("Microsoft.Data.SqlClient", SqlClientFactory.Instance);
 
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             ServiceHost.Run<Host>();
+        }
+    }
+
+    internal class HttpClientFactory : IHttpClientFactory
+    {
+        public HttpClient CreateClient(string name)
+        {
+            return new HttpClient();
         }
     }
 }

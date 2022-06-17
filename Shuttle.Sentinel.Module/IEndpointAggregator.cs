@@ -8,7 +8,7 @@ namespace Shuttle.Sentinel.Module
         void MessageProcessingStart(Guid messageId);
         void MessageProcessingEnd(Guid messageId, Type messageType);
         void MessageProcessingAborted(Guid messageId);
-        RegisterEndpointCommand GetRegisterEndpointCommand();
+        RegisterEndpoint GetRegisterEndpointCommand();
         void RegisterAssociation(string messageTypeHandled, string messageTypeDispatched);
         void RegisterDispatched(string messageType, string recipientInboxWorkQueueUri);
     }

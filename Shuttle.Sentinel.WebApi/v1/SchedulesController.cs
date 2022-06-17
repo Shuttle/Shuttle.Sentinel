@@ -103,7 +103,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         {
             Guard.AgainstNull(model, nameof(model));
 
-            var message = new RegisterScheduleCommand
+            var message = new RegisterSchedule
             {
                 DataStoreId = model.DataStoreId,
                 Id = model.Id ?? Guid.Empty,
@@ -131,7 +131,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         [HttpDelete("{dataStoreId}/{id}")]
         public IActionResult RemoveSchedule(Guid dataStoreId, Guid id)
         {
-            _bus.Send(new RemoveScheduleCommand
+            _bus.Send(new RemoveSchedule
             {
                 DataStoreId = dataStoreId,
                 Id = id

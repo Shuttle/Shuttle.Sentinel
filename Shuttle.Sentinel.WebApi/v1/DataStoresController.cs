@@ -60,7 +60,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
         [RequiresPermission(Permissions.Manage.DataStores)]
         [HttpPost]
-        public IActionResult Post([FromBody] RegisterDataStoreCommand command)
+        public IActionResult Post([FromBody] RegisterDataStore command)
         {
             Guard.AgainstNull(command, nameof(command));
 
@@ -73,7 +73,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            _bus.Send(new RemoveDataStoreCommand
+            _bus.Send(new RemoveDataStore
             {
                 Id = id
             });

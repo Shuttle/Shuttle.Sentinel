@@ -11,18 +11,18 @@ namespace Shuttle.Sentinel.Module
 {
     public class EndpointAggregator : IEndpointAggregator
     {
-        private readonly List<RegisterEndpointCommand.Association> _associations =
-            new List<RegisterEndpointCommand.Association>();
+        private readonly List<RegisterEndpoint.Association> _associations =
+            new List<RegisterEndpoint.Association>();
 
-        private readonly List<RegisterEndpointCommand.Dispatched> _dispatched =
-            new List<RegisterEndpointCommand.Dispatched>();
+        private readonly List<RegisterEndpoint.Dispatched> _dispatched =
+            new List<RegisterEndpoint.Dispatched>();
 
         private readonly string _ipv4Address;
         private readonly object _lock = new object();
         private readonly Dictionary<Guid, DateTime> _messageProcessingStartDates = new Dictionary<Guid, DateTime>();
 
-        private readonly Dictionary<Type, RegisterEndpointCommand.MessageTypeMetric> _messageTypeMetrics =
-            new Dictionary<Type, RegisterEndpointCommand.MessageTypeMetric>();
+        private readonly Dictionary<Type, RegisterEndpoint.MessageTypeMetric> _messageTypeMetrics =
+            new Dictionary<Type, RegisterEndpoint.MessageTypeMetric>();
 
         private readonly List<string> _messageTypes = new List<string>();
         private readonly HashSet<string> _registeredAssociations = new HashSet<string>();
@@ -86,7 +86,7 @@ namespace Shuttle.Sentinel.Module
 
                 if (!_messageTypeMetrics.TryGetValue(messageType, out var messageTypeMetric))
                 {
-                    messageTypeMetric = new RegisterEndpointCommand.MessageTypeMetric
+                    messageTypeMetric = new RegisterEndpoint.MessageTypeMetric
                     {
                         MessageType = messageType.FullName,
                         FastestExecutionDuration = double.MaxValue,
@@ -124,11 +124,11 @@ namespace Shuttle.Sentinel.Module
             }
         }
 
-        public RegisterEndpointCommand GetRegisterEndpointCommand()
+        public RegisterEndpoint GetRegisterEndpointCommand()
         {
             lock (_lock)
             {
-                var result = new RegisterEndpointCommand
+                var result = new RegisterEndpoint
                 {
                     MachineName = Environment.MachineName,
                     IPv4Address = _ipv4Address,
@@ -193,7 +193,7 @@ namespace Shuttle.Sentinel.Module
                     return;
                 }
 
-                _associations.Add(new RegisterEndpointCommand.Association
+                _associations.Add(new RegisterEndpoint.Association
                 {
                     MessageTypeHandled = messageTypeHandled,
                     MessageTypeDispatched = messageTypeDispatched
@@ -214,7 +214,7 @@ namespace Shuttle.Sentinel.Module
                     return;
                 }
 
-                _dispatched.Add(new RegisterEndpointCommand.Dispatched
+                _dispatched.Add(new RegisterEndpoint.Dispatched
                 {
                     MessageType = messageType,
                     RecipientInboxWorkQueueUri = recipientInboxWorkQueueUri

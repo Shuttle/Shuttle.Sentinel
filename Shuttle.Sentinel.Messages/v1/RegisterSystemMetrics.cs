@@ -2,9 +2,9 @@
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public class RegisterSystemMetricsCommand
+    public class RegisterSystemMetrics
     {
-        public RegisterSystemMetricsCommand()
+        public RegisterSystemMetrics()
         {
             SystemMetrics = new List<SystemMetric>();
         }

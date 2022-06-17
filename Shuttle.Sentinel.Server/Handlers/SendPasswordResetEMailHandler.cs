@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Shuttle.Access.Api;
+using Shuttle.Access.RestClient;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
@@ -11,7 +11,7 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server.Handlers
 {
-    public class SendPasswordResetEMailHandler : IMessageHandler<SendPasswordResetEMailCommand>
+    public class SendPasswordResetEMailHandler : IMessageHandler<SendPasswordResetEMail>
     {
         private readonly IAccessClient _accessClient;
         private readonly IDatabaseContextFactory _databaseContextFactory;
@@ -35,7 +35,7 @@ namespace Shuttle.Sentinel.Server.Handlers
             _accessClient = accessClient;
         }
 
-        public void ProcessMessage(IHandlerContext<SendPasswordResetEMailCommand> context)
+        public void ProcessMessage(IHandlerContext<SendPasswordResetEMail> context)
         {
             Guard.AgainstNull(context, nameof(context));
 
@@ -61,7 +61,7 @@ namespace Shuttle.Sentinel.Server.Handlers
 
                 stream.Apply(profile);
 
-                passwordResetToken = _accessClient.GetPasswordResetToken(profile.IdentityName);
+                passwordResetToken = _accessClient.Identities.GetPasswordResetToken(profile.IdentityName).Result.Content;
 
                 stream.AddEvent(profile.RequestPasswordReset(passwordResetToken));
 

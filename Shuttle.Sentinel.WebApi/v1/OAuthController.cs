@@ -92,7 +92,7 @@ namespace Shuttle.Sentinel.WebApi.v1
                 }
             }
 
-            _bus.Send(new RegisterProfileCommand
+            _bus.Send(new RegisterProfile
             {
                 EMailAddress = emailAddress
             });

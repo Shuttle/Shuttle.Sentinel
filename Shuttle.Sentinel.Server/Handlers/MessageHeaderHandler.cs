@@ -7,8 +7,8 @@ using Shuttle.Sentinel.Messages.v1;
 namespace Shuttle.Sentinel.Server
 {
     public class MessageHeaderHandler :
-        IMessageHandler<AddMessageHeaderCommand>,
-        IMessageHandler<RemoveMessageHeaderCommand>
+        IMessageHandler<AddMessageHeader>,
+        IMessageHandler<RemoveMessageHeader>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IMessageHeaderQuery _messageHeaderQuery;
@@ -23,7 +23,7 @@ namespace Shuttle.Sentinel.Server
             _messageHeaderQuery = messageHeaderQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<AddMessageHeaderCommand> context)
+        public void ProcessMessage(IHandlerContext<AddMessageHeader> context)
         {
             var message = context.Message;
 
@@ -33,7 +33,7 @@ namespace Shuttle.Sentinel.Server
             }
         }
 
-        public void ProcessMessage(IHandlerContext<RemoveMessageHeaderCommand> context)
+        public void ProcessMessage(IHandlerContext<RemoveMessageHeader> context)
         {
             using (_databaseContextFactory.Create())
             {

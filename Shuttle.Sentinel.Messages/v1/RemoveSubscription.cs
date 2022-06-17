@@ -2,7 +2,7 @@
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public class AddSubscriptionCommand
+    public class RemoveSubscription
     {
         public Guid DataStoreId { get; set; }
         public string MessageType { get; set; }

@@ -83,7 +83,7 @@ namespace Shuttle.Sentinel.Module
         {
             Guard.AgainstNull(pipelineEvent, nameof(pipelineEvent));
             
-            if (!_messageRouteProvider.GetRouteUris(typeof(RegisterEndpointCommand).FullName).Any())
+            if (!_messageRouteProvider.GetRouteUris(typeof(RegisterEndpoint).FullName).Any())
             {
                 Log.For(this).Warning(Resources.WarningSentinelRouteMissing);
                 return;

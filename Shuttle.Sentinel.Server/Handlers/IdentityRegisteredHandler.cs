@@ -99,7 +99,7 @@ Shuttle.Sentinel
             
             context.Send(sendEMailCommand);
 
-            context.Publish(new ProfileRegisteredEvent
+            context.Publish(new ProfileRegistered
             {
                 Id = id,
                 EMailAddress = profile.EMailAddress

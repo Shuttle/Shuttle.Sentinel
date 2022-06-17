@@ -1,5 +1,6 @@
 ﻿using System;
-using Shuttle.Access.Api;
+using Shuttle.Access.Messages.v1;
+using Shuttle.Access.RestClient;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
@@ -10,7 +11,7 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server.Handlers
 {
-    public class RegisterProfileHandler : IMessageHandler<RegisterProfileCommand>
+    public class RegisterProfileHandler : IMessageHandler<RegisterProfile>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
@@ -33,7 +34,7 @@ namespace Shuttle.Sentinel.Server.Handlers
             _accessClient = accessClient;
         }
 
-        public void ProcessMessage(IHandlerContext<RegisterProfileCommand> context)
+        public void ProcessMessage(IHandlerContext<RegisterProfile> context)
         {
             Guard.AgainstNull(context, nameof(context));
 
@@ -61,7 +62,12 @@ namespace Shuttle.Sentinel.Server.Handlers
 
                 var profile = new Profile(id);
                 
-                _accessClient.Register(profile.IdentityName, message.Password, "system://sentinel");
+                _accessClient.Identities.Register(new RegisterIdentity
+                {
+                    Name = profile.IdentityName,
+                    Password = message.Password,
+                    System = "system://sentinel"
+                });
 
                 _keyStore.Add(id, key);
 
