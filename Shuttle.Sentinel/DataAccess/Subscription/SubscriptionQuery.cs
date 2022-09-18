@@ -29,12 +29,12 @@ namespace Shuttle.Sentinel.DataAccess
 
         public void Add(Subscription subscription)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Add(subscription));
+            _databaseGateway.Execute(_queryFactory.Add(subscription));
         }
 
         public void Remove(Subscription subscription)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Remove(subscription));
+            _databaseGateway.Execute(_queryFactory.Remove(subscription));
         }
     }
 }

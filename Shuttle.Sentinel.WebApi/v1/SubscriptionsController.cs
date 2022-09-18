@@ -43,7 +43,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
                             try
                             {
-                                securedUri = new Uri(subscription.InboxWorkQueueUri).Secured().ToString();
+                                securedUri = new Uri(subscription.InboxWorkQueueUri).ToString();
                             }
                             catch
                             {

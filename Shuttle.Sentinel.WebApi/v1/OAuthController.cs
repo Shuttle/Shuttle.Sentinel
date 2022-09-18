@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
@@ -15,30 +16,31 @@ namespace Shuttle.Sentinel.WebApi.v1
     [ApiVersion("1")]
     public class OAuthController : Controller
     {
-        private readonly IServiceBus _bus;
-        private readonly IWebApiConfiguration _configuration;
+        private readonly IServiceBus _serviceBus;
+        private readonly WebApiOptions _webApiOptions;
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IKeyStore _keyStore;
-        private readonly IOAuthProviderCollection _oAuthProviderCollection;
+        private readonly IOAuthProviderService _oAuthProviderService;
         private readonly IProfileQuery _profileQuery;
 
-        public OAuthController(IServiceBus bus, IOAuthProviderCollection oAuthProviderCollection,
+        public OAuthController(IOptions<WebApiOptions> webApiOptions, IServiceBus serviceBus, IOAuthProviderService oAuthProviderService,
             IDatabaseContextFactory databaseContextFactory, IKeyStore keyStore,
-            IProfileQuery profileQuery, IWebApiConfiguration configuration)
+            IProfileQuery profileQuery)
         {
-            Guard.AgainstNull(bus, nameof(bus));
-            Guard.AgainstNull(oAuthProviderCollection, nameof(oAuthProviderCollection));
+            Guard.AgainstNull(webApiOptions, nameof(webApiOptions));
+            Guard.AgainstNull(webApiOptions.Value, nameof(webApiOptions.Value));
+            Guard.AgainstNull(serviceBus, nameof(serviceBus));
+            Guard.AgainstNull(oAuthProviderService, nameof(oAuthProviderService));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(keyStore, nameof(keyStore));
             Guard.AgainstNull(profileQuery, nameof(profileQuery));
-            Guard.AgainstNull(configuration, nameof(configuration));
 
-            _bus = bus;
-            _oAuthProviderCollection = oAuthProviderCollection;
+            _webApiOptions = webApiOptions.Value;
+            _serviceBus = serviceBus;
+            _oAuthProviderService = oAuthProviderService;
             _databaseContextFactory = databaseContextFactory;
             _keyStore = keyStore;
             _profileQuery = profileQuery;
-            _configuration = configuration;
         }
 
         [HttpGet("github")]
@@ -48,7 +50,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             if (string.IsNullOrWhiteSpace(emailAddress))
             {
-                return Redirect(_configuration.GetUrl("login?message=oauth-email-not-found"));
+                return Redirect(_webApiOptions.GetUrl("login?message=oauth-email-not-found"));
             }
 
             var securityToken = Guid.NewGuid();
@@ -60,18 +62,18 @@ namespace Shuttle.Sentinel.WebApi.v1
                 )
                 {
                     return Redirect(
-                        _configuration.GetUrl($"register?message=email-not-registered&email={emailAddress}"));
+                        _webApiOptions.GetUrl($"register?message=email-not-registered&email={emailAddress}"));
                 }
 
                 _profileQuery.RegisterSecurityToken(emailAddress, securityToken);
             }
 
-            return Redirect(_configuration.GetUrl($"tokenlogin/{securityToken}"));
+            return Redirect(_webApiOptions.GetUrl($"tokenlogin/{securityToken}"));
         }
 
         private string GetGitHubEMailAddress(string code)
         {
-            return _oAuthProviderCollection.Get("github").GetData(code).email;
+            return _oAuthProviderService.Get("github").GetData(code).email;
         }
 
         [HttpGet("github-register")]
@@ -81,23 +83,23 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             if (string.IsNullOrEmpty(code))
             {
-                return Redirect(_configuration.GetUrl("login?message=oauth-email-not-found"));
+                return Redirect(_webApiOptions.GetUrl("login?message=oauth-email-not-found"));
             }
 
             using (_databaseContextFactory.Create())
             {
                 if (_keyStore.Contains(Profile.Key(emailAddress)))
                 {
-                    return Redirect(_configuration.GetUrl($"register?message=already-registered&email={emailAddress}"));
+                    return Redirect(_webApiOptions.GetUrl($"register?message=already-registered&email={emailAddress}"));
                 }
             }
 
-            _bus.Send(new RegisterProfile
+            _serviceBus.Send(new RegisterProfile
             {
                 EMailAddress = emailAddress
             });
 
-            return Redirect(_configuration.GetUrl($"login?message=register-request-sent&email={emailAddress}"));
+            return Redirect(_webApiOptions.GetUrl($"login?message=register-request-sent&email={emailAddress}"));
         }
     }
 }

@@ -6,33 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include=".build\package.msbuild" />
-    <None Include=".build\package.nuspec" />
-    <None Include=".build\Shuttle.MSBuild.dll" />
-    <None Include=".build\Shuttle.MSBuild.targets" />
+    <None Include=".package\AssemblyInfo.cs.template" />
+    <None Include=".package\package.msbuild" />
+    <None Include=".package\package.nuspec.template" />
+    <None Include=".package\Shuttle.NuGetPackager.MSBuild.dll" />
+    <None Include=".package\Shuttle.NuGetPackager.targets" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shuttle.Esb" Version="12.1.1" />
+    <PackageReference Include="Shuttle.Esb" Version="13.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shuttle.Sentinel.Messages\Shuttle.Sentinel.Messages.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

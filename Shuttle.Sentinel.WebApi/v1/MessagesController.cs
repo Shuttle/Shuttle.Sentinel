@@ -8,6 +8,7 @@ using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Core.Logging;
+using Shuttle.Core.Pipelines;
 using Shuttle.Core.Reflection;
 using Shuttle.Core.Serialization;
 using Shuttle.Esb;
@@ -21,28 +22,28 @@ namespace Shuttle.Sentinel.WebApi.v1
     [RequiresPermission(Permissions.Manage.Messages)]
     public class MessagesController : Controller
     {
+        private readonly IPipelineFactory _pipelineFactory;
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IInspectionQueue _inspectionQueue;
         private readonly ILog _log;
-        private readonly IQueueManager _queueManager;
+        private readonly IQueueService _queueService;
         private readonly ISerializer _serializer;
-        private readonly ITransportMessageFactory _transportMessageFactory;
         private readonly Type _transportMessageType = typeof(TransportMessage);
 
-        public MessagesController(IDatabaseContextFactory databaseContextFactory, IInspectionQueue inspectionQueue,
-            ISerializer serializer, IQueueManager queueManager, ITransportMessageFactory transportMessageFactory)
+        public MessagesController(IPipelineFactory pipelineFactory, IDatabaseContextFactory databaseContextFactory, IInspectionQueue inspectionQueue,
+            ISerializer serializer, IQueueService queueService)
         {
+            Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(inspectionQueue, nameof(inspectionQueue));
             Guard.AgainstNull(serializer, nameof(serializer));
-            Guard.AgainstNull(queueManager, nameof(queueManager));
-            Guard.AgainstNull(transportMessageFactory, nameof(transportMessageFactory));
+            Guard.AgainstNull(queueService, nameof(queueService));
 
+            _pipelineFactory = pipelineFactory;
             _databaseContextFactory = databaseContextFactory;
             _inspectionQueue = inspectionQueue;
             _serializer = serializer;
-            _queueManager = queueManager;
-            _transportMessageFactory = transportMessageFactory;
+            _queueService = queueService;
 
             _log = Log.For(this);
         }
@@ -91,7 +92,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         {
             try
             {
-                var queue = _queueManager.CreateQueue(model.QueueUri);
+                var queue = _queueService.Get(model.QueueUri);
                 var countRetrieved = 0;
 
                 try
@@ -224,7 +225,7 @@ namespace Shuttle.Sentinel.WebApi.v1
                         {
                             queue?.AttemptDispose();
 
-                            queue = _queueManager.CreateQueue(queueUri);
+                            queue = _queueService.Get(queueUri);
 
                             previousQueueUri = queueUri;
                         }
@@ -253,8 +254,8 @@ namespace Shuttle.Sentinel.WebApi.v1
         {
             try
             {
-                var sourceQueue = _queueManager.CreateQueue(model.SourceQueueUri);
-                var destinationQueue = _queueManager.CreateQueue(model.DestinationQueueUri);
+                var sourceQueue = _queueService.Get(model.SourceQueueUri);
+                var destinationQueue = _queueService.Get(model.DestinationQueueUri);
                 var countRetrieved = 0;
 
                 try
@@ -322,13 +323,15 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             try
             {
-                queue = _queueManager.CreateQueue(model.DestinationQueueUri);
+                queue = _queueService.Get(model.DestinationQueueUri);
 
-                var transportMessage = _transportMessageFactory.Create(new object(), c => c.WithRecipient(queue));
-
-                transportMessage.AssemblyQualifiedName = model.MessageType;
-                transportMessage.MessageType = model.MessageType;
-                transportMessage.Message = Encoding.UTF8.GetBytes(model.Message);
+                var transportMessage = new TransportMessage
+                {
+                    AssemblyQualifiedName = model.MessageType,
+                    MessageType = model.MessageType,
+                    Message = Encoding.UTF8.GetBytes(model.Message),
+                    RecipientInboxWorkQueueUri = queue.Uri.ToString()
+                };
 
                 foreach (var header in model.Headers)
                 {

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Logging;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 
@@ -16,8 +15,6 @@ namespace Shuttle.Sentinel.Queues
         private readonly IDatabaseGateway _databaseGateway;
         private readonly IInspectionQueueQueryFactory _inspectionQueueQueryFactory;
 
-        private readonly ILog _log;
-
         public DefaultInspectionQueue(IDatabaseContextFactory databaseContextFactory, IDatabaseGateway databaseGateway,
             IInspectionQueueQueryFactory inspectionQueueQueryFactory)
         {
@@ -28,26 +25,14 @@ namespace Shuttle.Sentinel.Queues
             _databaseContextFactory = databaseContextFactory;
             _databaseGateway = databaseGateway;
             _inspectionQueueQueryFactory = inspectionQueueQueryFactory;
-
-            _log = Log.For(this);
         }
 
         public void Enqueue(string sourceQueueUri, TransportMessage transportMessage, Stream stream)
         {
-            try
+            using (_databaseContextFactory.Create())
             {
-                using (_databaseContextFactory.Create())
-                {
-                    _databaseGateway.ExecuteUsing(_inspectionQueueQueryFactory.Enqueue(sourceQueueUri, transportMessage,
-                        stream));
-                }
-            }
-            catch (Exception ex)
-            {
-                _log.Error(
-                    string.Format(Resources.EnqueueException, transportMessage.MessageId, ex.Message));
-
-                throw;
+                _databaseGateway.Execute(_inspectionQueueQueryFactory.Enqueue(sourceQueueUri, transportMessage,
+                    stream));
             }
         }
 
@@ -58,7 +43,7 @@ namespace Shuttle.Sentinel.Queues
             using (_databaseContextFactory.Create())
             {
                 result.AddRange(
-                    _databaseGateway.GetRowsUsing(_inspectionQueueQueryFactory.Messages())
+                    _databaseGateway.GetRows(_inspectionQueueQueryFactory.Messages())
                         .Select(
                             row =>
                                 new InspectionMessage(
@@ -74,7 +59,7 @@ namespace Shuttle.Sentinel.Queues
         {
             using (_databaseContextFactory.Create())
             {
-                _databaseGateway.ExecuteUsing(_inspectionQueueQueryFactory.Remove(messageId));
+                _databaseGateway.Execute(_inspectionQueueQueryFactory.Remove(messageId));
             }
         }
 
@@ -82,7 +67,7 @@ namespace Shuttle.Sentinel.Queues
         {
             using (_databaseContextFactory.Create())
             {
-                var row = _databaseGateway.GetSingleRowUsing(_inspectionQueueQueryFactory.Get(messageId));
+                var row = _databaseGateway.GetRow(_inspectionQueueQueryFactory.Get(messageId));
 
                 return new InspectionMessage(
                     InspectionQueueColumns.SourceQueueUri.MapFrom(row),

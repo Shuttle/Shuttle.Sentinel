@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<package>
+	<metadata>
+		<id>Shuttle.Sentinel.Application</id>
+		<version>1.0.0</version>
+		<authors>Eben Roux</authors>
+		<owners>Eben Roux</owners>
+		<license type="expression">BSD-3-Clause</license>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<icon>images\logo.png</icon>
+		<readme>docs\README.md</readme>
+		<repository type="git" url="https://github.com/Shuttle/Shuttle.Sentinel.git" />
+		<projectUrl>https://github.com/Shuttle/Shuttle.Sentinel</projectUrl>
+		<description>Mediator participants used by Shuttle.Sentinel.</description>
+		<copyright>Copyright (c) 2022, Eben Roux</copyright>
+		<tags></tags>
+		<dependencies>
+      <dependency id="Shuttle.Access" version="5.0.0" />
+      <dependency id="Shuttle.Access.Messages" version="5.0.0" />
+      <dependency id="Shuttle.Access.RestClient" version="6.0.0" />
+      <dependency id="Shuttle.Core.Mediator" version="13.0.0" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="..\..\..\.media\logo.png" target="images" />
+		<file src="..\..\..\README.md" target="docs" />
+		<file src="lib\**\*.*" target="lib" />
+	</files>
+</package>

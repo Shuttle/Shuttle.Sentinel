@@ -35,17 +35,17 @@ namespace Shuttle.Sentinel.DataAccess.Profile
         {
             Guard.AgainstNullOrEmptyString(emailAddress, nameof(emailAddress));
 
-            _databaseGateway.ExecuteUsing(_queryFactory.RegisterSecurityToken(emailAddress, securityToken));
+            _databaseGateway.Execute(_queryFactory.RegisterSecurityToken(emailAddress, securityToken));
         }
 
         public void RemoveSecurityToken(Guid securityToken)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.RemoveSecurityToken(securityToken));
+            _databaseGateway.Execute(_queryFactory.RemoveSecurityToken(securityToken));
         }
 
         public bool Contains(Query.Profile.Specification specification)
         {
-            return _databaseGateway.GetRowsUsing(_queryFactory.Search(specification)).Any();
+            return _databaseGateway.GetRows(_queryFactory.Search(specification)).Any();
         }
     }
 }

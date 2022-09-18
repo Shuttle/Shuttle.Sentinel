@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Data.Common;
+using System.Reflection;
 using System.Text;
 using System.Threading;
-using log4net;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Shuttle.Core.Container;
 using Shuttle.Core.Data;
 using Shuttle.Core.DependencyInjection;
-using Shuttle.Core.Log4Net;
-using Shuttle.Core.Logging;
-using Shuttle.Core.Reflection;
-using Shuttle.Core.WorkerService;
 using Shuttle.Recall;
 using Shuttle.Recall.Sql.EventProcessing;
 using Shuttle.Recall.Sql.Storage;
@@ -27,62 +23,55 @@ namespace Shuttle.Sentinel.Projection
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            ServiceHost.Run<Host>();
-        }
-    }
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices(services =>
+                {
+                    var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-    public class Host : IServiceHost
-    {
-        private readonly CancellationTokenSource _cancellationTokenSource = new();
-        private IEventProcessor _eventProcessor;
-        private IEventStore _eventStore;
+                    services.AddSingleton<IConfiguration>(configuration);
 
-        public void Stop()
-        {
-            _eventProcessor?.Dispose();
-            _eventStore?.AttemptDispose();
-        }
+                    services.FromAssembly(Assembly.Load("Shuttle.Access.Sql")).Add();
 
-        public void Start(IServiceProvider serviceProvider)
-        {
-            Log.Assign(new Log4NetLog(LogManager.GetLogger(typeof(Host))));
+                    services.AddDataAccess(builder =>
+                    {
+                        builder.AddConnectionString("Sentinel", "System.Data.SqlClient");
+                        builder.Options.DatabaseContextFactory.DefaultConnectionStringName = "Sentinel";
+                    });
 
-            var resolver = new ServiceProviderComponentResolver(serviceProvider);
+                    services.AddEventStore(builder =>
+                    {
+                        builder.AddEventHandler<ProfileHandler>("Profile");
+                    });
 
-            _ = serviceProvider.GetRequiredService<EventProcessingModule>();
+                    services.AddSqlEventStorage();
+                    services.AddSqlEventProcessing(builder =>
+                    {
+                        builder.Options.EventProjectionConnectionStringName = "Sentinel";
+                        builder.Options.EventStoreConnectionStringName = "Sentinel";
+                    });
+                })
+                .Build();
 
-            _eventStore = serviceProvider.GetRequiredService<IEventStore>();
-            _eventProcessor = serviceProvider.GetRequiredService<IEventProcessor>();
+            var databaseContextFactory = host.Services.GetRequiredService<IDatabaseContextFactory>();
 
-            var databaseContextFactory = serviceProvider.GetRequiredService<IDatabaseContextFactory>();
+            var cancellationTokenSource = new CancellationTokenSource();
 
-            if (!databaseContextFactory.IsAvailable("Sentinel", _cancellationTokenSource.Token))
+            Console.CancelKeyPress += delegate
+            {
+                cancellationTokenSource.Cancel();
+            };
+
+            if (!databaseContextFactory.IsAvailable("Sentinel", cancellationTokenSource.Token))
             {
                 throw new ApplicationException("[connection failure]");
             }
 
-            using (serviceProvider.GetRequiredService<IDatabaseContextFactory>().Create("Sentinel"))
+            if (cancellationTokenSource.Token.IsCancellationRequested)
             {
-                _eventProcessor.AddProjection("Profile");
-
-                resolver.AddEventHandler<ProfileHandler>("Profile");
+                return;
             }
 
-            _eventProcessor.Start();
-        }
-
-        public void Configure(IHostBuilder builder)
-        {
-            builder.ConfigureServices(services =>
-            {
-                var container = new ServiceCollectionComponentRegistry(services);
-
-                container.RegisterDataAccess();
-                container.RegisterSuffixed("Shuttle.Sentinel");
-                container.RegisterEventStore();
-                container.RegisterEventStoreStorage();
-                container.RegisterEventProcessing();
-            });
+            host.Run();
         }
     }
 }

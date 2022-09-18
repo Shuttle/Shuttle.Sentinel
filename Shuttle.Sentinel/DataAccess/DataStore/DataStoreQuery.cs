@@ -25,12 +25,12 @@ namespace Shuttle.Sentinel.DataAccess
 
         public void Register(DataStore dataStore)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Register(dataStore));
+            _databaseGateway.Execute(_queryFactory.Register(dataStore));
         }
 
         public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
+            _databaseGateway.Execute(_queryFactory.Remove(id));
         }
 
         public IEnumerable<DataStore> Search(DataStore.Specification specification)

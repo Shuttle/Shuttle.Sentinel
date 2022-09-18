@@ -21,12 +21,12 @@ namespace Shuttle.Sentinel.DataAccess.Profile
 
         public void Register(PrimitiveEvent primitiveEvent, Registered domainEvent)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Register(primitiveEvent.Id, domainEvent));
+            _databaseGateway.Execute(_queryFactory.Register(primitiveEvent.Id, domainEvent));
         }
 
         public void PasswordResetToken(PrimitiveEvent primitiveEvent, PasswordResetRequested domainEvent)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.PasswordResetToken(primitiveEvent.Id, domainEvent));
+            _databaseGateway.Execute(_queryFactory.PasswordResetToken(primitiveEvent.Id, domainEvent));
         }
     }
 }

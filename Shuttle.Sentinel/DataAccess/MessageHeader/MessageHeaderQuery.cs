@@ -25,12 +25,12 @@ namespace Shuttle.Sentinel.DataAccess
 
         public void Save(Guid id, string key, string value)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Save(id, key, value));
+            _databaseGateway.Execute(_queryFactory.Save(id, key, value));
         }
 
         public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
+            _databaseGateway.Execute(_queryFactory.Remove(id));
         }
 
         public IEnumerable<MessageHeader> All()

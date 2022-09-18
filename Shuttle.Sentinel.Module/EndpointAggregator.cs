@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
 using Shuttle.Esb;
 using Shuttle.Sentinel.Messages.v1;
@@ -28,14 +29,15 @@ namespace Shuttle.Sentinel.Module
         private readonly HashSet<string> _registeredAssociations = new HashSet<string>();
         private readonly HashSet<string> _registeredDispatched = new HashSet<string>();
         private readonly HashSet<string> _registeredMessageTypes = new HashSet<string>();
-        private readonly IServiceBusConfiguration _serviceBusConfiguration;
         private readonly string _entryAssemblyQualifiedName;
+        private readonly ServiceBusOptions _serviceBusOptions;
 
-        public EndpointAggregator(IServiceBusConfiguration serviceBusConfiguration)
+        public EndpointAggregator(IOptions<ServiceBusOptions> serviceBusOptions)
         {
-            Guard.AgainstNull(serviceBusConfiguration, nameof(serviceBusConfiguration));
+            Guard.AgainstNull(serviceBusOptions, nameof(serviceBusOptions));
+            Guard.AgainstNull(serviceBusOptions.Value, nameof(serviceBusOptions.Value));
 
-            _serviceBusConfiguration = serviceBusConfiguration;
+            _serviceBusOptions = serviceBusOptions.Value;
 
             _ipv4Address = "0.0.0.0";
 
@@ -134,23 +136,13 @@ namespace Shuttle.Sentinel.Module
                     IPv4Address = _ipv4Address,
                     BaseDirectory = AppDomain.CurrentDomain.BaseDirectory,
                     EntryAssemblyQualifiedName = _entryAssemblyQualifiedName,
-                    InboxWorkQueueUri = _serviceBusConfiguration.Inbox.WorkQueueUri,
-                    InboxDeferredQueueUri = _serviceBusConfiguration.Inbox.HasDeferredQueue
-                        ? _serviceBusConfiguration.Inbox.DeferredQueueUri
-                        : string.Empty,
-                    InboxErrorQueueUri = _serviceBusConfiguration.Inbox.ErrorQueueUri,
-                    OutboxWorkQueueUri = _serviceBusConfiguration.HasOutbox
-                        ? _serviceBusConfiguration.Outbox.WorkQueueUri
-                        : string.Empty,
-                    OutboxErrorQueueUri = _serviceBusConfiguration.HasOutbox
-                        ? _serviceBusConfiguration.Outbox.ErrorQueueUri
-                        : string.Empty,
-                    ControlInboxWorkQueueUri = _serviceBusConfiguration.HasControlInbox
-                        ? _serviceBusConfiguration.ControlInbox.WorkQueueUri
-                        : string.Empty,
-                    ControlInboxErrorQueueUri = _serviceBusConfiguration.HasControlInbox
-                        ? _serviceBusConfiguration.ControlInbox.ErrorQueueUri
-                        : string.Empty
+                    InboxWorkQueueUri = _serviceBusOptions.Inbox?.WorkQueueUri ?? string.Empty,
+                    InboxDeferredQueueUri = _serviceBusOptions.Inbox?.DeferredQueueUri ?? string.Empty,
+                    InboxErrorQueueUri = _serviceBusOptions.Inbox?.ErrorQueueUri ?? string.Empty,
+                    OutboxWorkQueueUri = _serviceBusOptions.Outbox?.WorkQueueUri ?? string.Empty,
+                    OutboxErrorQueueUri = _serviceBusOptions.Outbox?.ErrorQueueUri ?? string.Empty,
+                    ControlInboxWorkQueueUri = _serviceBusOptions.ControlInbox?.WorkQueueUri ?? string.Empty,
+                    ControlInboxErrorQueueUri = _serviceBusOptions.ControlInbox.ErrorQueueUri ?? string.Empty
                 };
 
                 foreach (var messageType in _messageTypes)

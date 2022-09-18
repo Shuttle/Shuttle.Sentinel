@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
@@ -12,18 +13,18 @@ namespace Shuttle.Sentinel.Server
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
-        private readonly ISentinelConfiguration _configuration;
+        private readonly ServerOptions _serverOptions;
 
-        public RegisterEndpointHandler(IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery,
-            ISentinelConfiguration configuration)
+        public RegisterEndpointHandler(IOptions<ServerOptions> serverOptions, IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery)
         {
+            Guard.AgainstNull(serverOptions, nameof(serverOptions));
+            Guard.AgainstNull(serverOptions.Value, nameof(serverOptions.Value));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(endpointQuery, nameof(endpointQuery));
-            Guard.AgainstNull(configuration, nameof(configuration));
 
+            _serverOptions = serverOptions.Value;
             _databaseContextFactory = databaseContextFactory;
             _endpointQuery = endpointQuery;
-            _configuration = configuration;
         }
 
         public void ProcessMessage(IHandlerContext<RegisterEndpoint> context)
@@ -34,7 +35,7 @@ namespace Shuttle.Sentinel.Server
                 ||
                 string.IsNullOrEmpty(message.BaseDirectory)
                 ||
-                context.TransportMessage.SendDate < DateTime.Now.Subtract(_configuration.HeartbeatIntervalDuration))
+                context.TransportMessage.SendDate < DateTime.Now.Subtract(_serverOptions.HeartbeatIntervalDuration))
             {
                 return;
             }
@@ -49,7 +50,7 @@ namespace Shuttle.Sentinel.Server
             }
             catch
             {
-                heartbeatIntervalDuration = SentinelConfiguration.DefaultHeartbeatIntervalDuration.ToString();
+                heartbeatIntervalDuration = _serverOptions.DefaultHeartbeatIntervalDuration.ToString();
             }
 
             using (_databaseContextFactory.Create())

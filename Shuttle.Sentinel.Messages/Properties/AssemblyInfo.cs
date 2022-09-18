@@ -1,38 +1,22 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-#if NET40FULL
-[assembly: AssemblyTitle("Shuttle.Sentinel.Messages for .NET Framework 4.0")]
+#if NETFRAMEWORK
+[assembly: AssemblyTitle(".NET Framework")]
 #endif
 
-#if NET45FULL
-[assembly: AssemblyTitle("Shuttle.Sentinel.Messages for .NET Framework 4.5")]
+#if NETCOREAPP
+[assembly: AssemblyTitle(".NET Core")]
 #endif
 
-#if NET451FULL
-[assembly: AssemblyTitle("Shuttle.Sentinel.Messages for .NET Framework 4.5.1")]
+#if NETSTANDARD
+[assembly: AssemblyTitle(".NET Standard")]
 #endif
 
-#if NET452FULL
-[assembly: AssemblyTitle("Shuttle.Sentinel.Messages for .NET Framework 4.5.2")]
-#endif
-
-#if NET46FULL
-[assembly: AssemblyTitle("Shuttle.Sentinel.Messages for .NET Framework 4.6")]
-#endif
-
-#if NET461FULL
-[assembly: AssemblyTitle("Shuttle.Sentinel.Messages for .NET Framework 4.6.1")]
-#endif
-
-#if NET462FULL
-[assembly: AssemblyTitle("Shuttle.Sentinel.Messages for .NET Framework 4.6.2")]
-#endif
-
-[assembly: AssemblyVersion("1.0.18.0")]
-[assembly: AssemblyCopyright("Copyright © Eben Roux 2019")]
-[assembly: AssemblyProduct("Shuttle")]
-[assembly: AssemblyCompany("Shuttle")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyCopyright("Copyright (c) 2022, Eben Roux")]
+[assembly: AssemblyProduct("Shuttle.Sentinel.Messages")]
+[assembly: AssemblyCompany("Eben Roux")]
 [assembly: AssemblyConfiguration("Release")]
-[assembly: AssemblyInformationalVersion("1.0.18")]
+[assembly: AssemblyInformationalVersion("1.0.0")]
 [assembly: ComVisible(false)]

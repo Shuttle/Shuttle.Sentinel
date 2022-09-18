@@ -56,7 +56,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             try
             {
-                return new Uri(uri).Secured().ToString();
+                return new Uri(uri).ToString();
             }
             catch
             {

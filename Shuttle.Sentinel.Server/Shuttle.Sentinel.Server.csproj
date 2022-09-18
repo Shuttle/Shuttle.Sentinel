@@ -7,22 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.6" />
-    <PackageReference Include="Shuttle.Access.Messages" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.9" />
+    <PackageReference Include="Shuttle.Access.Messages" Version="6.0.0" />
     <PackageReference Include="Shuttle.Access.RestClient" Version="6.0.0" />
-    <PackageReference Include="Shuttle.Core.Container" Version="12.0.1" />
-    <PackageReference Include="Shuttle.Core.Data" Version="12.1.0" />
+    <PackageReference Include="Shuttle.Core.Data" Version="13.0.0" />
     <PackageReference Include="Shuttle.Core.Data.SqlClient" Version="10.0.7" />
     <PackageReference Include="Shuttle.Core.DependencyInjection" Version="1.0.0" />
-    <PackageReference Include="Shuttle.Core.Log4Net" Version="10.0.4" />
-    <PackageReference Include="Shuttle.Core.Mediator" Version="13.0.0" />
-    <PackageReference Include="Shuttle.Core.WorkerService" Version="2.0.0" />
-    <PackageReference Include="Shuttle.Esb.AzureMQ" Version="12.0.1" />
+    <PackageReference Include="Shuttle.Core.Mediator" Version="13.0.1" />
+    <PackageReference Include="Shuttle.Esb.AzureStorageQueues" Version="13.2.0" />
     <PackageReference Include="Shuttle.Esb.EMail.Messages" Version="11.0.1" />
     <PackageReference Include="Shuttle.Esb.Scheduling" Version="12.0.6" />
-    <PackageReference Include="Shuttle.Esb.Sql.Subscription" Version="12.0.2" />
-    <PackageReference Include="Shuttle.Recall.Sql.Storage" Version="14.0.0" />
+    <PackageReference Include="Shuttle.Esb.Sql.Subscription" Version="13.2.0" />
+    <PackageReference Include="Shuttle.Recall.Sql.Storage" Version="16.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +28,12 @@
     <ProjectReference Include="..\Shuttle.Sentinel.Messages\Shuttle.Sentinel.Messages.csproj" />
     <ProjectReference Include="..\Shuttle.Sentinel.Module\Shuttle.Sentinel.Module.csproj" />
     <ProjectReference Include="..\Shuttle.Sentinel\Shuttle.Sentinel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

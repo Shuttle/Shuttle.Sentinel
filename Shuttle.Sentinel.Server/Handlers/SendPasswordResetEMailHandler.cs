@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Extensions.Options;
 using Shuttle.Access.RestClient;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
@@ -17,21 +18,22 @@ namespace Shuttle.Sentinel.Server.Handlers
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
         private readonly IProfileQuery _profileQuery;
-        private readonly ISentinelServerConfiguration _serverConfiguration;
+        private readonly ServerOptions _serverOptions;
 
-        public SendPasswordResetEMailHandler(IDatabaseContextFactory databaseContextFactory, IEventStore eventStore,
-            IProfileQuery profileQuery, ISentinelServerConfiguration serverConfiguration, IAccessClient accessClient)
+        public SendPasswordResetEMailHandler(IOptions<ServerOptions> serverOptions, IDatabaseContextFactory databaseContextFactory, IEventStore eventStore,
+            IProfileQuery profileQuery, IAccessClient accessClient)
         {
+            Guard.AgainstNull(serverOptions, nameof(serverOptions));
+            Guard.AgainstNull(serverOptions.Value, nameof(serverOptions.Value));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(eventStore, nameof(eventStore));
             Guard.AgainstNull(profileQuery, nameof(profileQuery));
-            Guard.AgainstNull(serverConfiguration, nameof(serverConfiguration));
             Guard.AgainstNull(accessClient, nameof(accessClient));
 
+            _serverOptions = serverOptions.Value;
             _databaseContextFactory = databaseContextFactory;
             _eventStore = eventStore;
             _profileQuery = profileQuery;
-            _serverConfiguration = serverConfiguration;
             _accessClient = accessClient;
         }
 
@@ -68,13 +70,13 @@ namespace Shuttle.Sentinel.Server.Handlers
                 _eventStore.Save(stream);
             }
 
-            var resetPasswordUrl = $"{_serverConfiguration.ResetPasswordUrl}{passwordResetToken}";
+            var resetPasswordUrl = $"{_serverOptions.ResetPasswordUrl}{passwordResetToken}";
             var sendEMailCommand = new SendEMailCommand
             {
                 FromAddress = new SendEMailCommand.Address
                 {
-                    EMailAddress = _serverConfiguration.NoReplyEMailAddress,
-                    DisplayName = _serverConfiguration.NoReplyDisplayName
+                    EMailAddress = _serverOptions.NoReplyEMailAddress,
+                    DisplayName = _serverOptions.NoReplyDisplayName
                 },
                 Subject = "Sentinel: Password Reset",
                 HtmlBody = $@"

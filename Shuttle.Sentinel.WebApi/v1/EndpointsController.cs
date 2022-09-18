@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
@@ -9,7 +10,6 @@ using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
-using Shuttle.Sentinel.WebApi.Configuration;
 
 namespace Shuttle.Sentinel.WebApi.v1
 {
@@ -18,23 +18,24 @@ namespace Shuttle.Sentinel.WebApi.v1
     [ApiVersion("1")]
     public class EndpointsController : Controller
     {
-        private readonly IServiceBus _bus;
-        private readonly ISentinelConfiguration _configuration;
+        private readonly IServiceBus _serviceBus;
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
+        private readonly WebApiOptions _webApiOptions;
 
-        public EndpointsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
-            IEndpointQuery endpointQuery, ISentinelConfiguration configuration)
+        public EndpointsController(IOptions<WebApiOptions> webApiOptions, IServiceBus serviceBus, IDatabaseContextFactory databaseContextFactory,
+            IEndpointQuery endpointQuery)
         {
+            Guard.AgainstNull(webApiOptions, nameof(webApiOptions));
+            Guard.AgainstNull(webApiOptions.Value, nameof(webApiOptions.Value));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(endpointQuery, nameof(endpointQuery));
-            Guard.AgainstNull(bus, nameof(bus));
-            Guard.AgainstNull(configuration, nameof(configuration));
+            Guard.AgainstNull(serviceBus, nameof(serviceBus));
 
+            _webApiOptions = webApiOptions.Value;
             _databaseContextFactory = databaseContextFactory;
             _endpointQuery = endpointQuery;
-            _configuration = configuration;
-            _bus = bus;
+            _serviceBus = serviceBus;
         }
 
         [HttpGet]
@@ -99,7 +100,7 @@ namespace Shuttle.Sentinel.WebApi.v1
                 if (endpoint.HeartbeatDate < heartbeatExpiryDate)
                 {
                     heartbeatStatus = endpoint.HeartbeatDate <
-                                      heartbeatExpiryDate.Subtract(_configuration.HeartbeatRecoveryDuration)
+                                      heartbeatExpiryDate.Subtract(_webApiOptions.HeartbeatRecoveryDuration)
                         ? "down"
                         : "recovery";
                 }
@@ -157,7 +158,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             try
             {
-                return new Uri(uri).Secured().ToString();
+                return new Uri(uri).ToString();
             }
             catch
             {
@@ -169,7 +170,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            _bus.Send(new RemoveEndpoint
+            _serviceBus.Send(new RemoveEndpoint
             {
                 Id = id
             });

@@ -25,12 +25,12 @@ namespace Shuttle.Sentinel.DataAccess
 
         public void Save(string uri, string processor, string type)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Save(uri, processor, type));
+            _databaseGateway.Execute(_queryFactory.Save(uri, processor, type));
         }
 
         public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
+            _databaseGateway.Execute(_queryFactory.Remove(id));
         }
 
         public IEnumerable<Queue> Search(Queue.Specification specification)

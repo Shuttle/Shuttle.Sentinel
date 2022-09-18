@@ -29,14 +29,14 @@ namespace Shuttle.Sentinel.DataAccess
             string outboxWorkQueueUri, string outboxErrorQueueUri, string controlInboxWorkQueueUri,
             string controlInboxErrorQueueUri, string heartbeatIntervalDuration)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Save(machineName, baseDirectory, entryAssemblyQualifiedName,
+            _databaseGateway.Execute(_queryFactory.Save(machineName, baseDirectory, entryAssemblyQualifiedName,
                 ipv4Address, inboxWorkQueueUri, inboxDeferredQueueUri, inboxErrorQueueUri, controlInboxWorkQueueUri,
                 controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri, heartbeatIntervalDuration));
         }
 
         public Guid? FindId(string machineName, string baseDirectory)
         {
-            return _databaseGateway.GetScalarUsing<Guid?>(_queryFactory.FindId(
+            return _databaseGateway.GetScalar<Guid?>(_queryFactory.FindId(
                 machineName,
                 baseDirectory));
         }
@@ -45,33 +45,33 @@ namespace Shuttle.Sentinel.DataAccess
             int count,
             double fastestExecutionDuration, double slowestExecutionDuration, double totalExecutionDuration)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.AddMessageTypeMetric(metricId, messageType, dateRegistered,
+            _databaseGateway.Execute(_queryFactory.AddMessageTypeMetric(metricId, messageType, dateRegistered,
                 endpointId,
                 count, fastestExecutionDuration, slowestExecutionDuration, totalExecutionDuration));
         }
 
         public void AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled, string messageTypeDispatched)
         {
-            _databaseGateway.ExecuteUsing(
+            _databaseGateway.Execute(
                 _queryFactory.AddMessageTypeAssociation(endpointId, messageTypeHandled, messageTypeDispatched));
         }
 
         public void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType,
             string recipientInboxWorkQueueUri)
         {
-            _databaseGateway.ExecuteUsing(
+            _databaseGateway.Execute(
                 _queryFactory.AddMessageTypeDispatched(endpointId, dispatchedMessageType, recipientInboxWorkQueueUri));
         }
 
         public void AddMessageTypeHandled(Guid endpointId, string messageType)
         {
-            _databaseGateway.ExecuteUsing(
+            _databaseGateway.Execute(
                 _queryFactory.AddMessageTypeHandled(endpointId, messageType));
         }
 
         public void Remove(Guid id)
         {
-            _databaseGateway.ExecuteUsing(_queryFactory.Remove(id));
+            _databaseGateway.Execute(_queryFactory.Remove(id));
         }
 
         public IEnumerable<Endpoint> All()

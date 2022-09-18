@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Options;
 using Shuttle.Access.Messages.v1;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
@@ -15,19 +16,20 @@ namespace Shuttle.Sentinel.Server.Handlers
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEventStore _eventStore;
         private readonly IProfileQuery _profileQuery;
-        private readonly ISentinelServerConfiguration _serverConfiguration;
+        private readonly ServerOptions _serverOptions;
 
-        public IdentityRegisteredHandler(IDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IProfileQuery profileQuery, ISentinelServerConfiguration serverConfiguration)
+        public IdentityRegisteredHandler(IOptions<ServerOptions> serverOptions, IDatabaseContextFactory databaseContextFactory, IEventStore eventStore, IProfileQuery profileQuery)
         {
+            Guard.AgainstNull(serverOptions, nameof(serverOptions));
+            Guard.AgainstNull(serverOptions.Value, nameof(serverOptions.Value));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(eventStore, nameof(eventStore));
             Guard.AgainstNull(profileQuery, nameof(profileQuery));
-            Guard.AgainstNull(serverConfiguration, nameof(serverConfiguration));
-            
+
+            _serverOptions = serverOptions.Value;
             _databaseContextFactory = databaseContextFactory;
             _eventStore = eventStore;
             _profileQuery = profileQuery;
-            _serverConfiguration = serverConfiguration;
         }                                       
                                                     
         public void ProcessMessage(IHandlerContext<IdentityRegistered> context)
@@ -59,14 +61,14 @@ namespace Shuttle.Sentinel.Server.Handlers
                 _eventStore.Get(id).Apply(profile);
             }
 
-            var activationUrl = $"{_serverConfiguration.ActivationUrl}{id}";
+            var activationUrl = $"{_serverOptions.ActivationUrl}{id}";
             var sendEMailCommand = new SendEMailCommand
             {
                 
                 FromAddress = new SendEMailCommand.Address
                 {
-                    EMailAddress = _serverConfiguration.NoReplyEMailAddress,
-                    DisplayName = _serverConfiguration.NoReplyDisplayName
+                    EMailAddress = _serverOptions.NoReplyEMailAddress,
+                    DisplayName = _serverOptions.NoReplyDisplayName
                 },
                 Subject = "Sentinel: Please confirm your email address",
                 HtmlBody = $@"

@@ -83,7 +83,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
                 try
                 {
-                    securedUri = new Uri(queue.Uri).Secured().ToString();
+                    securedUri = new Uri(queue.Uri).ToString();
                 }
                 catch
                 {
