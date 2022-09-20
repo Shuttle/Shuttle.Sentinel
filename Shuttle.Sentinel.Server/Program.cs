@@ -43,7 +43,7 @@ namespace Shuttle.Sentinel.Server
 
                     services.AddDataAccess(builder =>
                     {
-                        builder.AddConnectionString("Sentinel", "System.Data.SqlClient");
+                        builder.AddConnectionString("Sentinel", "Microsoft.Data.SqlClient");
                         builder.Options.DatabaseContextFactory.DefaultConnectionStringName = "Sentinel";
                     });
 
@@ -52,9 +52,9 @@ namespace Shuttle.Sentinel.Server
                         .AddTransientHttpErrorPolicy(policyBuilder =>
                             policyBuilder.RetryAsync(3));
 
-                    services.AddAccessRestClient(builder =>
+                    services.AddAccessClient(builder =>
                     {
-                        configuration.GetSection(AccessRestClientOptions.SectionName).Bind(builder.Options);
+                        configuration.GetSection(AccessClientOptions.SectionName).Bind(builder.Options);
                     });
 
                     services.AddServiceBus(builder =>

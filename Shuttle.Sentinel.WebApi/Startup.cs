@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Reflection;
 using System.Threading;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +13,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Polly;
 using Shuttle.Access;
+using Shuttle.Access.Mvc.Rest;
+using Shuttle.Access.RestClient;
 using Shuttle.Core.Data;
 using Shuttle.Core.Data.Http;
 using Shuttle.Core.DependencyInjection;
@@ -43,11 +47,52 @@ namespace Shuttle.Sentinel.WebApi
 
             services.AddDataAccess(builder =>
             {
-                builder.AddConnectionString("Sentinel", "System.Data.SqlClient");
+                builder.AddConnectionString("Sentinel", "Microsoft.Data.SqlClient");
                 builder.Options.DatabaseContextFactory.DefaultConnectionStringName = "Sentinel";
             });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddControllers();
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ApiVersionReader = new HeaderApiVersionReader("api-version");
+            });
+
+            services.AddSingleton<IInspectionQueue, DefaultInspectionQueue>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHashingService, HashingService>();
+
+            services.AddHttpClient("AccessClient")
+                .AddHttpMessageHandler<AuthenticationHeaderHandler>()
+                .AddTransientHttpErrorPolicy(policyBuilder =>
+                    policyBuilder.RetryAsync(3));
+
+            services.AddAccessClient(builder =>
+            {
+                Configuration.GetSection(AccessClientOptions.SectionName).Bind(builder.Options);
+            });
+
+            services.AddRestAccessService();
+
+            services.AddServiceBus(builder =>
+            {
+                Configuration.GetSection(ServiceBusOptions.SectionName).Bind(builder.Options);
+            });
+
+            services.AddAzureStorageQueues(builder =>
+            {
+                builder.AddOptions("azure", new AzureStorageQueueOptions
+                {
+                    ConnectionString = Configuration.GetConnectionString("azure")
+                });
+            });
+
+            services.AddEventStore();
+            services.AddSqlEventStorage();
 
             services.AddSwaggerGen(options =>
             {
@@ -79,35 +124,6 @@ namespace Shuttle.Sentinel.WebApi
 
                 options.AddSecurityRequirement(requirement);
             });
-
-            services.AddControllers();
-            services.AddApiVersioning(options =>
-            {
-                options.ReportApiVersions = true;
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.ApiVersionReader = new HeaderApiVersionReader("api-version");
-            });
-
-            services.AddSingleton<IInspectionQueue, DefaultInspectionQueue>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IHashingService, HashingService>();
-
-            services.AddServiceBus(builder =>
-            {
-                Configuration.GetSection(ServiceBusOptions.SectionName).Bind(builder.Options);
-            });
-
-            services.AddAzureStorageQueues(builder =>
-            {
-                builder.AddOptions("azure", new AzureStorageQueueOptions
-                {
-                    ConnectionString = Configuration.GetConnectionString("azure")
-                });
-            });
-
-            services.AddEventStore();
-            services.AddSqlEventStorage();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
