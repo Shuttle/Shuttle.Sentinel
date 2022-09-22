@@ -47,7 +47,7 @@ namespace Shuttle.Sentinel
         {
             return On(new Activated
             {
-                DateActivated = DateTime.Now
+                DateActivated = DateTime.UtcNow
             });
         }
 
@@ -64,7 +64,7 @@ namespace Shuttle.Sentinel
         {
             return On(new PasswordResetRequested
             {
-                DateRequested = DateTime.Now,
+                DateRequested = DateTime.UtcNow,
                 PasswordResetToken = passwordResetToken
             });
         }

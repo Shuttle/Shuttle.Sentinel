@@ -63,7 +63,7 @@ namespace Shuttle.Sentinel.Module
                     _messageProcessingStartDates.Remove(messageId);
                 }
 
-                _messageProcessingStartDates.Add(messageId, DateTime.Now);
+                _messageProcessingStartDates.Add(messageId, DateTime.UtcNow);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Shuttle.Sentinel.Module
                     return;
                 }
 
-                var duration = (DateTime.Now - startDate).TotalMilliseconds;
+                var duration = (DateTime.UtcNow - startDate).TotalMilliseconds;
 
                 if (!_messageTypeMetrics.TryGetValue(messageType, out var messageTypeMetric))
                 {

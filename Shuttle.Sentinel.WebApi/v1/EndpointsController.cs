@@ -88,7 +88,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
         private string GetHeartbeatStatus(Endpoint endpoint)
         {
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             var heartbeatStatus = "up";
 

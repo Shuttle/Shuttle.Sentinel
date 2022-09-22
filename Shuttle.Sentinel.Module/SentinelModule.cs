@@ -22,7 +22,7 @@ namespace Shuttle.Sentinel.Module
         private readonly ISentinelObserver _sentinelObserver;
         private volatile bool _active;
         private Thread _thread;
-        private DateTime _nextSendDate = DateTime.Now;
+        private DateTime _nextSendDate = DateTime.UtcNow;
         private CancellationToken _cancellationToken;
         private readonly SentinelOptions _sentinelOptions;
 
@@ -106,11 +106,11 @@ namespace Shuttle.Sentinel.Module
         {
             while (_active)
             {
-                if (_sentinelOptions.Enabled && _nextSendDate <= DateTime.Now)
+                if (_sentinelOptions.Enabled && _nextSendDate <= DateTime.UtcNow)
                 {
                     _serviceBus.Send(_endpointAggregator.GetRegisterEndpointCommand());
 
-                    _nextSendDate = DateTime.Now.Add(_sentinelOptions.HeartbeatIntervalDuration);
+                    _nextSendDate = DateTime.UtcNow.Add(_sentinelOptions.HeartbeatIntervalDuration);
                 }
 
                 Task.Delay(1000, _cancellationToken).Wait(_cancellationToken);

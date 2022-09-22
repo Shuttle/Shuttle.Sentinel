@@ -5,7 +5,6 @@ using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Messages.v1;
-using Shuttle.Sentinel.Module;
 
 namespace Shuttle.Sentinel.Server
 {
@@ -35,7 +34,7 @@ namespace Shuttle.Sentinel.Server
                 ||
                 string.IsNullOrEmpty(message.BaseDirectory)
                 ||
-                context.TransportMessage.SendDate < DateTime.Now.Subtract(_serverOptions.HeartbeatIntervalDuration))
+                context.TransportMessage.SendDate < DateTime.UtcNow.Subtract(_serverOptions.HeartbeatIntervalDuration))
             {
                 return;
             }
@@ -50,7 +49,7 @@ namespace Shuttle.Sentinel.Server
             }
             catch
             {
-                heartbeatIntervalDuration = _serverOptions.DefaultHeartbeatIntervalDuration.ToString();
+                heartbeatIntervalDuration = _serverOptions.HeartbeatIntervalDuration.ToString();
             }
 
             using (_databaseContextFactory.Create())

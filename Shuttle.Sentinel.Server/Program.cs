@@ -41,6 +41,8 @@ namespace Shuttle.Sentinel.Server
 
                     services.FromAssembly(Assembly.Load("Shuttle.Sentinel")).Add();
 
+                    services.Configure<ServerOptions>(configuration.GetSection(ServerOptions.SectionName));
+
                     services.AddDataAccess(builder =>
                     {
                         builder.AddConnectionString("Sentinel", "Microsoft.Data.SqlClient");
@@ -89,7 +91,7 @@ namespace Shuttle.Sentinel.Server
                 cancellationTokenSource.Cancel();
             };
 
-            if (!databaseContextFactory.IsAvailable("Access", cancellationTokenSource.Token))
+            if (!databaseContextFactory.IsAvailable("Sentinel", cancellationTokenSource.Token))
             {
                 throw new ApplicationException("[connection failure]");
             }

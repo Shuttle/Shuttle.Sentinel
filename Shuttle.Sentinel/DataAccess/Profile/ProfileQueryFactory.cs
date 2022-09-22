@@ -20,7 +20,7 @@ namespace Shuttle.Sentinel.DataAccess.Profile
         {
             Guard.AgainstNull(domainEvent, nameof(domainEvent));
 
-            var now = DateTime.Now;
+            var now = DateTime.UtcNow;
 
             return RawQuery.Create($@"
 {_deactivationQueryFactory.Deactivate("Profile", primitiveEventId)}

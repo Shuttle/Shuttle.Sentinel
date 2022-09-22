@@ -48,7 +48,7 @@ namespace Shuttle.Sentinel.WebApi.v1
             {
                 var profile = _profileQuery
                     .Search(new DataAccess.Query.Profile.Specification().WithEMailAddress(emailAddress)
-                        .WithEffectiveDate(DateTime.Now)).FirstOrDefault();
+                        .WithEffectiveDate(DateTime.UtcNow)).FirstOrDefault();
 
                 return profile != null
                     ? Ok(new
