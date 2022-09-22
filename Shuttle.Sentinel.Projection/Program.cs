@@ -30,17 +30,12 @@ namespace Shuttle.Sentinel.Projection
 
                     services.AddSingleton<IConfiguration>(configuration);
 
-                    services.FromAssembly(Assembly.Load("Shuttle.Access.Sql")).Add();
+                    services.FromAssembly(Assembly.Load("Shuttle.Sentinel")).Add();
 
                     services.AddDataAccess(builder =>
                     {
-                        builder.AddConnectionString("Sentinel", "System.Data.SqlClient");
+                        builder.AddConnectionString("Sentinel", "Microsoft.Data.SqlClient");
                         builder.Options.DatabaseContextFactory.DefaultConnectionStringName = "Sentinel";
-                    });
-
-                    services.AddEventStore(builder =>
-                    {
-                        builder.AddEventHandler<ProfileHandler>("Profile");
                     });
 
                     services.AddSqlEventStorage();
@@ -48,6 +43,11 @@ namespace Shuttle.Sentinel.Projection
                     {
                         builder.Options.EventProjectionConnectionStringName = "Sentinel";
                         builder.Options.EventStoreConnectionStringName = "Sentinel";
+                    });
+
+                    services.AddEventStore(builder =>
+                    {
+                        builder.AddEventHandler<ProfileHandler>("Profile");
                     });
                 })
                 .Build();

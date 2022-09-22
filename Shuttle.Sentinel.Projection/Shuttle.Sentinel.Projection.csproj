@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Handlers\" />
+    <Folder Include="v1\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +18,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shuttle.Sentinel\Shuttle.Sentinel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
