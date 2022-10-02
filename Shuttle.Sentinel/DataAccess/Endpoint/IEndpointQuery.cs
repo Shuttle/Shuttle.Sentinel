@@ -9,7 +9,7 @@ namespace Shuttle.Sentinel.DataAccess
         void Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName, string ipv4Address,
             string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string outboxWorkQueueUri, string outboxErrorQueueUri, string controlInboxWorkQueueUri,
-            string controlInboxErrorQueueUri, string heartbeatIntervalDuration);
+            string controlInboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration);
 
         Guid? FindId(string machineName, string baseDirectory);
 
@@ -20,8 +20,10 @@ namespace Shuttle.Sentinel.DataAccess
         void AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled, string messageTypeDispatched);
         void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType, string recipientInboxWorkQueueUri);
         void AddMessageTypeHandled(Guid endpointId, string messageType);
-        void Remove(Guid id);
+        void Remove(Guid endpointId);
         IEnumerable<Endpoint> All();
         IEnumerable<Endpoint> Search(string match);
+        void RegisterHeartbeat(Guid endpointId);
+        void AddLogEntry(Guid endpointId, DateTime dateLogged, string message);
     }
 }

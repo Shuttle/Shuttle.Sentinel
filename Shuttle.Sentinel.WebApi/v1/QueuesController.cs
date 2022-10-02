@@ -79,24 +79,12 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             foreach (var queue in queues)
             {
-                string securedUri;
-
-                try
-                {
-                    securedUri = new Uri(queue.Uri).ToString();
-                }
-                catch
-                {
-                    securedUri = "(invalid uri)";
-                }
-
                 result.Add(new
                 {
                     queue.Id,
                     queue.Uri,
                     queue.Processor,
-                    queue.Type,
-                    SecuredUri = securedUri
+                    queue.Type
                 });
             }
 

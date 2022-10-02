@@ -36,8 +36,8 @@ if not exists (select null from SubscriberMessageType where MessageType = @Messa
         @InboxWorkQueueUri
     )
 ")
-                .AddParameterValue(SubscriptionColumns.MessageType, subscription.MessageType)
-                .AddParameterValue(SubscriptionColumns.InboxWorkQueueUri, subscription.InboxWorkQueueUri);
+                .AddParameterValue(Columns.MessageType, subscription.MessageType)
+                .AddParameterValue(Columns.InboxWorkQueueUri, subscription.InboxWorkQueueUri);
         }
 
         public IQuery Remove(Subscription subscription)
@@ -53,8 +53,8 @@ where
 and 
     InboxWorkQueueUri = @InboxWorkQueueUri
 ")
-                .AddParameterValue(SubscriptionColumns.MessageType, subscription.MessageType)
-                .AddParameterValue(SubscriptionColumns.InboxWorkQueueUri, subscription.InboxWorkQueueUri);
+                .AddParameterValue(Columns.MessageType, subscription.MessageType)
+                .AddParameterValue(Columns.InboxWorkQueueUri, subscription.InboxWorkQueueUri);
         }
     }
 }

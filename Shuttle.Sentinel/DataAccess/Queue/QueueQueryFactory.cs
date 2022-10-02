@@ -41,9 +41,9 @@ else
         @Type
     )
 ")
-                .AddParameterValue(QueueColumns.Uri, uri)
-                .AddParameterValue(QueueColumns.Processor, processor)
-                .AddParameterValue(QueueColumns.Type, type);
+                .AddParameterValue(Columns.Uri, uri)
+                .AddParameterValue(Columns.Processor, processor)
+                .AddParameterValue(Columns.Type, type);
         }
 
         public IQuery Remove(Guid id)
@@ -76,7 +76,7 @@ and
 order by Uri
 "))
                 .AddParameterValue(Columns.Id, specification.Id)
-                .AddParameterValue(QueueColumns.Uri, string.IsNullOrWhiteSpace(specification.UriMatch) ? null : $"%{specification.UriMatch}%");
+                .AddParameterValue(Columns.Uri, string.IsNullOrWhiteSpace(specification.UriMatch) ? null : $"%{specification.UriMatch}%");
         }
     }
 }

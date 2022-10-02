@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using Shuttle.Core.Data;
 
 namespace Shuttle.Sentinel.DataAccess
@@ -37,17 +38,17 @@ where
 and
     BaseDirectory = @BaseDirectory    
 ")
-                .AddParameterValue(EndpointColumns.MachineName, machineName)
-                .AddParameterValue(EndpointColumns.BaseDirectory, baseDirectory);
+                .AddParameterValue(Columns.MachineName, machineName)
+                .AddParameterValue(Columns.BaseDirectory, baseDirectory);
         }
 
         public IQuery Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
             string ipv4Address, string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string controlInboxWorkQueueUri, string controlInboxErrorQueueUri, string outboxWorkQueueUri,
-            string outboxErrorQueueUri, string heartbeatIntervalDuration)
+            string outboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration)
         {
             return RawQuery.Create(@"
-declare @date DateTime = getdate();
+declare @date DateTime = getutcdate();
 
 if not exists
 (
@@ -73,6 +74,7 @@ if not exists
         ControlInboxErrorQueueUri,
         OutboxWorkQueueUri,
         OutboxErrorQueueUri,
+        TransientInstance,
         HeartbeatIntervalDuration,
         HeartbeatDate
     )
@@ -89,6 +91,7 @@ if not exists
         @ControlInboxErrorQueueUri,
         @OutboxWorkQueueUri,
         @OutboxErrorQueueUri,
+        @TransientInstance,
         @HeartbeatIntervalDuration,
         @date
     )
@@ -105,31 +108,33 @@ else
         ControlInboxErrorQueueUri = @ControlInboxErrorQueueUri,
         OutboxWorkQueueUri = @OutboxWorkQueueUri,
         OutboxErrorQueueUri = @OutboxErrorQueueUri,
+        TransientInstance = @TransientInstance,
         HeartbeatDate = @date
     where
         MachineName = @MachineName
     and
         BaseDirectory = @BaseDirectory
 ")
-                .AddParameterValue(EndpointColumns.MachineName, machineName)
-                .AddParameterValue(EndpointColumns.BaseDirectory, baseDirectory)
-                .AddParameterValue(EndpointColumns.EntryAssemblyQualifiedName, entryAssemblyQualifiedName)
-                .AddParameterValue(EndpointColumns.IPv4Address, ipv4Address)
-                .AddParameterValue(EndpointColumns.InboxWorkQueueUri, inboxWorkQueueUri)
-                .AddParameterValue(EndpointColumns.InboxErrorQueueUri, inboxErrorQueueUri)
-                .AddParameterValue(EndpointColumns.InboxDeferredQueueUri, inboxDeferredQueueUri)
-                .AddParameterValue(EndpointColumns.ControlInboxWorkQueueUri, controlInboxWorkQueueUri)
-                .AddParameterValue(EndpointColumns.ControlInboxErrorQueueUri, controlInboxErrorQueueUri)
-                .AddParameterValue(EndpointColumns.OutboxWorkQueueUri, outboxWorkQueueUri)
-                .AddParameterValue(EndpointColumns.OutboxErrorQueueUri, outboxErrorQueueUri)
-                .AddParameterValue(EndpointColumns.HeartbeatIntervalDuration, heartbeatIntervalDuration);
+                .AddParameterValue(Columns.MachineName, machineName)
+                .AddParameterValue(Columns.BaseDirectory, baseDirectory)
+                .AddParameterValue(Columns.EntryAssemblyQualifiedName, entryAssemblyQualifiedName)
+                .AddParameterValue(Columns.IPv4Address, ipv4Address)
+                .AddParameterValue(Columns.InboxWorkQueueUri, inboxWorkQueueUri)
+                .AddParameterValue(Columns.InboxErrorQueueUri, inboxErrorQueueUri)
+                .AddParameterValue(Columns.InboxDeferredQueueUri, inboxDeferredQueueUri)
+                .AddParameterValue(Columns.ControlInboxWorkQueueUri, controlInboxWorkQueueUri)
+                .AddParameterValue(Columns.ControlInboxErrorQueueUri, controlInboxErrorQueueUri)
+                .AddParameterValue(Columns.OutboxWorkQueueUri, outboxWorkQueueUri)
+                .AddParameterValue(Columns.OutboxErrorQueueUri, outboxErrorQueueUri)
+                .AddParameterValue(Columns.OutboxErrorQueueUri, outboxErrorQueueUri)
+                .AddParameterValue(Columns.HeartbeatIntervalDuration, heartbeatIntervalDuration);
         }
 
         public IQuery AddMessageTypeHandled(Guid endpointId, string messageType)
         {
             return RawQuery.Create(@"
-if not exists (select null from MessageTypeHandled where EndpointId = @Id and MessageType = @MessageType)
-    insert into MessageTypeHandled
+if not exists (select null from EndpointMessageTypeHandled where EndpointId = @Id and MessageType = @MessageType)
+    insert into EndpointMessageTypeHandled
     (
         EndpointId,
         MessageType
@@ -141,7 +146,7 @@ if not exists (select null from MessageTypeHandled where EndpointId = @Id and Me
     )
 ")
                 .AddParameterValue(Columns.Id, endpointId)
-                .AddParameterValue(MessageColumns.MessageType, messageType);
+                .AddParameterValue(Columns.MessageType, messageType);
         }
 
         public IQuery AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType,
@@ -153,7 +158,7 @@ if not exists
     select
         null
     from
-        MessageTypeDispatched
+        EndpointMessageTypeDispatched
     where
         EndpointId = @Id
     and
@@ -161,7 +166,7 @@ if not exists
     and
         RecipientInboxWorkQueueUri = @RecipientInboxWorkQueueUri 
 )
-    insert into MessageTypeDispatched
+    insert into EndpointMessageTypeDispatched
     (
         EndpointId,
         MessageType,
@@ -175,8 +180,8 @@ if not exists
     )
 ")
                 .AddParameterValue(Columns.Id, endpointId)
-                .AddParameterValue(MessageColumns.MessageType, dispatchedMessageType)
-                .AddParameterValue(MessageColumns.RecipientInboxWorkQueueUri, recipientInboxWorkQueueUri);
+                .AddParameterValue(Columns.MessageType, dispatchedMessageType)
+                .AddParameterValue(Columns.RecipientInboxWorkQueueUri, recipientInboxWorkQueueUri);
         }
 
         public IQuery AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled,
@@ -188,7 +193,7 @@ if not exists
     select
         null
     from
-        MessageTypeAssociation
+        EndpointMessageTypeAssociation
     where
         EndpointId = @Id
     and
@@ -196,7 +201,7 @@ if not exists
     and
         MessageTypeDispatched = @MessageTypeDispatched
 )
-    insert into MessageTypeAssociation
+    insert into EndpointMessageTypeAssociation
     (
         EndpointId,
         MessageTypeHandled,
@@ -210,16 +215,16 @@ if not exists
     )
 ")
                 .AddParameterValue(Columns.Id, endpointId)
-                .AddParameterValue(MessageColumns.MessageTypeHandled, messageTypeHandled)
-                .AddParameterValue(MessageColumns.MessageTypeDispatched, messageTypeDispatched);
+                .AddParameterValue(Columns.MessageTypeHandled, messageTypeHandled)
+                .AddParameterValue(Columns.MessageTypeDispatched, messageTypeDispatched);
         }
 
         public IQuery AddMessageTypeMetric(Guid metricId, string messageType, DateTime dateRegistered, Guid endpointId,
             int count, double fastestExecutionDuration, double slowestExecutionDuration, double totalExecutionDuration)
         {
             return RawQuery.Create(@"
-if not exists (select null from MessageTypeMetric where MetricId = @MetricId and MessageType = @MessageType)
-    insert into MessageTypeMetric
+if not exists (select null from EndpointMessageTypeMetric where MetricId = @MetricId and MessageType = @MessageType)
+    insert into EndpointMessageTypeMetric
     (
         MetricId,
         MessageType,
@@ -242,21 +247,21 @@ if not exists (select null from MessageTypeMetric where MetricId = @MetricId and
         @SlowestExecutionDuration
     )
 ")
-                .AddParameterValue(MessageColumns.MetricId, metricId)
-                .AddParameterValue(MessageColumns.MessageType, messageType)
-                .AddParameterValue(MessageColumns.DateRegistered, dateRegistered)
+                .AddParameterValue(Columns.MetricId, metricId)
+                .AddParameterValue(Columns.MessageType, messageType)
+                .AddParameterValue(Columns.DateRegistered, dateRegistered)
                 .AddParameterValue(Columns.Id, endpointId)
-                .AddParameterValue(MessageColumns.Count, count)
-                .AddParameterValue(MessageColumns.TotalExecutionDuration, totalExecutionDuration)
-                .AddParameterValue(MessageColumns.FastestExecutionDuration, fastestExecutionDuration)
-                .AddParameterValue(MessageColumns.SlowestExecutionDuration, slowestExecutionDuration);
+                .AddParameterValue(Columns.Count, count)
+                .AddParameterValue(Columns.TotalExecutionDuration, totalExecutionDuration)
+                .AddParameterValue(Columns.FastestExecutionDuration, fastestExecutionDuration)
+                .AddParameterValue(Columns.SlowestExecutionDuration, slowestExecutionDuration);
         }
 
-        public IQuery Remove(Guid id)
+        public IQuery Remove(Guid endpointId)
         {
             return RawQuery.Create(
                     @"delete from Endpoint where Id = @Id")
-                .AddParameterValue(Columns.Id, id);
+                .AddParameterValue(Columns.Id, endpointId);
         }
 
         public IQuery All()
@@ -279,6 +284,43 @@ order by
     MachineName
 "))
                 .AddParameterValue(Columns.Match, string.Concat("%", match, "%"));
+        }
+
+        public IQuery RegisterHeartbeat(Guid endpointId)
+        {
+            return RawQuery.Create(@"
+update
+    Endpoint
+set
+    HeartbeatDate = getutcdate()
+where 
+    Id = @Id
+")
+                .AddParameterValue(Columns.Id, endpointId);
+        }
+
+        public IQuery AddLogEntry(Guid endpointId, DateTime dateLogged, string message)
+        {
+            return RawQuery.Create(@"
+insert into EndpointLogEntry
+(
+	EndpointId,
+	DateLogged,
+	DateRegistered,
+	Message
+)
+values
+(
+	@Id,
+	@DateLogged,
+	@DateRegistered,
+	@Message
+);
+")
+                .AddParameterValue(Columns.Id, endpointId)
+                .AddParameterValue(Columns.DateLogged, dateLogged)
+                .AddParameterValue(Columns.DateRegistered, DateTime.UtcNow)
+                .AddParameterValue(Columns.Message, message);
         }
     }
 }

@@ -47,9 +47,9 @@ namespace Shuttle.Sentinel.Queues
                         .Select(
                             row =>
                                 new InspectionMessage(
-                                    InspectionQueueColumns.SourceQueueUri.MapFrom(row),
-                                    InspectionQueueColumns.MessageId.MapFrom(row),
-                                    new MemoryStream(InspectionQueueColumns.MessageBody.MapFrom(row)))));
+                                    Columns.SourceQueueUri.MapFrom(row),
+                                    Columns.MessageId.MapFrom(row),
+                                    new MemoryStream(Columns.MessageBody.MapFrom(row)))));
             }
 
             return result;
@@ -70,9 +70,9 @@ namespace Shuttle.Sentinel.Queues
                 var row = _databaseGateway.GetRow(_inspectionQueueQueryFactory.Get(messageId));
 
                 return new InspectionMessage(
-                    InspectionQueueColumns.SourceQueueUri.MapFrom(row),
-                    InspectionQueueColumns.MessageId.MapFrom(row),
-                    new MemoryStream(InspectionQueueColumns.MessageBody.MapFrom(row)));
+                    Columns.SourceQueueUri.MapFrom(row),
+                    Columns.MessageId.MapFrom(row),
+                    new MemoryStream(Columns.MessageBody.MapFrom(row)));
             }
         }
     }

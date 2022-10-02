@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[MessageTypeAssociation] (
+﻿CREATE TABLE [dbo].[EndpointMessageTypeAssociation] (
     [EndpointId]            UNIQUEIDENTIFIER NOT NULL,
     [MessageTypeHandled]    VARCHAR (250)    NOT NULL,
     [MessageTypeDispatched] VARCHAR (250)    NOT NULL,

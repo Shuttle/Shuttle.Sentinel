@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Sentinel.Module", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Sentinel.Projection", "Shuttle.Sentinel.Projection\Shuttle.Sentinel.Projection.csproj", "{5D824780-0A03-4812-9592-52209C2868E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Application", "Shuttle.Sentinel.Application\Shuttle.Sentinel.Application.csproj", "{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shuttle.Sentinel.Application", "Shuttle.Sentinel.Application\Shuttle.Sentinel.Application.csproj", "{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shuttle.Sentinel.Logging", "Shuttle.Sentinel.Logging\Shuttle.Sentinel.Logging.csproj", "{ED8F73C8-F002-43E5-83D4-39DDE5EE4DFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CAF549E-AF6B-4BB6-A68F-DDDFEB7F7D9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED8F73C8-F002-43E5-83D4-39DDE5EE4DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED8F73C8-F002-43E5-83D4-39DDE5EE4DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED8F73C8-F002-43E5-83D4-39DDE5EE4DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED8F73C8-F002-43E5-83D4-39DDE5EE4DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

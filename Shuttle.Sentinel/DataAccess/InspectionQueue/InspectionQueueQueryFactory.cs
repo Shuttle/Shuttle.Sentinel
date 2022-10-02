@@ -11,9 +11,9 @@ namespace Shuttle.Sentinel.DataAccess
         public IQuery Enqueue(string sourceQueueUri, TransportMessage transportMessage, Stream stream)
         {
             return RawQuery.Create(@"insert into [dbo].[InspectionQueue] (SourceQueueUri, MessageId, MessageBody) values (@SourceQueueUri, @MessageId, @MessageBody)")
-                .AddParameterValue(InspectionQueueColumns.SourceQueueUri, sourceQueueUri)
-                .AddParameterValue(InspectionQueueColumns.MessageId, transportMessage.MessageId)
-                .AddParameterValue(InspectionQueueColumns.MessageBody, stream.ToBytes());
+                .AddParameterValue(Columns.SourceQueueUri, sourceQueueUri)
+                .AddParameterValue(Columns.MessageId, transportMessage.MessageId)
+                .AddParameterValue(Columns.MessageBody, stream.ToBytes());
         }
 
         public IQuery Messages()
@@ -24,13 +24,13 @@ namespace Shuttle.Sentinel.DataAccess
         public IQuery Remove(Guid messageId)
         {
             return RawQuery.Create(@"delete from [dbo].[InspectionQueue] where MessageId = @MessageId")
-                .AddParameterValue(InspectionQueueColumns.MessageId, messageId);
+                .AddParameterValue(Columns.MessageId, messageId);
         }
 
         public IQuery Get(Guid messageId)
         {
             return RawQuery.Create(@"select SourceQueueUri, MessageId, MessageBody from [dbo].[InspectionQueue]")
-                .AddParameterValue(InspectionQueueColumns.MessageId, messageId);
+                .AddParameterValue(Columns.MessageId, messageId);
         }
     }
 }

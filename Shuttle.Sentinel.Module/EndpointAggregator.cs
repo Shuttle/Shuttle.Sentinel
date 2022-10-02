@@ -1,57 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
-using System.Reflection;
+using System.Linq;
 using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
-using Shuttle.Esb;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Module
 {
     public class EndpointAggregator : IEndpointAggregator
     {
-        private readonly List<RegisterEndpoint.Association> _associations =
-            new List<RegisterEndpoint.Association>();
+        private readonly List<RegisterMessageTypeAssociations.Association> _associations =
+            new List<RegisterMessageTypeAssociations.Association>();
 
-        private readonly List<RegisterEndpoint.Dispatched> _dispatched =
-            new List<RegisterEndpoint.Dispatched>();
+        private readonly List<RegisterMessageTypesDispatched.Dispatched> _dispatched =
+            new List<RegisterMessageTypesDispatched.Dispatched>();
 
-        private readonly string _ipv4Address;
         private readonly object _lock = new object();
         private readonly Dictionary<Guid, DateTime> _messageProcessingStartDates = new Dictionary<Guid, DateTime>();
 
-        private readonly Dictionary<Type, RegisterEndpoint.MessageTypeMetric> _messageTypeMetrics =
-            new Dictionary<Type, RegisterEndpoint.MessageTypeMetric>();
+        private readonly Dictionary<Type, RegisterMessageTypeMetrics.MessageTypeMetric> _messageTypeMetrics =
+            new Dictionary<Type, RegisterMessageTypeMetrics.MessageTypeMetric>();
 
         private readonly List<string> _messageTypes = new List<string>();
         private readonly HashSet<string> _registeredAssociations = new HashSet<string>();
         private readonly HashSet<string> _registeredDispatched = new HashSet<string>();
         private readonly HashSet<string> _registeredMessageTypes = new HashSet<string>();
-        private readonly string _entryAssemblyQualifiedName;
-        private readonly ServiceBusOptions _serviceBusOptions;
+        private readonly List<RegisterEndpointLogEntries.LogEntry> _logEntries = new List<RegisterEndpointLogEntries.LogEntry>();
+        private readonly SentinelOptions _sentinelOptions;
 
-        public EndpointAggregator(IOptions<ServiceBusOptions> serviceBusOptions)
+        public EndpointAggregator(IOptions<SentinelOptions> sentinelOptions)
         {
-            Guard.AgainstNull(serviceBusOptions, nameof(serviceBusOptions));
-            Guard.AgainstNull(serviceBusOptions.Value, nameof(serviceBusOptions.Value));
+            Guard.AgainstNull(sentinelOptions, nameof(sentinelOptions));
+            Guard.AgainstNull(sentinelOptions.Value, nameof(sentinelOptions.Value));
 
-            _serviceBusOptions = serviceBusOptions.Value;
-
-            _ipv4Address = "0.0.0.0";
-
-            foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
-            {
-                if (ip.AddressFamily != AddressFamily.InterNetwork)
-                {
-                    continue;
-                }
-
-                _ipv4Address = ip.ToString();
-            }
-
-            _entryAssemblyQualifiedName = Assembly.GetEntryAssembly().FullName;
+            _sentinelOptions = sentinelOptions.Value;
         }
 
         public void MessageProcessingStart(Guid messageId)
@@ -88,7 +70,7 @@ namespace Shuttle.Sentinel.Module
 
                 if (!_messageTypeMetrics.TryGetValue(messageType, out var messageTypeMetric))
                 {
-                    messageTypeMetric = new RegisterEndpoint.MessageTypeMetric
+                    messageTypeMetric = new RegisterMessageTypeMetrics.MessageTypeMetric
                     {
                         MessageType = messageType.FullName,
                         FastestExecutionDuration = double.MaxValue,
@@ -100,7 +82,7 @@ namespace Shuttle.Sentinel.Module
                     _messageTypeMetrics.Add(messageType, messageTypeMetric);
                 }
 
-                messageTypeMetric.Count = messageTypeMetric.Count + 1;
+                messageTypeMetric.Count += 1;
 
                 if (messageTypeMetric.FastestExecutionDuration > duration)
                 {
@@ -112,7 +94,7 @@ namespace Shuttle.Sentinel.Module
                     messageTypeMetric.SlowestExecutionDuration = duration;
                 }
 
-                messageTypeMetric.TotalExecutionDuration = messageTypeMetric.TotalExecutionDuration + duration;
+                messageTypeMetric.TotalExecutionDuration += duration;
 
                 _messageProcessingStartDates.Remove(messageId);
             }
@@ -126,49 +108,117 @@ namespace Shuttle.Sentinel.Module
             }
         }
 
-        public RegisterEndpoint GetRegisterEndpointCommand()
+        public IEnumerable<object> GetCommands()
         {
             lock (_lock)
             {
-                var result = new RegisterEndpoint
-                {
-                    MachineName = Environment.MachineName,
-                    IPv4Address = _ipv4Address,
-                    BaseDirectory = AppDomain.CurrentDomain.BaseDirectory,
-                    EntryAssemblyQualifiedName = _entryAssemblyQualifiedName,
-                    InboxWorkQueueUri = _serviceBusOptions.Inbox?.WorkQueueUri ?? string.Empty,
-                    InboxDeferredQueueUri = _serviceBusOptions.Inbox?.DeferredQueueUri ?? string.Empty,
-                    InboxErrorQueueUri = _serviceBusOptions.Inbox?.ErrorQueueUri ?? string.Empty,
-                    OutboxWorkQueueUri = _serviceBusOptions.Outbox?.WorkQueueUri ?? string.Empty,
-                    OutboxErrorQueueUri = _serviceBusOptions.Outbox?.ErrorQueueUri ?? string.Empty,
-                    ControlInboxWorkQueueUri = _serviceBusOptions.ControlInbox?.WorkQueueUri ?? string.Empty,
-                    ControlInboxErrorQueueUri = _serviceBusOptions.ControlInbox.ErrorQueueUri ?? string.Empty
-                };
+                var result = new List<object>();
 
-                foreach (var messageType in _messageTypes)
+                if (_messageTypes.Any())
                 {
-                    result.MessageTypesHandled.Add(messageType);
+                    var message = EndpointMessage.Create<RegisterMessageTypesHandled>();
+
+                    result.Add(message);
+
+                    foreach (var messageType in _messageTypes)
+                    {
+                        if (!message.HasMessageContentSizeAvailable(messageType,
+                                _sentinelOptions.MaximumMessageContentSize))
+                        {
+                            message = EndpointMessage.Create<RegisterMessageTypesHandled>();
+
+                            result.Add(message);
+                        }
+
+                        message.MessageTypesHandled.Add(messageType);
+                    }
                 }
 
-                foreach (var association in _associations)
+                if (_associations.Any())
                 {
-                    result.MessageTypeAssociations.Add(association);
+                    var message = EndpointMessage.Create<RegisterMessageTypeAssociations>();
+
+                    result.Add(message);
+
+                    foreach (var association in _associations)
+                    {
+                        if (!message.HasMessageContentSizeAvailable(association,
+                                _sentinelOptions.MaximumMessageContentSize))
+                        {
+                            message = EndpointMessage.Create<RegisterMessageTypeAssociations>();
+
+                            result.Add(message);
+                        }
+
+                        message.MessageTypeAssociations.Add(association);
+                    }
                 }
 
-                foreach (var dispatched in _dispatched)
+                if (_dispatched.Any())
                 {
-                    result.MessageTypesDispatched.Add(dispatched);
+                    var message = EndpointMessage.Create<RegisterMessageTypesDispatched>();
+
+                    result.Add(message);
+
+                    foreach (var dispatched in _dispatched)
+                    {
+                        if (!message.HasMessageContentSizeAvailable(dispatched,
+                                _sentinelOptions.MaximumMessageContentSize))
+                        {
+                            message = EndpointMessage.Create<RegisterMessageTypesDispatched>();
+
+                            result.Add(message);
+                        }
+
+                        message.MessageTypesDispatched.Add(dispatched);
+                    }
                 }
 
-                foreach (var messageTypeMetric in _messageTypeMetrics.Values)
+                if (_messageTypeMetrics.Values.Any())
                 {
-                    result.MessageTypeMetrics.Add(messageTypeMetric);
+                    var message = EndpointMessage.Create<RegisterMessageTypeMetrics>();
+
+                    result.Add(message);
+
+                    foreach (var messageTypeMetric in _messageTypeMetrics.Values)
+                    {
+                        if (message.HasMessageContentSizeAvailable(messageTypeMetric,
+                                _sentinelOptions.MaximumMessageContentSize))
+                        {
+                            message = EndpointMessage.Create<RegisterMessageTypeMetrics>();
+
+                            result.Add(message);
+                        }
+                        
+                        message.MessageTypeMetrics.Add(messageTypeMetric);
+                    }
+                }
+
+                if (_logEntries.Any())
+                {
+                    var message = EndpointMessage.Create<RegisterEndpointLogEntries>();
+
+                    result.Add(message);
+
+                    foreach (var logEntry in _logEntries)
+                    {
+                        if (message.HasMessageContentSizeAvailable(logEntry,
+                                _sentinelOptions.MaximumMessageContentSize))
+                        {
+                            message = EndpointMessage.Create<RegisterEndpointLogEntries>();
+
+                            result.Add(message);
+                        }
+
+                        message.LogEntries.Add(logEntry);
+                    }
                 }
 
                 _messageTypes.Clear();
                 _associations.Clear();
                 _dispatched.Clear();
                 _messageTypeMetrics.Clear();
+                _logEntries.Clear();
 
                 return result;
             }
@@ -185,7 +235,7 @@ namespace Shuttle.Sentinel.Module
                     return;
                 }
 
-                _associations.Add(new RegisterEndpoint.Association
+                _associations.Add(new RegisterMessageTypeAssociations.Association
                 {
                     MessageTypeHandled = messageTypeHandled,
                     MessageTypeDispatched = messageTypeDispatched
@@ -201,12 +251,12 @@ namespace Shuttle.Sentinel.Module
 
             lock (_lock)
             {
-                if (_registeredAssociations.Contains(key))
+                if (_registeredDispatched.Contains(key))
                 {
                     return;
                 }
 
-                _dispatched.Add(new RegisterEndpoint.Dispatched
+                _dispatched.Add(new RegisterMessageTypesDispatched.Dispatched
                 {
                     MessageType = messageType,
                     RecipientInboxWorkQueueUri = recipientInboxWorkQueueUri
@@ -214,6 +264,20 @@ namespace Shuttle.Sentinel.Module
 
                 _registeredDispatched.Add(key);
             }
+        }
+
+        public void Log(DateTime dateLogged, string message)
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                return;
+            }
+
+            _logEntries.Add(new RegisterEndpointLogEntries.LogEntry
+            {
+                DateLogged = dateLogged,
+                Message = message
+            });
         }
     }
 }

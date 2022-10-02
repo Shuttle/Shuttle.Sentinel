@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[MessageTypeDispatched] (
+﻿CREATE TABLE [dbo].[EndpointMessageTypeDispatched] (
     [EndpointId]  UNIQUEIDENTIFIER NOT NULL,
     [MessageType] VARCHAR (250)    NOT NULL,
     [RecipientInboxWorkQueueUri] VARCHAR(130) NOT NULL, 

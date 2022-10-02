@@ -8,13 +8,13 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
 {
-    public class RegisterEndpointHandler : IMessageHandler<RegisterEndpoint>
+    public class EndpointStartedHandler : IMessageHandler<EndpointStarted>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
         private readonly ServerOptions _serverOptions;
 
-        public RegisterEndpointHandler(IOptions<ServerOptions> serverOptions, IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery)
+        public EndpointStartedHandler(IOptions<ServerOptions> serverOptions, IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery)
         {
             Guard.AgainstNull(serverOptions, nameof(serverOptions));
             Guard.AgainstNull(serverOptions.Value, nameof(serverOptions.Value));
@@ -26,7 +26,7 @@ namespace Shuttle.Sentinel.Server
             _endpointQuery = endpointQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<RegisterEndpoint> context)
+        public void ProcessMessage(IHandlerContext<EndpointStarted> context)
         {
             var message = context.Message;
 
@@ -66,52 +66,8 @@ namespace Shuttle.Sentinel.Server
                     message.OutboxErrorQueueUri,
                     message.ControlInboxWorkQueueUri,
                     message.ControlInboxErrorQueueUri,
+                    message.TransientInstance,
                     heartbeatIntervalDuration);
-
-                var id = _endpointQuery.FindId(message.MachineName, message.BaseDirectory);
-
-                if (!id.HasValue)
-                {
-                    return;
-                }
-
-                var endpointId = id.Value;
-
-                foreach (var metric in message.MessageTypeMetrics)
-                {
-                    _endpointQuery.AddMessageTypeMetric(
-                        context.TransportMessage.MessageId,
-                        metric.MessageType,
-                        context.TransportMessage.SendDate,
-                        endpointId,
-                        metric.Count,
-                        metric.FastestExecutionDuration,
-                        metric.SlowestExecutionDuration,
-                        metric.TotalExecutionDuration);
-                }
-
-                foreach (var association in message.MessageTypeAssociations)
-                {
-                    _endpointQuery.AddMessageTypeAssociation(
-                        endpointId,
-                        association.MessageTypeHandled,
-                        association.MessageTypeDispatched);
-                }
-
-                foreach (var dispatched in message.MessageTypesDispatched)
-                {
-                    _endpointQuery.AddMessageTypeDispatched(
-                        endpointId,
-                        dispatched.MessageType,
-                        dispatched.RecipientInboxWorkQueueUri);
-                }
-
-                foreach (var messageType in message.MessageTypesHandled)
-                {
-                    _endpointQuery.AddMessageTypeHandled(
-                        endpointId,
-                        messageType);
-                }
             }
 
             RegisterQueue(context, message.InboxWorkQueueUri, "inbox", "work");
@@ -123,7 +79,7 @@ namespace Shuttle.Sentinel.Server
             RegisterQueue(context, message.ControlInboxErrorQueueUri, "control-inbox", "error");
         }
 
-        private void RegisterQueue(IHandlerContext<RegisterEndpoint> context, string uri, string processor,
+        private void RegisterQueue(IHandlerContext context, string uri, string processor,
             string type)
         {
             if (string.IsNullOrEmpty(uri))

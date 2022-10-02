@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[MessageTypeMetric] (
+﻿CREATE TABLE [dbo].[EndpointMessageTypeMetric] (
     [MetricId]                 UNIQUEIDENTIFIER NOT NULL,
     [MessageType]              VARCHAR (250)    NOT NULL,
     [DateRegistered]           DATETIME         NOT NULL,
@@ -15,7 +15,7 @@
 
 GO
 CREATE CLUSTERED INDEX [IX_MessageTypeMetric]
-    ON [dbo].[MessageTypeMetric]([DateRegistered] ASC);
+    ON [dbo].[EndpointMessageTypeMetric]([DateRegistered] ASC);
 
 
 

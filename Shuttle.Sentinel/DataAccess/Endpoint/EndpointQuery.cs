@@ -27,11 +27,11 @@ namespace Shuttle.Sentinel.DataAccess
         public void Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
             string ipv4Address, string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string outboxWorkQueueUri, string outboxErrorQueueUri, string controlInboxWorkQueueUri,
-            string controlInboxErrorQueueUri, string heartbeatIntervalDuration)
+            string controlInboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration)
         {
             _databaseGateway.Execute(_queryFactory.Save(machineName, baseDirectory, entryAssemblyQualifiedName,
                 ipv4Address, inboxWorkQueueUri, inboxDeferredQueueUri, inboxErrorQueueUri, controlInboxWorkQueueUri,
-                controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri, heartbeatIntervalDuration));
+                controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri, transientInstance, heartbeatIntervalDuration));
         }
 
         public Guid? FindId(string machineName, string baseDirectory)
@@ -69,9 +69,9 @@ namespace Shuttle.Sentinel.DataAccess
                 _queryFactory.AddMessageTypeHandled(endpointId, messageType));
         }
 
-        public void Remove(Guid id)
+        public void Remove(Guid endpointId)
         {
-            _databaseGateway.Execute(_queryFactory.Remove(id));
+            _databaseGateway.Execute(_queryFactory.Remove(endpointId));
         }
 
         public IEnumerable<Endpoint> All()
@@ -82,6 +82,16 @@ namespace Shuttle.Sentinel.DataAccess
         public IEnumerable<Endpoint> Search(string match)
         {
             return _queryMapper.MapObjects<Endpoint>(_queryFactory.Search(match));
+        }
+
+        public void RegisterHeartbeat(Guid endpointId)
+        {
+            _databaseGateway.Execute(_queryFactory.RegisterHeartbeat(endpointId));
+        }
+
+        public void AddLogEntry(Guid endpointId, DateTime dateLogged, string message)
+        {
+            _databaseGateway.Execute(_queryFactory.AddLogEntry(endpointId, dateLogged, message));
         }
     }
 }
