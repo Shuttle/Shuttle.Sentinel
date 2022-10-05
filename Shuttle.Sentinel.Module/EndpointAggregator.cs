@@ -214,6 +214,15 @@ namespace Shuttle.Sentinel.Module
                     }
                 }
 
+                if (!_messageTypes.Any() &&
+                    !_associations.Any() &&
+                    !_dispatched.Any() &&
+                    !_messageTypeMetrics.Any() &&
+                    !_logEntries.Any())
+                {
+                    result.Add(EndpointMessage.Create<RegisterHeartbeat>());
+                }
+
                 _messageTypes.Clear();
                 _associations.Clear();
                 _dispatched.Clear();
@@ -256,11 +265,14 @@ namespace Shuttle.Sentinel.Module
                     return;
                 }
 
-                _dispatched.Add(new RegisterMessageTypesDispatched.Dispatched
+                if (!messageType.StartsWith("Shuttle.Sentinel.Messages", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    MessageType = messageType,
-                    RecipientInboxWorkQueueUri = recipientInboxWorkQueueUri
-                });
+                    _dispatched.Add(new RegisterMessageTypesDispatched.Dispatched
+                    {
+                        MessageType = messageType,
+                        RecipientInboxWorkQueueUri = recipientInboxWorkQueueUri
+                    });
+                }
 
                 _registeredDispatched.Add(key);
             }

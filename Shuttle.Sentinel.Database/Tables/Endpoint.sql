@@ -14,6 +14,7 @@
     [TransientInstance] BIT NULL, 
     [HeartbeatDate] DATETIME NOT NULL DEFAULT getdate(), 
     [HeartbeatIntervalDuration] VARCHAR(25) NOT NULL DEFAULT '00:00:30', 
+    [Status] VARCHAR(25) NOT NULL,
     CONSTRAINT [PK_Endpoint] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 );
 

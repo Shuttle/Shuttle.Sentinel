@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Shuttle.Sentinel.Messages.v1
 {
@@ -8,5 +9,6 @@ namespace Shuttle.Sentinel.Messages.v1
         public string Uri { get; set; }
         public string Processor { get; set; }
         public string Type { get; set; }
+        public List<string> Tags { get; set; } = new List<string>();
     }
 }

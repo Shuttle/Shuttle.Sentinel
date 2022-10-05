@@ -53,6 +53,11 @@ namespace Shuttle.Sentinel.Module
             _endpointAggregator = endpointAggregator;
             _sentinelObserver = sentinelObserver;
 
+            if (!_sentinelOptions.Enabled)
+            {
+                return;
+            }
+
             pipelineFactory.PipelineCreated += PipelineCreated;
         }
 
@@ -128,7 +133,8 @@ namespace Shuttle.Sentinel.Module
                 ControlInboxWorkQueueUri = _serviceBusOptions.ControlInbox?.WorkQueueUri ?? string.Empty,
                 ControlInboxErrorQueueUri = _serviceBusOptions.ControlInbox?.ErrorQueueUri ?? string.Empty,
                 Subscriptions = _serviceBusOptions.Subscription.MessageTypes,
-                TransientInstance = _sentinelOptions.TransientInstance
+                TransientInstance = _sentinelOptions.TransientInstance,
+                Tags = _sentinelOptions.Tags
             });
 
             _thread = new Thread(Send);

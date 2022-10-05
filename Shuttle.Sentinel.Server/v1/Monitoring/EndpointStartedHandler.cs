@@ -54,7 +54,7 @@ namespace Shuttle.Sentinel.Server
 
             using (_databaseContextFactory.Create())
             {
-                _endpointQuery.Save(
+                _endpointQuery.Started(
                     message.MachineName,
                     message.BaseDirectory,
                     message.EntryAssemblyQualifiedName,

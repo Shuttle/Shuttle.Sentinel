@@ -19,5 +19,6 @@ namespace Shuttle.Sentinel.Messages.v1
         public string HeartbeatIntervalDuration { get; set; }
         public List<string> Subscriptions { get; set; } = new List<string>();
         public bool TransientInstance { get; set; }
+        public List<string> Tags { get; set; } = new List<string>();
     }
 }

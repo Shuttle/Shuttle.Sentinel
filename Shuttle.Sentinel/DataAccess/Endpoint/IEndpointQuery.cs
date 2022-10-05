@@ -6,7 +6,7 @@ namespace Shuttle.Sentinel.DataAccess
 {
     public interface IEndpointQuery
     {
-        void Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName, string ipv4Address,
+        void Started(string machineName, string baseDirectory, string entryAssemblyQualifiedName, string ipv4Address,
             string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string outboxWorkQueueUri, string outboxErrorQueueUri, string controlInboxWorkQueueUri,
             string controlInboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration);

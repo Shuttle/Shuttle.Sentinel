@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Tag]
+(
+	[OwnerId] UNIQUEIDENTIFIER NOT NULL , 
+    [Tag] NCHAR(10) NOT NULL, 
+    PRIMARY KEY CLUSTERED ([OwnerId], [Tag])
+)
