@@ -1,4 +1,6 @@
-﻿using Shuttle.Core.Contract;
+﻿using System;
+using Microsoft.Extensions.Options;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
@@ -6,22 +8,25 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
 {
-    public class RegisterSystemMetricsHandler : EndpointMessageHandler, IMessageHandler<RegisterSystemMetrics>
+    public class EndpointStoppedHandler : EndpointMessageHandler, IMessageHandler<EndpointStopped>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
+        private readonly ServerOptions _serverOptions;
 
-        public RegisterSystemMetricsHandler(IDatabaseContextFactory databaseContextFactory,
-            IEndpointQuery endpointQuery)
+        public EndpointStoppedHandler(IOptions<ServerOptions> serverOptions, IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery)
         {
+            Guard.AgainstNull(serverOptions, nameof(serverOptions));
+            Guard.AgainstNull(serverOptions.Value, nameof(serverOptions.Value));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(endpointQuery, nameof(endpointQuery));
 
+            _serverOptions = serverOptions.Value;
             _databaseContextFactory = databaseContextFactory;
             _endpointQuery = endpointQuery;
         }
 
-        public void ProcessMessage(IHandlerContext<RegisterSystemMetrics> context)
+        public void ProcessMessage(IHandlerContext<EndpointStopped> context)
         {
             var message = context.Message;
 
@@ -36,14 +41,7 @@ namespace Shuttle.Sentinel.Server
                     return;
                 }
 
-                var endpointId = id.Value;
-
-                foreach (var systemMetric in message.SystemMetrics)
-                {
-                    _endpointQuery.RegisterSystemMetric(endpointId, systemMetric.DateRegistered , systemMetric.Name, systemMetric.Value);
-                }
-
-                _endpointQuery.RegisterHeartbeat(endpointId);
+                _endpointQuery.Stopped(id.Value, context.TransportMessage.SendDate);
             }
         }
     }

@@ -8,7 +8,7 @@ using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
 {
-    public class RegisterMessageTypeMetricsHandler : IMessageHandler<RegisterMessageTypeMetrics>
+    public class RegisterMessageTypeMetricsHandler : EndpointMessageHandler, IMessageHandler<RegisterMessageTypeMetrics>
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
@@ -32,6 +32,8 @@ namespace Shuttle.Sentinel.Server
 
                 if (!id.HasValue)
                 {
+                    Defer(context, message);
+
                     return;
                 }
 

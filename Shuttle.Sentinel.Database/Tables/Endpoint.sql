@@ -12,9 +12,10 @@
     [OutboxWorkQueueUri]   VARCHAR (130)    NULL,
     [OutboxErrorQueueUri]   VARCHAR (130)    NULL,
     [TransientInstance] BIT NULL, 
-    [HeartbeatDate] DATETIME NOT NULL DEFAULT getdate(), 
+    [HeartbeatDate] DATETIME2 NOT NULL DEFAULT getutcdate(), 
     [HeartbeatIntervalDuration] VARCHAR(25) NOT NULL DEFAULT '00:00:30', 
-    [Status] VARCHAR(25) NOT NULL,
+    [DateStarted] DATETIME2 NULL,
+    [DateStopped] DATETIME2 NULL, 
     CONSTRAINT [PK_Endpoint] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 );
 

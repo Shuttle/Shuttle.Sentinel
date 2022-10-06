@@ -7,11 +7,11 @@ namespace Shuttle.Sentinel.DataAccess
     {
         IQuery FindId(string machineName, string baseDirectory);
 
-        IQuery Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName, string ipv4Address,
+        IQuery Started(string machineName, string baseDirectory, string entryAssemblyQualifiedName, string ipv4Address,
             string inboxWorkQueueUri,
             string inboxDeferredQueueUri, string inboxErrorQueueUri, string controlInboxWorkQueueUri,
             string controlInboxErrorQueueUri, string outboxWorkQueueUri,
-            string outboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration);
+            string outboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration, DateTime dateStarted);
 
         IQuery AddMessageTypeHandled(Guid endpointId, string messageType);
 
@@ -28,5 +28,7 @@ namespace Shuttle.Sentinel.DataAccess
         IQuery Search(string match);
         IQuery RegisterHeartbeat(Guid endpointId);
         IQuery AddLogEntry(Guid endpointId, DateTime dateLogged, string message);
+        IQuery Stopped(Guid endpointId, DateTime dateStopped);
+        IQuery RegisterSystemMetric(Guid endpointId, DateTime dateRegistered, string name, decimal value);
     }
 }

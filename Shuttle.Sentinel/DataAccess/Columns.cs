@@ -13,6 +13,7 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<DateTime> EffectiveToDate = new MappedColumn<DateTime>("EffectiveToDate", DbType.DateTime2);
         public static readonly MappedColumn<string> EMailAddress = new MappedColumn<string>("EMailAddress", DbType.AnsiString);
         public static readonly MappedColumn<Guid> Id = new MappedColumn<Guid>("Id", DbType.Guid);
+        public static readonly MappedColumn<Guid> OwnerId = new MappedColumn<Guid>("OwnerId", DbType.Guid);
         public static readonly MappedColumn<string> Match = new MappedColumn<string>("Match", DbType.AnsiString);
         public static readonly MappedColumn<Guid> PasswordResetToken = new MappedColumn<Guid>("PasswordResetToken", DbType.Guid);
         public static readonly MappedColumn<DateTime> PasswordResetTokenDateRequested = new MappedColumn<DateTime>("PasswordResetTokenDateRequested", DbType.DateTime2);
@@ -49,5 +50,10 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<string> Processor = new MappedColumn<string>("Processor", DbType.String);
         public static readonly MappedColumn<string> Type = new MappedColumn<string>("Type", DbType.String);
         public static readonly MappedColumn<string> Message = new MappedColumn<string>("Message", DbType.String);
+        public static readonly MappedColumn<string> Tag = new MappedColumn<string>("Tag", DbType.String);
+        public static readonly MappedColumn<string> Name = new MappedColumn<string>("Name", DbType.String);
+        public static readonly MappedColumn<decimal> Value = new MappedColumn<decimal>("Value", DbType.Decimal);
+        public static readonly MappedColumn<DateTime> DateStarted = new MappedColumn<DateTime>("DateStarted", DbType.DateTime);
+        public static readonly MappedColumn<DateTime> DateStopped = new MappedColumn<DateTime>("DateStopped", DbType.DateTime);
     }
 }

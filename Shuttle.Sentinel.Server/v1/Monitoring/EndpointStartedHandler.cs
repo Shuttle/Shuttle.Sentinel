@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
@@ -30,15 +32,6 @@ namespace Shuttle.Sentinel.Server
         {
             var message = context.Message;
 
-            if (string.IsNullOrEmpty(message.MachineName)
-                ||
-                string.IsNullOrEmpty(message.BaseDirectory)
-                ||
-                context.TransportMessage.SendDate < DateTime.UtcNow.Subtract(_serverOptions.HeartbeatIntervalDuration))
-            {
-                return;
-            }
-
             string heartbeatIntervalDuration;
 
             try
@@ -67,20 +60,21 @@ namespace Shuttle.Sentinel.Server
                     message.ControlInboxWorkQueueUri,
                     message.ControlInboxErrorQueueUri,
                     message.TransientInstance,
-                    heartbeatIntervalDuration);
+                    heartbeatIntervalDuration,
+                    context.TransportMessage.SendDate);
             }
 
-            RegisterQueue(context, message.InboxWorkQueueUri, "inbox", "work");
-            RegisterQueue(context, message.InboxDeferredQueueUri, "inbox", "deferred");
-            RegisterQueue(context, message.InboxErrorQueueUri, "inbox", "error");
-            RegisterQueue(context, message.OutboxWorkQueueUri, "outbox", "work");
-            RegisterQueue(context, message.OutboxErrorQueueUri, "outbox", "error");
-            RegisterQueue(context, message.ControlInboxWorkQueueUri, "control-inbox", "work");
-            RegisterQueue(context, message.ControlInboxErrorQueueUri, "control-inbox", "error");
+            RegisterQueue(context, message.InboxWorkQueueUri, "inbox", "work", message.Tags);
+            RegisterQueue(context, message.InboxDeferredQueueUri, "inbox", "deferred", message.Tags);
+            RegisterQueue(context, message.InboxErrorQueueUri, "inbox", "error", message.Tags);
+            RegisterQueue(context, message.OutboxWorkQueueUri, "outbox", "work", message.Tags);
+            RegisterQueue(context, message.OutboxErrorQueueUri, "outbox", "error", message.Tags);
+            RegisterQueue(context, message.ControlInboxWorkQueueUri, "control-inbox", "work", message.Tags);
+            RegisterQueue(context, message.ControlInboxErrorQueueUri, "control-inbox", "error", message.Tags);
         }
 
         private void RegisterQueue(IHandlerContext context, string uri, string processor,
-            string type)
+            string type, List<string> tags)
         {
             if (string.IsNullOrEmpty(uri))
             {
@@ -91,7 +85,8 @@ namespace Shuttle.Sentinel.Server
             {
                 Uri = uri,
                 Processor = processor,
-                Type = type
+                Type = type,
+                Tags = tags
             }, c => c.Local());
         }
     }

@@ -27,11 +27,12 @@ namespace Shuttle.Sentinel.DataAccess
         public void Started(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
             string ipv4Address, string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string outboxWorkQueueUri, string outboxErrorQueueUri, string controlInboxWorkQueueUri,
-            string controlInboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration)
+            string controlInboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration,
+            DateTime dateStarted)
         {
-            _databaseGateway.Execute(_queryFactory.Save(machineName, baseDirectory, entryAssemblyQualifiedName,
+            _databaseGateway.Execute(_queryFactory.Started(machineName, baseDirectory, entryAssemblyQualifiedName,
                 ipv4Address, inboxWorkQueueUri, inboxDeferredQueueUri, inboxErrorQueueUri, controlInboxWorkQueueUri,
-                controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri, transientInstance, heartbeatIntervalDuration));
+                controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri, transientInstance, heartbeatIntervalDuration, dateStarted));
         }
 
         public Guid? FindId(string machineName, string baseDirectory)
@@ -92,6 +93,16 @@ namespace Shuttle.Sentinel.DataAccess
         public void AddLogEntry(Guid endpointId, DateTime dateLogged, string message)
         {
             _databaseGateway.Execute(_queryFactory.AddLogEntry(endpointId, dateLogged, message));
+        }
+
+        public void Stopped(Guid endpointId, DateTime dateStopped)
+        {
+            _databaseGateway.Execute(_queryFactory.Stopped(endpointId, dateStopped));
+        }
+
+        public void RegisterSystemMetric(Guid endpointId, DateTime dateRegistered, string name, decimal value)
+        {
+            _databaseGateway.Execute(_queryFactory.RegisterSystemMetric(endpointId, dateRegistered, name, value));
         }
     }
 }

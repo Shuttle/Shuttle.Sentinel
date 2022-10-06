@@ -1,20 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Shuttle.Sentinel.Messages.v1
 {
-    public class RegisterSystemMetrics
+    public class RegisterSystemMetrics : EndpointMessage
     {
-        public RegisterSystemMetrics()
-        {
-            SystemMetrics = new List<SystemMetric>();
-        }
-
-        public List<SystemMetric> SystemMetrics { get; set; }
+        public List<SystemMetric> SystemMetrics { get; set; } = new List<SystemMetric>();
 
         public class SystemMetric
         {
             public string Name { get; set; }
-            public string Value { get; set; }
+            public decimal Value { get; set; }
+            public DateTime DateRegistered { get; set; }
         }
     }
 }

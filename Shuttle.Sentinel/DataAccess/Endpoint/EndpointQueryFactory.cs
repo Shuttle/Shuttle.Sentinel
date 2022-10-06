@@ -42,10 +42,10 @@ and
                 .AddParameterValue(Columns.BaseDirectory, baseDirectory);
         }
 
-        public IQuery Save(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
+        public IQuery Started(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
             string ipv4Address, string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string controlInboxWorkQueueUri, string controlInboxErrorQueueUri, string outboxWorkQueueUri,
-            string outboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration)
+            string outboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration, DateTime dateStarted)
         {
             return RawQuery.Create(@"
 declare @date DateTime = getutcdate();
@@ -76,7 +76,8 @@ if not exists
         OutboxErrorQueueUri,
         TransientInstance,
         HeartbeatIntervalDuration,
-        HeartbeatDate
+        HeartbeatDate,
+        DateStarted
     )
     values
     (
@@ -93,9 +94,11 @@ if not exists
         @OutboxErrorQueueUri,
         @TransientInstance,
         @HeartbeatIntervalDuration,
-        @date
+        @date,
+        @DateStarted
     )
 else
+begin
     update
         Endpoint
     set
@@ -113,7 +116,19 @@ else
     where
         MachineName = @MachineName
     and
+        BaseDirectory = @BaseDirectory;
+
+    update
+        Endpoint
+    set
+        DateStarted = @DateStarted
+    where
+        MachineName = @MachineName
+    and
         BaseDirectory = @BaseDirectory
+    and
+        @DateStarted > DateStarted;
+end
 ")
                 .AddParameterValue(Columns.MachineName, machineName)
                 .AddParameterValue(Columns.BaseDirectory, baseDirectory)
@@ -127,7 +142,8 @@ else
                 .AddParameterValue(Columns.OutboxWorkQueueUri, outboxWorkQueueUri)
                 .AddParameterValue(Columns.OutboxErrorQueueUri, outboxErrorQueueUri)
                 .AddParameterValue(Columns.OutboxErrorQueueUri, outboxErrorQueueUri)
-                .AddParameterValue(Columns.HeartbeatIntervalDuration, heartbeatIntervalDuration);
+                .AddParameterValue(Columns.HeartbeatIntervalDuration, heartbeatIntervalDuration)
+                .AddParameterValue(Columns.DateStarted, dateStarted);
         }
 
         public IQuery AddMessageTypeHandled(Guid endpointId, string messageType)
@@ -321,6 +337,46 @@ values
                 .AddParameterValue(Columns.DateLogged, dateLogged)
                 .AddParameterValue(Columns.DateRegistered, DateTime.UtcNow)
                 .AddParameterValue(Columns.Message, message);
+        }
+
+        public IQuery Stopped(Guid endpointId, DateTime dateStopped)
+        {
+            return RawQuery.Create(@"
+    update
+        Endpoint
+    set
+        DateStopped = @DateStopped
+    where
+        Id = @Id
+    and
+        @DateStopped > DateStopped;
+")
+                .AddParameterValue(Columns.Id, endpointId)
+                .AddParameterValue(Columns.DateStopped, dateStopped);
+        }
+
+        public IQuery RegisterSystemMetric(Guid endpointId, DateTime dateRegistered, string name, decimal value)
+        {
+            return RawQuery.Create(@"
+insert into EndpointSystemMetric
+(
+	EndpointId,
+	DateRegistered,
+	Name,
+	Value
+)
+values
+(
+	@Id,
+	@DateRegistered,
+	@Name,
+	@Value
+);
+")
+                .AddParameterValue(Columns.Id, endpointId)
+                .AddParameterValue(Columns.DateRegistered, dateRegistered)
+                .AddParameterValue(Columns.Name, name)
+                .AddParameterValue(Columns.Value, value);
         }
     }
 }
