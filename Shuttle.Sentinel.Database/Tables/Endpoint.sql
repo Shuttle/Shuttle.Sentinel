@@ -2,6 +2,7 @@
     [Id]                         UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Endpoint_Id] DEFAULT newid(),
     [MachineName]                VARCHAR (130)    NOT NULL,
     [BaseDirectory]              VARCHAR (260)    NOT NULL,
+    [EnvironmentName]              VARCHAR (65)    NOT NULL,
     [InboxWorkQueueUri]          VARCHAR (130)    NULL,
     [EntryAssemblyQualifiedName] VARCHAR (500)    NULL,
 	[IPv4Address]				VARCHAR(15) NULL, 

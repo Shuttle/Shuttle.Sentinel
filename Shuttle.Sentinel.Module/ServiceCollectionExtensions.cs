@@ -26,7 +26,6 @@ namespace Shuttle.Sentinel.Module
                 options.HeartbeatIntervalDuration = sentinelModuleBuilder.Options.HeartbeatIntervalDuration;
                 options.MaximumMessageContentSize = sentinelModuleBuilder.Options.MaximumMessageContentSize;
                 options.TransientInstance = sentinelModuleBuilder.Options.TransientInstance;
-                options.Tags = sentinelModuleBuilder.Options.Tags;
             });
 
             services.AddPipelineModule<SentinelModule>();

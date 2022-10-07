@@ -6,6 +6,7 @@ using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
+using Shuttle.Sentinel.DataAccess.Tag;
 using Shuttle.Sentinel.Messages.v1;
 
 namespace Shuttle.Sentinel.Server
@@ -14,18 +15,21 @@ namespace Shuttle.Sentinel.Server
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
+        private readonly ITagQuery _tagQuery;
         private readonly ServerOptions _serverOptions;
 
-        public EndpointStartedHandler(IOptions<ServerOptions> serverOptions, IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery)
+        public EndpointStartedHandler(IOptions<ServerOptions> serverOptions, IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery, ITagQuery tagQuery)
         {
             Guard.AgainstNull(serverOptions, nameof(serverOptions));
             Guard.AgainstNull(serverOptions.Value, nameof(serverOptions.Value));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(endpointQuery, nameof(endpointQuery));
+            Guard.AgainstNull(tagQuery, nameof(tagQuery));
 
             _serverOptions = serverOptions.Value;
             _databaseContextFactory = databaseContextFactory;
             _endpointQuery = endpointQuery;
+            _tagQuery = tagQuery;
         }
 
         public void ProcessMessage(IHandlerContext<EndpointStarted> context)
@@ -49,7 +53,8 @@ namespace Shuttle.Sentinel.Server
             {
                 _endpointQuery.Started(
                     message.MachineName,
-                    message.BaseDirectory,
+                    message.BaseDirectory, 
+                    message.EnvironmentName,
                     message.EntryAssemblyQualifiedName,
                     message.IPv4Address,
                     message.InboxWorkQueueUri,
@@ -64,17 +69,17 @@ namespace Shuttle.Sentinel.Server
                     context.TransportMessage.SendDate);
             }
 
-            RegisterQueue(context, message.InboxWorkQueueUri, "inbox", "work", message.Tags);
-            RegisterQueue(context, message.InboxDeferredQueueUri, "inbox", "deferred", message.Tags);
-            RegisterQueue(context, message.InboxErrorQueueUri, "inbox", "error", message.Tags);
-            RegisterQueue(context, message.OutboxWorkQueueUri, "outbox", "work", message.Tags);
-            RegisterQueue(context, message.OutboxErrorQueueUri, "outbox", "error", message.Tags);
-            RegisterQueue(context, message.ControlInboxWorkQueueUri, "control-inbox", "work", message.Tags);
-            RegisterQueue(context, message.ControlInboxErrorQueueUri, "control-inbox", "error", message.Tags);
+            RegisterQueue(context, message.InboxWorkQueueUri, "inbox", "work");
+            RegisterQueue(context, message.InboxDeferredQueueUri, "inbox", "deferred");
+            RegisterQueue(context, message.InboxErrorQueueUri, "inbox", "error");
+            RegisterQueue(context, message.OutboxWorkQueueUri, "outbox", "work");
+            RegisterQueue(context, message.OutboxErrorQueueUri, "outbox", "error");
+            RegisterQueue(context, message.ControlInboxWorkQueueUri, "control-inbox", "work");
+            RegisterQueue(context, message.ControlInboxErrorQueueUri, "control-inbox", "error");
         }
 
         private void RegisterQueue(IHandlerContext context, string uri, string processor,
-            string type, List<string> tags)
+            string type)
         {
             if (string.IsNullOrEmpty(uri))
             {
@@ -85,8 +90,7 @@ namespace Shuttle.Sentinel.Server
             {
                 Uri = uri,
                 Processor = processor,
-                Type = type,
-                Tags = tags
+                Type = type
             }, c => c.Local());
         }
     }

@@ -23,9 +23,9 @@ namespace Shuttle.Sentinel.DataAccess
             _queryMapper = queryMapper;
         }
 
-        public void Save(string uri, string processor, string type)
+        public Guid Save(string uri, string processor, string type)
         {
-            _databaseGateway.Execute(_queryFactory.Save(uri, processor, type));
+            return _databaseGateway.GetScalar<Guid>(_queryFactory.Save(uri, processor, type));
         }
 
         public void Remove(Guid id)

@@ -40,6 +40,7 @@ else
         @Processor,
         @Type
     )
+
 ")
                 .AddParameterValue(Columns.Uri, uri)
                 .AddParameterValue(Columns.Processor, processor)

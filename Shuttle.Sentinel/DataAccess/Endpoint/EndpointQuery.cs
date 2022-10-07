@@ -24,13 +24,14 @@ namespace Shuttle.Sentinel.DataAccess
             _queryFactory = queryFactory;
         }
 
-        public void Started(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
+        public void Started(string machineName, string baseDirectory, string environmentName,
+            string entryAssemblyQualifiedName,
             string ipv4Address, string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string outboxWorkQueueUri, string outboxErrorQueueUri, string controlInboxWorkQueueUri,
             string controlInboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration,
             DateTime dateStarted)
         {
-            _databaseGateway.Execute(_queryFactory.Started(machineName, baseDirectory, entryAssemblyQualifiedName,
+            _databaseGateway.Execute(_queryFactory.Started(machineName, baseDirectory, environmentName, entryAssemblyQualifiedName,
                 ipv4Address, inboxWorkQueueUri, inboxDeferredQueueUri, inboxErrorQueueUri, controlInboxWorkQueueUri,
                 controlInboxErrorQueueUri, outboxWorkQueueUri, outboxErrorQueueUri, transientInstance, heartbeatIntervalDuration, dateStarted));
         }

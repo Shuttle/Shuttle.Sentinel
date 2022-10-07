@@ -7,7 +7,8 @@ namespace Shuttle.Sentinel.DataAccess
     {
         IQuery FindId(string machineName, string baseDirectory);
 
-        IQuery Started(string machineName, string baseDirectory, string entryAssemblyQualifiedName, string ipv4Address,
+        IQuery Started(string machineName, string baseDirectory, string environmentName,
+            string entryAssemblyQualifiedName, string ipv4Address,
             string inboxWorkQueueUri,
             string inboxDeferredQueueUri, string inboxErrorQueueUri, string controlInboxWorkQueueUri,
             string controlInboxErrorQueueUri, string outboxWorkQueueUri,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
+using Microsoft.Extensions.Hosting;
 using Shuttle.Core.Data;
 
 namespace Shuttle.Sentinel.DataAccess
@@ -42,7 +43,7 @@ and
                 .AddParameterValue(Columns.BaseDirectory, baseDirectory);
         }
 
-        public IQuery Started(string machineName, string baseDirectory, string entryAssemblyQualifiedName,
+        public IQuery Started(string machineName, string baseDirectory, string environmentName, string entryAssemblyQualifiedName,
             string ipv4Address, string inboxWorkQueueUri, string inboxDeferredQueueUri, string inboxErrorQueueUri,
             string controlInboxWorkQueueUri, string controlInboxErrorQueueUri, string outboxWorkQueueUri,
             string outboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration, DateTime dateStarted)
@@ -65,6 +66,7 @@ if not exists
     (
         MachineName,
         BaseDirectory,
+        EnvironmentName,
         EntryAssemblyQualifiedName,
         IPv4Address,
         InboxWorkQueueUri,
@@ -83,6 +85,7 @@ if not exists
     (
         @MachineName,
         @BaseDirectory,
+        @EnvironmentName,
         @EntryAssemblyQualifiedName,
         @IPv4Address,
         @InboxWorkQueueUri,
@@ -102,6 +105,7 @@ begin
     update
         Endpoint
     set
+        EnvironmentName = @EnvironmentName,
         EntryAssemblyQualifiedName = @EntryAssemblyQualifiedName,
         IPv4Address = @IPv4Address,
         InboxWorkQueueUri = @InboxWorkQueueUri,
@@ -116,15 +120,6 @@ begin
     where
         MachineName = @MachineName
     and
-        BaseDirectory = @BaseDirectory;
-
-    update
-        Endpoint
-    set
-        DateStarted = @DateStarted
-    where
-        MachineName = @MachineName
-    and
         BaseDirectory = @BaseDirectory
     and
         @DateStarted > DateStarted;
@@ -132,6 +127,7 @@ end
 ")
                 .AddParameterValue(Columns.MachineName, machineName)
                 .AddParameterValue(Columns.BaseDirectory, baseDirectory)
+                .AddParameterValue(Columns.EnvironmentName, environmentName)
                 .AddParameterValue(Columns.EntryAssemblyQualifiedName, entryAssemblyQualifiedName)
                 .AddParameterValue(Columns.IPv4Address, ipv4Address)
                 .AddParameterValue(Columns.InboxWorkQueueUri, inboxWorkQueueUri)
@@ -141,8 +137,8 @@ end
                 .AddParameterValue(Columns.ControlInboxErrorQueueUri, controlInboxErrorQueueUri)
                 .AddParameterValue(Columns.OutboxWorkQueueUri, outboxWorkQueueUri)
                 .AddParameterValue(Columns.OutboxErrorQueueUri, outboxErrorQueueUri)
-                .AddParameterValue(Columns.OutboxErrorQueueUri, outboxErrorQueueUri)
                 .AddParameterValue(Columns.HeartbeatIntervalDuration, heartbeatIntervalDuration)
+                .AddParameterValue(Columns.TransientInstance, transientInstance)
                 .AddParameterValue(Columns.DateStarted, dateStarted);
         }
 
@@ -349,7 +345,7 @@ values
     where
         Id = @Id
     and
-        @DateStopped > DateStopped;
+        @DateStopped > isnull(DateStopped, '0001-01-01');
 ")
                 .AddParameterValue(Columns.Id, endpointId)
                 .AddParameterValue(Columns.DateStopped, dateStopped);

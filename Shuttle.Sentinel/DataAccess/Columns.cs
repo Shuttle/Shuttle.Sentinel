@@ -21,6 +21,7 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<Guid> SentinelId = new MappedColumn<Guid>("SentinelId", DbType.Guid);
         public static readonly MappedColumn<string> MachineName = new MappedColumn<string>("MachineName", DbType.AnsiString);
         public static readonly MappedColumn<string> BaseDirectory = new MappedColumn<string>("BaseDirectory", DbType.AnsiString);
+        public static readonly MappedColumn<string> EnvironmentName = new MappedColumn<string>("EnvironmentName", DbType.AnsiString);
         public static readonly MappedColumn<string> EntryAssemblyQualifiedName = new MappedColumn<string>("EntryAssemblyQualifiedName", DbType.AnsiString);
         public static readonly MappedColumn<string> IPv4Address = new MappedColumn<string>("IPv4Address", DbType.AnsiString);
         public static readonly MappedColumn<string> InboxWorkQueueUri = new MappedColumn<string>("InboxWorkQueueUri", DbType.AnsiString);
@@ -55,5 +56,6 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<decimal> Value = new MappedColumn<decimal>("Value", DbType.Decimal);
         public static readonly MappedColumn<DateTime> DateStarted = new MappedColumn<DateTime>("DateStarted", DbType.DateTime);
         public static readonly MappedColumn<DateTime> DateStopped = new MappedColumn<DateTime>("DateStopped", DbType.DateTime);
+        public static readonly MappedColumn<bool> TransientInstance = new MappedColumn<bool>("TransientInstance", DbType.Boolean);
     }
 }

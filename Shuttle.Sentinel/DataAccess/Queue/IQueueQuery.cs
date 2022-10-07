@@ -6,7 +6,7 @@ namespace Shuttle.Sentinel.DataAccess
 {
     public interface IQueueQuery
     {
-        void Save(string uri, string processor, string type);
+        Guid Save(string uri, string processor, string type);
         void Remove(Guid id);
         IEnumerable<Queue> Search(Queue.Specification specification);
     }

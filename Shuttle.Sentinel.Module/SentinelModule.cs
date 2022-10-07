@@ -11,30 +11,31 @@ using Shuttle.Core.Pipelines;
 using Shuttle.Esb;
 using Shuttle.Sentinel.Messages.v1;
 using System.Reflection;
+using Microsoft.Extensions.Hosting;
 
 namespace Shuttle.Sentinel.Module
 {
-    public class SentinelModule : IDisposable, IPipelineObserver<OnStarted>, IPipelineObserver<OnStopping>
+    public class SentinelModule : IDisposable, IPipelineObserver<OnStarted>
     {
         private readonly Type _inboxMessagePipelineType = typeof(InboxMessagePipeline);
         private readonly Type _dispatchTransportMessagePipelineType = typeof(DispatchTransportMessagePipeline);
         private readonly Type _startupPipelineType = typeof(StartupPipeline);
-        private readonly Type _shutdownPipelineType = typeof(ShutdownPipeline);
 
         private readonly IServiceBus _serviceBus;
         private readonly IMessageRouteProvider _messageRouteProvider;
         private readonly IEndpointAggregator _endpointAggregator;
         private readonly ISentinelObserver _sentinelObserver;
+
         private volatile bool _active;
         private Thread _thread;
         private DateTime _nextSendDate = DateTime.UtcNow;
         private CancellationToken _cancellationToken;
         private readonly SentinelOptions _sentinelOptions;
         private readonly ServiceBusOptions _serviceBusOptions;
+        private readonly string _environmentName;
 
         public SentinelModule(IOptions<SentinelOptions> sentinelOptions, IOptions<ServiceBusOptions> serviceBusOptions, IServiceBus serviceBus, IMessageRouteProvider messageRouteProvider,
-            IPipelineFactory pipelineFactory, IEndpointAggregator endpointAggregator,
-            ISentinelObserver sentinelObserver)
+            IPipelineFactory pipelineFactory, IEndpointAggregator endpointAggregator, ISentinelObserver sentinelObserver, IHostEnvironment hostEnvironment, IHostApplicationLifetime hostApplicationLifetime )
         {
             Guard.AgainstNull(sentinelOptions, nameof(sentinelOptions));
             Guard.AgainstNull(sentinelOptions.Value, nameof(sentinelOptions.Value));
@@ -45,6 +46,8 @@ namespace Shuttle.Sentinel.Module
             Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
             Guard.AgainstNull(endpointAggregator, nameof(endpointAggregator));
             Guard.AgainstNull(sentinelObserver, nameof(sentinelObserver));
+            Guard.AgainstNull(hostEnvironment, nameof(hostEnvironment));
+            Guard.AgainstNullOrEmptyString(hostEnvironment.EnvironmentName, nameof(hostEnvironment.EnvironmentName));
 
             _serviceBusOptions = serviceBusOptions.Value;
             _sentinelOptions = sentinelOptions.Value;
@@ -52,6 +55,22 @@ namespace Shuttle.Sentinel.Module
             _messageRouteProvider = messageRouteProvider;
             _endpointAggregator = endpointAggregator;
             _sentinelObserver = sentinelObserver;
+            _environmentName= hostEnvironment.EnvironmentName;
+
+            hostApplicationLifetime.ApplicationStopping.Register(() =>
+            {
+                if (!_messageRouteProvider.GetRouteUris(typeof(EndpointStopped).FullName).Any())
+                {
+                    RouteMissing.Invoke(this, new RouteMissingEventArgs(typeof(EndpointStopped)));
+                    return;
+                }
+
+                _serviceBus.Send(new EndpointStopped
+                {
+                    MachineName = Environment.MachineName,
+                    BaseDirectory = AppDomain.CurrentDomain.BaseDirectory
+                });
+            });
 
             if (!_sentinelOptions.Enabled)
             {
@@ -70,8 +89,7 @@ namespace Shuttle.Sentinel.Module
         {
             var pipelineType = e.Pipeline.GetType();
 
-            if (pipelineType == _startupPipelineType ||
-                pipelineType == _shutdownPipelineType)
+            if (pipelineType == _startupPipelineType)
             {
                 e.Pipeline.RegisterObserver(this);
 
@@ -134,7 +152,8 @@ namespace Shuttle.Sentinel.Module
                 ControlInboxErrorQueueUri = _serviceBusOptions.ControlInbox?.ErrorQueueUri ?? string.Empty,
                 Subscriptions = _serviceBusOptions.Subscription.MessageTypes,
                 TransientInstance = _sentinelOptions.TransientInstance,
-                Tags = _sentinelOptions.Tags
+                EnvironmentName = _environmentName,
+                HeartbeatIntervalDuration = _sentinelOptions.HeartbeatIntervalDuration.ToString()
             });
 
             _thread = new Thread(Send);
@@ -176,22 +195,5 @@ namespace Shuttle.Sentinel.Module
         public event EventHandler<RouteMissingEventArgs> RouteMissing = delegate
         {
         };
-
-        public void Execute(OnStopping pipelineEvent)
-        {
-            Guard.AgainstNull(pipelineEvent, nameof(pipelineEvent));
-
-            if (!_messageRouteProvider.GetRouteUris(typeof(EndpointStopped).FullName).Any())
-            {
-                RouteMissing.Invoke(this, new RouteMissingEventArgs(typeof(EndpointStopped)));
-                return;
-            }
-
-            _serviceBus.Send(new EndpointStopped
-            {
-                MachineName = Environment.MachineName,
-                BaseDirectory = AppDomain.CurrentDomain.BaseDirectory
-            });
-        }
     }
 }
