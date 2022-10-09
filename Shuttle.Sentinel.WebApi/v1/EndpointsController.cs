@@ -38,26 +38,13 @@ namespace Shuttle.Sentinel.WebApi.v1
             _serviceBus = serviceBus;
         }
 
-        [HttpGet]
+        [HttpGet("{search?}")]
         [RequiresPermission(Permissions.View.Monitoring)]
-        public IActionResult Get()
+        public IActionResult GetSearch(string search = null)
         {
             using (_databaseContextFactory.Create())
             {
-                return Ok(Data(_endpointQuery.All()));
-            }
-        }
-
-        [HttpGet("{search}")]
-        [RequiresPermission(Permissions.View.Monitoring)]
-        public IActionResult GetSearch(string search)
-        {
-            using (_databaseContextFactory.Create())
-            {
-                return Ok(new
-                {
-                    Data = Data(_endpointQuery.Search(search))
-                });
+                return Ok(Data(_endpointQuery.Search(search)));
             }
         }
 
@@ -69,7 +56,7 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             using (_databaseContextFactory.Create())
             {
-                endpoints = _endpointQuery.All().ToList();
+                endpoints = _endpointQuery.Search(null).ToList();
             }
 
             return Ok(new
@@ -124,8 +111,9 @@ namespace Shuttle.Sentinel.WebApi.v1
                     endpoint.Id,
                     endpoint.MachineName,
                     endpoint.BaseDirectory,
+                    endpoint.EnvironmentName,
                     endpoint.EntryAssemblyQualifiedName,
-                    ipv4Address = endpoint.IPv4Address,
+                    ipv4Address = endpoint.Ipv4Address,
                     endpoint.InboxWorkQueueUri,
                     endpoint.InboxDeferredQueueUri,
                     endpoint.InboxErrorQueueUri,
@@ -135,6 +123,9 @@ namespace Shuttle.Sentinel.WebApi.v1
                     endpoint.OutboxErrorQueueUri,
                     endpoint.HeartbeatIntervalDuration,
                     endpoint.HeartbeatDate,
+                    endpoint.DateStarted,
+                    endpoint.DateStopped,
+                    endpoint.TransientInstance,
                     InboxWorkQueueUriSecured = GetSecuredUri(endpoint.InboxWorkQueueUri),
                     InboxDeferredQueueUriSecured = GetSecuredUri(endpoint.InboxDeferredQueueUri),
                     InboxErrorQueueUriSecured = GetSecuredUri(endpoint.InboxErrorQueueUri),

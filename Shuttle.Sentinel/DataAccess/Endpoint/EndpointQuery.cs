@@ -76,11 +76,6 @@ namespace Shuttle.Sentinel.DataAccess
             _databaseGateway.Execute(_queryFactory.Remove(endpointId));
         }
 
-        public IEnumerable<Endpoint> All()
-        {
-            return _queryMapper.MapObjects<Endpoint>(_queryFactory.All());
-        }
-
         public IEnumerable<Endpoint> Search(string match)
         {
             return _queryMapper.MapObjects<Endpoint>(_queryFactory.Search(match));

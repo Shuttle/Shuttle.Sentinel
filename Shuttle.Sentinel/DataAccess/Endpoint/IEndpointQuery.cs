@@ -23,7 +23,6 @@ namespace Shuttle.Sentinel.DataAccess
         void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType, string recipientInboxWorkQueueUri);
         void AddMessageTypeHandled(Guid endpointId, string messageType);
         void Remove(Guid endpointId);
-        IEnumerable<Endpoint> All();
         IEnumerable<Endpoint> Search(string match);
         void RegisterHeartbeat(Guid endpointId);
         void AddLogEntry(Guid endpointId, DateTime dateLogged, string message);

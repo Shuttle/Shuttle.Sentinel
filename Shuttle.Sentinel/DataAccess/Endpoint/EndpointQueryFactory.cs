@@ -12,6 +12,7 @@ select
     Id, 
     MachineName,
     BaseDirectory,
+    EnvironmentName,
     EntryAssemblyQualifiedName,
     IPv4Address,
     InboxWorkQueueUri,
@@ -22,7 +23,9 @@ select
     OutboxWorkQueueUri,
     OutboxErrorQueueUri,
     HeartbeatIntervalDuration,
-    HeartbeatDate
+    HeartbeatDate,
+    DateStarted,
+    DateStopped
 from 
     Endpoint
 ";
@@ -116,7 +119,8 @@ begin
         OutboxWorkQueueUri = @OutboxWorkQueueUri,
         OutboxErrorQueueUri = @OutboxErrorQueueUri,
         TransientInstance = @TransientInstance,
-        HeartbeatDate = @date
+        HeartbeatDate = @date,
+        DateStarted = @DateStarted
     where
         MachineName = @MachineName
     and
@@ -285,6 +289,9 @@ if not exists (select null from EndpointMessageTypeMetric where MetricId = @Metr
         {
             return RawQuery.Create(string.Concat(SelectFrom, @"
 where 
+(
+    isnull(@Match, '') = ''
+or
 	MachineName like @Match
 or
 	BaseDirectory like @Match
@@ -292,6 +299,7 @@ or
 	EntryAssemblyQualifiedName like @Match
 or
 	InboxWorkQueueUri like @Match
+)
 order by 
     MachineName
 "))
