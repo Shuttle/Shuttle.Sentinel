@@ -13,7 +13,7 @@ select
     RecipientInboxWorkQueueUri,
     count(*) EndpointCount
 from
-    MessageTypeDispatched
+    EndpointMessageTypeDispatched
 where 
 	MessageType like @Match
 or

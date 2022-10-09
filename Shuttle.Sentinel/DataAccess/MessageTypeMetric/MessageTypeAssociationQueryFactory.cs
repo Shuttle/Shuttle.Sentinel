@@ -16,7 +16,7 @@ select
 	round(max(SlowestExecutionDuration), 3) SlowestExecutionDuration,
 	round(sum(TotalExecutionDuration) / sum(Count), 3) AverageExecutionDuration
 from
-	MessageTypeMetric
+	EndpointMessageTypeMetric
 where
 	DateRegistered > @Date
 and

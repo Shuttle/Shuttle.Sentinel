@@ -13,7 +13,7 @@ select
     MessageTypeDispatched,
     count(*) EndpointCount
 from
-    MessageTypeAssociation
+    EndpointMessageTypeAssociation
 where 
 	MessageTypeHandled like @Match
 or

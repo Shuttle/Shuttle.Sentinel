@@ -12,7 +12,7 @@ select
     MessageType,
     count(*) EndpointCount
 from
-    MessageTypeHandled
+    EndpointMessageTypeHandled
 where 
 	MessageType like @Match
 group by
