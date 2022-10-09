@@ -1,10 +1,7 @@
-using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 
 namespace Shuttle.Sentinel.WebApi.v1
@@ -33,34 +30,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         {
             using (_databaseContextFactory.Create())
             {
-                return Ok(new
-                {
-                    Data = _messageTypeDispatchedQuery.Search(search ?? string.Empty)
-                        .Select(item => new
-                        {
-                            item.MessageType,
-                            item.RecipientInboxWorkQueueUri,
-                            item.EndpointCount,
-                            RecipientInboxWorkQueueUriSecured = GetSecuredUri(item.RecipientInboxWorkQueueUri)
-                        })
-                });
-            }
-        }
-
-        private string GetSecuredUri(string uri)
-        {
-            if (string.IsNullOrEmpty(uri))
-            {
-                return string.Empty;
-            }
-
-            try
-            {
-                return new Uri(uri).ToString();
-            }
-            catch
-            {
-                return "(invalid uri)";
+                return Ok(_messageTypeDispatchedQuery.Search(search ?? string.Empty));
             }
         }
     }

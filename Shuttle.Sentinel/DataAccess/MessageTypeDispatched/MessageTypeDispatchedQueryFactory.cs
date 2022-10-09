@@ -9,16 +9,24 @@ namespace Shuttle.Sentinel.DataAccess
         {
             return RawQuery.Create(@"
 select
+    e.EnvironmentName,
     MessageType,
     RecipientInboxWorkQueueUri,
     count(*) EndpointCount
 from
-    EndpointMessageTypeDispatched
+    EndpointMessageTypeDispatched mtd
+inner join
+	[Endpoint] e on (e.Id = mtd.EndpointId)
 where 
+(
+    isnull(@Match, '') = ''
+or
 	MessageType like @Match
 or
     RecipientInboxWorkQueueUri like @Match
+)
 group by
+    e.EnvironmentName,
     MessageType,
     RecipientInboxWorkQueueUri
 order by
