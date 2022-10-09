@@ -30,10 +30,7 @@ namespace Shuttle.Sentinel.WebApi.v1
         {
             using (_databaseContextFactory.Create())
             {
-                return Ok(new
-                {
-                    Data = _messageTypeHandledQuery.Search(search ?? string.Empty)
-                });
+                return Ok(_messageTypeHandledQuery.Search(search ?? string.Empty));
             }
         }
     }

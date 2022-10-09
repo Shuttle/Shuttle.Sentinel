@@ -9,13 +9,21 @@ namespace Shuttle.Sentinel.DataAccess
         {
             return RawQuery.Create(@"
 select
+    e.EnvironmentName,
     MessageType,
     count(*) EndpointCount
 from
-    EndpointMessageTypeHandled
+    EndpointMessageTypeHandled mta
+inner join
+	[Endpoint] e on (e.Id = mta.EndpointId)
 where 
+(
+    isnull(@Match, '') = ''
+or
 	MessageType like @Match
+)
 group by
+    e.EnvironmentName,
     MessageType
 order by
     MessageType
