@@ -10,11 +10,15 @@ namespace Shuttle.Sentinel.DataAccess
         {
             return RawQuery.Create(@"
 select
+    e.EnvironmentName,
     MessageType,
     InboxWorkQueueUri
 from
-    SubscriberMessageType
+    EndpointSubscription s
+inner join
+	[Endpoint] e on (e.Id = s.EndpointId)
 order by
+    e.EnvironmentName,
     MessageType
 ");
         }

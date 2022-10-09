@@ -2,6 +2,7 @@
 {
     public class Subscription
     {
+        public string EnvironmentName { get; set; }
         public string MessageType { get; set; }
         public string InboxWorkQueueUri { get; set; }
     }

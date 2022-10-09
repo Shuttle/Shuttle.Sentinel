@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
+using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.Messages.v1;
@@ -15,10 +16,10 @@ namespace Shuttle.Sentinel.WebApi.v1
     public class SubscriptionsController : Controller
     {
         private readonly IServiceBus _bus;
-        private readonly IDataStoreDatabaseContextFactory _databaseContextFactory;
+        private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly ISubscriptionQuery _subscriptionQuery;
 
-        public SubscriptionsController(IServiceBus bus, IDataStoreDatabaseContextFactory databaseContextFactory,
+        public SubscriptionsController(IServiceBus bus, IDatabaseContextFactory databaseContextFactory,
             ISubscriptionQuery subscriptionQuery)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
@@ -31,34 +32,11 @@ namespace Shuttle.Sentinel.WebApi.v1
         }
 
         [RequiresPermission(Permissions.Manage.Subscriptions)]
-        [HttpGet("{dataStoreId}")]
-        public IActionResult Get(Guid dataStoreId)
+        public IActionResult Get()
         {
-            using (_databaseContextFactory.Create(dataStoreId))
+            using (_databaseContextFactory.Create())
             {
-                return Ok(_subscriptionQuery.All()
-                    .Select(subscription=>
-                        {
-                            string securedUri;
-
-                            try
-                            {
-                                securedUri = new Uri(subscription.InboxWorkQueueUri).ToString();
-                            }
-                            catch
-                            {
-                                securedUri = "(invalid uri)";
-                            }
-                            
-                            return new
-                            {
-                                DataStoreId = dataStoreId,
-                                subscription.MessageType,
-                                subscription.InboxWorkQueueUri,
-                                SecuredUri = securedUri
-                            };
-                        })
-                );
+                return Ok(_subscriptionQuery.All());
             }
         }
 
