@@ -2,6 +2,7 @@
 {
     public class MessageTypeMetric
     {
+        public string EnvironmentName { get; set; }
         public string MessageType { get; set; }
         public int Count { get; set; }
         public double TotalExecutionDuration { get; set; }
