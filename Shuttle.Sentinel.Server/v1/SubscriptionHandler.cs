@@ -1,4 +1,5 @@
 ﻿using Shuttle.Core.Contract;
+using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.DataAccess.Query;
@@ -10,10 +11,10 @@ namespace Shuttle.Sentinel.Server
         IMessageHandler<AddSubscription>,
         IMessageHandler<RemoveSubscription>
     {
-        private readonly IDataStoreDatabaseContextFactory _databaseContextFactory;
+        private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly ISubscriptionQuery _subscriptionQuery;
 
-        public SubscriptionHandler(IDataStoreDatabaseContextFactory databaseContextFactory, ISubscriptionQuery subscriptionQuery)
+        public SubscriptionHandler(IDatabaseContextFactory databaseContextFactory, ISubscriptionQuery subscriptionQuery)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(subscriptionQuery, nameof(subscriptionQuery));
@@ -28,7 +29,7 @@ namespace Shuttle.Sentinel.Server
 
             var message = context.Message;
 
-            using (_databaseContextFactory.Create(message.DataStoreId))
+            using (_databaseContextFactory.Create())
             {
                 _subscriptionQuery.Add(new Subscription
                 {
@@ -44,7 +45,7 @@ namespace Shuttle.Sentinel.Server
 
             var message = context.Message;
 
-            using (_databaseContextFactory.Create(message.DataStoreId))
+            using (_databaseContextFactory.Create())
             {
                 _subscriptionQuery.Remove(new Subscription
                 {

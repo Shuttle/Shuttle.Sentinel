@@ -49,7 +49,6 @@ namespace Shuttle.Sentinel.WebApi.v1
 
             _bus.Send(new AddSubscription
             {
-                DataStoreId = model.DataStoreId,
                 MessageType = model.MessageType,
                 InboxWorkQueueUri = model.InboxWorkQueueUri
             });
@@ -63,7 +62,6 @@ namespace Shuttle.Sentinel.WebApi.v1
         {
             _bus.Send(new RemoveSubscription
             {
-                DataStoreId = model.DataStoreId,
                 MessageType = model.MessageType,
                 InboxWorkQueueUri = model.InboxWorkQueueUri
             });

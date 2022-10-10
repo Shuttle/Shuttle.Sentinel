@@ -1,5 +1,6 @@
 ﻿using System;
 using Shuttle.Core.Contract;
+using Shuttle.Core.Data;
 using Shuttle.Esb;
 using Shuttle.Esb.Scheduling;
 using Shuttle.Sentinel.DataAccess;
@@ -11,10 +12,10 @@ namespace Shuttle.Sentinel.Server
         IMessageHandler<RegisterSchedule>,
         IMessageHandler<RemoveSchedule>
     {
-        private readonly IDataStoreDatabaseContextFactory _databaseContextFactory;
+        private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IScheduleRepository _scheduleRepository;
 
-        public ScheduleHandler(IDataStoreDatabaseContextFactory databaseContextFactory,
+        public ScheduleHandler(IDatabaseContextFactory databaseContextFactory,
             IScheduleRepository scheduleRepository)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
@@ -30,7 +31,7 @@ namespace Shuttle.Sentinel.Server
 
             var message = context.Message;
 
-            using (_databaseContextFactory.Create(message.DataStoreId))
+            using (_databaseContextFactory.Create())
             {
                 _scheduleRepository.Remove(message.Id);
             }
@@ -51,7 +52,7 @@ namespace Shuttle.Sentinel.Server
                 return;
             }
 
-            using (_databaseContextFactory.Create(message.DataStoreId))
+            using (_databaseContextFactory.Create())
             {
                 if (_scheduleRepository.Contains(message.Name, message.InboxWorkQueueUri, message.CronExpression))
                 {
