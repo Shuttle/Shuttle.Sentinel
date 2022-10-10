@@ -31,6 +31,7 @@ namespace Shuttle.Sentinel.WebApi.v1
             _bus = bus;
         }
 
+        [HttpGet]
         [RequiresPermission(Permissions.Manage.Subscriptions)]
         public IActionResult Get()
         {

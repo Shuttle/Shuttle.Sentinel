@@ -25,7 +25,6 @@ namespace Shuttle.Sentinel.DataAccess
             int count, double fastestExecutionDuration, double slowestExecutionDuration, double totalExecutionDuration);
 
         IQuery Remove(Guid endpointId);
-        IQuery All();
         IQuery Search(string match);
         IQuery RegisterHeartbeat(Guid endpointId);
         IQuery AddLogEntry(Guid endpointId, DateTime dateLogged, string message);

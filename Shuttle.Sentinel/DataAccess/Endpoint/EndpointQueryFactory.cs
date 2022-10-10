@@ -280,11 +280,6 @@ if not exists (select null from EndpointMessageTypeMetric where MetricId = @Metr
                 .AddParameterValue(Columns.Id, endpointId);
         }
 
-        public IQuery All()
-        {
-            return RawQuery.Create(string.Concat(SelectFrom, @"order by MachineName"));
-        }
-
         public IQuery Search(string match)
         {
             return RawQuery.Create(string.Concat(SelectFrom, @"
