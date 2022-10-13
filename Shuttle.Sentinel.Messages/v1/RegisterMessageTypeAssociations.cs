@@ -5,7 +5,7 @@ namespace Shuttle.Sentinel.Messages.v1
 {
     public class RegisterMessageTypeAssociations : EndpointMessage
     {
-        public List<Association> MessageTypeAssociations { get; set; }
+        public List<Association> MessageTypeAssociations { get; set; } = new List<Association>();
 
         public class Association
         {

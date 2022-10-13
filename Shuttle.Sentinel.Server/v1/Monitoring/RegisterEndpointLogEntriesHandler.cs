@@ -39,7 +39,7 @@ namespace Shuttle.Sentinel.Server
 
                 foreach (var logEntry in message.LogEntries)
                 {
-                    _endpointQuery.AddLogEntry(endpointId, logEntry.DateLogged, logEntry.Message);
+                    _endpointQuery.AddLogEntry(endpointId, logEntry.DateLogged, logEntry.Message, logEntry.LogLevel, logEntry.Category, logEntry.EventId, logEntry.Scope);
                 }
 
                 _endpointQuery.RegisterHeartbeat(endpointId);

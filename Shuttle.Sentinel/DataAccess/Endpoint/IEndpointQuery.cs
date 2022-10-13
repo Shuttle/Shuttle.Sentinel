@@ -25,7 +25,8 @@ namespace Shuttle.Sentinel.DataAccess
         void Remove(Guid endpointId);
         IEnumerable<Endpoint> Search(string match);
         void RegisterHeartbeat(Guid endpointId);
-        void AddLogEntry(Guid endpointId, DateTime dateLogged, string message);
+        void AddLogEntry(Guid endpointId, DateTime dateLogged, string message, int logLevel, string category,
+            int eventId, string scope);
         void Stopped(Guid endpointId, DateTime dateStopped);
         void RegisterSystemMetric(Guid endpointId, DateTime dateRegistered, string name, decimal value);
     }

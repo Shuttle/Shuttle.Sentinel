@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
 using Shuttle.Sentinel.Messages.v1;
@@ -278,7 +279,7 @@ namespace Shuttle.Sentinel.Module
             }
         }
 
-        public void Log(DateTime dateLogged, string message)
+        public void Log(DateTime dateLogged, int logLevel, string category, int eventId, string message, string scope)
         {
             if (string.IsNullOrEmpty(message))
             {
@@ -288,7 +289,11 @@ namespace Shuttle.Sentinel.Module
             _logEntries.Add(new RegisterEndpointLogEntries.LogEntry
             {
                 DateLogged = dateLogged,
-                Message = message
+                LogLevel = logLevel,
+                Category = category,
+                EventId = eventId,
+                Message = message,
+                Scope = scope
             });
         }
     }

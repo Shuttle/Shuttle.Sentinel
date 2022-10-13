@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shuttle.Sentinel.Messages.v1;
+using Microsoft.Extensions.Logging;
 
 namespace Shuttle.Sentinel.Module
 {
@@ -12,6 +12,6 @@ namespace Shuttle.Sentinel.Module
         IEnumerable<object> GetCommands();
         void RegisterAssociation(string messageTypeHandled, string messageTypeDispatched);
         void RegisterDispatched(string messageType, string recipientInboxWorkQueueUri);
-        void Log(DateTime dateLogged, string message);
+        void Log(DateTime dateLogged, int logLevel, string category, int eventId, string message, string scope);
     }
 }

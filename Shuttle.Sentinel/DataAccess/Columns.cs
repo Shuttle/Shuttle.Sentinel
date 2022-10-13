@@ -41,6 +41,8 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<string> MessageTypeDispatched = new MappedColumn<string>("MessageTypeDispatched", DbType.AnsiString);
         public static readonly MappedColumn<string> RecipientInboxWorkQueueUri = new MappedColumn<string>("RecipientInboxWorkQueueUri", DbType.AnsiString);
         public static readonly MappedColumn<int> Count = new MappedColumn<int>("Count", DbType.Int32);
+        public static readonly MappedColumn<int> LogLevel = new MappedColumn<int>("LogLevel", DbType.Int32);
+        public static readonly MappedColumn<int> EventId = new MappedColumn<int>("EventId", DbType.Int32);
         public static readonly MappedColumn<double> TotalExecutionDuration = new MappedColumn<double>("TotalExecutionDuration", DbType.Double);
         public static readonly MappedColumn<double> FastestExecutionDuration = new MappedColumn<double>("FastestExecutionDuration", DbType.Double);
         public static readonly MappedColumn<double> SlowestExecutionDuration = new MappedColumn<double>("SlowestExecutionDuration", DbType.Double);
@@ -54,6 +56,8 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<string> Tag = new MappedColumn<string>("Tag", DbType.String);
         public static readonly MappedColumn<string> Name = new MappedColumn<string>("Name", DbType.String);
         public static readonly MappedColumn<decimal> Value = new MappedColumn<decimal>("Value", DbType.Decimal);
+        public static readonly MappedColumn<string> Category = new MappedColumn<string>("Category", DbType.String);
+        public static readonly MappedColumn<string> Scope = new MappedColumn<string>("Scope", DbType.String);
         public static readonly MappedColumn<DateTime> DateStarted = new MappedColumn<DateTime>("DateStarted", DbType.DateTime);
         public static readonly MappedColumn<DateTime> DateStopped = new MappedColumn<DateTime>("DateStopped", DbType.DateTime);
         public static readonly MappedColumn<bool> TransientInstance = new MappedColumn<bool>("TransientInstance", DbType.Boolean);

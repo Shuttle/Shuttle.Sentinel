@@ -11,6 +11,10 @@ namespace Shuttle.Sentinel.Messages.v1
         {
             public DateTime DateLogged { get; set; }
             public string Message { get; set; }
+            public int LogLevel { get; set; }
+            public string Category { get; set; }
+            public int EventId { get; set; }
+            public string Scope { get; set; }
         }
     }
 }

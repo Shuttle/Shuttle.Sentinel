@@ -11,7 +11,7 @@ namespace Shuttle.Sentinel.Logging
         private readonly ConcurrentDictionary<string, SentinelLogger> _loggers = new ConcurrentDictionary<string, SentinelLogger>();
         private readonly IEndpointAggregator _endpointAggregator;
         private IExternalScopeProvider _scopeProvider = NullExternalScopeProvider.Instance;
-        private SentinelLogFormatter _formatter;
+        private readonly SentinelLogFormatter _formatter;
 
         public SentinelLoggerProvider(IEndpointAggregator endpointAggregator)
         {

@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using System.Text;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Shuttle.Core.Contract;
 using Shuttle.Sentinel.Module;
-using System.IO;
-using System;
 
 namespace Shuttle.Sentinel.Logging
 {
@@ -30,99 +30,16 @@ namespace Shuttle.Sentinel.Logging
                 return;
             }
 
-            var sw = new StringWriter();
             var now = DateTime.UtcNow;
+            var scopes = new StringBuilder();
 
-            sw.Write($"{now:O} GetLogLevelString(logLevel)");
-
-            CreateDefaultLogMessage(sw, logEntry, message, scopeProvider);
-
-            _endpointAggregator.Log(now, sw.GetStringBuilder().ToString());
-        }
-
-        private void CreateDefaultLogMessage<TState>(TextWriter textWriter, in LogEntry<TState> logEntry, string message, IExternalScopeProvider scopeProvider)
-        {
-            var eventId = logEntry.EventId.Id;
-            var exception = logEntry.Exception;
-
-            textWriter.Write(LogLevelPadding);
-            textWriter.Write(logEntry.Category);
-            textWriter.Write('[');
-            textWriter.Write(eventId.ToString());
-            textWriter.Write(']');
-
-            WriteScopeInformation(textWriter, scopeProvider);
-            WriteMessage(textWriter, message);
-
-            if (exception != null)
+            scopeProvider?.ForEachScope((scope, state) =>
             {
-                WriteMessage(textWriter, exception.ToString());
-            }
-        }
+                state.Append($"{(state.Length > 0 ? "\\" : string.Empty)}{scope.ToString().Replace("\\", "-")}");
+            }, scopes);
 
-        private static void WriteMessage(TextWriter textWriter, string message)
-        {
-            if (string.IsNullOrEmpty(message))
-            {
-                return;
-            }
-
-            textWriter.Write(' ');
-            WriteReplacing(textWriter, Environment.NewLine, " ", message);
-        }
-
-        private static void WriteReplacing(TextWriter writer, string oldValue, string newValue, string message)
-        {
-            writer.Write(message.Replace(oldValue, newValue));
-        }
-
-        private static string GetLogLevelString(LogLevel logLevel)
-        {
-            switch (logLevel)
-            {
-                case LogLevel.Trace:
-                    {
-                        return "trce";
-                    }
-                case LogLevel.Debug:
-                    {
-                        return "dbug";
-                    }
-                case LogLevel.Information:
-                    {
-                        return "info";
-                    }
-                case LogLevel.Warning:
-                    {
-                        return "warn";
-                    }
-                case LogLevel.Error:
-                    {
-                        return "fail";
-                    }
-                case LogLevel.Critical:
-                    {
-                        return "crit";
-                    }
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(logLevel));
-                    }
-            }
-        }
-
-        private void WriteScopeInformation(TextWriter textWriter, IExternalScopeProvider scopeProvider)
-        {
-            if (scopeProvider == null)
-            {
-                return;
-            }
-
-            scopeProvider.ForEachScope((scope, state) =>
-            {
-                state.Write(" => ");
-                state.Write(scope);
-            }, textWriter);
+            _endpointAggregator.Log(now, (int)logEntry.LogLevel, logEntry.Category, logEntry.EventId.Id, message,
+                scopes.ToString());
         }
     }
 }
