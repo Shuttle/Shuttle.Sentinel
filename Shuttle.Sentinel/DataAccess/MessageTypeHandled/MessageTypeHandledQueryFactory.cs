@@ -30,5 +30,46 @@ order by
 ")
                 .AddParameterValue(Columns.Match, string.Concat("%", match, "%"));
         }
+
+        public IQuery Register(Guid endpointId, string messageType)
+        {
+            return RawQuery.Create(@"
+if not exists 
+(
+    select 
+        null 
+    from 
+        EndpointMessageTypeHandled 
+    where 
+        EndpointId = @Id 
+    and 
+        MessageType = @MessageType
+)
+    insert into EndpointMessageTypeHandled
+    (
+        EndpointId,
+        MessageType,
+        DateStamp
+    )
+    values
+    (
+        @Id,
+        @MessageType,
+        @DateStamp
+    )
+else
+    update
+        EndpointMessageTypeHandled
+    set
+        DateStamp = @DateStamp
+    where 
+        EndpointId = @Id 
+    and 
+        MessageType = @MessageType
+")
+                .AddParameterValue(Columns.Id, endpointId)
+                .AddParameterValue(Columns.MessageType, messageType)
+                .AddParameterValue(Columns.DateStamp, DateTime.UtcNow);
+        }
     }
 }

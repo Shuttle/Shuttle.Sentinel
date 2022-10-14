@@ -14,16 +14,6 @@ namespace Shuttle.Sentinel.DataAccess
             string controlInboxErrorQueueUri, string outboxWorkQueueUri,
             string outboxErrorQueueUri, bool transientInstance, string heartbeatIntervalDuration, DateTime dateStarted);
 
-        IQuery AddMessageTypeHandled(Guid endpointId, string messageType);
-
-        IQuery AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType,
-            string recipientInboxWorkQueueUri);
-
-        IQuery AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled, string messageTypeDispatched);
-
-        IQuery AddMessageTypeMetric(Guid metricId, string messageType, DateTime dateRegistered, Guid endpointId,
-            int count, double fastestExecutionDuration, double slowestExecutionDuration, double totalExecutionDuration);
-
         IQuery Remove(Guid endpointId);
         IQuery Search(string match);
         IQuery RegisterHeartbeat(Guid endpointId);

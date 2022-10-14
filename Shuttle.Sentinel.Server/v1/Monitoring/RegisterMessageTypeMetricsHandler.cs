@@ -12,14 +12,17 @@ namespace Shuttle.Sentinel.Server
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
+        private readonly IMessageTypeMetricQuery _messageTypeMetricQuery;
 
-        public RegisterMessageTypeMetricsHandler(IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery)
+        public RegisterMessageTypeMetricsHandler(IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery, IMessageTypeMetricQuery messageTypeMetricQuery)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(endpointQuery, nameof(endpointQuery));
+            Guard.AgainstNull(messageTypeMetricQuery, nameof(messageTypeMetricQuery));
 
             _databaseContextFactory = databaseContextFactory;
             _endpointQuery = endpointQuery;
+            _messageTypeMetricQuery = messageTypeMetricQuery;
         }
 
         public void ProcessMessage(IHandlerContext<RegisterMessageTypeMetrics> context)
@@ -41,7 +44,7 @@ namespace Shuttle.Sentinel.Server
 
                 foreach (var metric in message.MessageTypeMetrics)
                 {
-                    _endpointQuery.AddMessageTypeMetric(
+                    _messageTypeMetricQuery.Register(
                         context.TransportMessage.MessageId,
                         metric.MessageType,
                         context.TransportMessage.SendDate,

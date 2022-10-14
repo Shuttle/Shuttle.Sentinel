@@ -58,6 +58,7 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<decimal> Value = new MappedColumn<decimal>("Value", DbType.Decimal);
         public static readonly MappedColumn<string> Category = new MappedColumn<string>("Category", DbType.String);
         public static readonly MappedColumn<string> Scope = new MappedColumn<string>("Scope", DbType.String);
+        public static readonly MappedColumn<DateTime> DateStamp = new MappedColumn<DateTime>("DateStamp", DbType.DateTime);
         public static readonly MappedColumn<DateTime> DateStarted = new MappedColumn<DateTime>("DateStarted", DbType.DateTime);
         public static readonly MappedColumn<DateTime> DateStopped = new MappedColumn<DateTime>("DateStopped", DbType.DateTime);
         public static readonly MappedColumn<bool> TransientInstance = new MappedColumn<bool>("TransientInstance", DbType.Boolean);

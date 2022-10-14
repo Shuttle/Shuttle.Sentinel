@@ -43,34 +43,6 @@ namespace Shuttle.Sentinel.DataAccess
                 baseDirectory));
         }
 
-        public void AddMessageTypeMetric(Guid metricId, string messageType, DateTime dateRegistered, Guid endpointId,
-            int count,
-            double fastestExecutionDuration, double slowestExecutionDuration, double totalExecutionDuration)
-        {
-            _databaseGateway.Execute(_queryFactory.AddMessageTypeMetric(metricId, messageType, dateRegistered,
-                endpointId,
-                count, fastestExecutionDuration, slowestExecutionDuration, totalExecutionDuration));
-        }
-
-        public void AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled, string messageTypeDispatched)
-        {
-            _databaseGateway.Execute(
-                _queryFactory.AddMessageTypeAssociation(endpointId, messageTypeHandled, messageTypeDispatched));
-        }
-
-        public void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType,
-            string recipientInboxWorkQueueUri)
-        {
-            _databaseGateway.Execute(
-                _queryFactory.AddMessageTypeDispatched(endpointId, dispatchedMessageType, recipientInboxWorkQueueUri));
-        }
-
-        public void AddMessageTypeHandled(Guid endpointId, string messageType)
-        {
-            _databaseGateway.Execute(
-                _queryFactory.AddMessageTypeHandled(endpointId, messageType));
-        }
-
         public void Remove(Guid endpointId)
         {
             _databaseGateway.Execute(_queryFactory.Remove(endpointId));

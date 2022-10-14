@@ -15,13 +15,6 @@ namespace Shuttle.Sentinel.DataAccess
 
         Guid? FindId(string machineName, string baseDirectory);
 
-        void AddMessageTypeMetric(Guid metricId, string messageType, DateTime dateRegistered, Guid endpointId,
-            int count, double fastestExecutionDuration,
-            double slowestExecutionDuration, double totalExecutionDuration);
-
-        void AddMessageTypeAssociation(Guid endpointId, string messageTypeHandled, string messageTypeDispatched);
-        void AddMessageTypeDispatched(Guid endpointId, string dispatchedMessageType, string recipientInboxWorkQueueUri);
-        void AddMessageTypeHandled(Guid endpointId, string messageType);
         void Remove(Guid endpointId);
         IEnumerable<Endpoint> Search(string match);
         void RegisterHeartbeat(Guid endpointId);

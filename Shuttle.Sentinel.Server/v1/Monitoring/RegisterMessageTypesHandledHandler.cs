@@ -10,15 +10,18 @@ namespace Shuttle.Sentinel.Server
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
+        private readonly IMessageTypeHandledQuery _messageTypeHandledQuery;
 
         public RegisterMessageTypesHandledHandler(IDatabaseContextFactory databaseContextFactory,
-            IEndpointQuery endpointQuery)
+            IEndpointQuery endpointQuery, IMessageTypeHandledQuery messageTypeHandledQuery)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(endpointQuery, nameof(endpointQuery));
+            Guard.AgainstNull(messageTypeHandledQuery, nameof(messageTypeHandledQuery));
 
             _databaseContextFactory = databaseContextFactory;
             _endpointQuery = endpointQuery;
+            _messageTypeHandledQuery = messageTypeHandledQuery;
         }
 
         public void ProcessMessage(IHandlerContext<RegisterMessageTypesHandled> context)
@@ -40,7 +43,7 @@ namespace Shuttle.Sentinel.Server
 
                 foreach (var messageType in message.MessageTypesHandled)
                 {
-                    _endpointQuery.AddMessageTypeHandled(
+                    _messageTypeHandledQuery.Register(
                         endpointId,
                         messageType);
                 }

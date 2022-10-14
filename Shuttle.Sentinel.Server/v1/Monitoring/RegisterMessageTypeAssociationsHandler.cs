@@ -12,14 +12,17 @@ namespace Shuttle.Sentinel.Server
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IEndpointQuery _endpointQuery;
+        private readonly IMessageTypeAssociationQuery _messageTypeAssociationQuery;
 
-        public RegisterMessageTypeAssociationsHandler(IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery)
+        public RegisterMessageTypeAssociationsHandler(IDatabaseContextFactory databaseContextFactory, IEndpointQuery endpointQuery, IMessageTypeAssociationQuery messageTypeAssociationQuery)
         {
+            Guard.AgainstNull(messageTypeAssociationQuery, nameof(messageTypeAssociationQuery));
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
             Guard.AgainstNull(endpointQuery, nameof(endpointQuery));
 
             _databaseContextFactory = databaseContextFactory;
             _endpointQuery = endpointQuery;
+            _messageTypeAssociationQuery = messageTypeAssociationQuery;
         }
 
         public void ProcessMessage(IHandlerContext<RegisterMessageTypeAssociations> context)
@@ -41,7 +44,7 @@ namespace Shuttle.Sentinel.Server
 
                 foreach (var association in message.MessageTypeAssociations)
                 {
-                    _endpointQuery.AddMessageTypeAssociation(
+                    _messageTypeAssociationQuery.Register(
                         endpointId,
                         association.MessageTypeHandled,
                         association.MessageTypeDispatched);
