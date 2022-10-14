@@ -30,7 +30,7 @@ namespace Shuttle.Sentinel.Logging
         {
             return _loggers.TryGetValue(categoryName, out var logger) ?
             logger :
-                _loggers.GetOrAdd(categoryName, new SentinelLogger(categoryName, _endpointAggregator, _formatter, _scopeProvider));
+                _loggers.GetOrAdd(categoryName, new SentinelLogger(categoryName, _formatter, _scopeProvider));
         }
 
         public void SetScopeProvider(IExternalScopeProvider scopeProvider)

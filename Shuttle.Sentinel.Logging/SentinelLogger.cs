@@ -6,23 +6,19 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
 using Shuttle.Esb;
-using Shuttle.Sentinel.Module;
 
 namespace Shuttle.Sentinel.Logging
 {
     public class SentinelLogger : ILogger
     {
         private readonly string _name;
-        private readonly IEndpointAggregator _endpointAggregator;
         private readonly SentinelLogFormatter _formatter;
 
-        public SentinelLogger(string name, IEndpointAggregator endpointAggregator, SentinelLogFormatter formatter, IExternalScopeProvider scopeProvider)
+        public SentinelLogger(string name, SentinelLogFormatter formatter, IExternalScopeProvider scopeProvider)
         {
             Guard.AgainstNullOrEmptyString(name, nameof(name));
-            Guard.AgainstNull(endpointAggregator, nameof(endpointAggregator));
 
             _name = name;
-            _endpointAggregator = endpointAggregator;
             _formatter = formatter;
             
             ScopeProvider = scopeProvider;
