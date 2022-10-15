@@ -11,7 +11,7 @@ using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.DataAccess.Query;
 using Shuttle.Sentinel.Messages.v1;
 
-namespace Shuttle.Sentinel.WebApi.v1
+namespace Shuttle.Sentinel.WebApi.Controllers.v1
 {
     [Route("[controller]", Order = 1)]
     [Route("v{version:apiVersion}/[controller]", Order = 2)]

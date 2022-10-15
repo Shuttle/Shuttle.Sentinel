@@ -2,10 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Sentinel.DataAccess;
 using Shuttle.Sentinel.DataAccess.LogEntry;
 
-namespace Shuttle.Sentinel.WebApi.v1
+namespace Shuttle.Sentinel.WebApi.Controllers.v1
 {
     [Route("[controller]", Order = 1)]
     [Route("v{version:apiVersion}/[controller]", Order = 2)]
