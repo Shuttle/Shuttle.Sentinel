@@ -58,12 +58,6 @@ namespace Shuttle.Sentinel.DataAccess
             _databaseGateway.Execute(_queryFactory.RegisterHeartbeat(endpointId));
         }
 
-        public void AddLogEntry(Guid endpointId, DateTime dateLogged, string message, int logLevel, string category,
-            int eventId, string scope)
-        {
-            _databaseGateway.Execute(_queryFactory.AddLogEntry(endpointId, dateLogged, message, logLevel, category, eventId, scope));
-        }
-
         public void Stopped(Guid endpointId, DateTime dateStopped)
         {
             _databaseGateway.Execute(_queryFactory.Stopped(endpointId, dateStopped));

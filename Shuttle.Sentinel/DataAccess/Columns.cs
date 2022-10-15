@@ -7,10 +7,14 @@ namespace Shuttle.Sentinel.DataAccess
     public class Columns
     {
         public static readonly MappedColumn<DateTime> Date = new MappedColumn<DateTime>("Date", DbType.DateTime);
+        public static readonly MappedColumn<DateTime> StartDateLogged = new MappedColumn<DateTime>("StartDateLogged", DbType.DateTime);
+        public static readonly MappedColumn<DateTime> EndDateLogged = new MappedColumn<DateTime>("EndDateLogged", DbType.DateTime);
         public static readonly MappedColumn<DateTime> DateTimeMaxValue = new MappedColumn<DateTime>("DateTimeMaxValue", DbType.DateTime2);
         public static readonly MappedColumn<DateTime> EffectiveDate = new MappedColumn<DateTime>("EffectiveDate", DbType.DateTime2);
         public static readonly MappedColumn<DateTime> EffectiveFromDate = new MappedColumn<DateTime>("EffectiveFromDate", DbType.DateTime2);
         public static readonly MappedColumn<DateTime> EffectiveToDate = new MappedColumn<DateTime>("EffectiveToDate", DbType.DateTime2);
+        public static readonly MappedColumn<string> CategoryMatch = new MappedColumn<string>("CategoryMatch", DbType.AnsiString);
+        public static readonly MappedColumn<string> MessageMatch = new MappedColumn<string>("MessageMatch", DbType.AnsiString);
         public static readonly MappedColumn<string> EMailAddress = new MappedColumn<string>("EMailAddress", DbType.AnsiString);
         public static readonly MappedColumn<Guid> Id = new MappedColumn<Guid>("Id", DbType.Guid);
         public static readonly MappedColumn<Guid> OwnerId = new MappedColumn<Guid>("OwnerId", DbType.Guid);
@@ -34,7 +38,7 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<DateTime> HeartbeatDate = new MappedColumn<DateTime>("HeartbeatDate", DbType.DateTime);
         public static readonly MappedColumn<string> HeartbeatIntervalDuration = new MappedColumn<string>("HeartbeatIntervalDuration", DbType.AnsiString);
         public static readonly MappedColumn<Guid> MetricId = new MappedColumn<Guid>("MetricId", DbType.Guid);
-        public static readonly MappedColumn<DateTime> DateLogged= new MappedColumn<DateTime>("DateLogged", DbType.DateTime);
+        public static readonly MappedColumn<DateTime> DateLogged = new MappedColumn<DateTime>("DateLogged", DbType.DateTime);
         public static readonly MappedColumn<DateTime> DateRegistered = new MappedColumn<DateTime>("DateRegistered", DbType.DateTime);
         public static readonly MappedColumn<string> MessageType = new MappedColumn<string>("MessageType", DbType.AnsiString);
         public static readonly MappedColumn<string> MessageTypeHandled = new MappedColumn<string>("MessageTypeHandled", DbType.AnsiString);
