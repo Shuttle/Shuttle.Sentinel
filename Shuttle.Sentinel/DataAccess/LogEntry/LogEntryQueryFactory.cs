@@ -1,5 +1,6 @@
 ﻿using Shuttle.Core.Data;
 using System;
+using System.Linq;
 using Shuttle.Core.Contract;
 
 namespace Shuttle.Sentinel.DataAccess.LogEntry
@@ -50,52 +51,69 @@ values
 
             return RawQuery.Create($@"
 select top {specification.MaximumRows}
-	EndpointId,
-	DateLogged,
-	DateRegistered,
-	Message,
-	LogLevel,
-	Category,
-	EventId,
-	Scope
+	le.EndpointId,
+	e.EnvironmentName,
+	e.MachineName,
+	e.BaseDirectory,
+	e.EntryAssemblyQualifiedName,
+	le.DateLogged,
+	le.DateRegistered,
+	le.Message,
+	le.LogLevel,
+	le.Category,
+	le.EventId,
+	le.Scope
 from
-	EndpointLogEntry
+	EndpointLogEntry le
+inner join
+	Endpoint e on (e.Id = le.EndpointId)
 where
 (
 	@StartDateLogged is null
 or
-	DateLogged >= @StartDateLogged
+	le.DateLogged >= @StartDateLogged
 )
 and
 (
 	@EndDateLogged is null
 or
-	DateLogged < @EndDateLogged
+	le.DateLogged < @EndDateLogged
 )
 and
 (
 	@CategoryMatch is null
 or
-	Category like '%' + @CategoryMatch + '%'
+	le.Category like '%' + @CategoryMatch + '%'
 )
 and
 (
 	@MessageMatch is null
 or
-	Message like '%' + @MessageMatch + '%'
+	le.Message like '%' + @MessageMatch + '%'
 )
 and
 (
-	@LogLevel is null
+	@MachineNameMatch is null
 or
-	LogLevel >= LogLevel
+	e.MachineName like '%' + @MachineNameMatch + '%'
 )
+and
+(
+	@ScopeMatch is null
+or
+	le.Scope like '%' + @ScopeMatch + '%'
+)
+{(!specification.LogLevels.Any() ? string.Empty : $@"
+and
+    le.LogLevel in ({string.Join(",", specification.LogLevels.Select(item => item))})
+")}
 ")
-                .AddParameterValue(Columns.StartDateLogged, specification.StartDateLogged)
-                .AddParameterValue(Columns.EndDateLogged, specification.EndDateLogged)
-                .AddParameterValue(Columns.CategoryMatch, specification.CategoryMatch)
-                .AddParameterValue(Columns.MessageMatch, specification.MessageMatch)
-                .AddParameterValue(Columns.LogLevel, specification.LogLevel);
+	            .AddParameterValue(Columns.StartDateLogged, specification.StartDateLogged)
+	            .AddParameterValue(Columns.EndDateLogged, specification.EndDateLogged)
+	            .AddParameterValue(Columns.CategoryMatch, specification.CategoryMatch)
+	            .AddParameterValue(Columns.MessageMatch, specification.MessageMatch)
+	            .AddParameterValue(Columns.MachineNameMatch, specification.MachineNameMatch)
+	            .AddParameterValue(Columns.ScopeMatch, specification.ScopeMatch);
         }
     }
 }

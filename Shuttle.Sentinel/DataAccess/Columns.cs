@@ -15,6 +15,8 @@ namespace Shuttle.Sentinel.DataAccess
         public static readonly MappedColumn<DateTime> EffectiveToDate = new MappedColumn<DateTime>("EffectiveToDate", DbType.DateTime2);
         public static readonly MappedColumn<string> CategoryMatch = new MappedColumn<string>("CategoryMatch", DbType.AnsiString);
         public static readonly MappedColumn<string> MessageMatch = new MappedColumn<string>("MessageMatch", DbType.AnsiString);
+        public static readonly MappedColumn<string> ScopeMatch = new MappedColumn<string>("ScopeMatch", DbType.AnsiString);
+        public static readonly MappedColumn<string> MachineNameMatch = new MappedColumn<string>("MachineNameMatch", DbType.AnsiString);
         public static readonly MappedColumn<string> EMailAddress = new MappedColumn<string>("EMailAddress", DbType.AnsiString);
         public static readonly MappedColumn<Guid> Id = new MappedColumn<Guid>("Id", DbType.Guid);
         public static readonly MappedColumn<Guid> OwnerId = new MappedColumn<Guid>("OwnerId", DbType.Guid);

@@ -3,6 +3,8 @@ using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Sentinel.DataAccess.LogEntry;
+using Shuttle.Sentinel.DataAccess.Query;
+using Shuttle.Sentinel.WebApi.Models.v1;
 
 namespace Shuttle.Sentinel.WebApi.Controllers.v1
 {
@@ -24,12 +26,27 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
         }
 
         [RequiresPermission(Permissions.Manage.Monitoring)]
-        [HttpPost]
-        public IActionResult GetSearch(string search = null)
+        [HttpPost("search")]
+        public IActionResult Search([FromBody] LogEntrySpecificationModel model)
         {
+            Guard.AgainstNull(model, nameof(model));
+
+            var specification = new LogEntry.Specification()
+                .WithLogLevels(model.LogLevels)
+                .MatchingCategory(model.CategoryMatch)
+                .MatchingMachineName(model.MachineNameMatch)
+                .MatchingMessage(model.MessageMatch)
+                .MatchingScope(model.ScopeMatch)
+                .WithMaximumRows(model.MaximumRows);
+
+            if (model.StartDateLogged.HasValue)
+            {
+                specification.WithDateLogged(model.StartDateLogged.Value, model.EndDateLogged);
+            }
+
             using (_databaseContextFactory.Create())
             {
-                return Ok(_logEntryQuery.Search(search ?? string.Empty));
+                return Ok(_logEntryQuery.Search(specification));
             }
         }
     }

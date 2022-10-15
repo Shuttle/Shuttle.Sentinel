@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Shuttle.Sentinel.DataAccess.Query
 {
     public class LogEntry
     {
         public System.Guid EndpointId { get; set; }
+        public string EnvironmentName { get; set; }
+        public string MachineName { get; set; }
+        public string BaseDirectory { get; set; }
+        public string EntryAssemblyQualifiedName { get; set; }
         public System.DateTime DateLogged { get; set; }
         public System.DateTime DateRegistered { get; set; }
         public string Message { get; set; }
@@ -15,12 +21,15 @@ namespace Shuttle.Sentinel.DataAccess.Query
 
         public class Specification
         {
+            private List<int> _logLevels = new List<int>();
             public int MaximumRows { get; private set; } = 100;
             public DateTime? StartDateLogged { get; private set; }
             public DateTime? EndDateLogged { get; private set; }
             public string CategoryMatch { get; private set; }
             public string MessageMatch { get; private set; }
-            public int? LogLevel { get; set; }
+            public string ScopeMatch { get; private set; }
+            public string MachineNameMatch { get; private set; }
+            public IEnumerable<int> LogLevels => _logLevels.AsReadOnly();
 
             public Specification WithMaximumRows(int count)
             {
@@ -47,9 +56,9 @@ namespace Shuttle.Sentinel.DataAccess.Query
                 return this;
             }
 
-            public Specification WithLogLevel(int logLevel)
+            public Specification WithLogLevels(IEnumerable<int> logLevels)
             {
-                LogLevel = logLevel;
+                _logLevels = new List<int>(logLevels ?? Enumerable.Empty<int>());
 
                 return this;
             }
@@ -64,6 +73,20 @@ namespace Shuttle.Sentinel.DataAccess.Query
             public Specification MatchingMessage(string messageMatch)
             {
                 MessageMatch = messageMatch;
+
+                return this;
+            }
+
+            public Specification MatchingScope(string scopeMatch)
+            {
+                ScopeMatch = scopeMatch;
+
+                return this;
+            }
+
+            public Specification MatchingMachineName(string machineNameMatch)
+            {
+                MachineNameMatch = machineNameMatch;
 
                 return this;
             }
