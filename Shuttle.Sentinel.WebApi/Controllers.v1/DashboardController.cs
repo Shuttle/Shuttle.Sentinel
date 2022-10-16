@@ -11,12 +11,12 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
     [Route("[controller]", Order = 1)]
     [Route("v{version:apiVersion}/[controller]", Order = 2)]
     [ApiVersion("1")]
-    public class MessageTypeMetricsController : Controller
+    public class DashboardController : Controller
     {
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IMessageTypeMetricQuery _messageTypeMetricQuery;
 
-        public MessageTypeMetricsController(IDatabaseContextFactory databaseContextFactory,
+        public DashboardController(IDatabaseContextFactory databaseContextFactory,
             IMessageTypeMetricQuery messageTypeMetricQuery)
         {
             Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
@@ -27,14 +27,17 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
         }
 
         [RequiresPermission(Permissions.Manage.Monitoring)]
-        [HttpPost("search")]
-        public IActionResult Search([FromBody] MessageTypeMetricSpecificationModel model)
+        [HttpPost("statistics")]
+        public IActionResult Statistics([FromBody] DashboardSpecificationModel model)
         {
             Guard.AgainstNull(model, nameof(model));
 
             using (_databaseContextFactory.Create())
             {
-                return Ok(_messageTypeMetricQuery.Search(new MessageTypeMetric.Specification(model.StartDateRegistered)));
+                return Ok(new
+                {
+                    MessageTypeMetrics = _messageTypeMetricQuery.Search(new MessageTypeMetric.Specification(model.StartDate))
+                });
             }
         }
     }

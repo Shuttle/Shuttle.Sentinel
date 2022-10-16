@@ -1,33 +1,46 @@
 ﻿using System;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
+using Shuttle.Sentinel.DataAccess.Query;
 
 namespace Shuttle.Sentinel.DataAccess
 {
     public class MessageTypeMetricQueryFactory : IMessageTypeMetricQueryFactory
     {
-        public IQuery Search(DateTime @from, string match)
+        public IQuery Search(MessageTypeMetric.Specification specification)
         {
+            Guard.AgainstNull(specification, nameof(specification));
+
             return RawQuery.Create(@"
 select
-	MessageType,
-	sum(Count) Count,
-	round(sum(TotalExecutionDuration), 3) TotalExecutionDuration,
-	round(min(FastestExecutionDuration), 3) FastestExecutionDuration,
-	round(max(SlowestExecutionDuration), 3) SlowestExecutionDuration,
-	round(sum(TotalExecutionDuration) / sum(Count), 3) AverageExecutionDuration
+	mtm.MessageType,
+	e.EnvironmentName,
+	sum(mtm.Count) Count,
+	round(sum(mtm.TotalExecutionDuration), 3) TotalExecutionDuration,
+	round(min(mtm.FastestExecutionDuration), 3) FastestExecutionDuration,
+	round(max(mtm.SlowestExecutionDuration), 3) SlowestExecutionDuration,
+	round(sum(mtm.TotalExecutionDuration) / sum(Count), 3) AverageExecutionDuration
 from
-	EndpointMessageTypeMetric
+	EndpointMessageTypeMetric mtm
+inner join
+	Endpoint e on e.Id = mtm.EndpointId
 where
-	DateRegistered > @Date
+	mtm.DateRegistered > @StartDateRegistered
 and
-	MessageType like @Match
+(
+	@MessageTypeMatch is null
+or
+	mtm.MessageType like '%' + @MessageTypeMatch + '%'
+)
 group by
-	MessageType
+	mtm.MessageType,
+	e.EnvironmentName
 order by
-	AverageExecutionDuration desc
+	mtm.MessageType,
+	e.EnvironmentName
 ")
-                .AddParameterValue(Columns.Date, from)
-                .AddParameterValue(Columns.Match, string.Concat("%", match, "%"));
+                .AddParameterValue(Columns.StartDateRegistered, specification.StartDateRegistered)
+                .AddParameterValue(Columns.MessageTypeMatch, specification.MessageTypeMatch);
         }
 
         public IQuery Register(Guid metricId, string messageType, DateTime dateRegistered, Guid endpointId,

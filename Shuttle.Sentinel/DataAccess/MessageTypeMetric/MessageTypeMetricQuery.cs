@@ -23,9 +23,9 @@ namespace Shuttle.Sentinel.DataAccess
             _queryFactory = queryFactory;
         }
 
-        public IEnumerable<MessageTypeMetric> Search(DateTime @from, string match)
+        public IEnumerable<MessageTypeMetric> Search(MessageTypeMetric.Specification specification)
         {
-            return _queryMapper.MapObjects<MessageTypeMetric>(_queryFactory.Search(@from, match));
+            return _queryMapper.MapObjects<MessageTypeMetric>(_queryFactory.Search(specification));
         }
 
         public void Register(Guid metricId, string messageType, DateTime dateRegistered, Guid endpointId,
