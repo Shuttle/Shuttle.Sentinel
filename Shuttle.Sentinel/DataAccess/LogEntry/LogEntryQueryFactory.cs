@@ -107,6 +107,8 @@ or
 and
     le.LogLevel in ({string.Join(",", specification.LogLevels.Select(item => item))})
 ")}
+order by 
+	DateLogged desc
 ")
 	            .AddParameterValue(Columns.StartDateLogged, specification.StartDateLogged)
 	            .AddParameterValue(Columns.EndDateLogged, specification.EndDateLogged)
