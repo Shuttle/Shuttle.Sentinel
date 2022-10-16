@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using Microsoft.Extensions.Options;
 using Shuttle.Core.Contract;
@@ -69,6 +70,16 @@ namespace Shuttle.Sentinel.Server
                     context.TransportMessage.SendDate);
             }
 
+            if (message.Subscriptions.Any())
+            {
+                context.Send(new RegisterSubscriptions
+                {
+                    MachineName = message.MachineName,
+                    BaseDirectory = message.BaseDirectory,
+                    MessageTypes = message.Subscriptions
+                }, builder => builder.Local());
+            }
+
             RegisterQueue(context, message.InboxWorkQueueUri, "inbox", "work");
             RegisterQueue(context, message.InboxDeferredQueueUri, "inbox", "deferred");
             RegisterQueue(context, message.InboxErrorQueueUri, "inbox", "error");
@@ -91,7 +102,7 @@ namespace Shuttle.Sentinel.Server
                 Uri = uri,
                 Processor = processor,
                 Type = type
-            }, c => c.Local());
+            }, builder => builder.Local());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Shuttle.Core.Contract;
+﻿using System;
+using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Sentinel.DataAccess.Query;
 
@@ -23,42 +24,45 @@ order by
 ");
         }
 
-        public IQuery Add(Subscription subscription)
+        public IQuery Register(Guid endpointId, string messageType)
         {
-            Guard.AgainstNull(subscription, nameof(subscription));
-
             return RawQuery.Create(@"
-if not exists (select null from SubscriberMessageType where MessageType = @MessageType and InboxWorkQueueUri = @InboxWorkQueueUri)
-    insert into SubscriberMessageType
+if not exists 
+(
+    select 
+        null 
+    from 
+        EndpointSubscription 
+    where 
+        EndpointId = @Id 
+    and 
+        MessageType = @MessageType
+)
+    insert into EndpointSubscription
     (
+        EndpointId,
         MessageType,
-        InboxWorkQueueUri
-    ) 
-    values 
-    (
-        @MessageType,
-        @InboxWorkQueueUri
+        DateStamp
     )
+    values
+    (
+        @Id,
+        @MessageType,
+        @DateStamp
+    )
+else
+    update
+        EndpointSubscription
+    set
+        DateStamp = @DateStamp
+    where 
+        EndpointId = @Id 
+    and 
+        MessageType = @MessageType
 ")
-                .AddParameterValue(Columns.MessageType, subscription.MessageType)
-                .AddParameterValue(Columns.InboxWorkQueueUri, subscription.InboxWorkQueueUri);
+                .AddParameterValue(Columns.Id, endpointId)
+                .AddParameterValue(Columns.MessageType, messageType)
+                .AddParameterValue(Columns.DateStamp, DateTime.UtcNow);
         }
-
-        public IQuery Remove(Subscription subscription)
-        {
-            Guard.AgainstNull(subscription, nameof(subscription));
-
-            return RawQuery.Create(@"
-delete 
-from 
-    SubscriberMessageType 
-where 
-    MessageType = @MessageType 
-and 
-    InboxWorkQueueUri = @InboxWorkQueueUri
-")
-                .AddParameterValue(Columns.MessageType, subscription.MessageType)
-                .AddParameterValue(Columns.InboxWorkQueueUri, subscription.InboxWorkQueueUri);
-        }
-    }
+}
 }

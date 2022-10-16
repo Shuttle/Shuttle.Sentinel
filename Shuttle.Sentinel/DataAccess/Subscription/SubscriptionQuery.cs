@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
 using Shuttle.Sentinel.DataAccess.Query;
@@ -27,14 +28,10 @@ namespace Shuttle.Sentinel.DataAccess
             return _queryMapper.MapObjects<Subscription>(_queryFactory.All());
         }
 
-        public void Add(Subscription subscription)
+        public void Register(Guid endpointId, string messageType)
         {
-            _databaseGateway.Execute(_queryFactory.Add(subscription));
-        }
-
-        public void Remove(Subscription subscription)
-        {
-            _databaseGateway.Execute(_queryFactory.Remove(subscription));
+            _databaseGateway.Execute(
+                _queryFactory.Register(endpointId, messageType));
         }
     }
 }

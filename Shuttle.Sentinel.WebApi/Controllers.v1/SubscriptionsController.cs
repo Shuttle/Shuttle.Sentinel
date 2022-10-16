@@ -39,33 +39,5 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                 return Ok(_subscriptionQuery.All());
             }
         }
-
-        [RequiresPermission(Permissions.Manage.Subscriptions)]
-        [HttpPost]
-        public IActionResult Post([FromBody] SubscriptionModel model)
-        {
-            Guard.AgainstNull(model, nameof(model));
-
-            _bus.Send(new AddSubscription
-            {
-                MessageType = model.MessageType,
-                InboxWorkQueueUri = model.InboxWorkQueueUri
-            });
-
-            return Ok();
-        }
-
-        [RequiresPermission(Permissions.Manage.Subscriptions)]
-        [HttpPost("remove")]
-        public IActionResult RemoveSubscription([FromBody] SubscriptionModel model)
-        {
-            _bus.Send(new RemoveSubscription
-            {
-                MessageType = model.MessageType,
-                InboxWorkQueueUri = model.InboxWorkQueueUri
-            });
-
-            return Ok();
-        }
     }
 }
