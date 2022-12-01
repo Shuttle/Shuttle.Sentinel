@@ -54,7 +54,7 @@ namespace Shuttle.Sentinel.Server
 
             using (_databaseContextFactory.Create())
             {
-                if (_scheduleRepository.Contains(message.Name, message.InboxWorkQueueUri, message.CronExpression))
+                if (_scheduleRepository.Contains(message.Name, message.CronExpression))
                 {
                     return;
                 }
@@ -62,7 +62,6 @@ namespace Shuttle.Sentinel.Server
                 _scheduleRepository.Save(new Schedule(
                     message.Id.Equals(Guid.Empty) ? Guid.NewGuid() : message.Id,
                     message.Name,
-                    message.InboxWorkQueueUri,
                     message.CronExpression,
                     message.NextNotification
                 ));

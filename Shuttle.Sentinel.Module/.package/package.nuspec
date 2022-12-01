@@ -16,7 +16,7 @@
 		<copyright>Copyright (c) 2022, Eben Roux</copyright>
 		<tags></tags>
 		<dependencies>
-      <dependency id="Shuttle.Esb" version="13.2.0" />
+      <dependency id="Shuttle.Esb" version="13.2.1" />
       <dependency id="Shuttle.Sentinel.Messages" version="1.0.0" />
 		</dependencies>
 	</metadata>

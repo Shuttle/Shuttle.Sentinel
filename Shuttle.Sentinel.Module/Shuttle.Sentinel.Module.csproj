@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shuttle.Esb" Version="13.2.0" />
+    <PackageReference Include="Shuttle.Esb" Version="13.2.1" />
     <PackageReference Include="Shuttle.Sentinel.Messages" Version="1.0.0" />
   </ItemGroup>
 

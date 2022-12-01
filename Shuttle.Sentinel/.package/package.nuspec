@@ -16,9 +16,9 @@
 		<copyright>Copyright (c) 2022, Eben Roux</copyright>
 		<tags>monitoring</tags>
 		<dependencies>
-      <dependency id="Shuttle.Core.Data" version="13.0.0" />
-      <dependency id="Shuttle.Esb" version="13.2.0" />
-      <dependency id="Shuttle.Recall" version="16.0.1" />
+      <dependency id="Shuttle.Core.Data" version="13.0.2" />
+      <dependency id="Shuttle.Esb" version="13.2.1" />
+      <dependency id="Shuttle.Recall" version="16.1.1" />
 		</dependencies>
 	</metadata>
 	<files>
