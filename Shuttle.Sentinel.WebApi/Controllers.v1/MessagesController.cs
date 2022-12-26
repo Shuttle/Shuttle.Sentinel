@@ -54,11 +54,10 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
         {
             using (_databaseContextFactory.Create())
             {
-                return Ok(new
-                {
-                    Data = from message in _inspectionQueue.Messages().ToList()
-                        select PresentationMessage(message)
-                });
+                return Ok(
+                    from message in _inspectionQueue.Messages().ToList()
+                    select PresentationMessage(message)
+                );
             }
         }
 
@@ -116,7 +115,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                             {
                                 _log.Error(ex.AllMessages());
 
-                                return StatusCode((int) HttpStatusCode.InternalServerError, ex);
+                                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
                             }
 
                             _inspectionQueue.Enqueue(model.QueueUri, transportMessage, receivedMessage.Stream);
@@ -182,7 +181,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                     {
                         _log.Error(ex.AllMessages());
 
-                        return StatusCode((int) HttpStatusCode.InternalServerError, ex);
+                        return StatusCode((int)HttpStatusCode.InternalServerError, ex);
                     }
 
                     var queueUri = string.Empty;
@@ -192,32 +191,32 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                     {
                         case "copy":
                         case "move":
-                        {
-                            queueUri = model.DestinationQueueUri;
+                            {
+                                queueUri = model.DestinationQueueUri;
 
-                            break;
-                        }
+                                break;
+                            }
                         case "returntosourcequeue":
-                        {
-                            queueUri = inspectionMessage.SourceQueueUri;
+                            {
+                                queueUri = inspectionMessage.SourceQueueUri;
 
-                            break;
-                        }
+                                break;
+                            }
                         case "sendtorecipientqueue":
-                        {
-                            queueUri = transportMessage.RecipientInboxWorkQueueUri;
+                            {
+                                queueUri = transportMessage.RecipientInboxWorkQueueUri;
 
-                            break;
-                        }
+                                break;
+                            }
                         case "stopignoring":
-                        {
-                            queueUri = transportMessage.RecipientInboxWorkQueueUri;
+                            {
+                                queueUri = transportMessage.RecipientInboxWorkQueueUri;
 
-                            transportMessage.IgnoreTillDate = DateTime.MinValue;
-                            stream = _serializer.Serialize(transportMessage);
+                                transportMessage.IgnoreTillDate = DateTime.MinValue;
+                                stream = _serializer.Serialize(transportMessage);
 
-                            break;
-                        }
+                                break;
+                            }
                     }
 
                     if (!string.IsNullOrEmpty(queueUri))
@@ -279,7 +278,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                             {
                                 _log.Error(ex.AllMessages());
 
-                                return StatusCode((int) HttpStatusCode.InternalServerError, ex);
+                                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
                             }
 
                             destinationQueue.Enqueue(transportMessage, receivedMessage.Stream);
@@ -336,7 +335,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
 
                 foreach (var header in model.Headers)
                 {
-                    transportMessage.Headers.Add(new TransportHeader {Key = header.Key, Value = header.Value});
+                    transportMessage.Headers.Add(new TransportHeader { Key = header.Key, Value = header.Value });
                 }
 
                 using (var stream = _serializer.Serialize(transportMessage))
@@ -358,7 +357,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
 
         private TransportMessage GetTransportMessage(Stream stream)
         {
-            return (TransportMessage) _serializer.Deserialize(_transportMessageType, stream);
+            return (TransportMessage)_serializer.Deserialize(_transportMessageType, stream);
         }
     }
 }

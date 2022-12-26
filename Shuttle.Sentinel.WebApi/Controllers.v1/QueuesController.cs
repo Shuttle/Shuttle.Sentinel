@@ -45,7 +45,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
 
             using (_databaseContextFactory.Create())
             {
-                var result = Data(_queueQuery.Search(specification));
+                var result = Queues(_queueQuery.Search(specification));
 
                 try
                 {
@@ -59,7 +59,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
         }
 
         [RequiresPermission(Permissions.Manage.Queues)]
-        [HttpGet("uri")]
+        [HttpGet("uri/{match}")]
         public IActionResult MatchingUri(string match)
         {
             if (string.IsNullOrWhiteSpace(match))
@@ -69,11 +69,11 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
 
             using (_databaseContextFactory.Create())
             {
-                return Ok(Data(_queueQuery.Search(new Queue.Specification().MatchingUri(match))));
+                return Ok(Queues(_queueQuery.Search(new Queue.Specification().MatchingUri(match))));
             }
         }
 
-        private IEnumerable<dynamic> Data(IEnumerable<Queue> queues)
+        private static IEnumerable<dynamic> Queues(IEnumerable<Queue> queues)
         {
             var result = new List<dynamic>();
 

@@ -12,6 +12,7 @@ namespace Shuttle.Sentinel.DataAccess.Query
         public class Specification
         {
             public Guid? Id { get; private set; }
+            public int MaximumRows { get; private set; } = 30;
 
             public string UriMatch { get; private set; }
 
@@ -25,6 +26,23 @@ namespace Shuttle.Sentinel.DataAccess.Query
             public Specification MatchingUri(string uriMatch)
             {
                 UriMatch = uriMatch;
+
+                return this;
+            }
+
+            public Specification WithMaximumRows(int count)
+            {
+                MaximumRows = count;
+
+                if (MaximumRows < 30)
+                {
+                    MaximumRows = 30;
+                }
+
+                if (MaximumRows > 10000)
+                {
+                    MaximumRows = 10000;
+                }
 
                 return this;
             }

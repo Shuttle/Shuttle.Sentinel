@@ -20,7 +20,7 @@
     <PackageReference Include="Shuttle.Access.Mvc.Rest" Version="6.0.0" />
     <PackageReference Include="Shuttle.Access.RestClient" Version="6.0.0" />
     <PackageReference Include="Shuttle.Access.Sql" Version="6.0.0" />
-    <PackageReference Include="Shuttle.Core.Data" Version="13.0.2" />
+    <PackageReference Include="Shuttle.Core.Data" Version="14.0.2" />
     <PackageReference Include="Shuttle.Core.Data.Http" Version="13.0.2" />
     <PackageReference Include="Shuttle.Core.DependencyInjection" Version="1.0.1" />
     <PackageReference Include="Shuttle.Esb.AzureStorageQueues" Version="13.2.1" />
