@@ -5,8 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Shuttle.Core.Contract;
-using Shuttle.Core.Logging;
 using Shuttle.Core.Serialization;
 using Shuttle.Core.Streams;
 using Shuttle.Sentinel.WebApi.Models.v1;
@@ -19,35 +19,15 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
     public class MessageTypesController : Controller
     {
         private static bool _initialized;
-        private static readonly List<MessageTypeModel> MessageTypes = new List<MessageTypeModel>();
-        private static readonly object Lock = new object();
-        private readonly ILog _log;
+        private static readonly List<MessageTypeModel> MessageTypes = new();
+        private static readonly object Lock = new();
+        private readonly ILogger<MessageTypesController> _logger;
         private readonly ISerializer _serializer;
 
-        public MessageTypesController(ISerializer serializer)
+        public MessageTypesController(ILogger<MessageTypesController> logger, ISerializer serializer)
         {
-            Guard.AgainstNull(serializer, nameof(serializer));
-
-            _serializer = serializer;
-            _log = Log.For(this);
-        }
-
-        [HttpGet]
-        public IActionResult GetSearch()
-        {
-            return Ok(new
-            {
-                Data = GetMessageTypes(string.Empty)
-            });
-        }
-
-        [HttpGet("{search}")]
-        public IActionResult GetSearch(string search)
-        {
-            return Ok(new
-            {
-                Data = GetMessageTypes(search)
-            });
+            _logger = Guard.AgainstNull(logger, nameof(logger));
+            _serializer = Guard.AgainstNull(serializer, nameof(serializer));
         }
 
         private IEnumerable<MessageTypeModel> GetMessageTypes(string search)
@@ -66,6 +46,18 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
             }
         }
 
+        [HttpGet]
+        public IActionResult GetSearch()
+        {
+            return Ok(GetMessageTypes(string.Empty));
+        }
+
+        [HttpGet("{search}")]
+        public IActionResult GetSearch(string search)
+        {
+            return Ok(GetMessageTypes(search));
+        }
+
         private void InitializeMessageTypes()
         {
             var messagesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "messages");
@@ -75,27 +67,34 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                 return;
             }
 
-            foreach (var file in Directory.GetFiles(messagesFolder))
+            try
             {
-                var assembly = Assembly.LoadFile(file);
-
-                try
+                foreach (var file in Directory.GetFiles(messagesFolder))
                 {
+                    var assembly = Assembly.LoadFile(file);
+
                     foreach (var type in assembly.GetTypes())
                     {
-                        var instance = Activator.CreateInstance(type);
-
-                        MessageTypes.Add(new MessageTypeModel
+                        try
                         {
-                            MessageType = type.FullName,
-                            EmptyMessageType = Encoding.ASCII.GetString(_serializer.Serialize(instance).ToBytes())
-                        });
+                            var instance = Activator.CreateInstance(type);
+
+                            MessageTypes.Add(new MessageTypeModel
+                            {
+                                MessageType = type.FullName,
+                                EmptyMessageType = Encoding.ASCII.GetString(_serializer.Serialize(instance).ToBytes())
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogInformation(ex.Message);
+                        }
                     }
                 }
-                catch (Exception ex)
-                {
-                    _log.Warning(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message);
             }
         }
     }

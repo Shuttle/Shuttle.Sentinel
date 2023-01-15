@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.1" />
     <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
     <PackageReference Include="Shuttle.Access" Version="6.0.0" />
     <PackageReference Include="Shuttle.Access.Messages" Version="6.0.0" />
@@ -24,7 +24,7 @@
     <PackageReference Include="Shuttle.Core.Data.Http" Version="13.0.2" />
     <PackageReference Include="Shuttle.Core.DependencyInjection" Version="1.0.1" />
     <PackageReference Include="Shuttle.Esb.AzureStorageQueues" Version="13.2.1" />
-    <PackageReference Include="Shuttle.OAuth.GitHub" Version="2.0.0" />
+    <PackageReference Include="Shuttle.OAuth.GitHub" Version="2.0.1" />
     <PackageReference Include="Shuttle.Recall.Sql.Storage" Version="16.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>

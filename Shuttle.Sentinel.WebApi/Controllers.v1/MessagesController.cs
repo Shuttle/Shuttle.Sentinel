@@ -4,10 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Shuttle.Access.Mvc;
 using Shuttle.Core.Contract;
 using Shuttle.Core.Data;
-using Shuttle.Core.Logging;
 using Shuttle.Core.Pipelines;
 using Shuttle.Core.Reflection;
 using Shuttle.Core.Serialization;
@@ -23,30 +23,23 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
     [RequiresPermission(Permissions.Manage.Messages)]
     public class MessagesController : Controller
     {
+        private readonly ILogger<MessagesController> _logger;
         private readonly IPipelineFactory _pipelineFactory;
         private readonly IDatabaseContextFactory _databaseContextFactory;
         private readonly IInspectionQueue _inspectionQueue;
-        private readonly ILog _log;
         private readonly IQueueService _queueService;
         private readonly ISerializer _serializer;
         private readonly Type _transportMessageType = typeof(TransportMessage);
 
-        public MessagesController(IPipelineFactory pipelineFactory, IDatabaseContextFactory databaseContextFactory, IInspectionQueue inspectionQueue,
+        public MessagesController(ILogger<MessagesController> logger, IPipelineFactory pipelineFactory, IDatabaseContextFactory databaseContextFactory, IInspectionQueue inspectionQueue,
             ISerializer serializer, IQueueService queueService)
         {
-            Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
-            Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
-            Guard.AgainstNull(inspectionQueue, nameof(inspectionQueue));
-            Guard.AgainstNull(serializer, nameof(serializer));
-            Guard.AgainstNull(queueService, nameof(queueService));
-
-            _pipelineFactory = pipelineFactory;
-            _databaseContextFactory = databaseContextFactory;
-            _inspectionQueue = inspectionQueue;
-            _serializer = serializer;
-            _queueService = queueService;
-
-            _log = Log.For(this);
+            _logger = Guard.AgainstNull(logger, nameof(logger));
+            _pipelineFactory = Guard.AgainstNull(pipelineFactory, nameof(pipelineFactory));
+            _databaseContextFactory = Guard.AgainstNull(databaseContextFactory, nameof(databaseContextFactory));
+            _inspectionQueue = Guard.AgainstNull(inspectionQueue, nameof(inspectionQueue));
+            _serializer = Guard.AgainstNull(serializer, nameof(serializer));
+            _queueService = Guard.AgainstNull(queueService, nameof(queueService));
         }
 
         [HttpGet]
@@ -113,7 +106,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                             }
                             catch (Exception ex)
                             {
-                                _log.Error(ex.AllMessages());
+                                _logger.LogError(ex.AllMessages());
 
                                 return StatusCode((int)HttpStatusCode.InternalServerError, ex);
                             }
@@ -179,7 +172,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                     }
                     catch (Exception ex)
                     {
-                        _log.Error(ex.AllMessages());
+                        _logger.LogError(ex.AllMessages());
 
                         return StatusCode((int)HttpStatusCode.InternalServerError, ex);
                     }
@@ -276,7 +269,7 @@ namespace Shuttle.Sentinel.WebApi.Controllers.v1
                             }
                             catch (Exception ex)
                             {
-                                _log.Error(ex.AllMessages());
+                                _logger.LogError(ex.AllMessages());
 
                                 return StatusCode((int)HttpStatusCode.InternalServerError, ex);
                             }

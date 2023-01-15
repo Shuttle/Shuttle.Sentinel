@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.1" />
     <PackageReference Include="Shuttle.Access.Messages" Version="6.0.0" />
     <PackageReference Include="Shuttle.Access.RestClient" Version="6.0.0" />
     <PackageReference Include="Shuttle.Core.Data" Version="14.0.2" />
